@@ -1,12 +1,14 @@
 import numpy as np
+from fconcrete.Node import Node
 
 class SingleBeamElement:
-    def __init__(self, nodes, section):
+    def __init__(self, nodes, section, max_types_of_bars=1):
         self.section = section
         self.material = section.material
         self.x = nodes
         self.E = section.material.E
         self.I = section.I
+        self.max_types_of_bars = max_types_of_bars
         self.n1 = nodes[0]
         self.n2 = nodes[1]
         self.length = nodes[1].x - nodes[0].x
