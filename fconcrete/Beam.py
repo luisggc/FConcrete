@@ -1,14 +1,15 @@
 from fconcrete.SingleBeamElement import SingleBeamElement, SingleBeamElements
 from fconcrete.Load import Load, Loads
 from fconcrete.Node import Nodes
+from fconcrete.ConcreteSteels import ConcreteSteels
 from fconcrete.helpers import *
+from fconcrete import e
 import numpy as np
 
-e = 0.0001
 
 class Beam:
 
-    def __init__(self, loads, bars):
+    def __init__(self, loads, bars, steel=ConcreteSteels()):
 
         bars = SingleBeamElements.create(bars)
         loads = Loads.create(loads)
@@ -16,10 +17,11 @@ class Beam:
 
         self.loads = loads
         self.bars = bars
-
+        self.steel = steel
+        
         self.length = sum(bars.length)
         self.beams_quantity = len(bars.bar_elements)
-
+        
         # Nodes info
         nodal_efforts = self.getSupportReactions()
         self.nodal_efforts = nodal_efforts
@@ -98,7 +100,7 @@ class Beam:
             np.array([node.x for node in self.bars.nodes]) <= x)[0][-1]
         bar_element = self.bars.bar_elements[index]
         return index, bar_element
-
+    
     def getInternalShearStrength(self, x):
         if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
             return 0
@@ -129,23 +131,53 @@ class Beam:
                         load.q*cond(x-load.x_end, order=load.order+1))/(load.order+1)
         return f_value
 
+
+    def getDecalagedMomentumDiagram(self, division=1000):
+        x, momentum_diagram = self.getMomentumDiagram(division)
+        for beam_element in self.bars:
+            al = 0.5*beam_element.section.d
+            momentum_in_beam_element = momentum_diagram[x>=beam_element.n1 & x<=beam_element.n2]
+            position_in_beam_element = x[x>=beam_element.n1 & x<=beam_element.n2]
+            momentum_in_beam_element
+            momentoMaximoPos
+            
+        
+        x_decalado = np.array([x_value+al if x_value>self.momentoMaximoPos else x_value-self.al for x_value in x])
+         
+        
     def getMomentumDiagram(self, division=1000):
-        x = np.linspace(self.bars.nodes[0].x-e,
-                        self.bars.nodes[-1].x+e, division)
-        y = [-self.getInternalMomentumStrength(x_i) for x_i in x]
+        return self.__createDiagram(self.getInternalMomentumStrength, division)
+
+    def getSteelArea(self, x):
+        #only working with rectangle section
+        index_beam, single_beam = self.getSingleBeamElementInX(x)
+        return ConcreteSteels.getSteelArea(section=single_beam.section,
+                                           material=single_beam.section.material,
+                                           steel=self.steel,
+                                           momentum=self.getInternalMomentumStrength(x))
+    
+    def getComercialSteelArea(self, x):
+        area = self.getSteelArea(x)
+        if area>0 :
+            possible_areas = self.steel.table[:,2] > area
+            return self.steel.table[possible_areas][0]
+        else:
+            possible_areas = self.steel.table[:,2] < area
+            return self.steel.table[possible_areas][-1]
+    
+    def getSteelAreaDiagram(self, division=1000):
+        return self.__createDiagram(self.getSteelArea, division)
+    
+    def getComercialSteelAreaDiagram(self, division=1000):
+        return self.__createDiagram(self.getComercialSteelArea, division)
+    
+    def getSteelDiagram(self, division=1000):
+        return self.__createDiagram(self.getSteelArea)
+    
+    def __createDiagram(self, function, division=1000):
+        x = np.linspace(self.bars.nodes[0].x+e, self.bars.nodes[-1].x-e, division)
+        y = np.array([function(x_i) for x_i in x])
         return x, y
-
-    def As_ks_betax_com_kc(self, x):
-        b = self.section.width
-        d = self.section.d
-        momentum = self.getInternalMomentumStrength(x)
-        kc = b*d**2/momentum
-        beta_x = (1-(1-1.6/(0.68*fctd*kc))**(0.5))/0.8
-        tensao_aco = np.where((beta_x <= 0.28) or (3.5*(beta_x**(-1)-1)*20>fyd), fyd, 3.5*(beta_x**(-1)-1)*20)+0
-        ks = (tensao_aco*(1-0.4*beta_x))**(-1)
-        As = ks*momento/d
-        return As, ks, beta_x
-
-
+    
     def __repr__(self):
         return str(self.__dict__)

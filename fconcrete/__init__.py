@@ -7,3 +7,6 @@ from fconcrete.Load import Load, Loads
 from fconcrete.Node import Node, Nodes
 from fconcrete.SingleBeamElement import SingleBeamElement, SingleBeamElements
 from fconcrete.Beam import Beam
+from fconcrete.ConcreteSteels import ConcreteSteels
+from fconcrete.Material import Material, Concrete
+from fconcrete.Section import Section, Rectangle

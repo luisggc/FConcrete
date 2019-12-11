@@ -4,11 +4,13 @@ class Section():
     function_width is made to define the width along the y axis. The function starts with x=0 and ends in x=height.
     height is to represent the maximum y value possible.
     """    
-    def __init__(self, function_width, height):
+    def __init__(self, function_width, height, material):
+        self.material = material
         self.height = height
         self.function_width = function_width
         self.area = self.getAreaBetween(0, height, 1000)
         self.I = self._I()
+        self.d = height - material.c
         
     def width(self, height):
         return 0 if height>self.height else self.function_width(height)
@@ -17,7 +19,8 @@ class Section():
         return 2*integrate(self.function_width, begin_height, end_height, interations)
     
     def _I(self):
-        return 1
+        raise NotImplmentedError
+        return
         
     def plot(self, N=100):
         height = self.height
@@ -27,13 +30,14 @@ class Section():
     
     
 class Rectangle(Section):
-    def __init__(self,width, height):
-        #super( Rectangle, self ).__init__()
+    def __init__(self,width, height, material):
+        self.material = material
         self.__width = width
         self.height = height
         self.function_width = lambda x:width/2
         self.area = width*height
         self.I = self.width()*self.height**3/12
+        self.d = height - material.c
         
     def getAreaBetween(self, begin_height, end_height):
         return self.width()*(end_height - begin_height)
