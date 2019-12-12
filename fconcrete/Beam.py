@@ -41,7 +41,7 @@ class Beam:
             bars = bars.split(load.x_end)
         return bars
 
-    def matrix_rigidity_global(self):
+    def __matrix_rigidity_global(self):
         matrix_rigidity_row = 2*self.beams_quantity+2
         matrix_rigidity_global = np.zeros(
             (matrix_rigidity_row, matrix_rigidity_row))
@@ -50,7 +50,7 @@ class Beam:
                                    beam_n*2:beam_n*2+4] += beam.get_matrix_rigidity_unitary()
         return matrix_rigidity_global
 
-    def get_beams_efforts(self):
+    def __get_beams_efforts(self):
         beams_efforts = np.zeros(self.beams_quantity*4)
 
         for force in self.loads.loads:
@@ -82,8 +82,8 @@ class Beam:
 
     def getSupportReactions(self):
         condition_boundary = self.bars.condition_boundary
-        beams_efforts = self.get_beams_efforts()
-        matrix_rigidity_global = self.matrix_rigidity_global()
+        beams_efforts = self.__get_beams_efforts()
+        matrix_rigidity_global = self.__matrix_rigidity_global()
 
         matrix_rigidity_global_determinable = matrix_rigidity_global[
             condition_boundary, :][:, condition_boundary]
@@ -166,13 +166,12 @@ class Beam:
         
         return x_decalaged, decalaged_x_left, decalaged_x_right, join_decalaged_x_order
 
-
-    def __decalaged_momentums(self,
-                              x_decalaged,
+    @staticmethod
+    def __decalaged_momentums(x_decalaged,
                               decalaged_x_left,
-                            decalaged_x_right,
-                            join_decalaged_x_order,
-                            momentum_diagram):
+                              decalaged_x_right,
+                              join_decalaged_x_order,
+                              momentum_diagram):
         #momentum_decalaged_diagram = np.concatenate((momentum_diagram, momentum_diagram, momentum_diagram))[join_decalaged_x_order]
 
         momentum_left = np.interp(x_decalaged, decalaged_x_left, momentum_diagram)
@@ -180,13 +179,13 @@ class Beam:
 
         momentum_positive = np.max((momentum_left, momentum_right), axis=0)
         momentum_positive = np.where(momentum_positive<0, np.nan, momentum_positive)
-
+        
         momentum_negative = np.min((momentum_left, momentum_right), axis=0)
         momentum_negative = np.where(momentum_negative>0, np.nan, momentum_negative)
-        
         return momentum_positive, momentum_negative  
         
-    def __join_momentum_peak(self, _momentum):
+    @staticmethod
+    def __join_momentum_peak(_momentum):
         momentum = _momentum.copy() 
         peaks, _ = find_peaks(np.absolute(momentum))
         for peak_index in 2*np.arange(len(peaks)//2):
