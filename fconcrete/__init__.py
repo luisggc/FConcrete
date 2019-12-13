@@ -1,15 +1,10 @@
-import numpy as np
-np.set_printoptions(precision=3, suppress=True, linewidth=3000)
-e = 0.00001
+"""Top-level package for FConcrete."""
 
-'''
-from fconcrete.Structural.Beam import *
-from fconcrete.Structural.Load import *
-from fconcrete.Structural.Node import *
-from fconcrete.Structural.Section import *
-from fconcrete.Structural.SingleBeamElement import *
-from fconcrete.Structural.Section import Section, Rectangle
-'''
+__author__ = """Luis Gabriel Gonçalves Coimbra"""
+__email__ = 'luiscoimbraeng@outlook.com'
+__version__ = '0.1.0'
+e = 0.00001
+#np.set_printoptions(precision=3, suppress=True, linewidth=3000)
 
 from fconcrete.helpers import *
 from fconcrete.Structural import *
