@@ -13,14 +13,9 @@ from fconcrete import cli
 class TestFconcrete(unittest.TestCase):
     """Tests for `fconcrete` package."""
 
-    def setUp(self):
-        """Set up test fixtures, if any."""
+    def test_structural_shear_diagram(self):
+        """Test Shear Diagram"""
 
-    def tearDown(self):
-        """Tear down test fixtures, if any."""
-
-    def test_000_something(self):
-        """Test something."""
 
     def test_command_line_interface(self):
         """Test the CLI."""

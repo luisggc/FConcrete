@@ -55,7 +55,7 @@ class Beam:
 
         for force in self.loads.loads:
             if (force.x == self.length):
-                force.x = self.length - 0.0000000000001
+                force.x = self.length - e
             force_beam, beam_element = self.getSingleBeamElementInX(force.x)
 
             force_distance_from_nearest_left_node = force.x - \
@@ -97,6 +97,7 @@ class Beam:
         return beams_efforts - F
 
     def getSingleBeamElementInX(self, x):
+        print(x)
         index = 0 if x<self.bars.nodes[0].x else -1 if x>self.bars.nodes[-1].x else np.where(
             np.array([node.x for node in self.bars.nodes]) <= x)[0][-1]
         bar_element = self.bars.bar_elements[index]
