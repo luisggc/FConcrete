@@ -28,13 +28,15 @@ class ConcreteSteels:
         areas_loop = np.concatenate([ areas*(i) for i in range(2, max_number+1)])
         number_of_bars = areas_loop/np.tile(areas,max_number-1)
         table_of_positive_steel = np.stack((number_of_bars, diameters_loop, areas_loop), axis=1)
-        table_of_positive_and_negative_steel = np.vstack([-table_of_positive_steel, table_of_positive_steel])
+        table_of_negative_steel = -np.array(table_of_positive_steel)
+        table_of_positive_and_negative_steel = np.vstack([table_of_negative_steel, table_of_positive_steel])
         table = np.array(table_of_positive_and_negative_steel[
             table_of_positive_and_negative_steel[:,2].argsort()
         ])
         self.table = table
         self.fyd = fyd
-        
+    
+    @staticmethod
     def getSteelArea(section, material, steel, momentum):
         b = section.width()
         d = section.d
@@ -48,5 +50,14 @@ class ConcreteSteels:
         ks = (tension_steel*(1-0.4*beta_x))**(-1)
         As = ks*momentum/d
         return As
+    
+    @staticmethod
+    def getMinimumAndMaximumSteelArea(area, fck):
+        fck_array = 20 + 5*np.arange(15)
+        p_min_array = np.array([ 0.15, 1.15, 1.15, 1.164, 0.179, 0.194, 0.208, 0.211, 0.219, 0.226, 0.233, 0.239, 0.245, 0.251, 0.256])
+        p_min = np.interp(fck, fck_array, p_min_array)
+        A_min = area*p_min/100
+        A_max = 0.008*area
+        return A_min, A_max
     
         

@@ -1,3 +1,7 @@
+from fconcrete.helpers import cond, integrate
+import numpy as np
+import matplotlib.pyplot as plt
+
 class Section():
     """
     Class to represent simetrical section along the y axis.
@@ -19,8 +23,7 @@ class Section():
         return 2*integrate(self.function_width, begin_height, end_height, interations)
     
     def _I(self):
-        raise NotImplmentedError
-        return 0
+        raise NotImplementedError
         
     def plot(self, N=100):
         height = self.height
