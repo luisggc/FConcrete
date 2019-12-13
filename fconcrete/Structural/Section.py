@@ -20,7 +20,7 @@ class Section():
     
     def _I(self):
         raise NotImplmentedError
-        return
+        return 0
         
     def plot(self, N=100):
         height = self.height

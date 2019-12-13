@@ -30,7 +30,7 @@ class Concrete(Material):
             Aggregate type. Options: basalto, diabásio, granito, gnaisse, calcário ou arenito.
             
         """ 
-    def __init__(self, fck_in_mpa, aggressiveness, aggregate="granito"):
+    def __init__(self, fck, aggressiveness, aggregate="granito"):
         alpha_e = 0
         if aggregate in ["basalto", "diabásio"]: alpha_e = 1.2
         if aggregate in ["granito", "gnaisse"]: alpha_e = 1
@@ -38,7 +38,6 @@ class Concrete(Material):
         if aggregate in ["arenito"]: alpha_e = 0.7
         if alpha_e == 0: raise Exception("Must select a valid aggregate: basalto, diabásio, granito, gnaisse, calcário ou arenito")
         
-        fck = fck_in_mpa
         if fck<20 or fck>90: raise Exception("Must select a valid fck value (between 20MPa and 90MPa)")
         if (fck>=20 and fck<=50): E_ci = alpha_e*5600*(fck**0.5)
         E_ci = alpha_e*21500*(fck/10+1.25)**(1/3) if fck>50 else E_ci
@@ -48,7 +47,7 @@ class Concrete(Material):
         fctk_sup = 1.3*fctm
         fctd = fck/1.4
 
-        self.c = 0.025 if aggressiveness==1 else 0.03 if aggressiveness==2 else 0.04 if aggressiveness==3 else 0.05 if aggressiveness==4 else 0
+        self.c = 2.5 if aggressiveness==1 else 3 if aggressiveness==2 else 4 if aggressiveness==3 else 5 if aggressiveness==4 else 0
         if self.c==0: raise Exception("Must select a valid fck value (between 1 and 4)")
         
         super(Concrete, self ).__init__(E_ci, 0.2, 10**(-5))
