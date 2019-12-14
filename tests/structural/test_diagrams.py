@@ -1,28 +1,66 @@
-from fconcrete import Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section, ConcreteSteels
+from fconcrete import e, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section, ConcreteSteels
+from pytest import approx
 
-def test_structural_shear_diagram():
-    material = Concrete(fck=30, aggressiveness=3)
-    section = Rectangle(25,44.6, material)
-    #E = 27000 I=1.8483
-    f1 = Load.UniformDistributedLoad(-16.22/100, x_begin=0, x_end=113)
-    f2 = Load.UniformDistributedLoad(-49.94/100, x_begin=113, x_end=113+470)
-    f3 = Load.UniformDistributedLoad(-41.96/100, x_begin=113+470, x_end=113+470+605)
-
-    n1 = Node.SimpleSupport(x=0)
-    n2 = Node.SimpleSupport(x=113)
-    n3 = Node.SimpleSupport(x=113+470)
-    n4 = Node.SimpleSupport(x=113+470+605)
-
+def create_crimped_beam():
+    material = Material(E=1, poisson=0.3, alpha=1)
+    section = Rectangle(12,1, material)
+    f1 = Load.PontualLoad(-1, x=5)
+    n1 = Node.Crimp(x=0)
+    n2 = Node.Crimp(x=10)
     bar1 = SingleBeamElement([n1, n2], section)
-    bar2 = SingleBeamElement([n2, n3], section)
-    bar3 = SingleBeamElement([n3, n4], section)
-
-    beam = ConcreteBeam(
-        loads = [f1, f2, f3],
-        bars = [bar1, bar2, bar3],
-        steel= ConcreteSteels(diameters=[8])
+    return Beam(
+        loads = [f1],
+        bars = [bar1]
     )
     
+def create_simple_beam():
+    material = Material(E=1, poisson=0.3, alpha=1)
+    section = Rectangle(12,1, material)
+    f1 = Load.PontualLoad(-1, x=5)
+    n1 = Node.SimpleSupport(x=0)
+    n2 = Node.SimpleSupport(x=10)
+    bar1 = SingleBeamElement([n1, n2], section)
+    return Beam(
+        loads = [f1],
+        bars = [bar1]
+    )
     
+def test_structural_create_simple_beam():
+    beam = create_simple_beam()
+    assert beam.solve() == None
     
+
+def test_structural_create_crimped_beam():
+    beam = create_crimped_beam()
+    assert beam.solve() == None
+
+def test_structural_simple_beam():
+    beam = create_simple_beam()
+    beam.solve()
+    support_reaction = beam.getSupportReactions()
+    assert support_reaction[0] == approx(0.5)
+    assert support_reaction[1] == approx(0)
+    assert support_reaction[-2] == approx(0.5)
+    assert support_reaction[-1] == approx(0)
+    assert beam.getInternalMomentumStrength(beam.length/2) == approx(1*10/4)
+    assert beam.getInternalShearStrength(beam.length/2-e) == approx(0.5)
+    assert beam.getInternalShearStrength(beam.length/2+e) == approx(-0.5)
     
+def test_structural_crimped_beam():
+    beam = create_crimped_beam()
+    beam.solve()
+    support_reaction = beam.getSupportReactions()
+    assert support_reaction[0] == approx(0.5)
+    assert support_reaction[1] == approx(1*10/8)
+    assert support_reaction[-2] == approx(0.5)
+    assert support_reaction[-1] == approx(-1*10/8)
+    assert beam.getInternalShearStrength(beam.length/2-e) == approx(0.5)
+    assert beam.getInternalShearStrength(beam.length/2+e) == approx(-0.5)
+    assert beam.getInternalMomentumStrength(e) == approx(1*10/8, abs=0.001)
+    assert beam.getInternalMomentumStrength(beam.length-e) == approx(1*10/8, abs=0.001)
+    assert beam.getInternalMomentumStrength(beam.length/2) == approx(1*10/8+0.5*5, abs=0.001)
+    
+
+
+def a_test_structural_matrix_rigity_global():
+    beam.matrix_rigidity_global() == np.array([])

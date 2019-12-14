@@ -15,6 +15,7 @@ class SingleBeamElement:
         self.flexural_rigidity = section.material.E*section.I
         
     def get_matrix_rigidity_unitary(self):
+        #waring(ajeitar unidade)
         return self.flexural_rigidity/(self.length**3)*np.array([
                         [12, 6*self.length, -12, 6*self.length],
                         [6*self.length, 4*self.length**2, -6*self.length, 2*self.length**2],

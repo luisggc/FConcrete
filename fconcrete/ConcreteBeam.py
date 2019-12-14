@@ -7,7 +7,8 @@ from scipy.signal import find_peaks
 class ConcreteBeam(Beam):
 
     def __init__(self, loads, bars, steel=ConcreteSteels()):
-        Beam.__init__(self, loads, bars, steel)
+        Beam.__init__(self, loads, bars)
+        self.steel = steel
         
         
     def getDecalagedMomentumDiagram(self, division=1000):

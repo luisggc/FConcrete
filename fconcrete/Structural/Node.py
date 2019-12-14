@@ -10,12 +10,16 @@ class Node:
         return cls(x, [0, 1])
     
     @classmethod
-    def Crimp(cls, x):
+    def Free(cls, x):
         return cls(x, [1, 1])
     
     @classmethod
     def MiddleNode(cls, x):
         return cls(x, [1, 1])
+    
+    @classmethod
+    def Crimp(cls, x):
+        return cls(x, [0, 0])
     
     def __repr__(self):
         return str(self.__dict__)
