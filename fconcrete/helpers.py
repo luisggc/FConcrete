@@ -10,3 +10,8 @@ def integrate(f, a, b, N=100):
     #y = np.array([ f(xi) for xi in x ])
     y = np.apply_along_axis(f, 0, np.array([x]))
     return np.trapz(y, dx=(b-a)/(N-1))
+
+def duplicated(array):
+    s = np.sort(array, axis=None)
+    duplicated = s[:-1][s[1:] == s[:-1]]
+    return np.isin(s, duplicated)

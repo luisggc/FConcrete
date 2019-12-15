@@ -1,4 +1,4 @@
-from fconcrete import e, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section, ConcreteSteels
+from fconcrete import duplicated, e, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section, ConcreteSteels
 from pytest import approx
 import numpy as np
 import os
@@ -177,11 +177,24 @@ def test_structural__crimped_simplesupported_simplesupported_beam():
     assert beam.getInternalMomentumStrength(15-e) == approx(0, abs=0.1)
     
     
+def get_ftool_fconcrete_comparisson(beam, file_shear, file_momentum):
+    x_shear, shear_diagram_v47 = np.loadtxt(file_shear).T
+    not_duplicated_x = ~duplicated(x_shear)
+    x_shear = x_shear[not_duplicated_x][1:-1]
+    shear_diagram_v47 = shear_diagram_v47[not_duplicated_x][1:-1]
+    shear_fconcrete = beam.getInternalShearStrength(x_shear)
     
     
-
-def test_beam47():
-
+    x_momentum, momentum_diagram_v47 = np.loadtxt(file_momentum).T
+    not_duplicated_x = ~duplicated(x_momentum)
+    x_momentum = x_momentum[not_duplicated_x][1:-1]
+    momentum_diagram_v47 = momentum_diagram_v47[not_duplicated_x][1:-1]
+    momentum_fconcrete = beam.getInternalMomentumStrength(x_momentum)
+    
+    return (shear_diagram_v47, shear_fconcrete) , (momentum_diagram_v47, momentum_fconcrete)
+    
+def beam47_creation():
+    
     material = Material(E=3*10**7, poisson=1, alpha=1)
     section = Rectangle(0.25,0.446, material)
 
@@ -203,9 +216,20 @@ def test_beam47():
         bars = [bar1, bar2, bar3]
     )
     beam.solve()
+    return beam
+
+def test_beam47():
+    assert beam47_creation()
     
-    x_ftool, shear_diagram_v47 = np.loadtxt(r"tests/structural/shear_diagram_v47.txt").T
-    shear_fconcrete = beam.getInternalShearStrength(x_ftool)
+def test_shear_diagram_beam47():
+    beam = beam47_creation()
+    shear_info, momentum_info = get_ftool_fconcrete_comparisson(beam,
+                                    r"tests/structural/shear_diagram_v47.txt",
+                                    r"tests/structural/momentum_diagram_v47.txt")
     
-    assert shear_diagram_v47 == approx01(shear_fconcrete)
+    shear_diagram_v47, shear_fconcrete = shear_info
+    momentum_diagram_v47, momentum_fconcrete = momentum_info
+    
+    assert shear_fconcrete == approx(shear_diagram_v47, abs=1)
+    assert momentum_fconcrete == approx(momentum_diagram_v47, abs=1)
     

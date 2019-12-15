@@ -125,17 +125,20 @@ class Beam:
         return x, y
 
     def getInternalMomentumStrength(self, x):
-        if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
-            return 0
-        f_value = 0
-        for load in self.loads.loads:
-            f_value += -load.momentum * \
-                cond(x-load.x_begin, singular=True) if load.x_begin == load.x_end else 0
-            f_value += load.force * \
-                cond(x-load.x_begin, order=1) if load.order == 0 else 0
-            f_value += (load.q*cond(x-load.x_begin, order=load.order+1) -
-                        load.q*cond(x-load.x_end, order=load.order+1))/(load.order+1)
-        return f_value
+        if isinstance(x, int) or isinstance(x, float):
+            if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
+                return 0
+            f_value = 0
+            for load in self.loads.loads:
+                f_value += -load.momentum * \
+                    cond(x-load.x_begin, singular=True) if load.x_begin == load.x_end else 0
+                f_value += load.force * \
+                    cond(x-load.x_begin, order=1) if load.order == 0 else 0
+                f_value += (load.q*cond(x-load.x_begin, order=load.order+1) -
+                            load.q*cond(x-load.x_end, order=load.order+1))/(load.order+1)
+            return f_value
+        elif isinstance(x, np.ndarray) or isinstance(x, list):
+            return np.array([ self.getInternalMomentumStrength(x_element) for x_element in x ])
         
     def getMomentumDiagram(self, division=1000):
         return self.__createDiagram(self.getInternalMomentumStrength, division)
