@@ -57,18 +57,14 @@ class Beam:
     def get_beams_efforts(self):
         beams_efforts = np.zeros(self.beams_quantity*4)
 
-        for force in self.external_loads.loads:
-            if (force.x == self.length):
-                force.x = self.length - e
-            force_beam, beam_element = self.getSingleBeamElementInX(force.x)
-
-            force_distance_from_nearest_left_node = force.x - \
-                beam_element.x[0].x
+        for load in self.external_loads.loads:
+            if (load.x == self.length):
+                load.x = self.length - e
+            force_beam, beam_element = self.getSingleBeamElementInX(load.x)
 
             beams_efforts[4*force_beam:4*force_beam+4] += SingleBeamElement.get_efforts_from_bar_element(
-                force.force,
-                force_distance_from_nearest_left_node,
-                beam_element.length
+                beam_element,
+                load
             )
 
         # juntar vigas separadas em um vetor por nó
@@ -102,22 +98,26 @@ class Beam:
     
 
     def getSingleBeamElementInX(self, x):
-        index = 0 if x<self.bars.nodes[0].x else -1 if x>self.bars.nodes[-1].x else np.where(
+        
+            index = 0 if x<self.bars.nodes[0].x else -1 if x>self.bars.nodes[-1].x else np.where(
             np.array([node.x for node in self.bars.nodes]) <= x)[0][-1]
-        bar_element = self.bars.bar_elements[index]
-        return index, bar_element
-    
+            bar_element = self.bars.bar_elements[index]
+            return index, bar_element
+        
     def getInternalShearStrength(self, x):
-        if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
-            return 0
-        f_value = 0
-        for load in self.loads.loads:
-            f_value += load.force * \
-                cond(x-load.x_begin, singular=True) if load.x_begin == load.x_end else 0
-            f_value += load.q*cond(x-load.x_begin, order=load.order) - load.q*cond(
-                x-load.x_end, order=load.order) if load.x_begin != load.x_end else 0
-        return f_value
-
+        if isinstance(x, int) or isinstance(x, float):
+            if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
+                return 0
+            f_value = 0
+            for load in self.loads.loads:
+                f_value += load.force * \
+                    cond(x-load.x_begin, singular=True) if load.x_begin == load.x_end else 0
+                f_value += load.q*cond(x-load.x_begin, order=load.order) - load.q*cond(
+                    x-load.x_end, order=load.order) if load.x_begin != load.x_end else 0
+            return f_value
+        elif isinstance(x, np.ndarray) or isinstance(x, list):
+            return np.array([ self.getInternalShearStrength(x_element) for x_element in x ])
+        
     def getShearDiagram(self, division=1000):
         x = np.linspace(self.bars.nodes[0].x-e,
                         self.bars.nodes[-1].x+e, division)
@@ -129,7 +129,7 @@ class Beam:
             return 0
         f_value = 0
         for load in self.loads.loads:
-            f_value += load.momentum * \
+            f_value += -load.momentum * \
                 cond(x-load.x_begin, singular=True) if load.x_begin == load.x_end else 0
             f_value += load.force * \
                 cond(x-load.x_begin, order=1) if load.order == 0 else 0

@@ -24,17 +24,28 @@ class SingleBeamElement:
                     ])
     
     @classmethod
-    def get_efforts_from_bar_element(cls, force, distance_a, length):
+    def get_efforts_from_bar_element(cls, beam_element, load):
         """
         distance_a means the force_distance_from_nearest_left_node
         condition represent the degrees of freedom of the node. 1 means fixed and 0 free.
         """
+        force = load.force
+        length = beam_element.length
+        order = load.order    
+        distance_a = load.x - beam_element.x[0].x
+                
         if distance_a>length: raise Exception("Distance from node cannot exceed the beam size.")
         distance_b = length - distance_a
 
-        ma= force*distance_a*distance_b**2/length**2
-        mb= -force*distance_b*distance_a**2/length**2 
-        ra = (force*distance_b+ma+mb)/length   
+        if order == 0:
+            ma= force*distance_a*distance_b**2/length**2
+            mb= -force*distance_b*distance_a**2/length**2 
+            ra = (force*distance_b+ma+mb)/length
+        elif order == 1:
+            ma= load.q*length**2/12
+            mb= -ma
+            ra = load.q*length/2
+        
         return -np.array([ra, ma, force-ra, mb])
  
     def split(self, x):
