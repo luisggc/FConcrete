@@ -1,7 +1,15 @@
 import numpy as np
+from fconcrete.helpers import to_unit
 
 class Load:
     def __init__(self, force, momentum, x_begin, x_end, q=0, order=0):
+        
+        force = to_unit(force, "kN").magnitude
+        momentum = to_unit(momentum, "kNm", return_unit="kNcm").magnitude
+        x_begin = to_unit(x_begin, "m", return_unit="cm").magnitude
+        x_end = to_unit(x_end, "m", return_unit="cm").magnitude
+        q = to_unit(q, "kN/m", return_unit="kN/cm").magnitude
+        
         self.x = x_begin + (x_end-x_begin)/2
         self.x_begin = x_begin
         self.x_end = x_end
@@ -11,12 +19,66 @@ class Load:
         self.order = order
         
     @classmethod
-    def PontualLoad(cls, force, x):
-        return cls(force, 0, x, x, q=0, order=0)
+    def PontualLoad(cls, load, x):
+        """
+        Define a pontual load.
+
+            Call signatures::
+
+                PontualLoad(load, x)
+
+            >>> PontualLoad(10, 20)
+            >>> PontualLoad('20kN', '20m')
+
+        Parameters
+        ----------
+        load : unit (number or str)
+            Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be give. Example:
+            '20kN', '10N', etc
+            
+        x : number
+            Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+            '20cm', '10dm', etc
+            
+        """ 
+        return cls(load, 0, x, x, q=0, order=0)
     
     @classmethod
     def UniformDistributedLoad(cls, q, x_begin, x_end):
-        return cls(q*(x_end-x_begin) , 0, x_begin, x_end, q=q, order=1)
+        """
+            Define a uniform and distributed load.
+
+                Call signatures::
+
+                    UniformDistributedLoad(q, x_begin, x_end)
+
+                >>> UniformDistributedLoad(10, 0, 20)
+                >>> UniformDistributedLoad('20kN/m', '20m', '30m')
+
+            Parameters
+            ----------
+            q : unit (number or str)
+                Represent the load by length measure. If it is a number, default unit is kN/m, but also [force]/[length] unit can be give. Example:
+                '20kN/cm', '10N/m', etc
+                
+            x_begin : number
+                Where the load is going to start. If it is a number, default unit is m, but also [length] unit can be give. Example:
+                '20cm', '10dm', etc
+            
+            x_end : number
+                Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+                '20cm', '10dm', etc
+                
+                
+        """ 
+        
+        q = to_unit(q, "kN/m", return_unit="kN/cm")
+        x_begin = to_unit(x_begin, "m", return_unit="cm")
+        x_end = to_unit(x_end, "m", return_unit="cm")
+        force = q*(x_end-x_begin)
+        
+        return cls(force, 0, x_begin, x_end, q=q, order=1)
+    
         
     def __repr__(self):
         return str(self.__dict__)

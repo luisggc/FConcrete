@@ -1,3 +1,5 @@
+from fconcrete.helpers import to_unit
+
 class Material():
     """
     E - in MPA
@@ -14,14 +16,16 @@ class Concrete(Material):
 
             Call signatures::
 
-                Concrete(fck_in_mpa, aggressiveness, aggregate=granito, **kwargs)
+                Concrete(fck, aggressiveness, aggregate=granito, **kwargs)
 
             >>> Concrete(fck=30, aggressiveness=3)
 
         Parameters
         ----------
-        fck_in_mpa : int
-            Define, in MPa (10^6 N/m²), the characteristic resistance of the concrete.
+        fck : int
+            Define the characteristic resistance of the concrete.
+            If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be give. Example:
+            '20kN/cm**2', '10Pa', etc
             
         aggressiveness : int
             Aggressiveness value from 1 (very low) to 4 (very height)
@@ -31,6 +35,8 @@ class Concrete(Material):
             
         """ 
     def __init__(self, fck, aggressiveness, aggregate="granito"):
+        fck = to_unit(fck, "MPa").magnitude
+        
         alpha_e = 0
         if aggregate in ["basalto", "diabásio"]: alpha_e = 1.2
         if aggregate in ["granito", "gnaisse"]: alpha_e = 1
@@ -47,17 +53,18 @@ class Concrete(Material):
         fctk_sup = 1.3*fctm
         fctd = fck/1.4
 
-        self.c = 2.5 if aggressiveness==1 else 3 if aggressiveness==2 else 4 if aggressiveness==3 else 5 if aggressiveness==4 else 0
-        if self.c==0: raise Exception("Must select a valid fck value (between 1 and 4)")
+        c_in_cm = 2.5 if aggressiveness==1 else 3 if aggressiveness==2 else 4 if aggressiveness==3 else 5 if aggressiveness==4 else 0
+        if c_in_cm==0: raise Exception("Must select a valid fck value (between 1 and 4)")
+        
+        self.fck = to_unit(fck, "MPa", "kN/cm**2").magnitude
+        self.E_ci = to_unit(E_ci, "MPa", "kN/cm**2").magnitude
+        self.fctm = to_unit(fctm, "kN/cm**2").magnitude
+        self.fctk_inf = to_unit(fctk_inf, "kN/cm**2").magnitude
+        self.fctk_sup = to_unit(fctk_sup, "kN/cm**2").magnitude
+        self.fctd = to_unit(fctd, "kN/cm**2").magnitude
+        self.c = c_in_cm
         
         super(Concrete, self ).__init__(E_ci, 0.2, 10**(-5))
-        
-        self.fck = fck
-        self.E_ci = E_ci
-        self.fctm = fctm
-        self.fctk_inf = fctk_inf
-        self.fctk_sup = fctk_sup
-        self.fctd = fctd
     
 
         

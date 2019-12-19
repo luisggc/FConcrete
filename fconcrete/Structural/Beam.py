@@ -40,9 +40,24 @@ class Beam:
         
     @staticmethod
     def createIntermediateBeams(loads, bars):
+        for load in loads:
+            print(load)
+        print("-------")
+        for bar in bars:
+            print(bar)
+        print("----------------------------------------------")
         for load in loads.loads:
             bars = bars.split(load.x_begin)
             bars = bars.split(load.x_end)
+        print("----------------------------------------------")
+        print("----------------------------------------------")
+        
+        for bar in bars:
+            print(bar)
+        print("----------------------------------------------")
+        print("----------------------------------------------")
+        print("----------------------------------------------")
+        
         return bars
 
     def matrix_rigidity_global(self):
