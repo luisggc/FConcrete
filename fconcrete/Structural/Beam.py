@@ -15,6 +15,8 @@ class Beam:
 
         bars = SingleBeamElements.create(bars)
         external_loads = Loads.create(loads)
+        print("external_loads", external_loads)
+        print()
         bars = self.createIntermediateBeams(external_loads, bars)
 
         self.external_loads = external_loads
@@ -26,12 +28,19 @@ class Beam:
         
     def solve(self):
         nodal_efforts = self.getSupportReactions()
+        print("nodal_efforts", nodal_efforts)
+        print()
         self.nodal_efforts = nodal_efforts
         nodes = Nodes(self.bars.nodes)
         self.nodes = nodes
+        print("nodes")
+        for node in nodes:
+            print(node)
+        print()
         loads = self.external_loads
         #loads = Loads.create(external_loads.loads[external_loads.order>0])
         for index, node in enumerate(nodes.nodes):
+            #print("revisar aqui")
             loads = loads.add(
                 [Load(nodal_efforts[index*2], nodal_efforts[index*2+1], node.x, node.x)]
                 )
@@ -40,23 +49,9 @@ class Beam:
         
     @staticmethod
     def createIntermediateBeams(loads, bars):
-        for load in loads:
-            print(load)
-        print("-------")
-        for bar in bars:
-            print(bar)
-        print("----------------------------------------------")
         for load in loads.loads:
             bars = bars.split(load.x_begin)
             bars = bars.split(load.x_end)
-        print("----------------------------------------------")
-        print("----------------------------------------------")
-        
-        for bar in bars:
-            print(bar)
-        print("----------------------------------------------")
-        print("----------------------------------------------")
-        print("----------------------------------------------")
         
         return bars
 
