@@ -3,7 +3,7 @@ from fconcrete.helpers import to_unit
 
 class Node:
     def __init__(self, x, condition_boundary):
-        x = to_unit(x, "m", return_unit="cm").magnitude
+        x = to_unit(x, "cm").magnitude
         self.x = x
         self.condition_boundary = condition_boundary
         

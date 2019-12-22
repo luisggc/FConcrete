@@ -9,7 +9,7 @@ class Section():
     height is to represent the maximum y value possible.
     """    
     def __init__(self, function_width, height, material):
-        height = to_unit(height, "m", return_unit="cm").magnitude
+        height = to_unit(height, "cm").magnitude
         self.material = material
         self.height = height
         self.function_width = function_width
@@ -35,8 +35,8 @@ class Section():
     
 class Rectangle(Section):
     def __init__(self,width, height, material):
-        width = to_unit(width, "m", return_unit="cm").magnitude
-        height = to_unit(height, "m", return_unit="cm").magnitude
+        width = to_unit(width, "cm").magnitude
+        height = to_unit(height, "cm").magnitude
         self.material = material
         self.__width = width
         self.height = height

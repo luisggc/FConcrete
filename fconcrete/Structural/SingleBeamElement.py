@@ -50,7 +50,7 @@ class SingleBeamElement:
  
     def split(self, x):
         if x >= self.n2.x or x <= self.n1.x: return [self]
-        n_intermediate = Node.MiddleNode(x="{} cm".format(x))
+        n_intermediate = Node.MiddleNode(x=x)
         bar1 = SingleBeamElement(nodes=[self.n1, n_intermediate], section=self.section)
         bar2 = SingleBeamElement(nodes=[n_intermediate, self.n2], section=self.section)
         return [bar1, bar2]

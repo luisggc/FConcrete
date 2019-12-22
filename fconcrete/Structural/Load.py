@@ -5,10 +5,10 @@ class Load:
     def __init__(self, force, momentum, x_begin, x_end, q=0, order=0):
         
         force = to_unit(force, "kN").magnitude
-        momentum = to_unit(momentum, "kNm", return_unit="kNcm").magnitude
-        x_begin = to_unit(x_begin, "m", return_unit="cm").magnitude
-        x_end = to_unit(x_end, "m", return_unit="cm").magnitude
-        q = to_unit(q, "kN/m", return_unit="kN/cm").magnitude
+        momentum = to_unit(momentum, "kNcm").magnitude
+        x_begin = to_unit(x_begin, "cm").magnitude
+        x_end = to_unit(x_end, "cm").magnitude
+        q = to_unit(q, "kN/cm").magnitude
         
         self.x = x_begin + (x_end-x_begin)/2
         self.x_begin = x_begin
@@ -72,9 +72,9 @@ class Load:
                 
         """ 
         
-        q = to_unit(q, "kN/m", return_unit="kN/cm")
-        x_begin = to_unit(x_begin, "m", return_unit="cm")
-        x_end = to_unit(x_end, "m", return_unit="cm")
+        q = to_unit(q, "kN/cm")
+        x_begin = to_unit(x_begin, "cm")
+        x_end = to_unit(x_end, "cm")
         force = q*(x_end-x_begin)
         
         return cls(force, 0, x_begin, x_end, q=q, order=1)
