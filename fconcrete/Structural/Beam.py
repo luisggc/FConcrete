@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 class Beam:
 
-    def __init__(self, loads, bars, steel=ConcreteSteels()):
+    def __init__(self, loads, bars, steel=ConcreteSteels(), **options):
 
         bars = SingleBeamElements.create(bars)
         external_loads = Loads.create(loads)
@@ -23,22 +23,17 @@ class Beam:
         self.length = sum(bars.length)
         self.beams_quantity = len(bars.bar_elements)
         
+        if options.get("solve_structural") != False:
+            self.solve_structural()
         
-    def solve(self):
+        
+    def solve_structural(self):
         nodal_efforts = self.getSupportReactions()
-        #print("nodal_efforts", nodal_efforts)
-        #print()
         self.nodal_efforts = nodal_efforts
         nodes = Nodes(self.bars.nodes)
         self.nodes = nodes
-        #print("nodes")
-        #for node in nodes:
-            #print(node)
-        #print()
         loads = self.external_loads
-        #loads = Loads.create(external_loads.loads[external_loads.order>0])
         for index, node in enumerate(nodes.nodes):
-            #print("revisar aqui")
             loads = loads.add(
                 [Load(nodal_efforts[index*2], nodal_efforts[index*2+1], node.x, node.x)]
                 )

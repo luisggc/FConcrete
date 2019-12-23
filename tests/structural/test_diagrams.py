@@ -15,7 +15,8 @@ def create_crimped_beam():
     bar1 = SingleBeamElement([n1, n2], section)
     return Beam(
         loads = [f1],
-        bars = [bar1]
+        bars = [bar1],
+        solve_structural=False
     )
     
 def create_simple_beam():
@@ -27,21 +28,22 @@ def create_simple_beam():
     bar1 = SingleBeamElement([n1, n2], section)
     return Beam(
         loads = [f1],
-        bars = [bar1]
+        bars = [bar1],
+        solve_structural=False
     )
     
 def test_structural_create_simple_beam():
     beam = create_simple_beam()
-    assert beam.solve() == None
+    assert beam.solve_structural() == None
     
 
 def test_structural_create_crimped_beam():
     beam = create_crimped_beam()
-    assert beam.solve() == None
+    assert beam.solve_structural() == None
 
 def test_structural_simple_beam():
     beam = create_simple_beam()
-    beam.solve()
+    beam.solve_structural()
     support_reaction = beam.getSupportReactions()
     assert support_reaction[0] == approx(0.5)
     assert support_reaction[1] == approx(0)
@@ -53,7 +55,7 @@ def test_structural_simple_beam():
     
 def test_structural_crimped_beam():
     beam = create_crimped_beam()
-    beam.solve()
+    beam.solve_structural()
     support_reaction = beam.getSupportReactions()
     assert support_reaction[0] == approx(0.5)
     assert support_reaction[1] == approx(1*1000/8)
@@ -76,7 +78,6 @@ def test_structural_double_crimped_beam():
         loads = [f1],
         bars = [bar1]
     )
-    beam.solve()
     support_reaction = beam.getSupportReactions()
     assert support_reaction[0] == approx(179.2, abs=0.1)
     assert support_reaction[1] == approx(25600, abs=10)
@@ -101,7 +102,6 @@ def test_structural__crimped_simple_supported_beam():
         loads = [f1],
         bars = [bar1]
     )
-    beam.solve()
     support_reaction = beam.getSupportReactions()
     assert support_reaction[0] == approx(87.3, abs=0.1)
     assert support_reaction[1] == approx(27300, abs=10)
@@ -125,9 +125,8 @@ def test_structural__crimped_simplesupported_crimped_beam():
     bar2 = SingleBeamElement([n2, n3], section)
     beam = Beam(
         loads = [f1],
-        bars = [bar1, bar2]
+        bars = [bar1, bar2],
     )
-    beam.solve()
     support_reaction = beam.getSupportReactions()
     assert support_reaction[0] == approx(57.9, abs=0.1)
     assert support_reaction[1] == approx(17500, abs=10)
@@ -156,9 +155,8 @@ def test_structural__crimped_simplesupported_simplesupported_beam():
     bar2 = SingleBeamElement([n2, n3], section)
     beam = Beam(
         loads = [f1],
-        bars = [bar1, bar2]
+        bars = [bar1, bar2],
     )
-    beam.solve()
     support_reaction = beam.getSupportReactions()
     assert support_reaction[0] == approx(60.8, abs=0.1)
     assert support_reaction[1] == approx(18480, abs=0.1)
@@ -219,7 +217,6 @@ def beam47_creation():
         loads = [f1, f2, f3],
         bars = [bar1, bar2, bar3]
     )
-    beam.solve()
     return beam
 
 def test_beam47():
