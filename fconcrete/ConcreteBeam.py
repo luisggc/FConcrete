@@ -88,6 +88,7 @@ class ConcreteBeam(Beam):
     
     def getComercialSteelArea(self, x, momentum):
         area = self.getSteelArea(x, momentum)
+        if np.isnan(area): return np.repeat(np.nan, 3)
         if area>0 :
             possible_areas = self.steel.table[:,2] > area
             return self.steel.table[possible_areas][0]
@@ -102,7 +103,12 @@ class ConcreteBeam(Beam):
         return x_decalaged, positive_areas, negative_areas
         
     def getComercialSteelAreaDiagram(self, division=1000):
-        return self.__createDiagram(self.getComercialSteelArea, division)
+        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
+        positive_areas = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
+        negative_areas = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
+        return x_decalaged, positive_areas, negative_areas
+        
+        #return self._createDiagram(self.getComercialSteelArea, division)
     
     def getSteelDiagram(self, division=1000):
-        return self.__createDiagram(self.getSteelArea)
+        return self._createDiagram(self.getSteelArea, division)

@@ -144,9 +144,9 @@ class Beam:
             return np.array([ self.getInternalMomentumStrength(x_element) for x_element in x ])
         
     def getMomentumDiagram(self, division=1000):
-        return self.__createDiagram(self.getInternalMomentumStrength, division)
+        return self._createDiagram(self.getInternalMomentumStrength, division)
     
-    def __createDiagram(self, function, division=1000):
+    def _createDiagram(self, function, division=1000):
         x = np.linspace(self.bars.nodes[0].x+e, self.bars.nodes[-1].x-e, division)
         y = np.array([function(x_i) for x_i in x])
         return x, y
