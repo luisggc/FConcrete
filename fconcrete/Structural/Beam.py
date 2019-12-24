@@ -1,9 +1,9 @@
 from fconcrete.Structural.SingleBeamElement import SingleBeamElement, SingleBeamElements
 from fconcrete.Structural.Load import Load, Loads
 from fconcrete.Structural.Node import Nodes
-from fconcrete.ConcreteSteels import ConcreteSteels
 from fconcrete.helpers import cond
-from fconcrete import e
+from fconcrete import config as c
+e = c.e
 import numpy as np
 import warnings
 from scipy.signal import find_peaks
@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 class Beam:
 
-    def __init__(self, loads, bars, steel=ConcreteSteels(), **options):
+    def __init__(self, loads, bars, **options):
 
         bars = SingleBeamElements.create(bars)
         external_loads = Loads.create(loads)

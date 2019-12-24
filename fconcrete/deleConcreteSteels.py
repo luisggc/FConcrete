@@ -1,6 +1,6 @@
 import numpy as np
 
-class ConcreteSteels:
+class AvailableConcreteSteels:
     def __init__(self,
                  diameters=[5, 6.3, 8, 10, 12.5, 16, 20, 25, 32, 40],
                  diameters_to_area={

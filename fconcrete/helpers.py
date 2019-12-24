@@ -1,5 +1,7 @@
 import numpy as np
-from fconcrete import _Q
+from . import config as c
+
+_Q = c._Q
 
 def cond(x, singular=False, order=0):
     if singular:

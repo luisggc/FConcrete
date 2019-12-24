@@ -1,14 +1,17 @@
-from fconcrete.Structural.Beam import Beam
-from fconcrete.ConcreteSteels import ConcreteSteels
+from .Structural.Beam import Beam
+import fconcrete
 import numpy as np
 import warnings
 from scipy.signal import find_peaks
+from .SteelBar import SteelBar
+
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, bars, steel=ConcreteSteels()):
+    def __init__(self, loads, bars):
         Beam.__init__(self, loads, bars)
-        self.steel = steel
+        self.steel = fconcrete.config.available_material['concrete_steel_bars']
+
         
         
     def getDecalagedMomentumDiagram(self, division=1000):
@@ -72,7 +75,7 @@ class ConcreteBeam(Beam):
 
     def getMinimumAndMaximumSteelArea(self, x):
         _, beam_element = self.getSingleBeamElementInX(x)
-        return ConcreteSteels.getMinimumAndMaximumSteelArea(
+        return SteelBar.getMinimumAndMaximumSteelArea(
             area = beam_element.section.area,
             fck = beam_element.material.fck
         )
@@ -81,7 +84,7 @@ class ConcreteBeam(Beam):
     def getSteelArea(self, x, momentum):
         #only working with rectangle section
         _, single_beam = self.getSingleBeamElementInX(x)
-        return ConcreteSteels.getSteelArea(section=single_beam.section,
+        return SteelBar.getSteelArea(section=single_beam.section,
                                            material=single_beam.section.material,
                                            steel=self.steel,
                                            momentum=momentum)
@@ -91,24 +94,25 @@ class ConcreteBeam(Beam):
         if np.isnan(area): return np.repeat(np.nan, 3)
         if area>0 :
             possible_areas = self.steel.table[:,2] > area
-            return self.steel.table[possible_areas][0]
+            values = self.steel.table[possible_areas][0]
         else:
             possible_areas = self.steel.table[:,2] < area
-            return self.steel.table[possible_areas][-1]
+            values = self.steel.table[possible_areas][-1]
+        quantity, diameter, area = values
+        return quantity, diameter, area
+
     
     def getSteelAreaDiagram(self, division=1000):
         x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
         positive_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
-        return x_decalaged, positive_areas, negative_areas
+        return x_decalaged, np.array(positive_areas), np.array(negative_areas)
         
     def getComercialSteelAreaDiagram(self, division=1000):
         x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
-        positive_areas = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
-        negative_areas = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
-        return x_decalaged, positive_areas, negative_areas
+        positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
+        negative_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
+        return x_decalaged, np.array(positive_areas_info).T, np.array(negative_areas_info).T
         
-        #return self._createDiagram(self.getComercialSteelArea, division)
-    
     def getSteelDiagram(self, division=1000):
         return self._createDiagram(self.getSteelArea, division)

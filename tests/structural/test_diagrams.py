@@ -1,4 +1,4 @@
-from fconcrete import duplicated, e, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section, ConcreteSteels
+from fconcrete import duplicated, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section, ConcreteSteels
 from pytest import approx
 import numpy as np
 import os
