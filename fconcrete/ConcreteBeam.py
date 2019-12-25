@@ -3,15 +3,17 @@ import fconcrete
 import numpy as np
 import warnings
 from scipy.signal import find_peaks
-from .SteelBar import SteelBar
+from .SteelBar import SteelBar, SteelBars
 
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, bars):
-        Beam.__init__(self, loads, bars)
+    def __init__(self, loads, bars, **options):
+        Beam.__init__(self, loads, bars, **options)
         self.steel = fconcrete.config.available_material['concrete_steel_bars']
 
+        if options.get("solve_steel") != False:
+            self.steel_bars = self.solve_steel()
         
         
     def getDecalagedMomentumDiagram(self, division=1000):
@@ -116,3 +118,54 @@ class ConcreteBeam(Beam):
         
     def getSteelDiagram(self, division=1000):
         return self._createDiagram(self.getSteelArea, division)
+    
+    
+    def _getInterspaceBetweenMomentum(self, x, area):
+        '''
+        Return an array and each row represents a interspace.
+        Element row[0] is the begin of interspace and row[1], the end.
+    '''
+        previous_y=np.nan
+        interspace = np.array([0, 0])
+        for x_u,y in zip(x, area):
+            if np.isnan(previous_y) and not np.isnan(y):
+                begin = x_u
+            elif np.isnan(y) and not np.isnan(previous_y):
+                end = x_u
+                interspace = np.vstack([interspace, [begin, end]])
+            previous_y = y
+        interspace = np.vstack([interspace, [begin, x[-1]]])[1:]
+        return interspace
+
+
+    def _getBarsInInterspaces(self, x, areas_info):
+        quantities, diameters, areas = areas_info  
+        bars = SteelBars()
+        for interspace in self._getInterspaceBetweenMomentum(x, areas):
+            is_in_interpace = (x > interspace[0]) & (x<interspace[1])
+            x_interspace = x[is_in_interpace]
+            quantities_interspace = quantities[is_in_interpace]
+            diameter = diameters[is_in_interpace][0]
+            max_quantity_interspace = int(max(quantities_interspace))
+
+            for quantity in range(1, max_quantity_interspace+1):
+                x_same_quantity = x_interspace[quantities_interspace == quantity]
+                if len(x_same_quantity)>0:
+                    new_bar = SteelBar(long_begin=min(x_same_quantity),
+                                    long_end=max(x_same_quantity),
+                                    quantity=quantity,
+                                    diameter=diameter)
+                    bars.add(new_bar)
+
+        return bars
+    
+    
+    def solve_steel(self):
+        x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram()
+        steel_bars_positive = self._getBarsInInterspaces(x, positive_areas_info)
+        steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info)
+        concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
+        concatenation.sort(key=lambda x: x.long_begin, reverse=False)
+        steel_bars = np.array(concatenation)
+            
+        return SteelBars(steel_bars)

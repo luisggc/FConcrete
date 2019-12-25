@@ -1,11 +1,15 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
+import fconcrete
+print("entrou")
 class SteelBar():
     def __init__(self, long_begin, long_end, quantity, diameter):
+        available_steel = fconcrete.config.available_material['concrete_steel_bars']
         self.long_begin = long_begin
         self.long_end = long_end
         self.quantity = quantity
         self.diameter = diameter
+        self.area = available_steel.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
     
     @staticmethod
     def getSteelArea(section, material, steel, momentum):
@@ -31,6 +35,7 @@ class SteelBar():
         A_max = 0.008*area
         return A_min, A_max
     
+        
     def plot(self,prop='quantity'):
         y = getattr(self, prop)
         plt.plot([self.long_begin, self.long_end], [y,y])
@@ -40,18 +45,24 @@ class SteelBar():
     
     
 class SteelBars():
-    def __init__(self, steelbars=[]):
-        self.steelbars = np.array(steelbars)
+    def __init__(self, steel_bars=[]):
+        self.steel_bars = np.array(steel_bars)
     
     def add(self, steelbar):
-        self.steelbars = np.append(self.steelbars,steelbar)
+        if str(type(steelbar)) == "<class 'fconcrete.SteelBar.SteelBars'>":
+            concatenation = list(np.concatenate((self.steel_bars,steelbar.steel_bars)))
+            concatenation.sort(key=lambda x: x.long_begin, reverse=False)
+            self.steel_bars = np.array(concatenation)
+            
+        elif str(type(steelbar)) == "<class 'fconcrete.SteelBar.SteelBar'>":
+            self.steel_bars = np.append(self.steel_bars,steelbar)
     
     def plot(self,prop='quantity'):
-        for steelbar in self.steelbars:
+        for steelbar in self.steel_bars:
             steelbar.plot(prop)
     
     def __getitem__(self, key):
-        return self.steelbars[key]
+        return self.steel_bars[key]
     
     def __repr__(self):
-        return str(self.steelbars)
+        return str(self.steel_bars)

@@ -9,11 +9,11 @@ from .helpers import *
 from .Structural import *
 from .ConcreteBeam import ConcreteBeam
 from .Material import Material, Concrete
+from .SteelBar import SteelBar, SteelBars
     
 def main():
     return
 
 
 if __name__ == '__main__':
-    
     main()

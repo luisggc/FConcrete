@@ -28,13 +28,17 @@ class AvailableConcreteSteelBar:
         areas_loop = np.concatenate([ areas*(i) for i in range(2, max_number+1)])
         number_of_bars = areas_loop/np.tile(areas,max_number-1)
         table_of_positive_steel = np.stack((number_of_bars, diameters_loop, areas_loop), axis=1)
-        table_of_negative_steel = -np.array(table_of_positive_steel)
+        
+        table_of_negative_steel = np.stack((number_of_bars, -diameters_loop, -areas_loop), axis=1)
         table_of_positive_and_negative_steel = np.vstack([table_of_negative_steel, table_of_positive_steel])
+        
         table = np.array(table_of_positive_and_negative_steel[
             table_of_positive_and_negative_steel[:,2].argsort()
         ])
         self.table = table
         self.fyd = fyd
+        self.diameters = diameters
+        self.diameters_to_area = diameters_to_area
     
     
     
