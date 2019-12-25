@@ -8,10 +8,11 @@ from .SteelBar import SteelBar, SteelBars
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, bars, **options):
+    def __init__(self, loads, bars, bar_steel_removal_step=2, **options):
         Beam.__init__(self, loads, bars, **options)
         self.steel = fconcrete.config.available_material['concrete_steel_bars']
-
+        self.bar_steel_removal_step = bar_steel_removal_step
+        
         if options.get("solve_steel") != False:
             self.steel_bars = self.solve_steel()
         
@@ -92,9 +93,17 @@ class ConcreteBeam(Beam):
                                            momentum=momentum)
     
     def getComercialSteelArea(self, x, momentum):
+        
+        min_area, max_area = self.getMinimumAndMaximumSteelArea(x)
         area = self.getSteelArea(x, momentum)
+        
+        # Implement minimun area in support
+        
+        if abs(area)>max_area: raise Exception("Too much steel needed in x={}, area needed is {}cmˆ2, but the maximum is {}cmˆ2".format(x, abs(area), max_area))
+        
         if np.isnan(area): return np.repeat(np.nan, 3)
         if area>0 :
+            area = max(min_area, area)
             possible_areas = self.steel.table[:,2] > area
             values = self.steel.table[possible_areas][0]
         else:
@@ -142,20 +151,28 @@ class ConcreteBeam(Beam):
         quantities, diameters, areas = areas_info  
         bars = SteelBars()
         for interspace in self._getInterspaceBetweenMomentum(x, areas):
+            bars_interspace = SteelBars()
             is_in_interpace = (x > interspace[0]) & (x<interspace[1])
             x_interspace = x[is_in_interpace]
             quantities_interspace = quantities[is_in_interpace]
             diameter = diameters[is_in_interpace][0]
             max_quantity_interspace = int(max(quantities_interspace))
-
+            min_quantity_interspace = int(min(quantities_interspace))
+                    
             for quantity in range(1, max_quantity_interspace+1):
+                if np.isin(quantity, bars_interspace.quantities): continue
                 x_same_quantity = x_interspace[quantities_interspace == quantity]
                 if len(x_same_quantity)>0:
+                    # Just removing bars according to bar_steel_removal_step
+                    reminder = (quantity-min_quantity_interspace)%self.bar_steel_removal_step
+                    new_quantity = min(quantity - reminder + (reminder>0)*self.bar_steel_removal_step, max_quantity_interspace)
+
                     new_bar = SteelBar(long_begin=min(x_same_quantity),
                                     long_end=max(x_same_quantity),
-                                    quantity=quantity,
+                                    quantity=new_quantity,
                                     diameter=diameter)
-                    bars.add(new_bar)
+                    bars_interspace.add(new_bar)
+            bars.add(bars_interspace)
 
         return bars
     
@@ -164,6 +181,10 @@ class ConcreteBeam(Beam):
         x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram()
         steel_bars_positive = self._getBarsInInterspaces(x, positive_areas_info)
         steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info)
+        
+        
+        
+        
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
         steel_bars = np.array(concatenation)

@@ -25,6 +25,7 @@ class AvailableConcreteSteelBar:
         diameters = np.array(diameters)
         areas = np.array(areas)
         diameters_loop = np.tile(diameters/10, max_number-1)
+        # Single steel bar use not allowed, that is why range starts at 2
         areas_loop = np.concatenate([ areas*(i) for i in range(2, max_number+1)])
         number_of_bars = areas_loop/np.tile(areas,max_number-1)
         table_of_positive_steel = np.stack((number_of_bars, diameters_loop, areas_loop), axis=1)

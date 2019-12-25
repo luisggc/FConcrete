@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import fconcrete
-print("entrou")
+
 class SteelBar():
     def __init__(self, long_begin, long_end, quantity, diameter):
         available_steel = fconcrete.config.available_material['concrete_steel_bars']
@@ -47,6 +47,7 @@ class SteelBar():
 class SteelBars():
     def __init__(self, steel_bars=[]):
         self.steel_bars = np.array(steel_bars)
+        #self._quantities = np.array([ steel_bar.quantity for steel_bar in steel_bars ])
     
     def add(self, steelbar):
         if str(type(steelbar)) == "<class 'fconcrete.SteelBar.SteelBars'>":
@@ -56,6 +57,12 @@ class SteelBars():
             
         elif str(type(steelbar)) == "<class 'fconcrete.SteelBar.SteelBar'>":
             self.steel_bars = np.append(self.steel_bars,steelbar)
+    
+    @property
+    def quantities(self):
+        quantities = np.array([ steel_bar.quantity for steel_bar in self.steel_bars ])
+        return quantities
+    
     
     def plot(self,prop='quantity'):
         for steelbar in self.steel_bars:
