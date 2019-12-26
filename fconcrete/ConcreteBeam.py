@@ -8,8 +8,57 @@ from .SteelBar import SteelBar, SteelBars
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, bars, bar_steel_removal_step=2, **options):
-        Beam.__init__(self, loads, bars, **options)
+    def __init__(self, loads, beam_elements, bar_steel_removal_step=2, **options):
+        """
+            Returns a concrete_beam element.
+            
+                Call signatures::
+
+                    concrete_beam.getDecalagedMomentumDiagram(self, loads, bars, bar_steel_removal_step=2, **options)
+
+                
+                >>>    material = fc.Concrete(fck='20 MPa', aggressiveness=2)
+                >>>    section = fc.Rectangle(25,56, material)
+
+                >>>    f1 = fc.Load.UniformDistributedLoad(-0.1622, x_begin=0, x_end=113)
+                >>>    f2 = fc.Load.UniformDistributedLoad(-0.4994, x_begin=113, x_end=583)
+                >>>    f3 = fc.Load.UniformDistributedLoad(-0.4196, x_begin=583, x_end=1188)
+
+                >>>    n1 = fc.Node.SimpleSupport(x=0)
+                >>>    n2 = fc.Node.SimpleSupport(x=113)
+                >>>    n3 = fc.Node.SimpleSupport(x=583)
+                >>>    n4 = fc.Node.SimpleSupport(x=1188)
+
+                >>>    beam_element1 = fc.SingleBeamElement([n1, n2], section)
+                >>>    beam_element2 = fc.SingleBeamElement([n2, n3], section)
+                >>>    beam_element3 = fc.SingleBeamElement([n3, n4], section)
+
+                >>>    fc.ConcreteBeam(
+                        loads = [f1, f2, f3],
+                        beam_elements = [beam_element1, beam_element2, beam_element3],
+                        bar_steel_removal_step = 2,
+                        bar_steel_max_removal = 100
+                    )
+            
+            Parameters
+            ----------
+            loads : [Load]
+                Define the loads supported for the beam.
+            
+            beam_elements : [Load]
+                Define the beam_elements that, together, makes the whole Beam. 
+            
+            bar_steel_removal_step: int, optional (default 2)
+                Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
+                I makes the building process easier. 
+                
+            bar_steel_max_removal: int, optional (default 100)
+                Define the max times it is possible to remove the bar.
+                
+            
+        """
+        
+        Beam.__init__(self, loads, beam_elements, **options)
         self.steel = fconcrete.config.available_material['concrete_steel_bars']
         self.bar_steel_removal_step = bar_steel_removal_step
         
@@ -18,6 +67,23 @@ class ConcreteBeam(Beam):
         
         
     def getDecalagedMomentumDiagram(self, division=1000):
+        """
+            Returns tuple with 3 np.array: x (axis), momentum_positive, momentum_negative.
+            
+
+                Call signatures::
+
+                    concrete_beam.getDecalagedMomentumDiagram(division=1000)
+
+                >>> concrete_beam.getDecalagedMomentumDiagram(5000)
+            
+            Parameters
+            ----------
+            division : int, optional (default 1000)
+                Define the step to plot the graph.
+                A high number means a more precise graph, but also you need more processing time.
+            
+        """
         x, momentum_diagram = self.getMomentumDiagram(division)
         x_decalaged, decalaged_x_left, decalaged_x_right, join_decalaged_x_order = self.__decalageds_x_axis(x)
         momentum_positive, momentum_negative = self.__decalaged_momentums(x_decalaged,
@@ -77,6 +143,21 @@ class ConcreteBeam(Beam):
         return momentum
 
     def getMinimumAndMaximumSteelArea(self, x):
+        """
+            Returns tuple of minimum and maximum necessary steel area given the position.
+
+                Call signatures::
+
+                    concrete_beam.getMinimumAndMaximumSteelArea(x)
+
+                >>> concrete_beam.getMinimumAndMaximumSteelArea(300)
+
+            Parameters
+            ----------
+            x : number
+                Define the position in cm.
+            
+        """
         _, beam_element = self.getSingleBeamElementInX(x)
         return SteelBar.getMinimumAndMaximumSteelArea(
             area = beam_element.section.area,
@@ -85,6 +166,25 @@ class ConcreteBeam(Beam):
 
 
     def getSteelArea(self, x, momentum):
+        """
+            #only working with rectangle section
+            Returns necessary steel area given the position and momentum.
+
+                Call signatures::
+
+                    concrete_beam.getSteelArea(x, momentum)
+
+                >>> concrete_beam.getSteelArea(300, 250000)
+
+            Parameters
+            ----------
+            x : number
+                Define the position in cm.
+                
+            momentum : number
+                Define the momentum in kNcm.
+            
+        """ 
         #only working with rectangle section
         _, single_beam = self.getSingleBeamElementInX(x)
         return SteelBar.getSteelArea(section=single_beam.section,
@@ -93,7 +193,26 @@ class ConcreteBeam(Beam):
                                            momentum=momentum)
     
     def getComercialSteelArea(self, x, momentum):
-        
+        """
+            Returns comercial steel area given the position and momentum.
+            Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
+            Does not have the removal by step implemented here.
+
+                Call signatures::
+
+                    concrete_beam.getComercialSteelArea(x, momentum)
+
+                >>> concrete_beam.getComercialSteelArea(300, 250000)
+
+            Parameters
+            ----------
+            x : number
+                Define the position in cm.
+                
+            momentum : number
+                Define the momentum in kNcm.
+            
+        """ 
         min_area, max_area = self.getMinimumAndMaximumSteelArea(x)
         area = self.getSteelArea(x, momentum)
         
@@ -113,27 +232,64 @@ class ConcreteBeam(Beam):
         return quantity, diameter, area
 
     
-    def getSteelAreaDiagram(self, division=1000):
-        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
-        positive_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
-        negative_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
-        return x_decalaged, np.array(positive_areas), np.array(negative_areas)
         
     def getComercialSteelAreaDiagram(self, division=1000):
+        """
+            Returns comercial steel area diagram.
+            Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
+            Does not have the removal by step implemented here.
+
+                Call signatures::
+
+                    concrete_beam.getComercialSteelAreaDiagram(division=1000)
+
+                >>> concrete_beam.getComercialSteelAreaDiagram()
+                >>> concrete_beam.getComercialSteelAreaDiagram(5000)
+
+            Parameters
+            ----------
+            division : int, optional (default 1000)
+                Define the step to plot the graph.
+                A high number means a more precise graph, but also you need more processing time.
+            
+        """ 
         x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
         positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
         return x_decalaged, np.array(positive_areas_info).T, np.array(negative_areas_info).T
-        
-    def getSteelDiagram(self, division=1000):
-        return self._createDiagram(self.getSteelArea, division)
-    
+
+
+    def getSteelAreaDiagram(self, division=1000, return_positive_and_negative=False):
+        """
+            Returns necessary steel area diagram.
+
+                Call signatures::
+
+                    concrete_beam.getSteelDiagram(division=1000)
+
+                >>> concrete_beam.getSteelDiagram()
+                >>> concrete_beam.getSteelDiagram(5000)
+
+            Parameters
+            ----------
+            division : int, optional (default 1000)
+                Define the step to plot the graph.
+                A high number means a more precise graph, but also you need more processing time.
+            
+        """ 
+        #if return_positive_and_negative:
+        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
+        positive_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
+        negative_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
+        return x_decalaged, np.array(positive_areas), np.array(negative_areas)
+        #else:
+        #    return self._createDiagram(self.getSteelArea)
     
     def _getInterspaceBetweenMomentum(self, x, area):
-        '''
-        Return an array and each row represents a interspace.
-        Element row[0] is the begin of interspace and row[1], the end.
-    '''
+        """
+            Return an array and each row represents a interspace.
+            Element row[0] is the begin of interspace and row[1], the end.
+        """
         previous_y=np.nan
         interspace = np.array([0, 0])
         for x_u,y in zip(x, area):
@@ -182,11 +338,20 @@ class ConcreteBeam(Beam):
         steel_bars_positive = self._getBarsInInterspaces(x, positive_areas_info)
         steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info)
         
-        
-        
-        
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
         steel_bars = np.array(concatenation)
             
         return SteelBars(steel_bars)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   

@@ -2,8 +2,8 @@ from fconcrete.helpers import to_unit
 
 class Material():
     """
-    E - in MPA
-    Poisson - 
+        E - in MPA
+        Poisson - 
     """    
     def __init__(self, E, poisson, alpha):
         self.E = E
