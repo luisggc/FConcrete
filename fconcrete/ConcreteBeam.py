@@ -8,7 +8,7 @@ from .SteelBar import SteelBar, SteelBars
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, beam_elements, bar_steel_removal_step=2, **options):
+    def __init__(self, loads, beam_elements, bar_steel_removal_step=2, bar_steel_max_removal=100, **options):
         """
             Returns a concrete_beam element.
             
@@ -61,6 +61,7 @@ class ConcreteBeam(Beam):
         Beam.__init__(self, loads, beam_elements, **options)
         self.steel = fconcrete.config.available_material['concrete_steel_bars']
         self.bar_steel_removal_step = bar_steel_removal_step
+        self.bar_steel_max_removal = bar_steel_max_removal
         
         if options.get("solve_steel") != False:
             self.steel_bars = self.solve_steel()
@@ -243,8 +244,8 @@ class ConcreteBeam(Beam):
 
                     concrete_beam.getComercialSteelAreaDiagram(division=1000)
 
-                >>> concrete_beam.getComercialSteelAreaDiagram()
-                >>> concrete_beam.getComercialSteelAreaDiagram(5000)
+                >>> x_decalaged, positive_areas_info, negative_areas_info = concrete_beam.getComercialSteelAreaDiagram()
+                >>> x_decalaged, positive_areas_info, negative_areas_info = concrete_beam.getComercialSteelAreaDiagram(5000)
 
             Parameters
             ----------
@@ -305,29 +306,50 @@ class ConcreteBeam(Beam):
 
     def _getBarsInInterspaces(self, x, areas_info):
         quantities, diameters, areas = areas_info  
+        bar_steel_removal_step = self.bar_steel_removal_step
+        bar_steel_max_removal = self.bar_steel_max_removal
+        
         bars = SteelBars()
         for interspace in self._getInterspaceBetweenMomentum(x, areas):
             bars_interspace = SteelBars()
-            is_in_interpace = (x > interspace[0]) & (x<interspace[1])
+            times_removal_occurred = 0
+            
+            #commum interspace info
+            interspace_start, interspace_end = interspace[0], interspace[1]
+            is_in_interpace = (x > interspace_start) & (x<interspace_end)
             x_interspace = x[is_in_interpace]
             quantities_interspace = quantities[is_in_interpace]
             diameter = diameters[is_in_interpace][0]
+            
             max_quantity_interspace = int(max(quantities_interspace))
             min_quantity_interspace = int(min(quantities_interspace))
                     
             for quantity in range(1, max_quantity_interspace+1):
-                if np.isin(quantity, bars_interspace.quantities): continue
+                if np.isin(quantity, bars_interspace.quantities_accumulated): continue
                 x_same_quantity = x_interspace[quantities_interspace == quantity]
                 if len(x_same_quantity)>0:
                     # Just removing bars according to bar_steel_removal_step
-                    reminder = (quantity-min_quantity_interspace)%self.bar_steel_removal_step
-                    new_quantity = min(quantity - reminder + (reminder>0)*self.bar_steel_removal_step, max_quantity_interspace)
-
+                    reminder = (quantity-min_quantity_interspace)%bar_steel_removal_step
+                    quantity_accumulated = min(quantity - reminder + (reminder>0)*self.bar_steel_removal_step, max_quantity_interspace)
+                    new_reminder = (quantity_accumulated-min_quantity_interspace)%bar_steel_removal_step
+                    new_quantity = bar_steel_removal_step-new_reminder if min_quantity_interspace!=quantity_accumulated else min_quantity_interspace
+                    
+                    removal_limit_reached = times_removal_occurred>=bar_steel_max_removal-1
+                    
                     new_bar = SteelBar(long_begin=min(x_same_quantity),
                                     long_end=max(x_same_quantity),
-                                    quantity=new_quantity,
-                                    diameter=diameter)
+                                    quantity=new_quantity if not removal_limit_reached else new_quantity+max_quantity_interspace-quantity_accumulated,
+                                    diameter=diameter,
+                                    quantity_accumulated = quantity_accumulated if not removal_limit_reached else max_quantity_interspace,
+                                    interspace=(interspace_start, interspace_end)
+                                    )
+                    
                     bars_interspace.add(new_bar)
+                    times_removal_occurred+=1
+                    
+                    if removal_limit_reached:
+                        break
+                    
             bars.add(bars_interspace)
 
         return bars

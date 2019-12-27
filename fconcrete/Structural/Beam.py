@@ -152,6 +152,7 @@ class Beam:
     
     def plotMomentumDiagram(self, division=1000):
         x, y = self.getMomentumDiagram(division)
+        plt.gca().invert_yaxis()
         plt.plot(x, y)
         
     def plotShearDiagram(self, division=1000):

@@ -3,12 +3,15 @@ import matplotlib.pyplot as plt
 import fconcrete
 
 class SteelBar():
-    def __init__(self, long_begin, long_end, quantity, diameter):
+    def __init__(self, long_begin, long_end, quantity, diameter, quantity_accumulated, interspace):
         available_steel = fconcrete.config.available_material['concrete_steel_bars']
         self.long_begin = long_begin
         self.long_end = long_end
         self.quantity = quantity
         self.diameter = diameter
+        self.interspace = interspace
+        self.quantity_accumulated = quantity_accumulated
+        self.area_accumulated = available_steel.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
         self.area = available_steel.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
     
     @staticmethod
@@ -36,7 +39,7 @@ class SteelBar():
         return A_min, A_max
     
         
-    def plot(self,prop='quantity'):
+    def plot(self,prop='area_accumulated'):
         y = getattr(self, prop)
         plt.plot([self.long_begin, self.long_end], [y,y])
     
@@ -63,8 +66,16 @@ class SteelBars():
         quantities = np.array([ steel_bar.quantity for steel_bar in self.steel_bars ])
         return quantities
     
+    @property
+    def quantities_accumulated(self):
+        quantity_accumulated = np.array([ steel_bar.quantity_accumulated for steel_bar in self.steel_bars ])
+        return quantity_accumulated
     
-    def plot(self,prop='quantity'):
+    def plot(self,prop='area_accumulated'):
+        
+        if prop=='area_accumulated':
+            plt.gca().invert_yaxis()
+            
         for steelbar in self.steel_bars:
             steelbar.plot(prop)
     
