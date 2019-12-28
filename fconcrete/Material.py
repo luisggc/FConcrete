@@ -1,4 +1,5 @@
 from fconcrete.helpers import to_unit
+from math import log
 
 class Material():
     """
@@ -47,8 +48,9 @@ class Concrete(Material):
         if fck<20 or fck>90: raise Exception("Must select a valid fck value (between 20MPa and 90MPa)")
         if (fck>=20 and fck<=50): E_ci = alpha_e*5600*(fck**0.5)
         E_ci = alpha_e*21500*(fck/10+1.25)**(1/3) if fck>50 else E_ci
-            
-        fctm = 0.3*(fck**(2/3)) if fck<=50 else 2.12*log(1+0.11*fck)
+        
+        # Check base for log expression
+        fctm = 0.3*(fck**(2/3)) if fck<=50 else 2.12*log(1+0.11*fck, 10)
         fctk_inf = 0.7*fctm
         fctk_sup = 1.3*fctm
         fctd = fck/1.4

@@ -13,6 +13,9 @@ class SteelBar():
         self.quantity_accumulated = quantity_accumulated
         self.area_accumulated = available_steel.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
         self.area = available_steel.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
+        
+        
+
     
     @staticmethod
     def getSteelArea(section, material, steel, momentum):

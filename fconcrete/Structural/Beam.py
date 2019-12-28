@@ -2,16 +2,15 @@ from fconcrete.Structural.SingleBeamElement import SingleBeamElement, SingleBeam
 from fconcrete.Structural.Load import Load, Loads
 from fconcrete.Structural.Node import Nodes
 from fconcrete.helpers import cond
+from fconcrete import config
 import numpy as np
 import warnings
-from scipy.signal import find_peaks
 import matplotlib.pyplot as plt
+e = config.e
 
 class Beam:
 
     def __init__(self, loads, bars, **options):
-        from fconcrete import config
-        globals()['e'] = config.e
         bars = SingleBeamElements.create(bars)
         external_loads = Loads.create(loads)
         bars = self.createIntermediateBeams(external_loads, bars)
@@ -92,7 +91,6 @@ class Beam:
 
         U = np.zeros(len(condition_boundary))
         U[condition_boundary] = np.linalg.solve(matrix_rigidity_global_determinable, beams_efforts_determinable)
-        #U[condition_boundary] = beams_efforts_determinable @ np.linalg.pinv(matrix_rigidity_global_determinable)
         
         F = matrix_rigidity_global @ U
 
@@ -120,11 +118,8 @@ class Beam:
         elif isinstance(x, np.ndarray) or isinstance(x, list):
             return np.array([ self.getInternalShearStrength(x_element) for x_element in x ])
         
-    def getShearDiagram(self, division=1000):
-        x = np.linspace(self.bars.nodes[0].x-e,
-                        self.bars.nodes[-1].x+e, division)
-        y = [self.getInternalShearStrength(x_i) for x_i in x]
-        return x, y
+    def getShearDiagram(self, **options):
+        return self._createDiagram(self.getInternalShearStrength, **options)
 
     def getInternalMomentumStrength(self, x):
         if isinstance(x, int) or isinstance(x, float):
@@ -142,21 +137,23 @@ class Beam:
         elif isinstance(x, np.ndarray) or isinstance(x, list):
             return np.array([ self.getInternalMomentumStrength(x_element) for x_element in x ])
         
-    def getMomentumDiagram(self, division=1000):
-        return self._createDiagram(self.getInternalMomentumStrength, division)
+    def getMomentumDiagram(self, **options):
+        return self._createDiagram(self.getInternalMomentumStrength, **options)
     
-    def _createDiagram(self, function, division=1000):
-        x = np.linspace(self.bars.nodes[0].x+e, self.bars.nodes[-1].x-e, division)
+    def _createDiagram(self, function, division=1000, x_begin="begin", x_end="end"):
+        x_begin = self.bars.nodes[0].x+e if x_begin=="begin" else x_begin
+        x_end = self.bars.nodes[-1].x-e if x_end=="end" else x_end
+        x = np.linspace(x_begin, x_end, division)
         y = np.array([function(x_i) for x_i in x])
         return x, y
     
-    def plotMomentumDiagram(self, division=1000):
-        x, y = self.getMomentumDiagram(division)
+    def plotMomentumDiagram(self, **options):
+        x, y = self.getMomentumDiagram(**options)
         plt.gca().invert_yaxis()
         plt.plot(x, y)
         
-    def plotShearDiagram(self, division=1000):
-        x, y = self.getShearDiagram(division)
+    def plotShearDiagram(self, **options):
+        x, y = self.getShearDiagram(**options)
         plt.plot(x, y)
     
     def __repr__(self):

@@ -67,7 +67,7 @@ class ConcreteBeam(Beam):
             self.steel_bars = self.solve_steel()
         
         
-    def getDecalagedMomentumDiagram(self, division=1000):
+    def getDecalagedMomentumDiagram(self, **options_diagram):
         """
             Returns tuple with 3 np.array: x (axis), momentum_positive, momentum_negative.
             
@@ -85,7 +85,7 @@ class ConcreteBeam(Beam):
                 A high number means a more precise graph, but also you need more processing time.
             
         """
-        x, momentum_diagram = self.getMomentumDiagram(division)
+        x, momentum_diagram = self.getMomentumDiagram(**options_diagram)
         x_decalaged, decalaged_x_left, decalaged_x_right, join_decalaged_x_order = self.__decalageds_x_axis(x)
         momentum_positive, momentum_negative = self.__decalaged_momentums(x_decalaged,
                                                                     decalaged_x_left,
@@ -234,7 +234,7 @@ class ConcreteBeam(Beam):
 
     
         
-    def getComercialSteelAreaDiagram(self, division=1000):
+    def getComercialSteelAreaDiagram(self, **options_diagram):
         """
             Returns comercial steel area diagram.
             Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
@@ -254,13 +254,13 @@ class ConcreteBeam(Beam):
                 A high number means a more precise graph, but also you need more processing time.
             
         """ 
-        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
+        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(**options_diagram)
         positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
         return x_decalaged, np.array(positive_areas_info).T, np.array(negative_areas_info).T
 
 
-    def getSteelAreaDiagram(self, division=1000, return_positive_and_negative=False):
+    def getSteelAreaDiagram(self, return_positive_and_negative=False, **options_diagram):
         """
             Returns necessary steel area diagram.
 
@@ -279,7 +279,7 @@ class ConcreteBeam(Beam):
             
         """ 
         #if return_positive_and_negative:
-        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(division)
+        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(**options_diagram)
         positive_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
         return x_decalaged, np.array(positive_areas), np.array(negative_areas)
@@ -354,6 +354,38 @@ class ConcreteBeam(Beam):
 
         return bars
     
+    def _anchorSteelBars(self, steel_bars):
+        steel_bars_with_anchor_length = SteelBars()
+        for steel_bar in steel_bars:
+            diameter = steel_bar.diameter
+            _, bar_element = self.getSingleBeamElementInX((steel_bar.begin+steel_bar.end)/2)
+            
+            _, m = self.getMomentumDiagram(division=100, x_begin=steel_bar.begin, x_end=steel_bar.end)
+            
+            As_calc = max(m.min(), m.max(), key=abs)
+            As_ef = steel_bar.area_accumulated
+            
+            n1 = 2.25 if steel_bar.surface_type == "nervurada" else _
+            1 if steel_bar.surface_type == "lisa" else _
+            1.4 if steel_bar.surface_type == "entalhada" else 0
+            n2 = 1 if steel_bar.area > 0 else 0.7
+            #revisar
+            n3 = 1 if diameter < 3.2 else 13.2 - diameter
+            
+            f_bd = n1 * n2 * n3 * bar_element.section.material.fctd
+            
+            lb = max(diameter*steel_bar.fyd/(4*f_bd), 25*diameter)
+            lbmin = max(0.3*lb, 10*diameter, 10)
+            lb_nec = max(alpha*lb*As_calc/As_ef, lbmin)
+            
+            if f_bd ==0: raise Exception("fbd as zero")
+            
+            steel_bar.begin -= lb
+            steel_bar.end += lb
+            steel_bars_with_anchor_length.add(steel_bar)
+            
+        return steel_bars_with_anchor_length
+
     
     def solve_steel(self):
         x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram()
@@ -363,7 +395,9 @@ class ConcreteBeam(Beam):
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
         steel_bars = np.array(concatenation)
-            
+        
+        #steel_bars_with_anchor_length = self._anchorSteelBars(steel_bars)
+        
         return SteelBars(steel_bars)
     
     
