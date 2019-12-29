@@ -8,13 +8,13 @@ from .SteelBar import SteelBar, SteelBars
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, beam_elements, bar_steel_removal_step=2, bar_steel_max_removal=100, **options):
+    def __init__(self, loads, beam_elements, bar_steel_removal_step=2, bar_steel_max_removal=100, design_factor=1.4, **options):
         """
             Returns a concrete_beam element.
             
                 Call signatures::
 
-                    concrete_beam.getDecalagedMomentumDiagram(self, loads, bars, bar_steel_removal_step=2, **options)
+                    concrete_beam.getDecalagedMomentumDesignDiagram(self, loads, bars, bar_steel_removal_step=2, **options)
 
                 
                 >>>    material = fc.Concrete(fck='20 MPa', aggressiveness=2)
@@ -62,21 +62,25 @@ class ConcreteBeam(Beam):
         self.steel = fconcrete.config.available_material['concrete_steel_bars']
         self.bar_steel_removal_step = bar_steel_removal_step
         self.bar_steel_max_removal = bar_steel_max_removal
+        self.design_factor = design_factor
         
-        if options.get("solve_steel") != False:
-            self.steel_bars, self.steel_bars_with_anchor_length = self.solve_steel()
+        if options.get("solve_long_steel") != False:
+            self.steel_bars = self.solve_long_steel()
+        
+        #if options.get("solve_transv_steel") != False:
+        #    self.steel_bars = self.solve_transv_steel()
         
         
-    def getDecalagedMomentumDiagram(self, **options_diagram):
+    def getDecalagedMomentumDesignDiagram(self, **options_diagram):
         """
             Returns tuple with 3 np.array: x (axis), momentum_positive, momentum_negative.
             
 
                 Call signatures::
 
-                    concrete_beam.getDecalagedMomentumDiagram(division=1000)
+                    concrete_beam.getDecalagedMomentumDesignDiagram(division=1000)
 
-                >>> concrete_beam.getDecalagedMomentumDiagram(5000)
+                >>> concrete_beam.getDecalagedMomentumDesignDiagram(5000)
             
             Parameters
             ----------
@@ -95,7 +99,7 @@ class ConcreteBeam(Beam):
         momentum_positive = self.__join_momentum_peak(momentum_positive)
         momentum_negative = self.__join_momentum_peak(momentum_negative)
         
-        return x_decalaged, momentum_positive, momentum_negative
+        return x_decalaged, self.design_factor*momentum_positive, self.design_factor*momentum_negative
     
     def __decalageds_x_axis(self, x):
         decalaged_x_left = np.array([])
@@ -254,10 +258,10 @@ class ConcreteBeam(Beam):
                 A high number means a more precise graph, but also you need more processing time.
             
         """ 
-        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(**options_diagram)
+        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options_diagram)
         positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
-        return x_decalaged, np.array(positive_areas_info).T, np.array(negative_areas_info).T
+        return (x_decalaged,np.array(positive_areas_info).T,np.array(negative_areas_info).T)
 
 
     def getSteelAreaDiagram(self, return_positive_and_negative=False, **options_diagram):
@@ -279,7 +283,7 @@ class ConcreteBeam(Beam):
             
         """ 
         #if return_positive_and_negative:
-        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDiagram(**options_diagram)
+        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options_diagram)
         positive_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
         return x_decalaged, np.array(positive_areas), np.array(negative_areas)
@@ -355,8 +359,6 @@ class ConcreteBeam(Beam):
         return bars
     
     def _anchorSteelBars(self, steel_bars, interspace_between_momentum):
-        #steel_bars_with_anchor_length = SteelBars()
-        
         steel_bar_surface_type = fconcrete.config.available_material["steel_bar_surface_type"]
         n1 = (2.25 if steel_bar_surface_type == "ribbed"
         else 1 if steel_bar_surface_type == "plain"
@@ -369,11 +371,6 @@ class ConcreteBeam(Beam):
             diameter = major_steel_bar.diameter
             begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
             _, bar_element = self.getSingleBeamElementInX((begin+end)/2)
-
-            print("interspace", interspace)
-            print("begin e end")
-            print(begin, end)
-            print(begin if begin>self.x_begin else self.x_begin, end if end<self.x_end else self.x_end)
             _, positive_area_diagram, negative_area_diagram = self.getSteelAreaDiagram(division=100,
                                                                                     x_begin= begin if begin>self.x_begin else self.x_begin,
                                                                                     x_end= end if end<self.x_end else self.x_end)
@@ -408,20 +405,11 @@ class ConcreteBeam(Beam):
             steel_bars = steel_bars.changeProperty("long_end",
                                                    function=lambda x:x+lb_nec,
                                                    conditional=lambda x:list(x.interspace)==list(interspace))
-                                                                                 
-            print("lbmin", lbmin)
-            print("lb", lb)
-            print("lb_nec", lb_nec)
-            print("alpha", "lb", "As_calc", "As_ef", "fbd")
-            print(alpha, lb, As_calc, As_ef, f_bd)
-            print("diameter", diameter)
-            print("----------")
-            
             
         return steel_bars
 
     
-    def solve_steel(self):
+    def solve_long_steel(self):
         x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram()
         
         interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, positive_areas_info[2])
@@ -440,7 +428,10 @@ class ConcreteBeam(Beam):
         steel_bars_with_anchor_length_positive = self._anchorSteelBars(steel_bars, interspace_between_momentum_positive)
         steel_bars_with_anchor_length = self._anchorSteelBars(steel_bars_with_anchor_length_positive, interspace_between_momentum_negative)
         
-        return steel_bars, steel_bars_with_anchor_length
+        return steel_bars_with_anchor_length
+    
+    def solve_transv_steel(self):
+        pass
     
     
     
