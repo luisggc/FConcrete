@@ -53,17 +53,19 @@ class Concrete(Material):
         fctm = 0.3*(fck**(2/3)) if fck<=50 else 2.12*log(1+0.11*fck, 10)
         fctk_inf = 0.7*fctm
         fctk_sup = 1.3*fctm
-        fctd = fck/1.4
+        fcd = fck/1.4
+        fctd = fctk_inf/1.4
 
         c_in_cm = 2.5 if aggressiveness==1 else 3 if aggressiveness==2 else 4 if aggressiveness==3 else 5 if aggressiveness==4 else 0
         if c_in_cm==0: raise Exception("Must select a valid fck value (between 1 and 4)")
         
         self.fck = to_unit(fck, "MPa", "kN/cm**2").magnitude
         self.E_ci = to_unit(E_ci, "MPa", "kN/cm**2").magnitude
-        self.fctm = to_unit(fctm, "kN/cm**2").magnitude
-        self.fctk_inf = to_unit(fctk_inf, "kN/cm**2").magnitude
-        self.fctk_sup = to_unit(fctk_sup, "kN/cm**2").magnitude
-        self.fctd = to_unit(fctd, "kN/cm**2").magnitude
+        self.fctm = to_unit(fctm, "MPa", "kN/cm**2").magnitude
+        self.fctk_inf = to_unit(fctk_inf, "MPa", "kN/cm**2").magnitude
+        self.fctk_sup = to_unit(fctk_sup, "MPa", "kN/cm**2").magnitude
+        self.fcd = to_unit(fcd, "MPa", "kN/cm**2").magnitude
+        self.fctd = to_unit(fctd, "MPa", "kN/cm**2").magnitude
         self.c = c_in_cm
         
         super(Concrete, self ).__init__(E_ci, 0.2, 10**(-5))

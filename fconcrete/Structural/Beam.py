@@ -14,7 +14,8 @@ class Beam:
         bars = SingleBeamElements.create(bars)
         external_loads = Loads.create(loads)
         bars = self.createIntermediateBeams(external_loads, bars)
-
+        self.x_begin, self.x_end = bars.nodes[0].x, bars.nodes[-1].x
+        
         self.external_loads = external_loads
         self.bars = bars
         
@@ -98,8 +99,7 @@ class Beam:
     
 
     def getSingleBeamElementInX(self, x):
-        
-            index = 0 if x<self.bars.nodes[0].x else -1 if x>self.bars.nodes[-1].x else np.where(
+            index = 0 if x<=self.bars.nodes[0].x else -1 if x>=self.bars.nodes[-1].x else np.where(
             np.array([node.x for node in self.bars.nodes]) <= x)[0][-1]
             bar_element = self.bars.bar_elements[index]
             return index, bar_element
@@ -123,7 +123,7 @@ class Beam:
 
     def getInternalMomentumStrength(self, x):
         if isinstance(x, int) or isinstance(x, float):
-            if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
+            if x < self.x_begin or x > self.x_end:
                 return 0
             f_value = 0
             for load in self.loads.loads:

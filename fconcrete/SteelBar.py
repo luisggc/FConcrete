@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import fconcrete
+import copy
 
 class SteelBar():
     def __init__(self, long_begin, long_end, quantity, diameter, quantity_accumulated, interspace):
@@ -13,7 +14,7 @@ class SteelBar():
         self.quantity_accumulated = quantity_accumulated
         self.area_accumulated = available_steel.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
         self.area = available_steel.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
-        
+        self.fyd = available_steel.fyd
         
 
     
@@ -25,8 +26,8 @@ class SteelBar():
         kc = b*d**2/momentum
         if (kc<1.5 and kc>-1.5): raise Exception('Momentum too high to section')
         fyd = steel.fyd
-        fctd = material.fctd
-        beta_x = (1-(1-1.6/(0.68*fctd*kc))**(0.5))/0.8
+        fcd = material.fcd
+        beta_x = (1-(1-1.6/(0.68*fcd*kc))**(0.5))/0.8
         tension_steel = np.where((beta_x <= 0.28) or (3.5*(beta_x**(-1)-1)*20>fyd), fyd, 3.5*(beta_x**(-1)-1)*20)+0
         ks = (tension_steel*(1-0.4*beta_x))**(-1)
         As = ks*momentum/d
@@ -53,29 +54,31 @@ class SteelBar():
 class SteelBars():
     def __init__(self, steel_bars=[]):
         self.steel_bars = np.array(steel_bars)
-        #self._quantities = np.array([ steel_bar.quantity for steel_bar in steel_bars ])
+        self.interspaces = np.array([ steel_bar.interspace for steel_bar in self.steel_bars ])
+        self.quantities = np.array([ steel_bar.quantity for steel_bar in self.steel_bars ])
+        self.quantities_accumulated = np.array([ steel_bar.quantity_accumulated for steel_bar in self.steel_bars ])
+        self.areas_accumulated = np.array([ steel_bar.area_accumulated for steel_bar in self.steel_bars ])
     
-    def add(self, steelbar):
-        if str(type(steelbar)) == "<class 'fconcrete.SteelBar.SteelBars'>":
-            concatenation = list(np.concatenate((self.steel_bars,steelbar.steel_bars)))
+    def add(self, new_steel_bars):
+        previous_steel_bars = self.steel_bars
+        if str(type(new_steel_bars)) == "<class 'fconcrete.SteelBar.SteelBars'>":
+            concatenation = list(np.concatenate((previous_steel_bars,new_steel_bars.steel_bars)))
             concatenation.sort(key=lambda x: x.long_begin, reverse=False)
-            self.steel_bars = np.array(concatenation)
+            new_steel_bars = np.array(concatenation)
             
-        elif str(type(steelbar)) == "<class 'fconcrete.SteelBar.SteelBar'>":
-            self.steel_bars = np.append(self.steel_bars,steelbar)
+        elif str(type(new_steel_bars)) == "<class 'fconcrete.SteelBar.SteelBar'>":
+            new_steel_bars = np.append(previous_steel_bars,new_steel_bars)
+        self.__init__(new_steel_bars)
     
-    @property
-    def quantities(self):
-        quantities = np.array([ steel_bar.quantity for steel_bar in self.steel_bars ])
-        return quantities
-    
-    @property
-    def quantities_accumulated(self):
-        quantity_accumulated = np.array([ steel_bar.quantity_accumulated for steel_bar in self.steel_bars ])
-        return quantity_accumulated
-    
+    def changeProperty(self, prop, function, conditional=lambda x:True):
+        steel_bars = copy.deepcopy(self)
+        for previous_steel_bar in steel_bars:
+            if conditional(previous_steel_bar):
+                current_attribute_value = getattr(previous_steel_bar, prop)
+                setattr(previous_steel_bar, prop, function(current_attribute_value)) 
+        return steel_bars
+
     def plot(self,prop='area_accumulated'):
-        
         if prop=='area_accumulated':
             plt.gca().invert_yaxis()
             

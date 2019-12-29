@@ -10,5 +10,6 @@ e = 0.00001
 from fconcrete.AvailableMaterials import AvailableConcreteSteelBar
 
 available_material = {
-    "concrete_steel_bars": AvailableConcreteSteelBar()
+    "concrete_steel_bars": AvailableConcreteSteelBar(),
+    "steel_bar_surface_type": "ribbed"
 }

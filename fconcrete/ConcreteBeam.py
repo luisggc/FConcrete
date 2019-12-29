@@ -64,7 +64,7 @@ class ConcreteBeam(Beam):
         self.bar_steel_max_removal = bar_steel_max_removal
         
         if options.get("solve_steel") != False:
-            self.steel_bars = self.solve_steel()
+            self.steel_bars, self.steel_bars_with_anchor_length = self.solve_steel()
         
         
     def getDecalagedMomentumDiagram(self, **options_diagram):
@@ -304,13 +304,13 @@ class ConcreteBeam(Beam):
         return interspace
 
 
-    def _getBarsInInterspaces(self, x, areas_info):
-        quantities, diameters, areas = areas_info  
+    def _getBarsInInterspaces(self, x, areas_info, interspaceBetweenMomentum):
+        quantities, diameters, _ = areas_info  
         bar_steel_removal_step = self.bar_steel_removal_step
         bar_steel_max_removal = self.bar_steel_max_removal
         
         bars = SteelBars()
-        for interspace in self._getInterspaceBetweenMomentum(x, areas):
+        for interspace in interspaceBetweenMomentum:
             bars_interspace = SteelBars()
             times_removal_occurred = 0
             
@@ -354,51 +354,93 @@ class ConcreteBeam(Beam):
 
         return bars
     
-    def _anchorSteelBars(self, steel_bars):
-        steel_bars_with_anchor_length = SteelBars()
-        for steel_bar in steel_bars:
-            diameter = steel_bar.diameter
-            _, bar_element = self.getSingleBeamElementInX((steel_bar.begin+steel_bar.end)/2)
-            
-            _, m = self.getMomentumDiagram(division=100, x_begin=steel_bar.begin, x_end=steel_bar.end)
-            
-            As_calc = max(m.min(), m.max(), key=abs)
-            As_ef = steel_bar.area_accumulated
-            
-            n1 = 2.25 if steel_bar.surface_type == "nervurada" else _
-            1 if steel_bar.surface_type == "lisa" else _
-            1.4 if steel_bar.surface_type == "entalhada" else 0
-            n2 = 1 if steel_bar.area > 0 else 0.7
-            #revisar
-            n3 = 1 if diameter < 3.2 else 13.2 - diameter
-            
+    def _anchorSteelBars(self, steel_bars, interspace_between_momentum):
+        #steel_bars_with_anchor_length = SteelBars()
+        
+        steel_bar_surface_type = fconcrete.config.available_material["steel_bar_surface_type"]
+        n1 = (2.25 if steel_bar_surface_type == "ribbed"
+        else 1 if steel_bar_surface_type == "plain"
+        else 1.4 if steel_bar_surface_type == "carved"
+        else 0)
+                
+        for interspace in interspace_between_momentum:
+            steel_bars_in_insterspace = fconcrete.SteelBars(steel_bars[(interspace == steel_bars.interspaces).sum(axis=1)== 2])
+            major_steel_bar = steel_bars_in_insterspace[abs(steel_bars_in_insterspace.areas_accumulated) == abs(steel_bars_in_insterspace.areas_accumulated).max()][0]
+            diameter = major_steel_bar.diameter
+            begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
+            _, bar_element = self.getSingleBeamElementInX((begin+end)/2)
+
+            print("interspace", interspace)
+            print("begin e end")
+            print(begin, end)
+            print(begin if begin>self.x_begin else self.x_begin, end if end<self.x_end else self.x_end)
+            _, positive_area_diagram, negative_area_diagram = self.getSteelAreaDiagram(division=100,
+                                                                                    x_begin= begin if begin>self.x_begin else self.x_begin,
+                                                                                    x_end= end if end<self.x_end else self.x_end)
+            positive_area_diagram = positive_area_diagram[~np.isnan(positive_area_diagram)]
+            negative_area_diagram = negative_area_diagram[~np.isnan(negative_area_diagram)]
+
+            As_calc = max(positive_area_diagram.min(initial=0), negative_area_diagram.min(initial=0),
+                        positive_area_diagram.max(initial=0), negative_area_diagram.max(initial=0), key=abs)
+
+            As_ef = major_steel_bar.area_accumulated
+
+            # Can make a more precise calculus here.
+            # 1 if (h < 60 and bar_transv_y <= 30) or
+            # (h >= 60 and bar_transv_y <= h-30) else 0.7
+            n2 = 1 if major_steel_bar.area > 0 else 0.7
+            n3 = 1 if diameter < 3.2 else (13.2 - diameter)/10
+
             f_bd = n1 * n2 * n3 * bar_element.section.material.fctd
-            
-            lb = max(diameter*steel_bar.fyd/(4*f_bd), 25*diameter)
+
+            # Check if hook is necessary
+            alpha = 0.7 if (begin <= self.x_begin+bar_element.section.material.c or end >= self.x_end-bar_element.section.material.c) else 1
+
+            lb = max(abs(diameter*major_steel_bar.fyd/(4*f_bd)), 25*diameter)
             lbmin = max(0.3*lb, 10*diameter, 10)
             lb_nec = max(alpha*lb*As_calc/As_ef, lbmin)
-            
+
             if f_bd ==0: raise Exception("fbd as zero")
+
+            steel_bars = steel_bars.changeProperty("long_begin",
+                                                   function=lambda x:x-lb_nec,
+                                                   conditional=lambda x:list(x.interspace)==list(interspace))
+            steel_bars = steel_bars.changeProperty("long_end",
+                                                   function=lambda x:x+lb_nec,
+                                                   conditional=lambda x:list(x.interspace)==list(interspace))
+                                                                                 
+            print("lbmin", lbmin)
+            print("lb", lb)
+            print("lb_nec", lb_nec)
+            print("alpha", "lb", "As_calc", "As_ef", "fbd")
+            print(alpha, lb, As_calc, As_ef, f_bd)
+            print("diameter", diameter)
+            print("----------")
             
-            steel_bar.begin -= lb
-            steel_bar.end += lb
-            steel_bars_with_anchor_length.add(steel_bar)
             
-        return steel_bars_with_anchor_length
+        return steel_bars
 
     
     def solve_steel(self):
         x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram()
-        steel_bars_positive = self._getBarsInInterspaces(x, positive_areas_info)
-        steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info)
+        
+        interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, positive_areas_info[2])
+        interspace_between_momentum_negative = self._getInterspaceBetweenMomentum(x, negative_areas_info[2])
+        
+        self.interspace_between_momentum_positive = interspace_between_momentum_positive
+        self.interspace_between_momentum_negative = interspace_between_momentum_negative
+        
+        steel_bars_positive = self._getBarsInInterspaces(x, positive_areas_info, interspace_between_momentum_positive)
+        steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info, interspace_between_momentum_negative)
         
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
-        steel_bars = np.array(concatenation)
+        steel_bars = SteelBars(np.array(concatenation))
         
-        #steel_bars_with_anchor_length = self._anchorSteelBars(steel_bars)
+        steel_bars_with_anchor_length_positive = self._anchorSteelBars(steel_bars, interspace_between_momentum_positive)
+        steel_bars_with_anchor_length = self._anchorSteelBars(steel_bars_with_anchor_length_positive, interspace_between_momentum_negative)
         
-        return SteelBars(steel_bars)
+        return steel_bars, steel_bars_with_anchor_length
     
     
     
