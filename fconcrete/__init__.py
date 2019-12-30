@@ -3,13 +3,13 @@
 __author__ = """Luis Gabriel Gonçalves Coimbra"""
 __email__ = 'luiscoimbraeng@outlook.com'
 __version__ = '0.1.0'
-from .AvailableMaterials import AvailableConcreteSteelBar
+from .AvailableMaterials import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar
 #np.set_printoptions(precision=3, suppress=True, linewidth=3000)
 from .helpers import *
 from .Structural import *
 from .ConcreteBeam import ConcreteBeam
 from .Material import Material, Concrete
-from .SteelBar import SteelBar, SteelBars
+from .LongSteelBar import LongSteelBar, LongSteelBars
     
 def main():
     return

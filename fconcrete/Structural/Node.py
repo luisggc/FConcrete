@@ -2,14 +2,15 @@ import numpy as np
 from fconcrete.helpers import to_unit
 
 class Node:
-    def __init__(self, x, condition_boundary):
+    def __init__(self, x, condition_boundary, length=0):
         x = to_unit(x, "cm").magnitude
         self.x = x
         self.condition_boundary = condition_boundary
+        self.length = length
         
     @classmethod
-    def SimpleSupport(cls, x):
-        return cls(x, [0, 1])
+    def SimpleSupport(cls, x, length=0):
+        return cls(x, [0, 1], length)
     
     @classmethod
     def Free(cls, x):
@@ -20,8 +21,8 @@ class Node:
         return cls(x, [1, 1])
     
     @classmethod
-    def Crimp(cls, x):
-        return cls(x, [0, 0])
+    def Crimp(cls, x, length=0):
+        return cls(x, [0, 0], length)
     
     def __repr__(self):
         return str(self.__dict__)

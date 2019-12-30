@@ -7,9 +7,9 @@ _Q = ureg.Quantity
 
 e = 0.00001
 
-from fconcrete.AvailableMaterials import AvailableConcreteSteelBar
+from fconcrete.AvailableMaterials import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar
 
 available_material = {
-    "concrete_steel_bars": AvailableConcreteSteelBar(),
-    "steel_bar_surface_type": "ribbed"
+    "concrete_long_steel_bars": AvailableLongConcreteSteelBar(),
+    "concrete_transv_steel_bars": AvailableTransvConcreteSteelBar(),
 }

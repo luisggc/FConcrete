@@ -26,7 +26,7 @@ def create_concrete_beam():
     bar3 = fc.SingleBeamElement([n3, n4], section)
 
     fc.config.available_material = {
-        "concrete_steel_bars":fc.AvailableConcreteSteelBar(diameters=[8]),
+        "concrete_long_steel_bars":fc.AvailableLongConcreteSteelBar(diameters=[8]),
         "steel_bar_surface_type":"ribbed"
     }
         

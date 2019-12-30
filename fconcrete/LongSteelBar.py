@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import fconcrete
 import copy
 
-class SteelBar():
+class LongSteelBar():
     def __init__(self, long_begin, long_end, quantity, diameter, quantity_accumulated, interspace):
-        available_steel = fconcrete.config.available_material['concrete_steel_bars']
+        available_steel = fconcrete.config.available_material['concrete_long_steel_bars']
         self.long_begin = long_begin
         self.long_end = long_end
         self.quantity = quantity
@@ -51,7 +51,7 @@ class SteelBar():
         return str(self.__dict__)+'\n'
     
     
-class SteelBars():
+class LongSteelBars():
     def __init__(self, steel_bars=[]):
         self.steel_bars = np.array(steel_bars)
         self.interspaces = np.array([ steel_bar.interspace for steel_bar in self.steel_bars ])
@@ -61,12 +61,12 @@ class SteelBars():
     
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars
-        if str(type(new_steel_bars)) == "<class 'fconcrete.SteelBar.SteelBars'>":
+        if str(type(new_steel_bars)) == "<class 'fconcrete.LongSteelBar.LongSteelBars'>":
             concatenation = list(np.concatenate((previous_steel_bars,new_steel_bars.steel_bars)))
             concatenation.sort(key=lambda x: x.long_begin, reverse=False)
             new_steel_bars = np.array(concatenation)
             
-        elif str(type(new_steel_bars)) == "<class 'fconcrete.SteelBar.SteelBar'>":
+        elif str(type(new_steel_bars)) == "<class 'fconcrete.LongSteelBar.LongSteelBar'>":
             new_steel_bars = np.append(previous_steel_bars,new_steel_bars)
         self.__init__(new_steel_bars)
     

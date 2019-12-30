@@ -16,6 +16,7 @@ class Section():
         self.area = self.getAreaBetween(0, height, 1000)
         self.I = self._I()
         self.d = height - (material.c if hasattr(material,"c") else 0)
+        #self.bw = 2*min(abs(function_width))
         
     def width(self, height):
         return 0 if height>self.height else self.function_width(height)
@@ -44,6 +45,7 @@ class Rectangle(Section):
         self.area = width*height
         self.I = self.width()*self.height**3/12
         self.d = height - (material.c if hasattr(material,"c") else 0)
+        self.bw = width
         
     def getAreaBetween(self, begin_height, end_height):
         return self.width()*(end_height - begin_height)

@@ -3,12 +3,14 @@ import fconcrete
 import numpy as np
 import warnings
 from scipy.signal import find_peaks
-from .SteelBar import SteelBar, SteelBars
+from .LongSteelBar import LongSteelBar, LongSteelBars
 
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, beam_elements, bar_steel_removal_step=2, bar_steel_max_removal=100, design_factor=1.4, **options):
+    def __init__(self, loads, beam_elements,
+                 bar_steel_removal_step=2, bar_steel_max_removal=100, design_factor=1.4, division=1000,
+                 **options):
         """
             Returns a concrete_beam element.
             
@@ -59,10 +61,11 @@ class ConcreteBeam(Beam):
         """
         
         Beam.__init__(self, loads, beam_elements, **options)
-        self.steel = fconcrete.config.available_material['concrete_steel_bars']
+        self.steel = fconcrete.config.available_material['concrete_long_steel_bars']
         self.bar_steel_removal_step = bar_steel_removal_step
         self.bar_steel_max_removal = bar_steel_max_removal
         self.design_factor = design_factor
+        self.division = division
         
         if options.get("solve_long_steel") != False:
             self.steel_bars = self.solve_long_steel()
@@ -89,7 +92,7 @@ class ConcreteBeam(Beam):
                 A high number means a more precise graph, but also you need more processing time.
             
         """
-        x, momentum_diagram = self.getMomentumDiagram(**options_diagram)
+        x, momentum_diagram = self.getMomentumDiagram(division=self.division)
         x_decalaged, decalaged_x_left, decalaged_x_right, join_decalaged_x_order = self.__decalageds_x_axis(x)
         momentum_positive, momentum_negative = self.__decalaged_momentums(x_decalaged,
                                                                     decalaged_x_left,
@@ -164,7 +167,7 @@ class ConcreteBeam(Beam):
             
         """
         _, beam_element = self.getSingleBeamElementInX(x)
-        return SteelBar.getMinimumAndMaximumSteelArea(
+        return LongSteelBar.getMinimumAndMaximumSteelArea(
             area = beam_element.section.area,
             fck = beam_element.material.fck
         )
@@ -192,7 +195,7 @@ class ConcreteBeam(Beam):
         """ 
         #only working with rectangle section
         _, single_beam = self.getSingleBeamElementInX(x)
-        return SteelBar.getSteelArea(section=single_beam.section,
+        return LongSteelBar.getSteelArea(section=single_beam.section,
                                            material=single_beam.section.material,
                                            steel=self.steel,
                                            momentum=momentum)
@@ -313,9 +316,9 @@ class ConcreteBeam(Beam):
         bar_steel_removal_step = self.bar_steel_removal_step
         bar_steel_max_removal = self.bar_steel_max_removal
         
-        bars = SteelBars()
+        bars = LongSteelBars()
         for interspace in interspaceBetweenMomentum:
-            bars_interspace = SteelBars()
+            bars_interspace = LongSteelBars()
             times_removal_occurred = 0
             
             #commum interspace info
@@ -340,7 +343,7 @@ class ConcreteBeam(Beam):
                     
                     removal_limit_reached = times_removal_occurred>=bar_steel_max_removal-1
                     
-                    new_bar = SteelBar(long_begin=min(x_same_quantity),
+                    new_bar = LongSteelBar(long_begin=min(x_same_quantity),
                                     long_end=max(x_same_quantity),
                                     quantity=new_quantity if not removal_limit_reached else new_quantity+max_quantity_interspace-quantity_accumulated,
                                     diameter=diameter,
@@ -359,14 +362,14 @@ class ConcreteBeam(Beam):
         return bars
     
     def _anchorSteelBars(self, steel_bars, interspace_between_momentum):
-        steel_bar_surface_type = fconcrete.config.available_material["steel_bar_surface_type"]
+        steel_bar_surface_type = fconcrete.config.available_material["concrete_long_steel_bars"].steel_bar_surface_type
         n1 = (2.25 if steel_bar_surface_type == "ribbed"
         else 1 if steel_bar_surface_type == "plain"
         else 1.4 if steel_bar_surface_type == "carved"
         else 0)
                 
         for interspace in interspace_between_momentum:
-            steel_bars_in_insterspace = fconcrete.SteelBars(steel_bars[(interspace == steel_bars.interspaces).sum(axis=1)== 2])
+            steel_bars_in_insterspace = fconcrete.LongSteelBars(steel_bars[(interspace == steel_bars.interspaces).sum(axis=1)== 2])
             major_steel_bar = steel_bars_in_insterspace[abs(steel_bars_in_insterspace.areas_accumulated) == abs(steel_bars_in_insterspace.areas_accumulated).max()][0]
             diameter = major_steel_bar.diameter
             begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
@@ -410,7 +413,7 @@ class ConcreteBeam(Beam):
 
     
     def solve_long_steel(self):
-        x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram()
+        x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram(division=self.division)
         
         interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, positive_areas_info[2])
         interspace_between_momentum_negative = self._getInterspaceBetweenMomentum(x, negative_areas_info[2])
@@ -423,14 +426,19 @@ class ConcreteBeam(Beam):
         
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
-        steel_bars = SteelBars(np.array(concatenation))
+        steel_bars = LongSteelBars(np.array(concatenation))
         
         steel_bars_with_anchor_length_positive = self._anchorSteelBars(steel_bars, interspace_between_momentum_positive)
         steel_bars_with_anchor_length = self._anchorSteelBars(steel_bars_with_anchor_length_positive, interspace_between_momentum_negative)
         
         return steel_bars_with_anchor_length
     
-    def solve_transv_steel(self):
+    def getShearDesignDiagram(self, **options_diagram):
+        x, shear_diagram = self.getShearDiagram(division=self.division)
+        return x, self.design_factor*shear_diagram
+        
+        
+    def solve_transv_steel(self, model=2):
         pass
     
     
