@@ -5,18 +5,16 @@ import copy
 
 class LongSteelBar():
     def __init__(self, long_begin, long_end, quantity, diameter, quantity_accumulated, interspace):
-        available_steel = fconcrete.config.available_material['concrete_long_steel_bars']
+        available = fconcrete.config.available_material['concrete_long_steel_bars']
         self.long_begin = long_begin
         self.long_end = long_end
         self.quantity = quantity
         self.diameter = diameter
         self.interspace = interspace
         self.quantity_accumulated = quantity_accumulated
-        self.area_accumulated = available_steel.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
-        self.area = available_steel.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
-        self.fyd = available_steel.fyd
-        
-
+        self.area_accumulated = available.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
+        self.area = available.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
+        self.fyd = available.fyd
     
     @staticmethod
     def getSteelArea(section, material, steel, momentum):
@@ -61,12 +59,12 @@ class LongSteelBars():
     
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars
-        if str(type(new_steel_bars)) == "<class 'fconcrete.LongSteelBar.LongSteelBars'>":
+        if str(type(new_steel_bars)) == "<class 'fconcrete.LongSteelBar.LongSteelBar.LongSteelBars'>":
             concatenation = list(np.concatenate((previous_steel_bars,new_steel_bars.steel_bars)))
             concatenation.sort(key=lambda x: x.long_begin, reverse=False)
             new_steel_bars = np.array(concatenation)
             
-        elif str(type(new_steel_bars)) == "<class 'fconcrete.LongSteelBar.LongSteelBar'>":
+        elif str(type(new_steel_bars)) == "<class 'fconcrete.LongSteelBar.LongSteelBar.LongSteelBar'>":
             new_steel_bars = np.append(previous_steel_bars,new_steel_bars)
         self.__init__(new_steel_bars)
     

@@ -9,8 +9,8 @@ from .helpers import *
 from .Structural import *
 from .ConcreteBeam import ConcreteBeam
 from .Material import Material, Concrete
-from .LongSteelBar import LongSteelBar, LongSteelBars
 from .TransvSteelBar import *
+from .LongSteelBar import *
 
 def main():
     return
