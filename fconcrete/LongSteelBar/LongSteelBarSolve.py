@@ -227,10 +227,10 @@ class LongSteelBarSolve():
             n2 = 1 if major_steel_bar.area > 0 else 0.7
             n3 = 1 if diameter < 3.2 else (13.2 - diameter)/10
 
-            f_bd = n1 * n2 * n3 * bar_element.section.material.fctd
+            f_bd = n1 * n2 * n3 * bar_element.material.fctd
 
             # Check if hook is necessary
-            alpha = 0.7 if (begin <= self.concrete_beam.x_begin+bar_element.section.material.c or end >= self.concrete_beam.x_end-bar_element.section.material.c) else 1
+            alpha = 0.7 if (begin <= self.concrete_beam.x_begin+bar_element.material.c or end >= self.concrete_beam.x_end-bar_element.material.c) else 1
 
             lb = max(abs(diameter*major_steel_bar.fyd/(4*f_bd)), 25*diameter)
             lbmin = max(0.3*lb, 10*diameter, 10)
@@ -340,7 +340,7 @@ class LongSteelBarSolve():
             #only working with rectangle section
             _, single_beam = self.concrete_beam.getSingleBeamElementInX(x)
             return fconcrete.LongSteelBar.getSteelArea(section=single_beam.section,
-                                            material=single_beam.section.material,
+                                            material=single_beam.material,
                                             steel=self.available,
                                             momentum=momentum)
         

@@ -26,38 +26,38 @@ class TransvSteelBarSolve():
     def checkProbableCompressedConnectingRod(self):
         max_shear = max(self.shear_diagram)
         max_shear_x = self.x[self.shear_diagram == max_shear][0]
-        max_section = self.concrete_beam.getSingleBeamElementInX(max_shear_x)[1].section
-        v_rd2 = self.getV_rd2(max_section)
+        _, single_beam_element = self.concrete_beam.getSingleBeamElementInX(max_shear_x)
+        v_rd2 = self.getV_rd2(single_beam_element)
         check = max_shear <= v_rd2
         if check == False: raise Exception("Shear ({}kN) in x={} is greater or equal to maximum shear allowed ({}kN)".format(max_shear, max_shear_x, v_rd2))
-        return v_rd2, max_section.d, max_shear
+        return v_rd2, single_beam_element.section.d, max_shear
     
-    def getV_rd2(self, section):
-        fck = section.material.fck
-        bw = section.bw
-        d = section.d
-        fcd = section.material.fcd
+    def getV_rd2(self, single_beam_element):
+        fck = single_beam_element.material.fck
+        bw = single_beam_element.section.bw
+        d = single_beam_element.section.d
+        fcd = single_beam_element.material.fcd
         alpha_v2 = (1-fck/25)
         v_rd2 = 0.54*alpha_v2*fcd*bw*d*(sin(self.theta))*(tan(self.alpha)**(-1)+tan(self.theta)**(-1))
         return v_rd2
     
-    def getMinimumSteelAreaPerCm(self,section):
-        fctm = section.material.fctm
-        bw = section.bw
+    def getMinimumSteelAreaPerCm(self,single_beam_element):
+        fctm = single_beam_element.material.fctm
+        bw = single_beam_element.section.bw
         As_per_cm_min = 0.2*fctm*bw*sin(self.alpha)/self.fyk
         return As_per_cm_min
     
 
     def getShearSteelAreaPerCm(self, x, v_sd): 
         # can be optimized
-        section = self.concrete_beam.getSingleBeamElementInX(x)[1].section
-        v_rd2 = self.getV_rd2(section)
-        As_per_cm_min = self.getMinimumSteelAreaPerCm(section)
+        _, single_beam_element = self.concrete_beam.getSingleBeamElementInX(x)
+        v_rd2 = self.getV_rd2(single_beam_element)
+        As_per_cm_min = self.getMinimumSteelAreaPerCm(single_beam_element)
         
         _, single_beam_element = self.concrete_beam.getSingleBeamElementInX(x)
         bw = single_beam_element.section.bw
         d = single_beam_element.section.d
-        fctd = single_beam_element.section.material.fctd
+        fctd = single_beam_element.material.fctd
 
         v_c0 = 0.6*fctd*bw*d
         v_c1 = np.interp(v_sd, [v_c0, v_c0, v_rd2], [v_c0, v_c0, 0])
@@ -90,7 +90,7 @@ class TransvSteelBarSolve():
             single_beam_element = self.concrete_beam.getSingleBeamElementInX(x)[1]
             height = single_beam_element.section.height
             width = single_beam_element.section.width()
-            c = single_beam_element.section.material.c
+            c = single_beam_element.material.c
             transversal_steel.add(
                 fconcrete.TransvSteelBar(x, height-2*c, width-2*c, diameter, space, area, as_per_cm)
             )

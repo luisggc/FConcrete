@@ -2,17 +2,18 @@ import numpy as np
 from fconcrete.Structural.Node import Node
 
 class SingleBeamElement:
-    def __init__(self, nodes, section, max_types_of_bars=1):
+    def __init__(self, nodes, section, material, max_types_of_bars=1):
         self.section = section
-        self.material = section.material
+        section.d = section.height-material.c
+        self.material = material
         self.x = nodes
-        self.E = section.material.E
+        self.E = material.E
         self.I = section.I
         self.max_types_of_bars = max_types_of_bars
         self.n1 = nodes[0]
         self.n2 = nodes[1]
         self.length = nodes[1].x - nodes[0].x
-        self.flexural_rigidity = section.material.E*section.I
+        self.flexural_rigidity = material.E*section.I
         
     def get_matrix_rigidity_unitary(self):
         #waring(ajeitar unidade)
@@ -51,8 +52,8 @@ class SingleBeamElement:
     def split(self, x):
         if x >= self.n2.x or x <= self.n1.x: return [self]
         n_intermediate = Node.MiddleNode(x=x)
-        bar1 = SingleBeamElement(nodes=[self.n1, n_intermediate], section=self.section)
-        bar2 = SingleBeamElement(nodes=[n_intermediate, self.n2], section=self.section)
+        bar1 = SingleBeamElement(nodes=[self.n1, n_intermediate], section=self.section, material=self.material)
+        bar2 = SingleBeamElement(nodes=[n_intermediate, self.n2], section=self.section, material=self.material)
         return [bar1, bar2]
         
     def __repr__(self):
