@@ -10,10 +10,10 @@ from .Structural import *
 from .ConcreteBeam import ConcreteBeam
 from .Material import Material, Concrete
 from .LongSteelBar import LongSteelBar, LongSteelBars
-    
+from .TransvSteelBar import *
+
 def main():
     return
-
 
 if __name__ == '__main__':
     main()

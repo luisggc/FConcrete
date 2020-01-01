@@ -70,9 +70,9 @@ class ConcreteBeam(Beam):
         if options.get("solve_long_steel") != False:
             self.steel_bars = self.solve_long_steel()
         
-        #if options.get("solve_transv_steel") != False:
-        #    self.steel_bars = self.solve_transv_steel()
-        
+        if options.get("solve_transv_steel") != False:
+            solution_info = fconcrete.TransvSteelBarSolve(concrete_beam=self, fyk=50, theta_in_degree=45, alpha_in_degree = 90)
+            self.transv_steel_bars = solution_info.steel_bars
         
     def getDecalagedMomentumDesignDiagram(self, **options_diagram):
         """
@@ -436,17 +436,6 @@ class ConcreteBeam(Beam):
     def getShearDesignDiagram(self, **options_diagram):
         x, shear_diagram = self.getShearDiagram(division=self.division)
         return x, self.design_factor*shear_diagram
-        
-        
-    def solve_transv_steel(self, model=2):
-        pass
-    
-    
-    
-    
-    
-    
-    
     
     
     
