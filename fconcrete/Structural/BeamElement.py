@@ -1,7 +1,7 @@
 import numpy as np
 from fconcrete.Structural.Node import Node, Nodes
 
-class SingleBeamElement:
+class BeamElement:
     def __init__(self, nodes, section, material, max_types_of_bars=1):
         self.section = section
         section.d = section.height - material.c if hasattr(material,"c") else 0
@@ -52,15 +52,15 @@ class SingleBeamElement:
     def split(self, x):
         if x >= self.n2.x or x <= self.n1.x: return [self]
         n_intermediate = Node.MiddleNode(x=x)
-        bar1 = SingleBeamElement(nodes=[self.n1, n_intermediate], section=self.section, material=self.material)
-        bar2 = SingleBeamElement(nodes=[n_intermediate, self.n2], section=self.section, material=self.material)
+        bar1 = BeamElement(nodes=[self.n1, n_intermediate], section=self.section, material=self.material)
+        bar2 = BeamElement(nodes=[n_intermediate, self.n2], section=self.section, material=self.material)
         return [bar1, bar2]
         
     def __repr__(self):
         return str(self.__dict__)
 
 
-class SingleBeamElements:
+class BeamElements:
     def __init__(self, bar_elements):
         self.bar_elements = np.array(bar_elements)
         self.x_start = np.array([ bar_element.n1.x for bar_element in bar_elements ])
@@ -88,7 +88,7 @@ class SingleBeamElements:
         new_beams = np.array([])
         for bar in self.bar_elements:
             new_beams = np.concatenate((new_beams, bar.split(x)))
-        return SingleBeamElements(new_beams)
+        return BeamElements(new_beams)
 
     def __repr__(self):
         return str(self.__dict__)    

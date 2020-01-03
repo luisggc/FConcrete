@@ -124,7 +124,7 @@ class LongSteelBarSolve():
                 Define the position in cm.
             
         """
-        _, beam_element = self.concrete_beam.getSingleBeamElementInX(x)
+        _, beam_element = self.concrete_beam.getBeamElementInX(x)
         return fconcrete.LongSteelBar.getMinimumAndMaximumSteelArea(
             area = beam_element.section.area,
             fck = beam_element.material.fck
@@ -209,7 +209,7 @@ class LongSteelBarSolve():
             major_steel_bar = steel_bars_in_insterspace[abs(steel_bars_in_insterspace.areas_accumulated) == abs(steel_bars_in_insterspace.areas_accumulated).max()][0]
             diameter = major_steel_bar.diameter
             begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
-            _, bar_element = self.concrete_beam.getSingleBeamElementInX((begin+end)/2)
+            _, bar_element = self.concrete_beam.getBeamElementInX((begin+end)/2)
             _, positive_area_diagram, negative_area_diagram = self.getSteelAreaDiagram(division=100,
                                                                                     x_begin= begin if begin>self.concrete_beam.x_begin else self.concrete_beam.x_begin,
                                                                                     x_end= end if end<self.concrete_beam.x_end else self.concrete_beam.x_end)
@@ -338,7 +338,7 @@ class LongSteelBarSolve():
                 
             """ 
             #only working with rectangle section
-            _, single_beam = self.concrete_beam.getSingleBeamElementInX(x)
+            _, single_beam = self.concrete_beam.getBeamElementInX(x)
             return fconcrete.LongSteelBar.getSteelArea(section=single_beam.section,
                                             material=single_beam.material,
                                             steel=self.available,

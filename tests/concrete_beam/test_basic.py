@@ -22,9 +22,9 @@ def create_concrete_beam():
     n3 = fc.Node.SimpleSupport(x=583, length=20)
     n4 = fc.Node.SimpleSupport(x=1188, length=20)
 
-    bar1 = fc.SingleBeamElement([n1, n2], section, material)
-    bar2 = fc.SingleBeamElement([n2, n3], section, material)
-    bar3 = fc.SingleBeamElement([n3, n4], section, material)
+    bar1 = fc.BeamElement([n1, n2], section, material)
+    bar2 = fc.BeamElement([n2, n3], section, material)
+    bar3 = fc.BeamElement([n3, n4], section, material)
 
     fc.config.available_material = {
         "concrete_long_steel_bars":fc.AvailableLongConcreteSteelBar(diameters=[8]),

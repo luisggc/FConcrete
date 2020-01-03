@@ -1,4 +1,4 @@
-from fconcrete import config, duplicated, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section
+from fconcrete import config, duplicated, Material, Beam, Load, Node, ConcreteBeam, BeamElement, Rectangle, Concrete, Section
 e = config.e
 from pytest import approx
 import numpy as np
@@ -67,9 +67,9 @@ def test_v47():
     n3 = Node.SimpleSupport(x=583)
     n4 = Node.SimpleSupport(x=1188)
 
-    bar1 = SingleBeamElement([n1, n2], section, material)
-    bar2 = SingleBeamElement([n2, n3], section, material)
-    bar3 = SingleBeamElement([n3, n4], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
+    bar2 = BeamElement([n2, n3], section, material)
+    bar3 = BeamElement([n3, n4], section, material)
 
     beam = Beam(
         loads = [f1, f2, f3],
@@ -88,7 +88,7 @@ def test_free_crimped():
     n1 = Node.Free(x=0)
     n2 = Node.Crimp(x=113)
 
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
 
     beam = Beam(
         loads = [f1, f2],
@@ -105,7 +105,7 @@ def test_crimped_free():
     n1 = Node.Crimp(x=0)
     n2 = Node.Free(x=113)
 
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
 
     beam = Beam(
         loads = [f1],
@@ -123,7 +123,7 @@ def test_crimped_simple_supported():
     n1 = Node.Crimp(x=0)
     n2 = Node.SimpleSupport(x=113)
 
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
 
     beam = Beam(
         loads = [f1],

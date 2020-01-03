@@ -26,7 +26,7 @@ class TransvSteelBarSolve():
     def checkProbableCompressedConnectingRod(self):
         max_shear = max(self.shear_diagram)
         max_shear_x = self.x[self.shear_diagram == max_shear][0]
-        _, single_beam_element = self.concrete_beam.getSingleBeamElementInX(max_shear_x)
+        _, single_beam_element = self.concrete_beam.getBeamElementInX(max_shear_x)
         v_rd2 = self.getV_rd2(single_beam_element)
         check = max_shear <= v_rd2
         if check == False: raise Exception("Shear ({}kN) in x={} is greater or equal to maximum shear allowed ({}kN)".format(max_shear, max_shear_x, v_rd2))
@@ -50,11 +50,11 @@ class TransvSteelBarSolve():
 
     def getShearSteelAreaPerCm(self, x, v_sd): 
         # can be optimized
-        _, single_beam_element = self.concrete_beam.getSingleBeamElementInX(x)
+        _, single_beam_element = self.concrete_beam.getBeamElementInX(x)
         v_rd2 = self.getV_rd2(single_beam_element)
         As_per_cm_min = self.getMinimumSteelAreaPerCm(single_beam_element)
         
-        _, single_beam_element = self.concrete_beam.getSingleBeamElementInX(x)
+        _, single_beam_element = self.concrete_beam.getBeamElementInX(x)
         bw = single_beam_element.section.bw
         d = single_beam_element.section.d
         fctd = single_beam_element.material.fctd
@@ -87,7 +87,7 @@ class TransvSteelBarSolve():
             x_loop = ((x_array>x) & (x_array<x+s_max))
             shear = max(abs(shear_area_per_cm[x_loop]))
             diameter, space, area, as_per_cm = self.getComercialInfo(shear)
-            single_beam_element = self.concrete_beam.getSingleBeamElementInX(x)[1]
+            single_beam_element = self.concrete_beam.getBeamElementInX(x)[1]
             height = single_beam_element.section.height
             width = single_beam_element.section.width()
             c = single_beam_element.material.c

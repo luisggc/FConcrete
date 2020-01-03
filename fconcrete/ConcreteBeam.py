@@ -29,9 +29,9 @@ class ConcreteBeam(Beam):
                 >>>    n3 = fc.Node.SimpleSupport(x=583)
                 >>>    n4 = fc.Node.SimpleSupport(x=1188)
 
-                >>>    beam_element1 = fc.SingleBeamElement([n1, n2], section)
-                >>>    beam_element2 = fc.SingleBeamElement([n2, n3], section)
-                >>>    beam_element3 = fc.SingleBeamElement([n3, n4], section)
+                >>>    beam_element1 = fc.BeamElement([n1, n2], section)
+                >>>    beam_element2 = fc.BeamElement([n2, n3], section)
+                >>>    beam_element3 = fc.BeamElement([n3, n4], section)
 
                 >>>    fc.ConcreteBeam(
                         loads = [f1, f2, f3],

@@ -1,4 +1,4 @@
-from fconcrete.Structural.SingleBeamElement import SingleBeamElement, SingleBeamElements
+from fconcrete.Structural.BeamElement import BeamElement, BeamElements
 from fconcrete.Structural.Load import Load, Loads
 from fconcrete.Structural.Node import Nodes
 from fconcrete.helpers import cond
@@ -11,7 +11,7 @@ e = config.e
 class Beam:
 
     def __init__(self, loads, beam_elements, **options):
-        beam_elements = SingleBeamElements.create(beam_elements)
+        beam_elements = BeamElements.create(beam_elements)
         external_loads = Loads.create(loads)
         self.initial_beam_elements = beam_elements
         beam_elements = self.createIntermediateBeams(external_loads, beam_elements)
@@ -69,9 +69,9 @@ class Beam:
         for load in self.external_loads.loads:
             if (load.x == self.x_end):
                 load.x = self.x_end - e
-            force_beam, beam_element = self.getSingleBeamElementInX(load.x)
+            force_beam, beam_element = self.getBeamElementInX(load.x)
 
-            beams_efforts[4*force_beam:4*force_beam+4] += SingleBeamElement.get_efforts_from_bar_element(
+            beams_efforts[4*force_beam:4*force_beam+4] += BeamElement.get_efforts_from_bar_element(
                 beam_element,
                 load
             )
@@ -105,7 +105,7 @@ class Beam:
         return beams_efforts - F
     
 
-    def getSingleBeamElementInX(self, x):
+    def getBeamElementInX(self, x):
             index = 0 if x<=self.x_begin else -1 if x>=self.x_end else np.where(
             np.array([node.x for node in self.beam_elements.nodes]) <= x)[0][-1]
             bar_element = self.beam_elements[index]
@@ -176,7 +176,7 @@ class Beam:
                 return 0
             f_value = 0
             
-            _, single_beam_element = self.getSingleBeamElementInX(x)
+            _, single_beam_element = self.getBeamElementInX(x)
             for load in self.loads:
                 f_value += -load.momentum * \
                     cond(x-load.x_begin, order=2)/2 if load.x_begin == load.x_end else 0
@@ -204,7 +204,7 @@ class Beam:
                 return 0
             f_value = 0
             
-            _, single_beam_element = self.getSingleBeamElementInX(x)
+            _, single_beam_element = self.getBeamElementInX(x)
             
             for load in self.loads:
                 f_value += -load.momentum * \

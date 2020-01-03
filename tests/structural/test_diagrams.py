@@ -1,4 +1,4 @@
-from fconcrete import config, duplicated, Material, Beam, Load, Node, ConcreteBeam, SingleBeamElement, Rectangle, Concrete, Section
+from fconcrete import config, duplicated, Material, Beam, Load, Node, ConcreteBeam, BeamElement, Rectangle, Concrete, Section
 e = config.e
 from pytest import approx
 import numpy as np
@@ -13,7 +13,7 @@ def create_crimped_beam():
     f1 = Load.PontualLoad(-1, x=500)
     n1 = Node.Crimp(x=0)
     n2 = Node.Crimp(x=1000)
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
     return Beam(
         loads = [f1],
         beam_elements = [bar1],
@@ -26,7 +26,7 @@ def create_simple_beam():
     f1 = Load.PontualLoad(-1, x=500)
     n1 = Node.SimpleSupport(x=0)
     n2 = Node.SimpleSupport(x=1000)
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
     return Beam(
         loads = [f1],
         beam_elements = [bar1],
@@ -74,7 +74,7 @@ def test_structural_double_crimped_beam():
     f1 = Load.PontualLoad(-200, x=200)
     n1 = Node.Crimp(x=0)
     n2 = Node.Crimp(x=1000)
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
     beam = Beam(
         loads = [f1],
         beam_elements = [bar1]
@@ -98,7 +98,7 @@ def test_structural__crimped_simple_supported_beam():
     f1 = Load.PontualLoad(-200, x=700)
     n1 = Node.Crimp(x=0)
     n2 = Node.SimpleSupport(x=1000)
-    bar1 = SingleBeamElement([n1, n2], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
     beam = Beam(
         loads = [f1],
         beam_elements = [bar1]
@@ -122,8 +122,8 @@ def test_structural__crimped_simplesupported_crimped_beam():
     n1 = Node.Crimp(x=0)
     n2 = Node.SimpleSupport(x=1000)
     n3 = Node.Crimp(x=1500)
-    bar1 = SingleBeamElement([n1, n2], section, material)
-    bar2 = SingleBeamElement([n2, n3], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
+    bar2 = BeamElement([n2, n3], section, material)
     beam = Beam(
         loads = [f1],
         beam_elements = [bar1, bar2],
@@ -152,8 +152,8 @@ def test_structural__crimped_simplesupported_simplesupported_beam():
     n1 = Node.Crimp(x=0)
     n2 = Node.SimpleSupport(x=1000)
     n3 = Node.SimpleSupport(x=1500)
-    bar1 = SingleBeamElement([n1, n2], section, material)
-    bar2 = SingleBeamElement([n2, n3], section, material)
+    bar1 = BeamElement([n1, n2], section, material)
+    bar2 = BeamElement([n2, n3], section, material)
     beam = Beam(
         loads = [f1],
         beam_elements = [bar1, bar2],
