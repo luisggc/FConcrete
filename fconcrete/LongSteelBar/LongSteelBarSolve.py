@@ -66,7 +66,7 @@ class LongSteelBarSolve():
         decalaged_x_left = np.array([])
         decalaged_x_right = np.array([])
         warnings.warn("Must improve a_l calculus", DeprecationWarning)
-        for beam_element in self.concrete_beam.bars:
+        for beam_element in self.concrete_beam.beam_elements:
             a_l = 0.5*beam_element.section.d
             position_in_beam_element = x[(x>=beam_element.n1.x) & (x<=beam_element.n2.x)]
             decalaged_x_left_temp = position_in_beam_element - a_l

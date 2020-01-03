@@ -7,6 +7,7 @@ class ConcreteBeam(Beam):
 
     def __init__(self, loads, beam_elements,
                  bar_steel_removal_step=2, bar_steel_max_removal=100, design_factor=1.4, division=1000,
+                 maximum_displacement = 1/250,
                  **options):
         """
             Returns a concrete_beam element.
@@ -63,6 +64,11 @@ class ConcreteBeam(Beam):
         self.bar_steel_max_removal = bar_steel_max_removal
         self.design_factor = design_factor
         self.division = division
+        self.maximum_displacement = maximum_displacement
+        
+        #if options.get("solve_ELS") != False:
+            
+            
         
         if options.get("solve_transv_steel") != False:
             self.transv_steel_bars_solution_info = fconcrete.TransvSteelBarSolve(concrete_beam=self) #), fyk=50, theta_in_degree=45, alpha_in_degree = 90)

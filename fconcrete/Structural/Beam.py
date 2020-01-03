@@ -18,10 +18,10 @@ class Beam:
         self.x_begin, self.x_end = beam_elements.nodes[0].x, beam_elements.nodes[-1].x
         
         self.external_loads = external_loads
-        self.bars = beam_elements
+        self.beam_elements = beam_elements
         
         self.length = sum(beam_elements.length)
-        self.beams_quantity = len(beam_elements.bar_elements)
+        self.beams_quantity = len(beam_elements)
         
         self._solve_displacement = False
         if options.get("solve_displacement") != False:
@@ -34,7 +34,7 @@ class Beam:
     def solve_structural(self):
         nodal_efforts = self.getSupportReactions()
         self.nodal_efforts = nodal_efforts
-        nodes = Nodes(self.bars.nodes)
+        nodes = Nodes(self.beam_elements.nodes)
         self.nodes = nodes
         loads = self.external_loads
         for index, node in enumerate(nodes.nodes):
@@ -58,7 +58,7 @@ class Beam:
         matrix_rigidity_row = 2*self.beams_quantity+2
         matrix_rigidity_global = np.zeros(
             (matrix_rigidity_row, matrix_rigidity_row))
-        for beam_n, beam in enumerate(self.bars.bar_elements):
+        for beam_n, beam in enumerate(self.beam_elements):
             matrix_rigidity_global[beam_n*2:beam_n*2+4,
                                    beam_n*2:beam_n*2+4] += beam.get_matrix_rigidity_unitary()
         return matrix_rigidity_global
@@ -90,7 +90,7 @@ class Beam:
         return beams_efforts[a] + beams_efforts[b]*mult_b
 
     def getSupportReactions(self):
-        condition_boundary = self.bars.condition_boundary
+        condition_boundary = self.beam_elements.condition_boundary
         beams_efforts = self.get_beams_efforts()
         matrix_rigidity_global = self.matrix_rigidity_global()
 
@@ -106,14 +106,14 @@ class Beam:
     
 
     def getSingleBeamElementInX(self, x):
-            index = 0 if x<=self.bars.nodes[0].x else -1 if x>=self.bars.nodes[-1].x else np.where(
-            np.array([node.x for node in self.bars.nodes]) <= x)[0][-1]
-            bar_element = self.bars.bar_elements[index]
+            index = 0 if x<=self.x_begin else -1 if x>=self.x_end else np.where(
+            np.array([node.x for node in self.beam_elements.nodes]) <= x)[0][-1]
+            bar_element = self.beam_elements[index]
             return index, bar_element
         
     def getInternalShearStrength(self, x):
         if isinstance(x, int) or isinstance(x, float):
-            if x < self.bars.nodes[0].x or x > self.bars.nodes[-1].x:
+            if x < self.x_begin or x > self.x_end:
                 return 0
             f_value = 0
             for load in self.loads.loads:
@@ -225,8 +225,8 @@ class Beam:
         return self._createDiagram(self.getRotation, **options)
     
     def _createDiagram(self, function, division=1000, x_begin="begin", x_end="end"):
-        x_begin = self.bars.nodes[0].x+e if x_begin=="begin" else x_begin
-        x_end = self.bars.nodes[-1].x-e if x_end=="end" else x_end
+        x_begin = self.x_begin+e if x_begin=="begin" else x_begin
+        x_end = self.x_end-e if x_end=="end" else x_end
         x = np.linspace(x_begin, x_end, division)
         y = np.array([function(x_i) for x_i in x])
         return x, y

@@ -131,3 +131,7 @@ def test_crimped_simple_supported():
     )
     compare(beam=beam, name="crimped_simple_supported")
     
+    
+    #for x, ft, fc in zip(x_rotation, rotation_diagram_v47, rotation_fconcrete):
+    #if ft != approx(fc, abs=0.000001):
+    #    print(x, ft, fc)
