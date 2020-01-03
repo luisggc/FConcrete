@@ -2,6 +2,7 @@ import numpy as np
 import fconcrete
 import warnings
 from scipy.signal import find_peaks
+from math import radians, sin, tan
 
 
 class LongSteelBarSolve():
@@ -14,8 +15,8 @@ class LongSteelBarSolve():
         
         x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram(division=concrete_beam.division)
         
-        interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, positive_areas_info[2])
-        interspace_between_momentum_negative = self._getInterspaceBetweenMomentum(x, negative_areas_info[2])
+        interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, area=positive_areas_info[2])
+        interspace_between_momentum_negative = self._getInterspaceBetweenMomentum(x, area=negative_areas_info[2])
         
         self.interspace_between_momentum_positive = interspace_between_momentum_positive
         self.interspace_between_momentum_negative = interspace_between_momentum_negative
@@ -65,9 +66,9 @@ class LongSteelBarSolve():
     def __decalageds_x_axis(self, x):
         decalaged_x_left = np.array([])
         decalaged_x_right = np.array([])
-        warnings.warn("Must improve a_l calculus", DeprecationWarning)
+        
         for beam_element in self.concrete_beam.beam_elements:
-            a_l = 0.5*beam_element.section.d
+            a_l = self.getDecalagedLength(beam_element)
             position_in_beam_element = x[(x>=beam_element.n1.x) & (x<=beam_element.n2.x)]
             decalaged_x_left_temp = position_in_beam_element - a_l
             decalaged_x_right_temp = position_in_beam_element + a_l
@@ -155,7 +156,7 @@ class LongSteelBarSolve():
         x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options_diagram)
         positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
-        return (x_decalaged,np.array(positive_areas_info).T,np.array(negative_areas_info).T)
+        return x_decalaged, np.array(np.array(positive_areas_info).T), np.array(np.array(negative_areas_info).T)
 
     
     def getComercialSteelArea(self, x, momentum):
@@ -372,7 +373,22 @@ class LongSteelBarSolve():
         #    return self._createDiagram(self.getSteelArea)
     
     
-
+    def getDecalagedLength(self, beam_element):
+        bw = beam_element.section.bw
+        d = beam_element.section.d
+        _, s = self.concrete_beam.getShearDiagram(x_begin=beam_element.n1.x, x_end=beam_element.n2.x)
+        alpha = radians(self.concrete_beam.transversal_bar_inclination_angle)
+        if alpha==radians(90):
+            return 0.5*d
+        vsd_max = max(abs(s))
+        fctd = beam_element.material.fctd
+        v_c0 = 0.6*fctd*bw*d
+        al_formula = min(d*((vsd_max*(1+tan(alpha)**(-1)))/(2*(vsd_max-v_c0))-tan(alpha)**(-1)), d)
+        if vsd_max <= v_c0:
+            al = d
+        elif alpha==radians(45):
+            al = max(al_formula, 0.2*d)
+        return al
     
     
     

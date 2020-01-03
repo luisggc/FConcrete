@@ -1,6 +1,6 @@
 import numpy as np
 import fconcrete
-from math import pi, sin, tan
+from math import radians, sin, tan
 
 class TransvSteelBarSolve():
     def __init__(self, concrete_beam, fyk=50, theta_in_degree=45, alpha_in_degree = 90):
@@ -11,8 +11,8 @@ class TransvSteelBarSolve():
         self.shear_diagram = abs(shear_diagram)
         self.fyk = fyk
         self.fyd = fyk/1.4
-        self.theta = (theta_in_degree*pi)/180
-        self.alpha = (alpha_in_degree*pi)/180
+        self.theta = radians(theta_in_degree)
+        self.alpha = radians(alpha_in_degree)
         v_rd2, d, v_sd = self.checkProbableCompressedConnectingRod()
         self.s_max = self._getS_max(v_rd2, d, v_sd, self.available)
         self.shear_area_per_cm = self.getShearSteelAreaPerCmDiagram()

@@ -14,7 +14,6 @@ class TransvSteelBar():
     
     def __repr__(self):
         return str(self.__dict__)+'\n'
-    
 
 class TransvSteelBars():
     def __init__(self, steel_bars=[]):
