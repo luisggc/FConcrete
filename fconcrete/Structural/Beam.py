@@ -23,6 +23,10 @@ class Beam:
         self.length = sum(beam_elements.length)
         self.beams_quantity = len(beam_elements.bar_elements)
         
+        self._solve_displacement = False
+        if options.get("solve_displacement") != False:
+            self._solve_displacement = True
+            
         if options.get("solve_structural") != False:
             self.solve_structural()
         
@@ -38,7 +42,8 @@ class Beam:
                 [Load(nodal_efforts[index*2], nodal_efforts[index*2+1], node.x, node.x)]
                 )
         self.loads = loads
-        self.solve_displacement_constants()
+        if self._solve_displacement==True:
+            self.solve_displacement_constants()
             
         
     @staticmethod
@@ -62,8 +67,8 @@ class Beam:
         beams_efforts = np.zeros(self.beams_quantity*4)
 
         for load in self.external_loads.loads:
-            if (load.x == self.length):
-                load.x = self.length - e
+            if (load.x == self.x_end):
+                load.x = self.x_end - e
             force_beam, beam_element = self.getSingleBeamElementInX(load.x)
 
             beams_efforts[4*force_beam:4*force_beam+4] += SingleBeamElement.get_efforts_from_bar_element(
@@ -144,25 +149,23 @@ class Beam:
     
     def solve_displacement_constants(self):
         nodes = self.initial_beam_elements.nodes
-        null_displacement = nodes.x[nodes.condition_boundary[:, 1]==1]
-        null_rotation = nodes.x[nodes.condition_boundary[:, 0]==1]
+        null_displacement = nodes.x[nodes.condition_boundary[:, 0]==0]
+        null_rotation = nodes.x[nodes.condition_boundary[:, 1]==0]
+        
         x1 = null_displacement[0]
-        print(null_displacement)
-        print(null_rotation)
-        if len(null_rotation)==0:
-            rest1 = self.getDisplacement(x1)
+        rest1 = self.getDisplacement(x1)
+        
+        if len(null_displacement)>=2:
             x2 = null_displacement[-1]
             rest2 = self.getDisplacement(x2)
             c1 = -(rest1 - rest2)/(x1-x2)
-            c2 = rest1 + c1*x1
+            c2 = -rest1 - c1*x1
         elif len(null_rotation)>=1 and len(null_displacement)>=1:
-            print("entrou")
             x2 = null_rotation[0]
             c1 = -self.getRotation(x2)
-            print(c1)
-            rest1 = self.getDisplacement(x2)
-            c2 = rest1 + c1*x1
-            
+
+        c2 = -rest1 - c1*x1
+        
         self._c1 = c1
         self._c2 = c2
             
@@ -175,7 +178,7 @@ class Beam:
             
             _, single_beam_element = self.getSingleBeamElementInX(x)
             for load in self.loads:
-                f_value += load.momentum * \
+                f_value += -load.momentum * \
                     cond(x-load.x_begin, order=2)/2 if load.x_begin == load.x_end else 0
                 f_value += load.force * \
                     cond(x-load.x_begin, order=3)/6 if load.order == 0 else 0
@@ -202,8 +205,9 @@ class Beam:
             f_value = 0
             
             _, single_beam_element = self.getSingleBeamElementInX(x)
+            
             for load in self.loads:
-                f_value += load.momentum * \
+                f_value += -load.momentum * \
                     cond(x-load.x_begin, order=1) if load.x_begin == load.x_end else 0
                 f_value += load.force * \
                     cond(x-load.x_begin, order=2)/2 if load.order == 0 else 0
