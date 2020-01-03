@@ -10,17 +10,18 @@ e = config.e
 
 class Beam:
 
-    def __init__(self, loads, bars, **options):
-        bars = SingleBeamElements.create(bars)
+    def __init__(self, loads, beam_elements, **options):
+        beam_elements = SingleBeamElements.create(beam_elements)
         external_loads = Loads.create(loads)
-        bars = self.createIntermediateBeams(external_loads, bars)
-        self.x_begin, self.x_end = bars.nodes[0].x, bars.nodes[-1].x
+        self.initial_beam_elements = beam_elements
+        beam_elements = self.createIntermediateBeams(external_loads, beam_elements)
+        self.x_begin, self.x_end = beam_elements.nodes[0].x, beam_elements.nodes[-1].x
         
         self.external_loads = external_loads
-        self.bars = bars
+        self.bars = beam_elements
         
-        self.length = sum(bars.length)
-        self.beams_quantity = len(bars.bar_elements)
+        self.length = sum(beam_elements.length)
+        self.beams_quantity = len(beam_elements.bar_elements)
         
         if options.get("solve_structural") != False:
             self.solve_structural()
@@ -37,6 +38,7 @@ class Beam:
                 [Load(nodal_efforts[index*2], nodal_efforts[index*2+1], node.x, node.x)]
                 )
         self.loads = loads
+        self.solve_displacement_constants()
             
         
     @staticmethod
@@ -92,7 +94,7 @@ class Beam:
 
         U = np.zeros(len(condition_boundary))
         U[condition_boundary] = np.linalg.solve(matrix_rigidity_global_determinable, beams_efforts_determinable)
-        
+        self.U = U
         F = matrix_rigidity_global @ U
 
         return beams_efforts - F
@@ -140,6 +142,84 @@ class Beam:
     def getMomentumDiagram(self, **options):
         return self._createDiagram(self.getInternalMomentumStrength, **options)
     
+    def solve_displacement_constants(self):
+        nodes = self.initial_beam_elements.nodes
+        null_displacement = nodes.x[nodes.condition_boundary[:, 1]==1]
+        null_rotation = nodes.x[nodes.condition_boundary[:, 0]==1]
+        x1 = null_displacement[0]
+        print(null_displacement)
+        print(null_rotation)
+        if len(null_rotation)==0:
+            rest1 = self.getDisplacement(x1)
+            x2 = null_displacement[-1]
+            rest2 = self.getDisplacement(x2)
+            c1 = -(rest1 - rest2)/(x1-x2)
+            c2 = rest1 + c1*x1
+        elif len(null_rotation)>=1 and len(null_displacement)>=1:
+            print("entrou")
+            x2 = null_rotation[0]
+            c1 = -self.getRotation(x2)
+            print(c1)
+            rest1 = self.getDisplacement(x2)
+            c2 = rest1 + c1*x1
+            
+        self._c1 = c1
+        self._c2 = c2
+            
+
+    def getDisplacement(self, x):
+        if isinstance(x, int) or isinstance(x, float):
+            if x < self.x_begin or x > self.x_end:
+                return 0
+            f_value = 0
+            
+            _, single_beam_element = self.getSingleBeamElementInX(x)
+            for load in self.loads:
+                f_value += load.momentum * \
+                    cond(x-load.x_begin, order=2)/2 if load.x_begin == load.x_end else 0
+                f_value += load.force * \
+                    cond(x-load.x_begin, order=3)/6 if load.order == 0 else 0
+                f_value += (load.q*cond(x-load.x_begin, order=load.order+3) -
+                            load.q*cond(x-load.x_end, order=load.order+3))/((load.order+1)*(load.order+2)*(load.order+3))
+            
+            if not hasattr(self, "_c1"):
+                return f_value
+            
+            f_value += self._c1*x+self._c2
+            return f_value/single_beam_element.flexural_rigidity
+            
+        
+        elif isinstance(x, np.ndarray) or isinstance(x, list):
+            return np.array([ self.getDisplacement(x_element) for x_element in x ])
+    
+    def getDisplacementDiagram(self, **options):
+        return self._createDiagram(self.getDisplacement, **options)
+    
+    def getRotation(self, x):
+        if isinstance(x, int) or isinstance(x, float):
+            if x < self.x_begin or x > self.x_end:
+                return 0
+            f_value = 0
+            
+            _, single_beam_element = self.getSingleBeamElementInX(x)
+            for load in self.loads:
+                f_value += load.momentum * \
+                    cond(x-load.x_begin, order=1) if load.x_begin == load.x_end else 0
+                f_value += load.force * \
+                    cond(x-load.x_begin, order=2)/2 if load.order == 0 else 0
+                f_value += (load.q*cond(x-load.x_begin, order=load.order+2) -
+                            load.q*cond(x-load.x_end, order=load.order+2))/((load.order+1)*(load.order+2))
+            
+            if not hasattr(self, "_c1"):
+                return f_value
+            f_value += self._c1
+            return f_value/single_beam_element.flexural_rigidity
+        elif isinstance(x, np.ndarray) or isinstance(x, list):
+            return np.array([ self.getRotation(x_element) for x_element in x ])
+    
+    def getRotationDiagram(self, **options):
+        return self._createDiagram(self.getRotation, **options)
+    
     def _createDiagram(self, function, division=1000, x_begin="begin", x_end="end"):
         x_begin = self.bars.nodes[0].x+e if x_begin=="begin" else x_begin
         x_end = self.bars.nodes[-1].x-e if x_end=="end" else x_end
@@ -154,6 +234,14 @@ class Beam:
         
     def plotShearDiagram(self, **options):
         x, y = self.getShearDiagram(**options)
+        plt.plot(x, y)
+        
+    def plotDisplacementDiagram(self, **options):
+        x, y = self.getDisplacementDiagram(**options)
+        plt.plot(x, y)
+        
+    def plotRotationDiagram(self, **options):
+        x, y = self.getRotationDiagram(**options)
         plt.plot(x, y)
     
     def __repr__(self):

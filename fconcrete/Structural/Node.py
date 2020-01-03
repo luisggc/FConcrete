@@ -25,7 +25,7 @@ class Node:
         return cls(x, [0, 0], length)
     
     def __repr__(self):
-        return str(self.__dict__)
+        return str(self.__dict__)+'\n'
 
 
 class Nodes:
@@ -35,7 +35,7 @@ class Nodes:
         self.condition_boundary = np.array([ node.condition_boundary for node in nodes ])
     
     def __repr__(self):
-        return self.nodes
+        return str(self.nodes)
     
     def __getitem__(self, key):
         return self.nodes[key]

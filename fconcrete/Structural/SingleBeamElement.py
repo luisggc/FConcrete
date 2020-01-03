@@ -1,10 +1,10 @@
 import numpy as np
-from fconcrete.Structural.Node import Node
+from fconcrete.Structural.Node import Node, Nodes
 
 class SingleBeamElement:
     def __init__(self, nodes, section, material, max_types_of_bars=1):
         self.section = section
-        section.d = section.height-material.c
+        section.d = section.height - material.c if hasattr(material,"c") else 0
         self.material = material
         self.x = nodes
         self.E = material.E
@@ -67,10 +67,10 @@ class SingleBeamElements:
         self.x_end = np.array([ bar_element.n2.x for bar_element in bar_elements ])
         self.length = np.array([ bar_element.length for bar_element in bar_elements ])
         self.flexural_rigidity = np.array([ bar_element.flexural_rigidity for bar_element in bar_elements ])
-        self.nodes = np.concatenate((
+        self.nodes = Nodes(np.concatenate((
                 [ beam.n1 for beam in bar_elements ],
                 [bar_elements[-1].n2 ] 
-        ))
+        )))
         condition_boundary = np.vstack((
             [ beam.n1.condition_boundary for beam in bar_elements ],
             bar_elements[-1].n2.condition_boundary

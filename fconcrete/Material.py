@@ -1,13 +1,15 @@
 from fconcrete.helpers import to_unit
 from math import log
-
+from fconcrete.helpers import cond, integrate, to_unit
+        
+        
 class Material():
     """
         E - in MPA
         Poisson - 
     """    
     def __init__(self, E, poisson, alpha):
-        self.E = E
+        self.E = to_unit(E, "MPa", "kN/cm**2").magnitude
         self.poisson = poisson
         self.alpha = alpha
         

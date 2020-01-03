@@ -10,7 +10,7 @@ def approx01(x):
 
 def create_concrete_beam():
     material = fc.Concrete(fck='30 MPa', aggressiveness=2)
-    section = fc.Rectangle(25,56, material)
+    section = fc.Rectangle(25,56)
 
     #Design
     f1 = fc.Load.UniformDistributedLoad(-0.1622, x_begin=0, x_end=113)
@@ -22,9 +22,9 @@ def create_concrete_beam():
     n3 = fc.Node.SimpleSupport(x=583, length=20)
     n4 = fc.Node.SimpleSupport(x=1188, length=20)
 
-    bar1 = fc.SingleBeamElement([n1, n2], section)
-    bar2 = fc.SingleBeamElement([n2, n3], section)
-    bar3 = fc.SingleBeamElement([n3, n4], section)
+    bar1 = fc.SingleBeamElement([n1, n2], section, material)
+    bar2 = fc.SingleBeamElement([n2, n3], section, material)
+    bar3 = fc.SingleBeamElement([n3, n4], section, material)
 
     fc.config.available_material = {
         "concrete_long_steel_bars":fc.AvailableLongConcreteSteelBar(diameters=[8]),

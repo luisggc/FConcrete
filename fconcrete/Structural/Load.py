@@ -2,7 +2,7 @@ import numpy as np
 from fconcrete.helpers import to_unit
 
 class Load:
-    def __init__(self, force, momentum, x_begin, x_end, q=0, order=0):
+    def __init__(self, force, momentum, x_begin, x_end, q=0, order=0, displacement=0):
         
         force = to_unit(force, "kN").magnitude
         momentum = to_unit(momentum, "kNcm").magnitude
@@ -17,6 +17,7 @@ class Load:
         self.momentum = momentum
         self.q = q
         self.order = order
+        self.displacement = displacement
         
     @classmethod
     def PontualLoad(cls, load, x):
@@ -79,9 +80,12 @@ class Load:
         
         return cls(force, 0, x_begin, x_end, q=q, order=1)
     
-        
+    @classmethod
+    def DisplacementLoad(cls, x, displacement):
+        return cls(0, 0, x, x, displacement=displacement)
+    
     def __repr__(self):
-        return str(self.__dict__)
+        return str(self.__dict__)+'\n'
 
 
 class Loads:
@@ -109,7 +113,7 @@ class Loads:
         return self.create(loads)
     
     def __repr__(self):
-        return self.loads
+        return str(self.loads)
      
     def __getitem__(self, key):
         return self.loads[key]
