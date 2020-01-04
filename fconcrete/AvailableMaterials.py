@@ -18,7 +18,7 @@ class AvailableLongConcreteSteelBar:
                     },
                  fyw = 50/1.15,
                  max_number=100,
-                 steel_bar_surface_type="ribbed"):
+                 surface_type="ribbed"):
         try:
             areas = [diameters_to_area[diameter] for diameter in diameters]
         except:
@@ -43,7 +43,7 @@ class AvailableLongConcreteSteelBar:
         self.fyd = fyd
         self.diameters = diameters
         self.diameters_to_area = diameters_to_area
-        self.steel_bar_surface_type = steel_bar_surface_type
+        self.surface_type = surface_type
         
         
 class AvailableTransvConcreteSteelBar:

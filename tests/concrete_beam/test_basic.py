@@ -26,7 +26,7 @@ def create_concrete_beam():
     bar2 = fc.BeamElement([n2, n3], section, material)
     bar3 = fc.BeamElement([n3, n4], section, material)
 
-    fc.config.available_material = {
+    available_material = {
         "concrete_long_steel_bars":fc.AvailableLongConcreteSteelBar(diameters=[8]),
         "concrete_transv_steel_bars":fc.AvailableTransvConcreteSteelBar(diameters=[8]),
     }
@@ -35,6 +35,7 @@ def create_concrete_beam():
         loads = [f1, f2, f3],
         beam_elements = [bar1, bar2, bar3],
         bar_steel_max_removal = 2,
+        available_material = available_material
     )
     return beam
     

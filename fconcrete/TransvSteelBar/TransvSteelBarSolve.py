@@ -1,10 +1,10 @@
 import numpy as np
-import fconcrete
+from fconcrete.TransvSteelBar import TransvSteelBar, TransvSteelBars
 from math import radians, sin, tan
 
 class TransvSteelBarSolve():
     def __init__(self, concrete_beam, fyk=50, theta_in_degree=45, alpha_in_degree = 90):
-        self.available = fconcrete.config.available_material["concrete_transv_steel_bars"]
+        self.available = concrete_beam.available_transv_steel_bars
         self.concrete_beam = concrete_beam
         x, shear_diagram = concrete_beam.getShearDesignDiagram(division=concrete_beam.division)
         self.x = x
@@ -81,7 +81,7 @@ class TransvSteelBarSolve():
         x_array, shear_area_per_cm = self.x, self.shear_area_per_cm
         s_max = self.s_max
         x = self.concrete_beam.x_begin
-        transversal_steel = fconcrete.TransvSteelBars()
+        transversal_steel = TransvSteelBars()
 
         while x<self.concrete_beam.x_end:
             x_loop = ((x_array>x) & (x_array<x+s_max))
@@ -92,7 +92,7 @@ class TransvSteelBarSolve():
             width = single_beam_element.section.width()
             c = single_beam_element.material.c
             transversal_steel.add(
-                fconcrete.TransvSteelBar(x, height-2*c, width-2*c, diameter, space, area, as_per_cm)
+                TransvSteelBar(x, height-2*c, width-2*c, diameter, space, area, as_per_cm)
             )
             x += space
             

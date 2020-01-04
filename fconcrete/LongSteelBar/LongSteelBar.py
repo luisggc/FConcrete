@@ -4,17 +4,16 @@ import fconcrete
 import copy
 
 class LongSteelBar():
-    def __init__(self, long_begin, long_end, quantity, diameter, quantity_accumulated, interspace):
-        available = fconcrete.config.available_material['concrete_long_steel_bars']
+    def __init__(self, long_begin, long_end, quantity, quantity_accumulated, diameter, area, area_accumulated, fyd, interspace):
         self.long_begin = long_begin
         self.long_end = long_end
         self.quantity = quantity
         self.diameter = diameter
         self.interspace = interspace
         self.quantity_accumulated = quantity_accumulated
-        self.area_accumulated = available.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
-        self.area = available.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
-        self.fyd = available.fyd
+        self.area_accumulated = area_accumulated
+        self.area = area
+        self.fyd = fyd
     
     @staticmethod
     def getSteelArea(section, material, steel, momentum):

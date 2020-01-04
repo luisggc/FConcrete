@@ -1,5 +1,5 @@
 import numpy as np
-import fconcrete
+from fconcrete.LongSteelBar import LongSteelBar, LongSteelBars
 import warnings
 from scipy.signal import find_peaks
 from math import radians, sin, tan
@@ -7,7 +7,7 @@ from math import radians, sin, tan
 
 class LongSteelBarSolve():
     def __init__(self, concrete_beam):
-        self.available = fconcrete.config.available_material["concrete_long_steel_bars"]
+        self.available = concrete_beam.available_long_steel_bars
         self.concrete_beam = concrete_beam
         
         self.bar_steel_removal_step = self.concrete_beam.bar_steel_removal_step
@@ -26,7 +26,7 @@ class LongSteelBarSolve():
         
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
-        steel_bars = fconcrete.LongSteelBars(np.array(concatenation))
+        steel_bars = LongSteelBars(np.array(concatenation))
         
         steel_bars_with_anchor_length_positive = self._anchorSteelBars(steel_bars, interspace_between_momentum_positive)
         self.steel_bars = self._anchorSteelBars(steel_bars_with_anchor_length_positive, interspace_between_momentum_negative)
@@ -126,7 +126,7 @@ class LongSteelBarSolve():
             
         """
         _, beam_element = self.concrete_beam.getBeamElementInX(x)
-        return fconcrete.LongSteelBar.getMinimumAndMaximumSteelArea(
+        return LongSteelBar.getMinimumAndMaximumSteelArea(
             area = beam_element.section.area,
             fck = beam_element.material.fck
         )
@@ -199,14 +199,14 @@ class LongSteelBarSolve():
         return quantity, diameter, area
     
     def _anchorSteelBars(self, steel_bars, interspace_between_momentum):
-        steel_bar_surface_type = fconcrete.config.available_material["concrete_long_steel_bars"].steel_bar_surface_type
+        steel_bar_surface_type = self.concrete_beam.available_long_steel_bars.surface_type
         n1 = (2.25 if steel_bar_surface_type == "ribbed"
         else 1 if steel_bar_surface_type == "plain"
         else 1.4 if steel_bar_surface_type == "carved"
         else 0)
                 
         for interspace in interspace_between_momentum:
-            steel_bars_in_insterspace = fconcrete.LongSteelBars(steel_bars[(interspace == steel_bars.interspaces).sum(axis=1)== 2])
+            steel_bars_in_insterspace = LongSteelBars(steel_bars[(interspace == steel_bars.interspaces).sum(axis=1)== 2])
             major_steel_bar = steel_bars_in_insterspace[abs(steel_bars_in_insterspace.areas_accumulated) == abs(steel_bars_in_insterspace.areas_accumulated).max()][0]
             diameter = major_steel_bar.diameter
             begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
@@ -254,9 +254,9 @@ class LongSteelBarSolve():
         bar_steel_removal_step = self.bar_steel_removal_step
         bar_steel_max_removal = self.bar_steel_max_removal
         
-        bars = fconcrete.LongSteelBars()
+        bars = LongSteelBars()
         for interspace in interspaceBetweenMomentum:
-            bars_interspace = fconcrete.LongSteelBars()
+            bars_interspace = LongSteelBars()
             times_removal_occurred = 0
             
             #commum interspace info
@@ -281,12 +281,23 @@ class LongSteelBarSolve():
                     
                     removal_limit_reached = times_removal_occurred>=bar_steel_max_removal-1
                     
-                    new_bar = fconcrete.LongSteelBar(long_begin=min(x_same_quantity),
+                    
+                    quantity = new_quantity if not removal_limit_reached else new_quantity+max_quantity_interspace-quantity_accumulated
+                    quantity_accumulated = quantity_accumulated if not removal_limit_reached else max_quantity_interspace
+        
+                    area_accumulated = self.available.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
+                    fyd = self.available.fyd
+                    area = self.available.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
+        
+                    new_bar = LongSteelBar(long_begin=min(x_same_quantity),
                                     long_end=max(x_same_quantity),
-                                    quantity=new_quantity if not removal_limit_reached else new_quantity+max_quantity_interspace-quantity_accumulated,
+                                    quantity=quantity,
                                     diameter=diameter,
-                                    quantity_accumulated = quantity_accumulated if not removal_limit_reached else max_quantity_interspace,
-                                    interspace=(interspace_start, interspace_end)
+                                    quantity_accumulated = quantity_accumulated,
+                                    interspace=(interspace_start, interspace_end),
+                                    area = area,
+                                    area_accumulated = area_accumulated,
+                                    fyd = fyd
                                     )
                     
                     bars_interspace.add(new_bar)
@@ -340,7 +351,7 @@ class LongSteelBarSolve():
             """ 
             #only working with rectangle section
             _, single_beam = self.concrete_beam.getBeamElementInX(x)
-            return fconcrete.LongSteelBar.getSteelArea(section=single_beam.section,
+            return LongSteelBar.getSteelArea(section=single_beam.section,
                                             material=single_beam.material,
                                             steel=self.available,
                                             momentum=momentum)
