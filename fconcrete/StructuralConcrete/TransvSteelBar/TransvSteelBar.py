@@ -28,12 +28,12 @@ class TransvSteelBars():
     
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars
-        if str(type(new_steel_bars)) == "<class 'fconcrete.TransvSteelBar.TransvSteelBar.TransvSteelBars'>":
+        if str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar.TransvSteelBars'>":
             concatenation = list(np.concatenate((previous_steel_bars,new_steel_bars.steel_bars)))
             concatenation.sort(key=lambda x: x.long_begin, reverse=False)
             new_steel_bars = np.array(concatenation)
             
-        elif str(type(new_steel_bars)) == "<class 'fconcrete.TransvSteelBar.TransvSteelBar.TransvSteelBar'>":
+        elif str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar.TransvSteelBar'>":
             new_steel_bars = np.append(previous_steel_bars,new_steel_bars)
         self.__init__(new_steel_bars)
     

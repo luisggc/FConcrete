@@ -2,11 +2,11 @@ from fconcrete.Structural.BeamElement import BeamElement, BeamElements
 from fconcrete.Structural.Load import Load, Loads
 from fconcrete.Structural.Node import Nodes
 from fconcrete.helpers import cond
-from fconcrete import config
+from fconcrete.config import e
+import copy
 import numpy as np
 import warnings
 import matplotlib.pyplot as plt
-e = config.e
 
 class Beam:
 
@@ -250,3 +250,6 @@ class Beam:
     
     def __repr__(self):
         return str(self.__dict__)
+
+    def copy(self):
+        return copy.deepcopy(self)

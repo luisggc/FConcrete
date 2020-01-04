@@ -43,6 +43,7 @@ class Rectangle(Section):
         self.area = width*height
         self.I = self.width()*self.height**3/12
         self.bw = width
+        self.y_cg = height/2
         
     def getAreaBetween(self, begin_height, end_height):
         return self.width()*(end_height - begin_height)

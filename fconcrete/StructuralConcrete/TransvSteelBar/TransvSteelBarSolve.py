@@ -1,5 +1,5 @@
 import numpy as np
-from fconcrete.TransvSteelBar import TransvSteelBar, TransvSteelBars
+from .TransvSteelBar import TransvSteelBar, TransvSteelBars
 from math import radians, sin, tan
 
 class TransvSteelBarSolve():

@@ -1,5 +1,5 @@
 import numpy as np
-from . import config as c
+from fconcrete import config as c
 
 _Q = c._Q
 

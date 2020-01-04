@@ -1,5 +1,5 @@
 import numpy as np
-from fconcrete.LongSteelBar import LongSteelBar, LongSteelBars
+from .LongSteelBar import LongSteelBar, LongSteelBars
 import warnings
 from scipy.signal import find_peaks
 from math import radians, sin, tan

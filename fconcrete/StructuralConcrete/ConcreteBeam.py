@@ -1,4 +1,5 @@
-from .Structural.Beam import Beam
+from fconcrete.Structural.Beam import Beam
+from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar
 import fconcrete as fc
 import numpy as np
 import warnings
@@ -11,8 +12,8 @@ class ConcreteBeam(Beam):
                  transversal_bar_inclination_angle=90,
                  tilt_angle_of_compression_struts=45,
                  transversal_bar_fyk=50,
-                 available_long_steel_bars=fc.AvailableLongConcreteSteelBar(), 
-                 available_transv_steel_bars=fc.AvailableTransvConcreteSteelBar(),
+                 available_long_steel_bars=AvailableLongConcreteSteelBar(),
+                 available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
                  **options):
         """
             Returns a concrete_beam element.

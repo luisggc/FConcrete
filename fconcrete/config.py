@@ -6,10 +6,3 @@ ureg.define('kNm = kilonewton * meter = knm')
 _Q = ureg.Quantity
 
 e = 0.00001
-
-from fconcrete.AvailableMaterials import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar
-
-available_material = {
-    "concrete_long_steel_bars": AvailableLongConcreteSteelBar(),
-    "concrete_transv_steel_bars": AvailableTransvConcreteSteelBar(),
-}

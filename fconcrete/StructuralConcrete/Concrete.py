@@ -1,18 +1,7 @@
+from fconcrete.Structural import Material
 from fconcrete.helpers import to_unit
 from math import log
-from fconcrete.helpers import cond, integrate, to_unit
-        
-        
-class Material():
-    """
-        E - in MPA
-        Poisson - 
-    """    
-    def __init__(self, E, poisson, alpha):
-        self.E = to_unit(E, "MPa", "kN/cm**2").magnitude
-        self.poisson = poisson
-        self.alpha = alpha
-        
+
 class Concrete(Material):
     """
         Define properties of the concrete.
@@ -58,8 +47,15 @@ class Concrete(Material):
         fcd = fck/1.4
         fctd = fctk_inf/1.4
 
-        c_in_cm = 2.5 if aggressiveness==1 else 3 if aggressiveness==2 else 4 if aggressiveness==3 else 5 if aggressiveness==4 else 0
-        if c_in_cm==0: raise Exception("Must select a valid fck value (between 1 and 4)")
+        c = 2.5 if aggressiveness==1 else 3 if aggressiveness==2 else 4 if aggressiveness==3 else 5 if aggressiveness==4 else 0
+        if c==0: raise Exception("Must select a valid aggressiveness value (between 1 and 4)")
+        wk = 0.04 if aggressiveness==1 else 0.03 if aggressiveness in [2, 3] else 0.02 if aggressiveness==4 else 0
+        
+        
+        # fator que correlaciona aproximadamente a resistência à tração na flexão com a resistência à tração direta
+        #alpha = 1.5
+       # M_r = alpha*fctm*Ic/y_cg
+        
         
         self.fck = to_unit(fck, "MPa", "kN/cm**2").magnitude
         self.E_ci = to_unit(E_ci, "MPa", "kN/cm**2").magnitude
@@ -68,9 +64,7 @@ class Concrete(Material):
         self.fctk_sup = to_unit(fctk_sup, "MPa", "kN/cm**2").magnitude
         self.fcd = to_unit(fcd, "MPa", "kN/cm**2").magnitude
         self.fctd = to_unit(fctd, "MPa", "kN/cm**2").magnitude
-        self.c = c_in_cm
+        self.c = c
+        self.wk = wk
         
         super(Concrete, self ).__init__(E_ci, 0.2, 10**(-5))
-    
-
-        
