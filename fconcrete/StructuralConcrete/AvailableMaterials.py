@@ -17,6 +17,7 @@ class AvailableLongConcreteSteelBar:
                         40: 12.5
                     },
                  fyw = 50/1.15,
+                 E = 21000,
                  max_number=100,
                  surface_type="ribbed"):
         try:
@@ -41,6 +42,7 @@ class AvailableLongConcreteSteelBar:
         self.table = table
         self.fyw = fyw
         self.fyd = fyd
+        self.E = E
         self.diameters = diameters
         self.diameters_to_area = diameters_to_area
         self.surface_type = surface_type

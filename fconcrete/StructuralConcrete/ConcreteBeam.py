@@ -3,17 +3,23 @@ from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, Availabl
 import fconcrete as fc
 import numpy as np
 import warnings
+import matplotlib.pyplot as plt
 
 class ConcreteBeam(Beam):
 
     def __init__(self, loads, beam_elements,
-                 bar_steel_removal_step=2, bar_steel_max_removal=100, design_factor=1.4, division=1000,
+                 bar_steel_removal_step=2,
+                 bar_steel_max_removal=100,
+                 design_factor=1.4,
+                 division=1000,
                  maximum_displacement=1/250,
                  transversal_bar_inclination_angle=90,
                  tilt_angle_of_compression_struts=45,
                  transversal_bar_fyk=50,
                  available_long_steel_bars=AvailableLongConcreteSteelBar(),
                  available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
+                 time_begin_long_duration=0,
+                 lifetime_structure=70,
                  **options):
         """
             Returns a concrete_beam element.
@@ -60,12 +66,17 @@ class ConcreteBeam(Beam):
                 
             bar_steel_max_removal: int, optional (default 100)
                 Define the max times it is possible to remove the bar.
+            
+            time_begin_long_duration: float, optional (default 0)
+                The time, in months, relative to the date of application of the long-term load
+            
+            lifetime_structure: float, optional (default 70)
+                The time, in months, when the value of the deferred arrow is desired;
                 
             
         """
         self.checkInput()
-        Beam.__init__(self, loads, beam_elements, **options)
-        
+        Beam.__init__(self, loads, beam_elements, solve_displacement=False, **options)
         
         self.bar_steel_removal_step = bar_steel_removal_step
         self.bar_steel_max_removal = bar_steel_max_removal
@@ -77,10 +88,9 @@ class ConcreteBeam(Beam):
         self.transversal_bar_fyk = transversal_bar_fyk
         self.available_long_steel_bars = available_long_steel_bars
         self.available_transv_steel_bars = available_transv_steel_bars
-        
-        if options.get("solve_ELS") != False:
-            self.solve_ELS()
-        
+        self.time_begin_long_duration = time_begin_long_duration
+        self.lifetime_structure = lifetime_structure
+                 
         if options.get("solve_transv_steel") != False:
             self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
                                                                                  fyk=transversal_bar_fyk,
@@ -91,13 +101,30 @@ class ConcreteBeam(Beam):
         if options.get("solve_long_steel") != False:
             self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
             self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
+        
+        if options.get("solve_ELS") != False:
+            self.initial_beam_elements = self._toConcreteBeamElements(self.initial_beam_elements)
+            self.solve_displacement_constants()
+            self.solve_ELS()
+    
+    def getConcreteDisplacementDiagram(self, **options):
+        x, y = self.getDisplacementDiagram(**options)
+        return x, y*(self._time_function_coefficient(self.lifetime_structure)-self._time_function_coefficient(self.time_begin_long_duration))
+    
+    def plotConcreteDisplacementDiagram(self, **options):
+        x, y = self.getConcreteDisplacementDiagram(**options)
+        plt.plot(x, y)
             
+    @staticmethod
+    def _time_function_coefficient(t):
+        if t>70: return 2
+        return 0.68*(0.996**t)*t**0.32 
     
     def solve_ELS(self):
         for beam_element in self.initial_beam_elements:
             x_begin = beam_element.n1.x
             x_end = beam_element.n2.x
-            x, y = self.getDisplacementDiagram(x_begin=x_begin, x_end=x_end, division=200)
+            x, y = self.getConcreteDisplacementDiagram(x_begin=x_begin, x_end=x_end, division=200)
             if max(abs(y)) > beam_element.length*self.maximum_displacement:
                 raise Exception("Displacement too big between x={}cm and x={}cm".format(x_begin, x_end))
     
@@ -105,6 +132,53 @@ class ConcreteBeam(Beam):
         x, shear_diagram = self.getShearDiagram(division=self.division)
         return x, self.design_factor*shear_diagram
     
+    def _toConcreteBeamElements(self, beam_elements):
+        for beam_element in beam_elements:
+            x_begin = beam_element.n1.x
+            x_end = beam_element.n2.x
+            section = beam_element.section
+            material = beam_element.material
+            
+            I = section.I
+            y_cg = section.y_cg
+            bw = section.bw
+            d = section.d
+            h = section.height
+            
+            fctm = material.fctm
+            E_cs = material.E_cs
+            E_s = self.available_long_steel_bars.E
+            
+            _, positive_area_info, negative_area_info = self.long_steel_bars_solution_info.getComercialSteelAreaDiagram(x_begin=x_begin, x_end=x_end, division=200)
+            positive_area_diagram = positive_area_info[2]
+            negative_area_diagram = negative_area_info[2]
+            positive_area_diagram = positive_area_diagram[~np.isnan(positive_area_diagram)]
+            negative_area_diagram = negative_area_diagram[~np.isnan(negative_area_diagram)]
+            
+            max_positive_area = max(abs(positive_area_diagram))
+            max_negative_area = max(abs(negative_area_diagram))
+            max_area = max(max_positive_area, max_negative_area)
+            
+            # fator que correlaciona aproximadamente a resistência à tração na flexão com a resistência à tração direta
+            y_t = y_cg if max_area==max_positive_area else h-y_cg
+            alpha = 1.5
+            M_r = alpha*fctm*I/y_t
+            _, momentum_diagram = self.getMomentumDiagram(x_begin=x_begin, x_end=x_end, division=200)
+            M_a = self.design_factor*max(abs(momentum_diagram))
+            
+            mra3 = (M_r/M_a)**3
+            alpha_e = E_s/E_cs
+            
+            a1, a2, a3 = bw/2, max_area*alpha_e, -max_area*alpha_e*d
+            x2 = (-a2+(a2**2-4*a1*a3)**0.5)/(2*a1)
+            I2 = bw*x2**3/3+a2*(x2-d)**2
+            
+            new_I = min((mra3*I+(1-mra3)*I2),I)
+            beam_element.I = new_I
+            beam_element.flexural_rigidity = E_cs * new_I
+            
+        return beam_elements
+        
     @staticmethod
     def checkInput():
         pass

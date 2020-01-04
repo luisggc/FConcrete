@@ -39,8 +39,9 @@ class Concrete(Material):
         if fck<20 or fck>90: raise Exception("Must select a valid fck value (between 20MPa and 90MPa)")
         if (fck>=20 and fck<=50): E_ci = alpha_e*5600*(fck**0.5)
         E_ci = alpha_e*21500*(fck/10+1.25)**(1/3) if fck>50 else E_ci
+        alpha_i = min(0.8+0.2*fck/80, 1)
+        E_cs = alpha_i*E_ci
         
-        # Check base for log expression
         fctm = 0.3*(fck**(2/3)) if fck<=50 else 2.12*log(1+0.11*fck, 10)
         fctk_inf = 0.7*fctm
         fctk_sup = 1.3*fctm
@@ -51,14 +52,9 @@ class Concrete(Material):
         if c==0: raise Exception("Must select a valid aggressiveness value (between 1 and 4)")
         wk = 0.04 if aggressiveness==1 else 0.03 if aggressiveness in [2, 3] else 0.02 if aggressiveness==4 else 0
         
-        
-        # fator que correlaciona aproximadamente a resistência à tração na flexão com a resistência à tração direta
-        #alpha = 1.5
-       # M_r = alpha*fctm*Ic/y_cg
-        
-        
         self.fck = to_unit(fck, "MPa", "kN/cm**2").magnitude
         self.E_ci = to_unit(E_ci, "MPa", "kN/cm**2").magnitude
+        self.E_cs = to_unit(E_cs, "MPa", "kN/cm**2").magnitude
         self.fctm = to_unit(fctm, "MPa", "kN/cm**2").magnitude
         self.fctk_inf = to_unit(fctk_inf, "MPa", "kN/cm**2").magnitude
         self.fctk_sup = to_unit(fctk_sup, "MPa", "kN/cm**2").magnitude
@@ -67,4 +63,4 @@ class Concrete(Material):
         self.c = c
         self.wk = wk
         
-        super(Concrete, self ).__init__(E_ci, 0.2, 10**(-5))
+        Material.__init__(self, E_cs, 0.2, 10**(-5))

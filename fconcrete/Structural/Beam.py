@@ -23,13 +23,10 @@ class Beam:
         self.length = sum(beam_elements.length)
         self.beams_quantity = len(beam_elements)
         
-        self._solve_displacement = False
-        if options.get("solve_displacement") != False:
-            self._solve_displacement = True
-            
         if options.get("solve_structural") != False:
             self.solve_structural()
-        
+            if options.get("solve_displacement") != False:
+                self.solve_displacement_constants()
         
     def solve_structural(self):
         nodal_efforts = self.getSupportReactions()
@@ -42,10 +39,7 @@ class Beam:
                 [Load(nodal_efforts[index*2], nodal_efforts[index*2+1], node.x, node.x)]
                 )
         self.loads = loads
-        if self._solve_displacement==True:
-            self.solve_displacement_constants()
-            
-        
+                   
     @staticmethod
     def createIntermediateBeams(loads, bars):
         for load in loads.loads:

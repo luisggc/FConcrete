@@ -16,7 +16,6 @@ class BeamElement:
         self.flexural_rigidity = material.E*section.I
         
     def get_matrix_rigidity_unitary(self):
-        #waring(ajeitar unidade)
         return self.flexural_rigidity/(self.length**3)*np.array([
                         [12, 6*self.length, -12, 6*self.length],
                         [6*self.length, 4*self.length**2, -6*self.length, 2*self.length**2],
@@ -63,6 +62,8 @@ class BeamElement:
 class BeamElements:
     def __init__(self, bar_elements):
         self.bar_elements = np.array(bar_elements)
+        self.materials = np.array([ bar_element.material for bar_element in bar_elements ])
+        self.sections = np.array([ bar_element.section for bar_element in bar_elements ])
         self.x_start = np.array([ bar_element.n1.x for bar_element in bar_elements ])
         self.x_end = np.array([ bar_element.n2.x for bar_element in bar_elements ])
         self.length = np.array([ bar_element.length for bar_element in bar_elements ])
