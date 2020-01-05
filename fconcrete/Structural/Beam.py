@@ -163,55 +163,31 @@ class Beam:
         self._c1 = c1
         self._c2 = c2
             
-
-    def getDisplacement(self, x):
-        if isinstance(x, int) or isinstance(x, float):
-            if x < self.x_begin or x > self.x_end:
-                return 0
-            f_value = 0
-            
-            _, single_beam_element = self.getBeamElementInX(x)
-            for load in self.loads:
-                f_value += -load.momentum * \
-                    cond(x-load.x_begin, order=2)/2 if load.x_begin == load.x_end else 0
-                f_value += load.force * \
-                    cond(x-load.x_begin, order=3)/6 if load.order == 0 else 0
-                f_value += (load.q*cond(x-load.x_begin, order=load.order+3) -
-                            load.q*cond(x-load.x_end, order=load.order+3))/((load.order+1)*(load.order+2)*(load.order+3))
-            
-            if not hasattr(self, "_c1"):
-                return f_value
-            
-            f_value += self._c1*x+self._c2
-            return f_value/single_beam_element.flexural_rigidity
-            
-        
-        elif isinstance(x, np.ndarray) or isinstance(x, list):
-            return np.array([ self.getDisplacement(x_element) for x_element in x ])
+    
+    
     
     def getDisplacementDiagram(self, **options):
         return self._createDiagram(self.getDisplacement, **options)
     
     def getRotation(self, x):
         if isinstance(x, int) or isinstance(x, float):
-            if x < self.x_begin or x > self.x_end:
-                return 0
+            if x < self.x_begin or x > self.x_end: return 0
             f_value = 0
-            
-            _, single_beam_element = self.getBeamElementInX(x)
-            
+            _, single_beam_element_init = self.getBeamElementInX(x)
             for load in self.loads:
-                f_value += -load.momentum * \
+                _, single_beam_element = self.getBeamElementInX(load.x_begin+e)
+                l_value = -load.momentum * \
                     cond(x-load.x_begin, order=1) if load.x_begin == load.x_end else 0
-                f_value += load.force * \
+                l_value += load.force * \
                     cond(x-load.x_begin, order=2)/2 if load.order == 0 else 0
-                f_value += (load.q*cond(x-load.x_begin, order=load.order+2) -
+                l_value += (load.q*cond(x-load.x_begin, order=load.order+2) -
                             load.q*cond(x-load.x_end, order=load.order+2))/((load.order+1)*(load.order+2))
-            
+                f_value += l_value/single_beam_element.flexural_rigidity
+                
             if not hasattr(self, "_c1"):
-                return f_value
-            f_value += self._c1
-            return f_value/single_beam_element.flexural_rigidity
+                return f_value*single_beam_element.flexural_rigidity
+            return f_value + self._c1/single_beam_element_init.flexural_rigidity
+        
         elif isinstance(x, np.ndarray) or isinstance(x, list):
             return np.array([ self.getRotation(x_element) for x_element in x ])
     
@@ -247,3 +223,27 @@ class Beam:
 
     def copy(self):
         return copy.deepcopy(self)
+    
+    def getDisplacement(self, x):
+        if isinstance(x, int) or isinstance(x, float):
+            if x < self.x_begin or x > self.x_end: return 0
+            f_value = 0
+            _, single_beam_element_init = self.getBeamElementInX(x)
+            
+            for load in self.loads:
+                _, single_beam_element = self.getBeamElementInX(x) #load.x_begin+e)
+                l_value = -load.momentum * \
+                    cond(x-load.x_begin, order=2)/2 if load.x_begin == load.x_end else 0
+                l_value += load.force * \
+                    cond(x-load.x_begin, order=3)/6 if load.order == 0 else 0
+                l_value += (load.q*cond(x-load.x_begin, order=load.order+3) -
+                            load.q*cond(x-load.x_end, order=load.order+3))/((load.order+1)*(load.order+2)*(load.order+3))
+                f_value += l_value/single_beam_element.flexural_rigidity
+            
+            if not hasattr(self, "_c1"):
+                return f_value*single_beam_element_init.flexural_rigidity
+            
+            return f_value + (self._c1*x+self._c2)/single_beam_element_init.flexural_rigidity
+        
+        elif isinstance(x, np.ndarray) or isinstance(x, list):
+            return np.array([ self.getDisplacement(x_element) for x_element in x ])

@@ -29,8 +29,19 @@ class Section():
     def plot(self, N=100):
         height = self.height
         x = np.linspace(0, height, N)
-        y = np.array([self.function_width(xi) for xi in x])
-        return plt.plot(y,x, -y, x)
+        
+        y = np.linspace(0, height, N)
+        x = np.array([self.function_width(xi) for xi in x])
+
+        x_base = np.linspace(-x[0], x[0], 100)
+        x_top = np.linspace(-x[-1], x[-1], 100)
+
+        plt.plot(x, y) # plot right simetry
+        plt.plot(2*y[0]-x, y) # plot left simetry
+        plt.plot(x_base,np.zeros(len(y))) # plot base
+        plt.plot(x_top,height*np.ones(len(y))) # plot top
+        
+        return
     
     
 class Rectangle(Section):

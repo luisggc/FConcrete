@@ -7,12 +7,14 @@ import matplotlib.pyplot as plt
 
 class ConcreteBeam(Beam):
 
-    def __init__(self, loads, beam_elements,
+    def __init__(self,
+                 loads,
+                 beam_elements,
                  bar_steel_removal_step=2,
                  bar_steel_max_removal=100,
                  design_factor=1.4,
                  division=1000,
-                 maximum_displacement=1/250,
+                 maximum_displacement_allowed=1/250,
                  transversal_bar_inclination_angle=90,
                  tilt_angle_of_compression_struts=45,
                  transversal_bar_fyk=50,
@@ -20,15 +22,29 @@ class ConcreteBeam(Beam):
                  available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
                  time_begin_long_duration=0,
                  lifetime_structure=70,
+                 biggest_aggregate_dimension=1.5,
                  **options):
         """
             Returns a concrete_beam element.
             
                 Call signatures::
 
-                    concrete_beam.getDecalagedMomentumDesignDiagram(self, loads, bars, bar_steel_removal_step=2, **options)
+                    ConcreteBeam(loads,
+                                beam_elements,
+                                bar_steel_removal_step=2,
+                                bar_steel_max_removal=100,
+                                design_factor=1.4,
+                                division=1000,
+                                maximum_displacement_allowed=1/250,
+                                transversal_bar_inclination_angle=90,
+                                tilt_angle_of_compression_struts=45,
+                                transversal_bar_fyk=50,
+                                available_long_steel_bars=AvailableLongConcreteSteelBar(),
+                                available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
+                                time_begin_long_duration=0,
+                                lifetime_structure=70,
+                                **options)
 
-                
                 >>>    material = fc.Concrete(fck='20 MPa', aggressiveness=2)
                 >>>    section = fc.Rectangle(25,56, material)
 
@@ -48,8 +64,7 @@ class ConcreteBeam(Beam):
                 >>>    fc.ConcreteBeam(
                         loads = [f1, f2, f3],
                         beam_elements = [beam_element1, beam_element2, beam_element3],
-                        bar_steel_removal_step = 2,
-                        bar_steel_max_removal = 100
+                        bar_steel_max_removal = 2
                     )
             
             Parameters
@@ -57,8 +72,13 @@ class ConcreteBeam(Beam):
             loads : [Load]
                 Define the loads supported for the beam.
             
-            beam_elements : [Load]
+            beam_elements : [BeamElement]
                 Define the beam_elements that, together, makes the whole Beam. 
+            
+            maximum_displacement_allowed: float, optional (default 1/250)
+                For each beam element, compare its maximum displacement with beam_element.length*maximum_displacement_allowed.
+                This is used to solve the ELS shown in NBR 6118.
+                If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 1/250, 120*(1/250)=0.45cm < 1cm. Therefore, in this condition, the ELS with raise a error.
             
             bar_steel_removal_step: int, optional (default 2)
                 Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
@@ -72,6 +92,9 @@ class ConcreteBeam(Beam):
             
             lifetime_structure: float, optional (default 70)
                 The time, in months, when the value of the deferred arrow is desired;
+            
+            biggest_aggregate_dimension: float, optional (default 1.5)
+                Maximum dimension characteristic of the biggest aggregate, in cm.
                 
             
         """
@@ -82,7 +105,7 @@ class ConcreteBeam(Beam):
         self.bar_steel_max_removal = bar_steel_max_removal
         self.design_factor = design_factor
         self.division = division
-        self.maximum_displacement = maximum_displacement
+        self.maximum_displacement_allowed = maximum_displacement_allowed
         self.transversal_bar_inclination_angle = transversal_bar_inclination_angle
         self.tilt_angle_of_compression_struts = tilt_angle_of_compression_struts
         self.transversal_bar_fyk = transversal_bar_fyk
@@ -90,7 +113,8 @@ class ConcreteBeam(Beam):
         self.available_transv_steel_bars = available_transv_steel_bars
         self.time_begin_long_duration = time_begin_long_duration
         self.lifetime_structure = lifetime_structure
-                 
+        self.biggest_aggregate_dimension = biggest_aggregate_dimension
+        
         if options.get("solve_transv_steel") != False:
             self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
                                                                                  fyk=transversal_bar_fyk,
@@ -125,8 +149,9 @@ class ConcreteBeam(Beam):
             x_begin = beam_element.n1.x
             x_end = beam_element.n2.x
             x, y = self.getConcreteDisplacementDiagram(x_begin=x_begin, x_end=x_end, division=200)
-            if max(abs(y)) > beam_element.length*self.maximum_displacement:
-                raise Exception("Displacement too big between x={}cm and x={}cm".format(x_begin, x_end))
+            if max(abs(y)) > beam_element.length*self.maximum_displacement_allowed:
+                raise Exception("Displacement too big between x={}cm and x={}cm. Maximum allowed is {}cm, but the beam lement reached {}cm".format(
+                    x_begin, x_end, beam_element.length*self.maximum_displacement_allowed, max(abs(y))))
     
     def getShearDesignDiagram(self, **options_diagram):
         x, shear_diagram = self.getShearDiagram(division=self.division)

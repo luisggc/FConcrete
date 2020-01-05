@@ -50,11 +50,16 @@ class LongSteelBar():
 class LongSteelBars():
     def __init__(self, steel_bars=[]):
         self.steel_bars = np.array(steel_bars)
-        self.interspaces = np.array([ steel_bar.interspace for steel_bar in self.steel_bars ])
+        self.long_begins = np.array([ steel_bar.long_begin for steel_bar in self.steel_bars ])
+        self.long_ends = np.array([ steel_bar.long_end for steel_bar in self.steel_bars ])
         self.quantities = np.array([ steel_bar.quantity for steel_bar in self.steel_bars ])
+        self.diameters = np.array([ steel_bar.diameter for steel_bar in self.steel_bars ])
+        self.interspaces = np.array([ steel_bar.interspace for steel_bar in self.steel_bars ])
         self.quantities_accumulated = np.array([ steel_bar.quantity_accumulated for steel_bar in self.steel_bars ])
         self.areas_accumulated = np.array([ steel_bar.area_accumulated for steel_bar in self.steel_bars ])
-    
+        self.areas = np.array([ steel_bar.area for steel_bar in self.steel_bars ])
+        self.fyds = np.array([ steel_bar.fyd for steel_bar in self.steel_bars ])
+        
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars
         if str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars'>":
@@ -72,8 +77,21 @@ class LongSteelBars():
             if conditional(previous_steel_bar):
                 current_attribute_value = getattr(previous_steel_bar, prop)
                 setattr(previous_steel_bar, prop, function(current_attribute_value)) 
-        return steel_bars
+        return LongSteelBars(steel_bars.steel_bars)
 
+    def getPositiveandNegativeLongSteelBarsInX(self, x):
+        positive_steel_bar_in_x = np.array([steel_bar if condition else None 
+                               for condition, steel_bar
+                               in zip((self.long_begins<=x) & (self.long_ends>=x) & (self.areas>0), self.steel_bars)])
+
+        negative_steel_bar_in_x = np.array([steel_bar if condition else None 
+                                for condition, steel_bar
+                                in zip((self.long_begins<=x) & (self.long_ends>=x) & (self.areas<0), self.steel_bars)])
+        
+        positive_steel_bar_in_x = LongSteelBars(positive_steel_bar_in_x[positive_steel_bar_in_x!=None])
+        negative_steel_bar_in_x = LongSteelBars(negative_steel_bar_in_x[negative_steel_bar_in_x!=None])
+        return positive_steel_bar_in_x, negative_steel_bar_in_x
+        
     def plot(self,prop='area_accumulated'):
         if prop=='area_accumulated':
             plt.gca().invert_yaxis()
