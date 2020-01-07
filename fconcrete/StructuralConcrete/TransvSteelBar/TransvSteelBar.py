@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+from fconcrete.helpers import getAxis
 
 class TransvSteelBar():
     def __init__(self, x, height, width, diameter, space_after, area, as_per_cm):
@@ -14,6 +15,24 @@ class TransvSteelBar():
     
     def __repr__(self):
         return str(self.__dict__)+'\n'
+    
+    def plot(self, c=2, ax=None, fig=None, color_plot="blue"):
+        height, width, diameter = self.height, self.width, self.diameter
+        x0, y0 = -width/2, c
+
+        fig, ax = getAxis((x0, diameter), (x0+diameter+width-diameter, c+height)) if ax == None else (fig, ax)
+        rectangle1 = plt.Rectangle((x0,y0), diameter, c+height, hatch="/", fill=False)
+        rectangle2 = plt.Rectangle((x0+diameter,height-diameter+2*c), width-diameter, diameter, hatch="/", fill=False)
+        rectangle3 = plt.Rectangle((-x0-diameter,y0), diameter, y0+height, hatch="/", fill=False)
+        rectangle4 = plt.Rectangle((x0+diameter,c), width-2*diameter, diameter, hatch="/", fill=False)
+
+        ax.add_artist(rectangle1)
+        ax.add_artist(rectangle2)
+        ax.add_artist(rectangle3)
+        ax.add_artist(rectangle4)
+
+        return fig, ax # if return_ax else None
+        
 
 class TransvSteelBars():
     def __init__(self, steel_bars=[]):
@@ -36,6 +55,9 @@ class TransvSteelBars():
         elif str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar.TransvSteelBar'>":
             new_steel_bars = np.append(previous_steel_bars,new_steel_bars)
         self.__init__(new_steel_bars)
+    
+    def getTransversalBarAfterX(self, x):
+        return self.steel_bars[self.x >= x][0]
     
     def changeProperty(self, prop, function, conditional=lambda x:True):
         steel_bars = copy.deepcopy(self)

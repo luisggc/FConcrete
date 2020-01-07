@@ -78,7 +78,7 @@ class AvailableTransvConcreteSteelBar:
         
         
         areas = [ diameters_to_area[diameter] for diameter in diameters ]
-        diameters_loop = np.tile(diameters, len(possible_spaces))
+        diameters_loop = np.tile(diameters, len(possible_spaces))/10
         spaces_loop = np.repeat(possible_spaces, len(diameters))
         areas_loop = 2*np.tile(areas, len(possible_spaces))
 

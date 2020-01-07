@@ -1,5 +1,6 @@
 import numpy as np
 from fconcrete import config as c
+import matplotlib.pyplot as plt
 
 _Q = c._Q
 
@@ -32,3 +33,12 @@ def to_unit(input, expected_unit, return_unit=False):
         return value.to(return_unit)
     return value
         
+def getAxis(xy0=(0,0), xy1=(0,0)):
+    x0, y0 = xy0
+    x1, y1 = xy1
+    #ax.plot([x0, x0+diameter+width-diameter], [diameter, diameter], color="None")
+    #ax.plot([x0, x0+diameter+width-diameter], [c+height, c+height], color="None")
+    fig, ax = plt.subplots()
+    ax.set_aspect("equal")
+    ax.plot([x0, x1], [y0, y1], color="None")
+    return fig, ax

@@ -1,6 +1,7 @@
 from fconcrete.helpers import cond, integrate, to_unit
 import numpy as np
 import matplotlib.pyplot as plt
+from fconcrete.helpers import getAxis
 
 class Section():
     """
@@ -14,7 +15,7 @@ class Section():
         self.function_width = function_width
         self.area = self.getAreaBetween(0, height, 1000)
         self.I = self._I()
-        
+        self.x0, self.y0 = -self.function_width(0), 0
         #self.bw = 2*min(abs(function_width))
         
     def width(self, height):
@@ -26,22 +27,22 @@ class Section():
     def _I(self):
         raise NotImplementedError
         
-    def plot(self, N=100):
+    def plot(self, N=100, color_plot="red", ax=None, fig=None):
         height = self.height
-        x = np.linspace(0, height, N)
         
+        fig, ax = getAxis() if ax == None else (fig, ax)
         y = np.linspace(0, height, N)
-        x = np.array([self.function_width(xi) for xi in x])
+        x = np.array([self.function_width(xi) for xi in y])
 
         x_base = np.linspace(-x[0], x[0], 100)
         x_top = np.linspace(-x[-1], x[-1], 100)
 
-        plt.plot(x, y) # plot right simetry
-        plt.plot(2*y[0]-x, y) # plot left simetry
-        plt.plot(x_base,np.zeros(len(y))) # plot base
-        plt.plot(x_top,height*np.ones(len(y))) # plot top
+        ax.plot(x, y, color=color_plot) # plot right simetry
+        ax.plot(2*y[0]-x, y, color=color_plot) # plot left simetry
+        ax.plot(x_base,np.zeros(len(y)), color=color_plot) # plot base
+        ax.plot(x_top,height*np.ones(len(y)), color=color_plot) # plot top
         
-        return
+        return fig, ax
     
     
 class Rectangle(Section):
@@ -55,9 +56,12 @@ class Rectangle(Section):
         self.I = self.width()*self.height**3/12
         self.bw = width
         self.y_cg = height/2
+        self.x0 = -width/2
+        self.y0 = 0
         
     def getAreaBetween(self, begin_height, end_height):
         return self.width()*(end_height - begin_height)
     
     def width(self, height=0):
         return self.__width
+    
