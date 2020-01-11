@@ -12,6 +12,8 @@ class TransvSteelBar():
         self.space_after = space_after
         self.area = area
         self.as_per_cm = as_per_cm
+        self.anchor = max(5*diameter, 5) #Rever essa informação
+        self.length = width*2+height*2+self.anchor
     
     def __repr__(self):
         return str(self.__dict__)+'\n'
@@ -19,17 +21,20 @@ class TransvSteelBar():
     def plot(self, c=2, ax=None, fig=None, color_plot="blue"):
         height, width, diameter = self.height, self.width, self.diameter
         x0, y0 = -width/2, c
-
+        
         fig, ax = getAxis((x0, diameter), (x0+diameter+width-diameter, c+height)) if ax == None else (fig, ax)
-        rectangle1 = plt.Rectangle((x0,y0), diameter, c+height, hatch="/", fill=False)
-        rectangle2 = plt.Rectangle((x0+diameter,height-diameter+2*c), width-diameter, diameter, hatch="/", fill=False)
-        rectangle3 = plt.Rectangle((-x0-diameter,y0), diameter, y0+height, hatch="/", fill=False)
-        rectangle4 = plt.Rectangle((x0+diameter,c), width-2*diameter, diameter, hatch="/", fill=False)
+        
+        left_bar = plt.Rectangle((x0,y0), diameter, height, hatch="/", fill=False)
+        right_bar = plt.Rectangle((width/2-diameter,y0), diameter, height, hatch="/", fill=False)
+        top_bar = plt.Rectangle((x0+diameter,y0+height-diameter), width-2*diameter, diameter, hatch="/", fill=False)
+        bottom_bar = plt.Rectangle((x0+diameter,y0), width-2*diameter, diameter, hatch="/", fill=False)
+        anchor = plt.Rectangle((width/2+diameter/2, y0+height-diameter/2), diameter, self.anchor, hatch="|", fill=False, angle=135) #anchor
 
-        ax.add_artist(rectangle1)
-        ax.add_artist(rectangle2)
-        ax.add_artist(rectangle3)
-        ax.add_artist(rectangle4)
+        ax.add_artist(left_bar)
+        ax.add_artist(right_bar)
+        ax.add_artist(top_bar)
+        ax.add_artist(bottom_bar)
+        ax.add_artist(anchor)
 
         return fig, ax # if return_ax else None
         
@@ -44,7 +49,10 @@ class TransvSteelBars():
         self.space_afters = np.array([ steel_bar.space_after for steel_bar in self.steel_bars ])
         self.areas = np.array([ steel_bar.area for steel_bar in self.steel_bars ])
         self.as_per_cms = np.array([ steel_bar.as_per_cm for steel_bar in self.steel_bars ])
-    
+        self.lengths = np.array([ steel_bar.length for steel_bar in self.steel_bars ])
+        self.length = sum(self.lengths)
+        self.cost = self.length #
+
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars
         if str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar.TransvSteelBars'>":

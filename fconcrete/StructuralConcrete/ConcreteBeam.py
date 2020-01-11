@@ -204,6 +204,19 @@ class ConcreteBeam(Beam):
             
         return beam_elements
         
+        
+    def plotTransversalInX(self, x):
+        positive_bars, negative_bars = self.long_steel_bars.getPositiveandNegativeLongSteelBarsInX(x=x)
+        transversal_bar = self.transv_steel_bars.getTransversalBarAfterX(x)
+        
+        _, beam_element = self.getBeamElementInX(x)
+        material, section = beam_element.material, beam_element.section
+        
+        fig, ax = section.plot()
+        fig, ax = transversal_bar.plot(fig=fig, ax=ax, c=material.c)
+        fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
+        fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
+
     @staticmethod
     def checkInput():
         pass

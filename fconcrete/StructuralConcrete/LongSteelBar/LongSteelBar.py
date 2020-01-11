@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+from fconcrete.helpers import getAxis
 
 class LongSteelBar():
     def __init__(self, long_begin, long_end, quantity, quantity_accumulated, diameter, area, area_accumulated, fyd, interspace):
@@ -59,6 +60,7 @@ class LongSteelBars():
         self.areas_accumulated = np.array([ steel_bar.area_accumulated for steel_bar in self.steel_bars ])
         self.areas = np.array([ steel_bar.area for steel_bar in self.steel_bars ])
         self.fyds = np.array([ steel_bar.fyd for steel_bar in self.steel_bars ])
+        #self.transversal_positions = np.array([])
         
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars
@@ -91,7 +93,72 @@ class LongSteelBars():
         positive_steel_bar_in_x = LongSteelBars(positive_steel_bar_in_x[positive_steel_bar_in_x!=None])
         negative_steel_bar_in_x = LongSteelBars(negative_steel_bar_in_x[negative_steel_bar_in_x!=None])
         return positive_steel_bar_in_x, negative_steel_bar_in_x
+    
+    
+    def getBarTransversalPosition(self, concrete_beam, x):
         
+        _, beam_element = concrete_beam.getBeamElementInX(x)
+        transversal_beam = concrete_beam.transv_steel_bars.getTransversalBarAfterX(x)
+        material = beam_element.material
+        section = beam_element.section
+        distance_from_border = material.c+transversal_beam.diameter
+
+
+        if len(self.steel_bars) == 0: return []
+        
+        transversal_positions = np.array([0,0,0])
+        radius = max(abs(self.diameters))/2
+        
+        horizontal_distance = max(2, 2*radius, 1.2*concrete_beam.biggest_aggregate_dimension)
+        vertical_distance = max(2, 2*radius, 0.5*concrete_beam.biggest_aggregate_dimension)
+
+        x0, y0 = section.x0, section.y0
+        x0_left_initial, x0_right_initial = x0+distance_from_border, -x0-distance_from_border
+        x0_left, x0_right = x0_left_initial, x0_right_initial
+
+        number_of_bars = max(abs(self.quantities_accumulated))
+        is_positive_bar = self.areas_accumulated[0] > 0
+
+        n, bar_in_the_left, row_number = 0, True, True
+
+        while n<number_of_bars+1:
+            #y_row = y0+beam_element.material.c+radius*(row_number+1)+(vertical_distance+radius)*(row_number-1)
+            y_row = y0+distance_from_border+radius+(row_number-1)*(vertical_distance+radius)
+            
+            if bar_in_the_left:
+                x_circle, y_circle = x0_left+radius, y_row if is_positive_bar else section.height-y_row
+                x0_left+=2*radius+horizontal_distance
+            else:
+                x_circle, y_circle = x0_right-radius, y_row if is_positive_bar else section.height-y_row
+                x0_right-=2*radius+horizontal_distance
+            space_between_bars = x0_right-x0_left+2*horizontal_distance
+            possible_bar_in_row = (space_between_bars+horizontal_distance)//(2*radius+horizontal_distance)
+            # Nao tem espaco para colcoar nenhuma depois
+            if possible_bar_in_row==0:
+                row_number+=1
+                x0_left = x0_left_initial
+                x0_right = x0_right_initial
+                bar_in_the_left = False
+            else: 
+                plot_center = (possible_bar_in_row==1 or n == number_of_bars) and bar_in_the_left
+                point = (0, y_row if is_positive_bar else section.height-y_row) if plot_center else (x_circle, y_circle)
+                transversal_positions = np.vstack((transversal_positions, (point[0], point[1], radius)))
+            n+=1
+            bar_in_the_left = not bar_in_the_left
+
+        return transversal_positions[1:]
+
+
+    def plotTransversal(self, concrete_beam, x, ax=None, fig=None, color_plot="red"):
+        fig, ax = getAxis((-20,0), (20, 50)) if ax == None else (fig, ax)
+        
+        for long_bar in self.getBarTransversalPosition(concrete_beam, x):
+            circle = plt.Circle((long_bar[0], long_bar[1]), long_bar[2])
+            ax.add_artist(circle)
+            
+        return fig, ax # if return_ax else None
+        
+    
     def plot(self,prop='area_accumulated'):
         if prop=='area_accumulated':
             plt.gca().invert_yaxis()
