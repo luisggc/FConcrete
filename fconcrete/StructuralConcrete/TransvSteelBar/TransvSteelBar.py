@@ -4,7 +4,7 @@ import copy
 from fconcrete.helpers import getAxis
 
 class TransvSteelBar():
-    def __init__(self, x, height, width, diameter, space_after, area, as_per_cm):
+    def __init__(self, x, height, width, diameter, space_after, area, as_per_cm, anchor, length, cost):
         self.x = x
         self.height = height
         self.width = width
@@ -12,9 +12,10 @@ class TransvSteelBar():
         self.space_after = space_after
         self.area = area
         self.as_per_cm = as_per_cm
-        self.anchor = max(5*diameter, 5) #Rever essa informação
-        self.length = width*2+height*2+self.anchor
-    
+        self.anchor = anchor
+        self.length = length
+        self.cost =  cost
+        
     def __repr__(self):
         return str(self.__dict__)+'\n'
     
@@ -50,8 +51,9 @@ class TransvSteelBars():
         self.areas = np.array([ steel_bar.area for steel_bar in self.steel_bars ])
         self.as_per_cms = np.array([ steel_bar.as_per_cm for steel_bar in self.steel_bars ])
         self.lengths = np.array([ steel_bar.length for steel_bar in self.steel_bars ])
+        self.costs = np.array([ steel_bar.cost for steel_bar in self.steel_bars ])
         self.length = sum(self.lengths)
-        self.cost = self.length #
+        self.cost = sum(self.costs)
 
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars

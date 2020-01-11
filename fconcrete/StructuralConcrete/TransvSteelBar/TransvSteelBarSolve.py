@@ -91,9 +91,24 @@ class TransvSteelBarSolve():
             height = single_beam_element.section.height
             width = single_beam_element.section.width()
             c = single_beam_element.material.c
+            anchor = max(5*diameter, 5)
+            length = width*2+height*2+anchor
+            cost = length*self.available.cost_by_meter[diameter*10]/100
+            
             transversal_steel.add(
-                TransvSteelBar(x, height-2*c, width-2*c, diameter, space, area, as_per_cm)
+                TransvSteelBar(
+                    x=x,
+                    height=height-2*c,
+                    width=width-2*c,
+                    diameter=diameter,
+                    space_after=space,
+                    area=area,
+                    as_per_cm=as_per_cm,
+                    anchor = anchor,
+                    length=length,
+                    cost=cost)
             )
+            
             x += space
             
         return transversal_steel

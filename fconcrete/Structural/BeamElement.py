@@ -1,15 +1,17 @@
 import numpy as np
 from fconcrete.Structural.Node import Node, Nodes
+from fconcrete.Structural.Section import unitary_section
+from fconcrete.Structural.Material import unitary_material
+import copy
 
 class BeamElement:
-    def __init__(self, nodes, section, material, max_types_of_bars=1):
+    def __init__(self, nodes, section=unitary_section, material=unitary_material):
         self.section = section
         section.d = section.height - material.c if hasattr(material,"c") else 0
         self.material = material
         self.x = nodes
         self.E = material.E
         self.I = section.I
-        self.max_types_of_bars = max_types_of_bars
         self.n1 = nodes[0]
         self.n2 = nodes[1]
         self.length = nodes[1].x - nodes[0].x
@@ -79,17 +81,27 @@ class BeamElements:
         self.condition_boundary = (condition_boundary.reshape((1, condition_boundary.size))==1)[0]
     
     @classmethod
-    def create(cls, bar_elements):
-        bar_elements = np.array(bar_elements)
-        x_start = np.array([ bar_element.n1.x for bar_element in bar_elements ])
+    def create(cls, beam_elements):
+        if str(type(beam_elements)) == "<class 'fconcrete.Structural.BeamElement.BeamElements'>": return beam_elements
+        
+        beam_elements = np.array(beam_elements)
+        x_start = np.array([ beam_element.n1.x for beam_element in beam_elements ])
         bar_sort_position = np.argsort(x_start)
-        return cls(bar_elements[bar_sort_position])
+        return cls(beam_elements[bar_sort_position])
     
     def split(self, x):
         new_beams = np.array([])
         for bar in self.bar_elements:
             new_beams = np.concatenate((new_beams, bar.split(x)))
         return BeamElements(new_beams)
+
+    def changeProperty(self, prop, function, conditional=lambda x:True):
+            beam_elements = copy.deepcopy(self)
+            for previous_beam_element in beam_elements:
+                if conditional(previous_beam_element):
+                    current_attribute_value = getattr(previous_beam_element, prop)
+                    setattr(previous_beam_element, prop, function(current_attribute_value)) 
+            return BeamElements(beam_elements.bar_elements)
 
     def __repr__(self):
         return str(self.__dict__)    

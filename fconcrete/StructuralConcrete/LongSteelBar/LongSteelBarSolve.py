@@ -288,16 +288,23 @@ class LongSteelBarSolve():
                     area_accumulated = self.available.diameters_to_area[abs(diameter*10)]*quantity_accumulated*(1 if diameter>0 else -1)
                     fyd = self.available.fyd
                     area = self.available.diameters_to_area[abs(diameter*10)]*quantity*(1 if diameter>0 else -1)
-        
-                    new_bar = LongSteelBar(long_begin=min(x_same_quantity),
-                                    long_end=max(x_same_quantity),
+                    long_begin = min(x_same_quantity)
+                    long_end = max(x_same_quantity)
+                    length = long_end-long_begin
+                    cost = quantity*length*self.available.cost_by_meter[abs(diameter*10)]/100
+
+                    new_bar = LongSteelBar(
+                                    long_begin=long_begin,
+                                    long_end=long_end,
                                     quantity=quantity,
                                     diameter=diameter,
                                     quantity_accumulated = quantity_accumulated,
                                     interspace=(interspace_start, interspace_end),
                                     area = area,
                                     area_accumulated = area_accumulated,
-                                    fyd = fyd
+                                    fyd = fyd,
+                                    length=length,
+                                    cost = cost
                                     )
                     
                     bars_interspace.add(new_bar)

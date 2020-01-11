@@ -4,7 +4,7 @@ import copy
 from fconcrete.helpers import getAxis
 
 class LongSteelBar():
-    def __init__(self, long_begin, long_end, quantity, quantity_accumulated, diameter, area, area_accumulated, fyd, interspace):
+    def __init__(self, long_begin, long_end, quantity, quantity_accumulated, diameter, area, area_accumulated, fyd, interspace, length, cost):
         self.long_begin = long_begin
         self.long_end = long_end
         self.quantity = quantity
@@ -14,6 +14,8 @@ class LongSteelBar():
         self.area_accumulated = area_accumulated
         self.area = area
         self.fyd = fyd
+        self.length = length
+        self.cost = cost
     
     @staticmethod
     def getSteelArea(section, material, steel, momentum):
@@ -60,7 +62,10 @@ class LongSteelBars():
         self.areas_accumulated = np.array([ steel_bar.area_accumulated for steel_bar in self.steel_bars ])
         self.areas = np.array([ steel_bar.area for steel_bar in self.steel_bars ])
         self.fyds = np.array([ steel_bar.fyd for steel_bar in self.steel_bars ])
-        #self.transversal_positions = np.array([])
+        self.costs = np.array([ steel_bar.cost for steel_bar in self.steel_bars ])
+        self.lengths = np.array([ steel_bar.length for steel_bar in self.steel_bars ])
+        self.length = sum(self.lengths)
+        self.cost = sum(self.costs)
         
     def add(self, new_steel_bars):
         previous_steel_bars = self.steel_bars

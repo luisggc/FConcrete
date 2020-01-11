@@ -64,4 +64,6 @@ class Rectangle(Section):
     
     def width(self, height=0):
         return self.__width
+
+unitary_section = Rectangle(12, 10)
     

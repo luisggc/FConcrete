@@ -1,5 +1,7 @@
 from fconcrete.Structural.Beam import Beam
-from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar
+from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar, AvailableConcrete
+from fconcrete.Structural.BeamElement import BeamElement, BeamElements
+
 import fconcrete as fc
 import numpy as np
 import warnings
@@ -9,17 +11,20 @@ class ConcreteBeam(Beam):
 
     def __init__(self,
                  loads,
-                 beam_elements,
+                 beam_elements=None,
+                 nodes=None,
+                 section=None,
                  bar_steel_removal_step=2,
                  bar_steel_max_removal=100,
                  design_factor=1.4,
                  division=1000,
-                 maximum_displacement_allowed=1/250,
+                 maximum_displacement_allowed=lambda beam_element_length : beam_element_length/250,
                  transversal_bar_inclination_angle=90,
                  tilt_angle_of_compression_struts=45,
                  transversal_bar_fyk=50,
                  available_long_steel_bars=AvailableLongConcreteSteelBar(),
                  available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
+                 available_concrete=AvailableConcrete(),
                  time_begin_long_duration=0,
                  lifetime_structure=70,
                  biggest_aggregate_dimension=1.5,
@@ -98,7 +103,15 @@ class ConcreteBeam(Beam):
                 
             
         """
-        self.checkInput()
+        
+        beam_elements = self.checkInput(
+            nodes=nodes,
+            beam_elements=beam_elements,
+            material=available_concrete.material,
+            section=section
+        )
+        
+        
         Beam.__init__(self, loads, beam_elements, solve_displacement=False, **options)
         
         self.bar_steel_removal_step = bar_steel_removal_step
@@ -111,6 +124,7 @@ class ConcreteBeam(Beam):
         self.transversal_bar_fyk = transversal_bar_fyk
         self.available_long_steel_bars = available_long_steel_bars
         self.available_transv_steel_bars = available_transv_steel_bars
+        self.available_concrete = available_concrete
         self.time_begin_long_duration = time_begin_long_duration
         self.lifetime_structure = lifetime_structure
         self.biggest_aggregate_dimension = biggest_aggregate_dimension
@@ -123,13 +137,14 @@ class ConcreteBeam(Beam):
             self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
             
         if options.get("solve_long_steel") != False:
-            self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
-            self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
+            self.solve_long_steel()
         
         if options.get("solve_ELS") != False:
-            self.initial_beam_elements = self._toConcreteBeamElements(self.initial_beam_elements)
-            self.solve_displacement_constants()
             self.solve_ELS()
+        
+        if options.get("solve_cost") != False:
+            self.solve_cost()
+                
     
     def getConcreteDisplacementDiagram(self, **options):
         x, y = self.getDisplacementDiagram(**options)
@@ -145,13 +160,16 @@ class ConcreteBeam(Beam):
         return 0.68*(0.996**t)*t**0.32 
     
     def solve_ELS(self):
+        self.initial_beam_elements = self._toConcreteBeamElements(self.initial_beam_elements)
+        self.solve_displacement_constants()
         for beam_element in self.initial_beam_elements:
             x_begin = beam_element.n1.x
             x_end = beam_element.n2.x
-            x, y = self.getConcreteDisplacementDiagram(x_begin=x_begin, x_end=x_end, division=200)
-            if max(abs(y)) > beam_element.length*self.maximum_displacement_allowed:
+            _, y = self.getConcreteDisplacementDiagram(x_begin=x_begin, x_end=x_end, division=200)
+            max_disp = self.maximum_displacement_allowed(beam_element.length)
+            if max(abs(y)) > max_disp:
                 raise Exception("Displacement too big between x={}cm and x={}cm. Maximum allowed is {}cm, but the beam lement reached {}cm".format(
-                    x_begin, x_end, beam_element.length*self.maximum_displacement_allowed, max(abs(y))))
+                    x_begin, x_end, max_disp, max(abs(y))))
     
     def getShearDesignDiagram(self, **options_diagram):
         x, shear_diagram = self.getShearDiagram(division=self.division)
@@ -217,7 +235,32 @@ class ConcreteBeam(Beam):
         fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
         fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
 
+    def solve_long_steel(self):
+        self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
+        self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
+    
+    def solve_cost(self):
+        concrete_cost = 0
+        for beam_element in self.initial_beam_elements:
+            volume = beam_element.section.area*beam_element.length/1000000
+            concrete_cost += volume*self.available_concrete.cost_by_m3
+        return concrete_cost
+    
     @staticmethod
-    def checkInput():
-        pass
+    def checkInput(**inputs):
+        nodes, beam_elements, section, material = inputs.get("nodes"), inputs.get("beam_elements"), inputs.get("section"), inputs.get("material")
+        if nodes and section:
+            beam_elements = []
+            for i in range(0,len(nodes)-1):
+                beam_elements = [*beam_elements, fc.BeamElement([nodes[i], nodes[i+1]], section, material)]
+            return beam_elements
+        elif beam_elements and section:
+            beam_elements = BeamElements.create(beam_elements)
+            beam_elements = beam_elements.changeProperty("material", lambda x:material)
+            section.d = 0.8*section.height
+            return beam_elements.changeProperty("section", lambda x:section)
+        
+        return beam_elements
         #if (decalaged_length_method not in ["full", "simplified"]): raise Exception("Decalage Method available are 'full' or 'simplified")
+                 
+    

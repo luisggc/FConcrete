@@ -11,5 +11,4 @@ class Material():
         self.poisson = poisson
         self.alpha = alpha
     
-
-        
+unitary_material = Material(10**6, 1, 1)
