@@ -1,7 +1,7 @@
 from fconcrete.Structural.Beam import Beam
 from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar, AvailableConcrete
 from fconcrete.Structural.BeamElement import BeamElement, BeamElements
-
+from fconcrete.helpers import timeit
 import fconcrete as fc
 import numpy as np
 import warnings
@@ -28,6 +28,7 @@ class ConcreteBeam(Beam):
                  time_begin_long_duration=0,
                  lifetime_structure=70,
                  biggest_aggregate_dimension=1.5,
+                 verbose = False,
                  **options):
         """
             Returns a concrete_beam element.
@@ -112,7 +113,7 @@ class ConcreteBeam(Beam):
         )
         
         
-        Beam.__init__(self, loads, beam_elements, solve_displacement=False, **options)
+        timeit(verbose, "Solve structural beam")(Beam.__init__(self, loads, beam_elements, solve_displacement=False, **options))
         
         self.bar_steel_removal_step = bar_steel_removal_step
         self.bar_steel_max_removal = bar_steel_max_removal
@@ -128,13 +129,10 @@ class ConcreteBeam(Beam):
         self.time_begin_long_duration = time_begin_long_duration
         self.lifetime_structure = lifetime_structure
         self.biggest_aggregate_dimension = biggest_aggregate_dimension
+        self.verbose = verbose
         
         if options.get("solve_transv_steel") != False:
-            self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
-                                                                                 fyk=transversal_bar_fyk,
-                                                                                 theta_in_degree=tilt_angle_of_compression_struts,
-                                                                                 alpha_in_degree = transversal_bar_inclination_angle)
-            self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
+            self.solve_transv_steel()
             
         if options.get("solve_long_steel") != False:
             self.solve_long_steel()
@@ -235,16 +233,78 @@ class ConcreteBeam(Beam):
         fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
         fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
 
+    def solve_transv_steel(self):
+        self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
+                                                                        fyk=self.transversal_bar_fyk,
+                                                                        theta_in_degree= self.tilt_angle_of_compression_struts,
+                                                                        alpha_in_degree = self.transversal_bar_inclination_angle)
+        self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
+            
     def solve_long_steel(self):
         self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
         self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
     
-    def solve_cost(self):
-        concrete_cost = 0
+    def solve_cost(self, decimal_numbers = 2):
+        cost_table = [["Material", "Price", "Quantity", "Unit", "Commentary", "Is Subtotal"]]
+        # Concrete
+        total_concrete_cost = 0
         for beam_element in self.initial_beam_elements:
             volume = beam_element.section.area*beam_element.length/1000000
-            concrete_cost += volume*self.available_concrete.cost_by_m3
-        return concrete_cost
+            concrete_cost = volume*self.available_concrete.cost_by_m3
+            total_concrete_cost += concrete_cost
+            row = ["Concrete",
+                   round(concrete_cost, decimal_numbers),
+                   round(volume, decimal_numbers), "m3", "Between {}m and {}m".format(beam_element.n1.x, beam_element.n1.x), False]
+            cost_table = [*cost_table, row]
+        row = ["Concrete", round(total_concrete_cost, 2), round(volume, 2), "m3", "", True]
+        cost_table = [*cost_table, row]
+        
+        # Longitudinal
+        total_long_bar_cost = total_length = 0
+        for lb in self.long_steel_bars:
+            total_long_bar_cost += lb.cost
+            total_length += lb.length
+            row = ["Longitudinal bar",
+                round(lb.cost, decimal_numbers),
+                round(lb.length, decimal_numbers),
+                "m",
+                "Diameter {}mm. Between {}m and {}m".format(abs(lb.diameter*10),
+                                                            round(lb.long_begin,decimal_numbers),
+                                                            round(lb.long_end,decimal_numbers)),
+                False]
+            cost_table = [*cost_table, row]
+            
+
+        row = ["Longitudinal bar",
+            round(total_long_bar_cost, decimal_numbers),
+            round(total_length, decimal_numbers),
+            "m", "", True]
+
+        cost_table = [*cost_table, row]
+
+        # Transversal Bar
+        total_transv_bar_cost = total_length = 0
+        for lb in self.transv_steel_bars:
+            total_transv_bar_cost += lb.cost
+            total_length += lb.length
+            row = ["Transversal bar",
+                round(lb.cost, decimal_numbers),
+                round(lb.length, decimal_numbers),
+                "m",
+                "{}cm x {}cm. Diameter {}mm. Placed in {}m ".format(round(lb.width,decimal_numbers),
+                                                                    round(lb.height,decimal_numbers),
+                                                                    abs(lb.diameter*10),
+                                                                    round(lb.x,decimal_numbers)), False]
+            cost_table = [*cost_table, row]
+            
+
+        row = ["Longitudinal bar",
+            round(total_transv_bar_cost, decimal_numbers),
+            round(total_length, decimal_numbers),
+            "m", "", True]
+
+        cost_table = [*cost_table, row]
+        return total_concrete_cost + total_transv_bar_cost + total_long_bar_cost, np.array(cost_table)
     
     @staticmethod
     def checkInput(**inputs):

@@ -1,6 +1,7 @@
 import numpy as np
 from fconcrete import config as c
 import matplotlib.pyplot as plt
+import time
 
 _Q = c._Q
 
@@ -36,9 +37,19 @@ def to_unit(input, expected_unit, return_unit=False):
 def getAxis(xy0=(0,0), xy1=(0,0)):
     x0, y0 = xy0
     x1, y1 = xy1
-    #ax.plot([x0, x0+diameter+width-diameter], [diameter, diameter], color="None")
-    #ax.plot([x0, x0+diameter+width-diameter], [c+height, c+height], color="None")
     fig, ax = plt.subplots()
     ax.set_aspect("equal")
     ax.plot([x0, x1], [y0, y1], color="None")
     return fig, ax
+
+def timeit(do=True, name=""):
+    def inner0(function):
+        if not do: return function
+        def inner(*args, **kw):
+            start = time.time()
+            val = function(*args, **kw)
+            end = time.time()
+            print("{} executed in {}s".format(function.__name__ if name == "" else name, end-start))
+            return val
+        return inner
+    return inner0

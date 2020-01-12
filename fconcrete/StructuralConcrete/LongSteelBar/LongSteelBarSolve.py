@@ -3,20 +3,21 @@ from .LongSteelBar import LongSteelBar, LongSteelBars
 import warnings
 from scipy.signal import find_peaks
 from math import radians, sin, tan
-
+from fconcrete.helpers import timeit
 
 class LongSteelBarSolve():
     def __init__(self, concrete_beam):
+        verbose = concrete_beam.verbose
         self.available = concrete_beam.available_long_steel_bars
         self.concrete_beam = concrete_beam
         
         self.bar_steel_removal_step = self.concrete_beam.bar_steel_removal_step
         self.bar_steel_max_removal = self.concrete_beam.bar_steel_max_removal
         
-        x, positive_areas_info, negative_areas_info = self.getComercialSteelAreaDiagram(division=concrete_beam.division)
+        x, positive_areas_info, negative_areas_info = timeit(verbose)(self.getComercialSteelAreaDiagram)(division=concrete_beam.division)
         
-        interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, area=positive_areas_info[2])
-        interspace_between_momentum_negative = self._getInterspaceBetweenMomentum(x, area=negative_areas_info[2])
+        interspace_between_momentum_positive = timeit(verbose, "Interspace with positive bars")(self._getInterspaceBetweenMomentum)(x, area=positive_areas_info[2])
+        interspace_between_momentum_negative = timeit(verbose, "Interspace with negative bars")(self._getInterspaceBetweenMomentum)(x, area=negative_areas_info[2])
         
         self.interspace_between_momentum_positive = interspace_between_momentum_positive
         self.interspace_between_momentum_negative = interspace_between_momentum_negative
