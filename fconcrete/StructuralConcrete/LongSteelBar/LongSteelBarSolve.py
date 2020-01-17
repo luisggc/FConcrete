@@ -8,6 +8,7 @@ from fconcrete.helpers import timeit
 class LongSteelBarSolve():
     def __init__(self, concrete_beam):
         verbose = concrete_beam.verbose
+        self.verbose = verbose
         self.available = concrete_beam.available_long_steel_bars
         self.concrete_beam = concrete_beam
         
@@ -15,22 +16,26 @@ class LongSteelBarSolve():
         self.bar_steel_max_removal = self.concrete_beam.bar_steel_max_removal
         
         x, positive_areas_info, negative_areas_info = timeit(verbose)(self.getComercialSteelAreaDiagram)(division=concrete_beam.division)
+        self.x = x
+        self.positive_areas_info = positive_areas_info
+        self.negative_areas_info = negative_areas_info
         
-        interspace_between_momentum_positive = timeit(verbose, "Interspace with positive bars")(self._getInterspaceBetweenMomentum)(x, area=positive_areas_info[2])
-        interspace_between_momentum_negative = timeit(verbose, "Interspace with negative bars")(self._getInterspaceBetweenMomentum)(x, area=negative_areas_info[2])
+        interspace_between_momentum_positive = self._getInterspaceBetweenMomentum(x, area=positive_areas_info[2])
+        interspace_between_momentum_negative = self._getInterspaceBetweenMomentum(x, area=negative_areas_info[2])
         
         self.interspace_between_momentum_positive = interspace_between_momentum_positive
         self.interspace_between_momentum_negative = interspace_between_momentum_negative
         
         steel_bars_positive = self._getBarsInInterspaces(x, positive_areas_info, interspace_between_momentum_positive)
         steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info, interspace_between_momentum_negative)
+        #steel_bars_negative = self._getBarsInInterspaces(x, negative_areas_info, interspace_between_momentum_negative)
         
         concatenation = list(np.concatenate((steel_bars_positive.steel_bars,steel_bars_negative.steel_bars)))
         concatenation.sort(key=lambda x: x.long_begin, reverse=False)
         steel_bars = LongSteelBars(np.array(concatenation))
         
-        steel_bars_with_anchor_length_positive = self._anchorSteelBars(steel_bars, interspace_between_momentum_positive)
-        self.steel_bars = self._anchorSteelBars(steel_bars_with_anchor_length_positive, interspace_between_momentum_negative)
+        steel_bars_with_anchor_length_positive = timeit(verbose, "Anchor positive steel bar")(self._anchorSteelBars)(steel_bars, interspace_between_momentum_positive)
+        self.steel_bars = timeit(verbose, "Anchor negative steel bar")(self._anchorSteelBars)(steel_bars_with_anchor_length_positive, interspace_between_momentum_negative)
         
         
     def getDecalagedMomentumDesignDiagram(self, **options_diagram):
@@ -154,9 +159,12 @@ class LongSteelBarSolve():
                 A high number means a more precise graph, but also you need more processing time.
             
         """ 
-        x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options_diagram)
+        x_decalaged, momentum_positive, momentum_negative = timeit(self.verbose)(self.getDecalagedMomentumDesignDiagram)(**options_diagram)
         positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
+        
+        #positive_areas_info = timeit("positive_areas_info", self.verbose)([self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)])
+        #negative_areas_info = timeit("negative_areas_info", self.verbose)([self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)])
         return x_decalaged, np.array(np.array(positive_areas_info).T), np.array(np.array(negative_areas_info).T)
 
     
@@ -165,6 +173,7 @@ class LongSteelBarSolve():
             Returns comercial steel area given the position and momentum.
             Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
             Does not have the removal by step implemented here.
+            Not recommended to use in loops.
 
                 Call signatures::
 
@@ -212,12 +221,20 @@ class LongSteelBarSolve():
             diameter = major_steel_bar.diameter
             begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
             _, bar_element = self.concrete_beam.getBeamElementInX((begin+end)/2)
-            _, positive_area_diagram, negative_area_diagram = self.getSteelAreaDiagram(division=100,
-                                                                                    x_begin= begin if begin>self.concrete_beam.x_begin else self.concrete_beam.x_begin,
-                                                                                    x_end= end if end<self.concrete_beam.x_end else self.concrete_beam.x_end)
+            
+            #_, positive_area_diagram, negative_area_diagram = self.getSteelAreaDiagram(division=100,
+            #                                                                        x_begin= begin if begin>self.concrete_beam.x_begin else self.concrete_beam.x_begin,
+            #                                                                        x_end= end if end<self.concrete_beam.x_end else self.concrete_beam.x_end)
+            
+            is_in_the_beam_element = (self.x >= begin) &  (self.x <= end)
+            positive_area_info = self.positive_areas_info[:, is_in_the_beam_element]
+            negative_area_info = self.negative_areas_info[:, is_in_the_beam_element]
+
+            positive_area_diagram = positive_area_info[2]
+            negative_area_diagram = negative_area_info[2]
             positive_area_diagram = positive_area_diagram[~np.isnan(positive_area_diagram)]
             negative_area_diagram = negative_area_diagram[~np.isnan(negative_area_diagram)]
-
+            
             As_calc = max(positive_area_diagram.min(initial=0), negative_area_diagram.min(initial=0),
                         positive_area_diagram.max(initial=0), negative_area_diagram.max(initial=0), key=abs)
 

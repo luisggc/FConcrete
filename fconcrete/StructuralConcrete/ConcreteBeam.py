@@ -132,13 +132,13 @@ class ConcreteBeam(Beam):
         self.verbose = verbose
         
         if options.get("solve_transv_steel") != False:
-            self.solve_transv_steel()
+            timeit(verbose, "Solve transv steel")(self.solve_transv_steel)()
             
         if options.get("solve_long_steel") != False:
             self.solve_long_steel()
         
         if options.get("solve_ELS") != False:
-            self.solve_ELS()
+            timeit(verbose, "Solve ELS")(self.solve_ELS)()
         
         if options.get("solve_cost") != False:
             self.solve_cost()
@@ -189,15 +189,17 @@ class ConcreteBeam(Beam):
             fctm = material.fctm
             E_cs = material.E_cs
             E_s = self.available_long_steel_bars.E
-            
-            _, positive_area_info, negative_area_info = self.long_steel_bars_solution_info.getComercialSteelAreaDiagram(x_begin=x_begin, x_end=x_end, division=200)
+            is_in_the_beam_element = (self.long_steel_bars_solution_info.x >= x_begin) &  (self.long_steel_bars_solution_info.x <= x_end)
+            positive_area_info = self.long_steel_bars_solution_info.positive_areas_info[:, is_in_the_beam_element]
+            negative_area_info = self.long_steel_bars_solution_info.negative_areas_info[:, is_in_the_beam_element]
+
             positive_area_diagram = positive_area_info[2]
             negative_area_diagram = negative_area_info[2]
             positive_area_diagram = positive_area_diagram[~np.isnan(positive_area_diagram)]
             negative_area_diagram = negative_area_diagram[~np.isnan(negative_area_diagram)]
             
-            max_positive_area = max(abs(positive_area_diagram))
-            max_negative_area = max(abs(negative_area_diagram))
+            max_positive_area = abs(positive_area_diagram).max(initial=0)
+            max_negative_area = abs(negative_area_diagram).max(initial=0)
             max_area = max(max_positive_area, max_negative_area)
             
             # fator que correlaciona aproximadamente a resistência à tração na flexão com a resistência à tração direta
@@ -239,7 +241,7 @@ class ConcreteBeam(Beam):
                                                                         theta_in_degree= self.tilt_angle_of_compression_struts,
                                                                         alpha_in_degree = self.transversal_bar_inclination_angle)
         self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
-            
+    
     def solve_long_steel(self):
         self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
         self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
