@@ -83,8 +83,7 @@ class AvailableTransvConcreteSteelBar:
                         32: 402.39/12,
                     },
                  space_is_multiple_of=[5],
-                 fyw = 50,
-                 max_number=3):
+                 fyw = 50):
         try:
             areas = [diameters_to_area[diameter] for diameter in diameters]
         except:
@@ -141,3 +140,70 @@ class AvailableConcrete():
         self.fck = fck
         self.cost_by_m3 = cost_by_m3
         self.material = Concrete(str(fck) + " MPa", aggressiveness, aggregate)
+        
+        
+def solve_cost(concrete_beam, decimal_numbers = 2):
+    cost_table = [["Material", "Price", "Quantity", "Unit", "Commentary", "Is Subtotal"]]
+    # Concrete
+    total_concrete_cost = 0
+    for beam_element in concrete_beam.initial_beam_elements:
+        volume = beam_element.section.area*beam_element.length/1000000
+        concrete_cost = volume*concrete_beam.available_concrete.cost_by_m3
+        total_concrete_cost += concrete_cost
+        row = ["Concrete",
+                round(concrete_cost, decimal_numbers),
+                round(volume, decimal_numbers), "m3", "Between {}m and {}m".format(beam_element.n1.x, beam_element.n1.x), False]
+        cost_table = [*cost_table, row]
+    row = ["Concrete", round(total_concrete_cost, 2), round(volume, 2), "m3", "", True]
+    cost_table = [*cost_table, row]
+    
+    # Longitudinal
+    total_long_bar_cost = total_length = 0
+    for lb in concrete_beam.long_steel_bars:
+        total_long_bar_cost += lb.cost
+        total_length += lb.length
+        row = ["Longitudinal bar",
+            round(lb.cost, decimal_numbers),
+            round(lb.length, decimal_numbers),
+            "m",
+            "Diameter {}mm. Between {}m and {}m".format(abs(lb.diameter*10),
+                                                        round(lb.long_begin,decimal_numbers),
+                                                        round(lb.long_end,decimal_numbers)),
+            False]
+        cost_table = [*cost_table, row]
+        
+
+    row = ["Longitudinal bar",
+        round(total_long_bar_cost, decimal_numbers),
+        round(total_length, decimal_numbers),
+        "m", "", True]
+
+    cost_table = [*cost_table, row]
+
+    # Transversal Bar
+    total_transv_bar_cost = total_length = 0
+    for lb in concrete_beam.transv_steel_bars:
+        total_transv_bar_cost += lb.cost
+        total_length += lb.length
+        row = ["Transversal bar",
+            round(lb.cost, decimal_numbers),
+            round(lb.length, decimal_numbers),
+            "m",
+            "{}cm x {}cm. Diameter {}mm. Placed in {}m ".format(round(lb.width,decimal_numbers),
+                                                                round(lb.height,decimal_numbers),
+                                                                abs(lb.diameter*10),
+                                                                round(lb.x,decimal_numbers)), False]
+        cost_table = [*cost_table, row]
+        
+    row = ["Transversal bar",
+        round(total_transv_bar_cost, decimal_numbers),
+        round(total_length, decimal_numbers),
+        "m", "", True]
+
+    cost_table = np.array([*cost_table, row])
+
+    is_subtotal = cost_table[:, 5]
+    is_subtotal = is_subtotal != "False"
+    subtotal_table = cost_table[is_subtotal, :]
+
+    return total_concrete_cost + total_transv_bar_cost + total_long_bar_cost, cost_table, subtotal_table

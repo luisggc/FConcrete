@@ -74,7 +74,9 @@ class TransvSteelBarSolve():
     
     def getComercialInfo(self, as_per_cm):
         table = self.available.table
-        diameter, space, area, as_per_cm = table[table[:, 3] >= as_per_cm][0]
+        comercial_info = table[table[:, 3] >= as_per_cm]
+        if len(comercial_info) == 0 : raise Exception("It is not possible to place the transversal steel bar using the provided space_in_multiple_of argument. When you create the concrete_beam, you should change the argument 'available_transv_steel_bars = fc.AvailableTransvConcreteSteelBar(diameters=[x], space_is_multiple_of=[y])' giving y a smaller number or diameter a bigger one.")
+        diameter, space, area, as_per_cm = comercial_info[0]
         return diameter, space, area, as_per_cm
     
     def getStirrupsInfo(self):

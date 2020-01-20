@@ -1,0 +1,885 @@
+﻿;width;height;length;cost;error;Concrete;Longitudinal bar;Transversal bar
+1;15.0;15.0;100.0;19,071447193138642;;7,95;5,77;5,35
+2;15.0;17.0;100.0;20,250430977125625;;9,01;5,56;5,68
+3;17.0;15.0;100.0;20,48938102120571;;9,01;5,8;5,68
+4;15.0;19.0;100.0;20,842110940409412;;10,07;4,77;6,01
+5;19.0;15.0;100.0;21,907314849272776;;10,07;5,83;6,01
+6;17.0;17.0;100.0;21,84675686985035;;10,21;5,63;6,01
+7;15.0;21.0;100.0;22,313510940409408;;11,13;4,85;6,34
+8;21.0;15.0;100.0;23,329367795635136;;11,13;5,86;6,34
+9;19.0;17.0;100.0;23,434844525984484;;11,41;5,69;6,34
+10;17.0;19.0;100.0;22,51385094040941;;11,41;4,77;6,34
+11;15.0;23.0;100.0;23,78491094040941;;12,19;4,93;6,67
+12;23.0;15.0;100.0;24,747301623702207;;12,19;5,89;6,67
+13;21.0;17.0;100.0;25,018813063823327;;12,61;5,74;6,67
+14;17.0;21.0;100.0;24,12657094040941;;12,61;4,85;6,67
+15;19.0;19.0;100.0;24,79349035258909;;12,75;5,37;6,67
+17;11.0;11.0;200.0;-1,0;Too much steel needed in x=3.0030127027027027, area needed is 0.9928927938773314cmˆ2, but the maximum is 0.968cmˆ2;;;
+18;13.0;11.0;200.0;-1,0;Too much steel needed in x=4.00001, area needed is 1.1471236666127689cmˆ2, but the maximum is 1.1440000000000001cmˆ2;;;
+19;11.0;13.0;200.0;-1,0;Too much steel needed in x=5.20021018018018, area needed is 1.1487830629267246cmˆ2, but the maximum is 1.1440000000000001cmˆ2;;;
+20;11.0;15.0;200.0;-1,0;Too much steel needed in x=8.202211981981982, area needed is 1.323505177260459cmˆ2, but the maximum is 1.32cmˆ2;;;
+21;15.0;11.0;200.0;-1,0;Too much steel needed in x=5.201211081081081, area needed is 1.338261611326894cmˆ2, but the maximum is 1.32cmˆ2;;;
+22;13.0;13.0;200.0;-1,0;Too much steel needed in x=7.002011801801801, area needed is 1.370966352466883cmˆ2, but the maximum is 1.352cmˆ2;;;
+23;11.0;17.0;200.0;-1,0;Too much steel needed in x=12.005014504504505, area needed is 1.501996847067138cmˆ2, but the maximum is 1.496cmˆ2;;;
+24;17.0;11.0;200.0;-1,0;Too much steel needed in x=6.202211981981982, area needed is 1.50204101769025cmˆ2, but the maximum is 1.496cmˆ2;;;
+25;13.0;15.0;200.0;-1,0;Too much steel needed in x=10.604614144144143, area needed is 1.5670469666092215cmˆ2, but the maximum is 1.56cmˆ2;;;
+26;15.0;13.0;200.0;-1,0;Too much steel needed in x=8.603613243243244, area needed is 1.5739755171002705cmˆ2, but the maximum is 1.56cmˆ2;;;
+27;11.0;19.0;200.0;-1,0;Too much steel needed in x=16.608617747747747, area needed is 1.6750683640896191cmˆ2, but the maximum is 1.672cmˆ2;;;
+28;19.0;11.0;200.0;-1,0;Too much steel needed in x=7.403413063063063, area needed is 1.7022725052225398cmˆ2, but the maximum is 1.672cmˆ2;;;
+29;17.0;13.0;200.0;-1,0;Too much steel needed in x=10.205214684684684, area needed is 1.7818778082328468cmˆ2, but the maximum is 1.768cmˆ2;;;
+30;13.0;17.0;200.0;-1,0;Too much steel needed in x=15.208217387387387, area needed is 1.773268661139401cmˆ2, but the maximum is 1.768cmˆ2;;;
+31;15.0;15.0;200.0;-1,0;Too much steel needed in x=13.007016306306305, area needed is 1.8155876722390298cmˆ2, but the maximum is 1.8cmˆ2;;;
+32;21.0;11.0;200.0;-1,0;Too much steel needed in x=8.404413963963965, area needed is 1.8744721240982956cmˆ2, but the maximum is 1.848cmˆ2;;;
+33;11.0;21.0;200.0;-1,0;Too much steel needed in x=22.413422072072073, area needed is 1.8572387180346626cmˆ2, but the maximum is 1.848cmˆ2;;;
+34;13.0;19.0;200.0;-1,0;Too much steel needed in x=21.013021711711712, area needed is 1.986551380130341cmˆ2, but the maximum is 1.976cmˆ2;;;
+35;19.0;13.0;200.0;-1,0;Too much steel needed in x=11.806816126126126, area needed is 1.9944307669297836cmˆ2, but the maximum is 1.976cmˆ2;;;
+36;23.0;11.0;200.0;-1,0;Too much steel needed in x=9.405414864864865, area needed is 2.050628252589149cmˆ2, but the maximum is 2.024cmˆ2;;;
+37;11.0;23.0;200.0;-1,0;Too much steel needed in x=29.419427477477477, area needed is 2.0300542739930747cmˆ2, but the maximum is 2.024cmˆ2;;;
+38;15.0;17.0;200.0;-1,0;Too much steel needed in x=18.41142027027027, area needed is 2.048201592583365cmˆ2, but the maximum is 2.04cmˆ2;;;
+39;17.0;15.0;200.0;-1,0;Too much steel needed in x=15.209218288288287, area needed is 2.0493375932376243cmˆ2, but the maximum is 2.04cmˆ2;;;
+40;21.0;13.0;200.0;-1,0;Too much steel needed in x=13.208217387387387, area needed is 2.1867756840651604cmˆ2, but the maximum is 2.184cmˆ2;;;
+41;13.0;21.0;200.0;-1,0;Too much steel needed in x=28.019027117117115, area needed is 2.1872485322593445cmˆ2, but the maximum is 2.184cmˆ2;;;
+42;25.0;11.0;200.0;-1,0;Too much steel needed in x=10.406415765765765, area needed is 2.2306365674138324cmˆ2, but the maximum is 2.2cmˆ2;;;
+43;11.0;25.0;200.0;-1,0;Too much steel needed in x=38.427434684684684, area needed is 2.2049916350238035cmˆ2, but the maximum is 2.2cmˆ2;;;
+44;15.0;19.0;200.0;-1,0;Too much steel needed in x=25.217225495495494, area needed is 2.2853504801151834cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+45;19.0;15.0;200.0;-1,0;Too much steel needed in x=17.41142027027027, area needed is 2.2873070403612723cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+46;17.0;17.0;200.0;-1,0;Too much steel needed in x=21.614623153153154, area needed is 2.325929828215155cmˆ2, but the maximum is 2.312cmˆ2;;;
+47;27.0;11.0;200.0;-1,0;Too much steel needed in x=11.207216486486487, area needed is 2.381332024115235cmˆ2, but the maximum is 2.376cmˆ2;;;
+48;11.0;27.0;200.0;-1,0;Too much steel needed in x=50.83884495495496, area needed is 2.378394064083748cmˆ2, but the maximum is 2.376cmˆ2;;;
+49;23.0;13.0;200.0;-1,0;Too much steel needed in x=14.809818828828828, area needed is 2.407894613980606cmˆ2, but the maximum is 2.392cmˆ2;;;
+50;13.0;23.0;200.0;-1,0;Too much steel needed in x=37.22723450450451, area needed is 2.3988003311218358cmˆ2, but the maximum is 2.392cmˆ2;;;
+51;21.0;15.0;200.0;-1,0;Too much steel needed in x=19.613622252252252, area needed is 2.529065276979911cmˆ2, but the maximum is 2.52cmˆ2;;;
+52;15.0;21.0;200.0;-1,0;Too much steel needed in x=33.82483234234235, area needed is 2.520281929339701cmˆ2, but the maximum is 2.52cmˆ2;;;
+53;11.0;29.0;200.0;-1,0;Too much steel needed in x=75.26226603603604, area needed is 2.5522232815294505cmˆ2, but the maximum is 2.552cmˆ2;;;
+54;29.0;11.0;200.0;-1,0;Too much steel needed in x=12.208217387387387, area needed is 2.5685559144155716cmˆ2, but the maximum is 2.552cmˆ2;;;
+55;19.0;17.0;200.0;-1,0;Too much steel needed in x=24.617625855855856, area needed is 2.5905878370600752cmˆ2, but the maximum is 2.584cmˆ2;;;
+56;17.0;19.0;200.0;-1,0;Too much steel needed in x=29.437443693693695, area needed is 2.584119714066999cmˆ2, but the maximum is 2.584cmˆ2;;;
+57;13.0;25.0;200.0;-1,0;Too much steel needed in x=49.638644774774775, area needed is 2.6014344608101894cmˆ2, but the maximum is 2.6cmˆ2;;;
+58;25.0;13.0;200.0;-1,0;Too much steel needed in x=16.211220090090087, area needed is 2.608296075599145cmˆ2, but the maximum is 2.6cmˆ2;;;
+59;31.0;11.0;200.0;-1,0;Too much steel needed in x=13.209218288288287, area needed is 2.759355449363991cmˆ2, but the maximum is 2.728cmˆ2;;;
+60;11.0;31.0;200.0;55,81534412836487;;24,1;18,9;12,82
+61;23.0;15.0;200.0;-1,0;Too much steel needed in x=21.815824234234235, area needed is 2.7741877246935225cmˆ2, but the maximum is 2.7600000000000002cmˆ2;;;
+62;15.0;23.0;200.0;-1,0;Too much steel needed in x=45.63564207207207, area needed is 2.764569002436683cmˆ2, but the maximum is 2.7600000000000002cmˆ2;;;
+63;27.0;13.0;200.0;-1,0;Too much steel needed in x=17.61262135135135, area needed is 2.8124121062943224cmˆ2, but the maximum is 2.8080000000000003cmˆ2;;;
+64;13.0;27.0;200.0;-1,0;Too much steel needed in x=72.86086477477477, area needed is 2.808202622145639cmˆ2, but the maximum is 2.8080000000000003cmˆ2;;;
+65;21.0;17.0;200.0;-1,0;Too much steel needed in x=27.620628558558558, area needed is 2.856936190153182cmˆ2, but the maximum is 2.856cmˆ2;;;
+66;17.0;21.0;200.0;-1,0;Too much steel needed in x=40.031037927927926, area needed is 2.8605636692297844cmˆ2, but the maximum is 2.856cmˆ2;;;
+67;19.0;19.0;200.0;-1,0;Too much steel needed in x=33.82583324324324, area needed is 2.8899777439630214cmˆ2, but the maximum is 2.888cmˆ2;;;
+68;33.0;11.0;200.0;-1,0;Too much steel needed in x=14.010019009009008, area needed is 2.92002157271162cmˆ2, but the maximum is 2.904cmˆ2;;;
+69;11.0;33.0;200.0;57,739967005932435;;25,65;18,7;13,39
+70;25.0;15.0;200.0;-1,0;Too much steel needed in x=23.817826036036035, area needed is 3.003449799283746cmˆ2, but the maximum is 3.0cmˆ2;;;
+71;15.0;25.0;200.0;-1,0;Too much steel needed in x=64.45345810810811, area needed is 3.002101997613097cmˆ2, but the maximum is 3.0cmˆ2;;;
+72;29.0;13.0;200.0;-1,0;Too much steel needed in x=19.014022612612614, area needed is 3.0200561338235974cmˆ2, but the maximum is 3.016cmˆ2;;;
+73;13.0;29.0;200.0;61,24718296112613;;26,64;21,79;12,82
+74;11.0;35.0;200.0;59,59868398418469;;27,2;18,42;13,97
+75;35.0;11.0;200.0;-1,0;Too much steel needed in x=14.81081972972973, area needed is 3.0837369885311716cmˆ2, but the maximum is 3.08cmˆ2;;;
+76;17.0;23.0;200.0;-1,0;Too much steel needed in x=55.245250720720726, area needed is 3.1293656389607465cmˆ2, but the maximum is 3.128cmˆ2;;;
+77;23.0;17.0;200.0;-1,0;Too much steel needed in x=30.823831441441442, area needed is 3.138577346142136cmˆ2, but the maximum is 3.128cmˆ2;;;
+78;19.0;21.0;200.0;-1,0;Too much steel needed in x=46.437443693693695, area needed is 3.1924317547287324cmˆ2, but the maximum is 3.192cmˆ2;;;
+79;21.0;19.0;200.0;-1,0;Too much steel needed in x=38.23824441441442, area needed is 3.1922333977887485cmˆ2, but the maximum is 3.192cmˆ2;;;
+80;31.0;13.0;200.0;-1,0;Too much steel needed in x=20.415423873873873, area needed is 3.2310463913258287cmˆ2, but the maximum is 3.224cmˆ2;;;
+81;13.0;31.0;200.0;61,01127301338289;;28,48;19,14;13,39
+82;15.0;27.0;200.0;63,73643368081982;;28,62;22,3;12,82
+83;27.0;15.0;200.0;-1,0;Too much steel needed in x=26.020028018018017, area needed is 3.254213390286053cmˆ2, but the maximum is 3.24cmˆ2;;;
+84;37.0;11.0;200.0;-1,0;Too much steel needed in x=15.81182063063063, area needed is 3.284372815828958cmˆ2, but the maximum is 3.2560000000000002cmˆ2;;;
+85;11.0;37.0;200.0;61,274759378869376;;28,76;17,97;14,55
+86;17.0;25.0;200.0;67,18081226126577;;30,03;24,33;12,82
+87;25.0;17.0;200.0;-1,0;Too much steel needed in x=33.826834144144144, area needed is 3.4056482759689524cmˆ2, but the maximum is 3.4cmˆ2;;;
+88;33.0;13.0;200.0;-1,0;Too much steel needed in x=21.816825135135137, area needed is 3.4452039568799067cmˆ2, but the maximum is 3.432cmˆ2;;;
+89;11.0;39.0;200.0;62,24028659081082;;30,31;16,8;15,12
+90;13.0;33.0;200.0;63,26796531543694;;30,31;18,98;13,97
+91;39.0;11.0;200.0;-1,0;Too much steel needed in x=16.61262135135135, area needed is 3.4541244024248483cmˆ2, but the maximum is 3.432cmˆ2;;;
+92;29.0;15.0;200.0;-1,0;Too much steel needed in x=28.02202981981982, area needed is 3.48865013722792cmˆ2, but the maximum is 3.48cmˆ2;;;
+93;15.0;29.0;200.0;66,20166303321622;;30,74;22,07;13,39
+94;19.0;23.0;200.0;-1,0;Too much steel needed in x=67.85786207207207, area needed is 3.4966258117177214cmˆ2, but the maximum is 3.496cmˆ2;;;
+95;23.0;19.0;200.0;-1,0;Too much steel needed in x=42.83484135135136, area needed is 3.497246836206297cmˆ2, but the maximum is 3.496cmˆ2;;;
+96;21.0;21.0;200.0;-1,0;Too much steel needed in x=53.644650180180186, area needed is 3.5307636096636164cmˆ2, but the maximum is 3.528cmˆ2;;;
+97;11.0;41.0;200.0;64,40377716632433;;31,87;16,84;15,7
+98;41.0;11.0;200.0;-1,0;Too much steel needed in x=17.413422072072073, area needed is 3.62670518450654cmˆ2, but the maximum is 3.608cmˆ2;;;
+99;13.0;35.0;200.0;65,50818114266217;;32,15;18,81;14,55
+100;35.0;13.0;200.0;-1,0;Too much steel needed in x=23.218226396396396, area needed is 3.662351500857023cmˆ2, but the maximum is 3.64cmˆ2;;;
+101;27.0;17.0;200.0;-1,0;Too much steel needed in x=36.829836846846845, area needed is 3.67208584836209cmˆ2, but the maximum is 3.672cmˆ2;;;
+102;17.0;27.0;200.0;69,34380794431081;;32,43;23,52;13,39
+103;15.0;31.0;200.0;68,66573914759459;;32,86;21,84;13,97
+104;31.0;15.0;200.0;-1,0;Too much steel needed in x=30.02403162162162, area needed is 3.7252066252614564cmˆ2, but the maximum is 3.72cmˆ2;;;
+105;43.0;11.0;200.0;-1,0;Too much steel needed in x=18.214222792792793, area needed is 3.802048111675437cmˆ2, but the maximum is 3.7840000000000003cmˆ2;;;
+107;7.0;27.0;300.0;-1,0;Too much steel needed in x=9.60961896896897, area needed is 1.5227977761564586cmˆ2, but the maximum is 1.512cmˆ2;;;
+108;7.0;29.0;300.0;-1,0;Too much steel needed in x=12.225233543543549, area needed is 1.6373328473240332cmˆ2, but the maximum is 1.624cmˆ2;;;
+109;7.0;31.0;300.0;-1,0;Too much steel needed in x=15.015024014014017, area needed is 1.7426455568496333cmˆ2, but the maximum is 1.736cmˆ2;;;
+110;7.0;33.0;300.0;-1,0;Too much steel needed in x=18.303313083083083, area needed is 1.8574751119802804cmˆ2, but the maximum is 1.848cmˆ2;;;
+111;9.0;27.0;300.0;-1,0;Too much steel needed in x=15.003012802802804, area needed is 1.9499196854779102cmˆ2, but the maximum is 1.944cmˆ2;;;
+112;7.0;35.0;300.0;-1,0;Too much steel needed in x=21.837845315315327, area needed is 1.9653701970470177cmˆ2, but the maximum is 1.96cmˆ2;;;
+113;7.0;37.0;300.0;-1,0;Too much steel needed in x=25.825834104104107, area needed is 2.075607978785405cmˆ2, but the maximum is 2.072cmˆ2;;;
+114;9.0;29.0;300.0;-1,0;Too much steel needed in x=18.531539429429433, area needed is 2.0950719409244707cmˆ2, but the maximum is 2.088cmˆ2;;;
+115;7.0;39.0;300.0;-1,0;Too much steel needed in x=30.312321491491495, area needed is 2.187292932799574cmˆ2, but the maximum is 2.184cmˆ2;;;
+116;9.0;31.0;300.0;-1,0;Too much steel needed in x=22.40841784784785, area needed is 2.23481614515425cmˆ2, but the maximum is 2.232cmˆ2;;;
+117;7.0;41.0;300.0;-1,0;Too much steel needed in x=35.35436073073074, area needed is 2.299459994388821cmˆ2, but the maximum is 2.2960000000000003cmˆ2;;;
+118;11.0;27.0;300.0;-1,0;Too much steel needed in x=20.40841784784785, area needed is 2.3947661196068295cmˆ2, but the maximum is 2.376cmˆ2;;;
+119;9.0;33.0;300.0;-1,0;Too much steel needed in x=27.012021211211213, area needed is 2.3882159977063133cmˆ2, but the maximum is 2.376cmˆ2;;;
+120;7.0;43.0;300.0;-1,0;Too much steel needed in x=40.96096689689691, area needed is 2.408911394556916cmˆ2, but the maximum is 2.408cmˆ2;;;
+121;7.0;45.0;300.0;-1,0;Too much steel needed in x=47.42643466466467, area needed is 2.5207324245589cmˆ2, but the maximum is 2.52cmˆ2;;;
+122;9.0;35.0;300.0;-1,0;Too much steel needed in x=31.831839709709715, area needed is 2.5238172105196863cmˆ2, but the maximum is 2.52cmˆ2;;;
+123;11.0;29.0;300.0;-1,0;Too much steel needed in x=24.624632982982988, area needed is 2.55497229784454cmˆ2, but the maximum is 2.552cmˆ2;;;
+124;7.0;47.0;300.0;-1,0;Too much steel needed in x=54.954961291291305, area needed is 2.6334240922366217cmˆ2, but the maximum is 2.632cmˆ2;;;
+125;9.0;37.0;300.0;-1,0;Too much steel needed in x=37.42042905905906, area needed is 2.6664651961437644cmˆ2, but the maximum is 2.664cmˆ2;;;
+126;11.0;31.0;300.0;-1,0;Too much steel needed in x=29.615624574574575, area needed is 2.730101838552179cmˆ2, but the maximum is 2.728cmˆ2;;;
+127;7.0;49.0;300.0;-1,0;Too much steel needed in x=63.84084811811813, area needed is 2.744289704154691cmˆ2, but the maximum is 2.744cmˆ2;;;
+128;9.0;39.0;300.0;-1,0;Too much steel needed in x=43.8258341041041, area needed is 2.8109929752893468cmˆ2, but the maximum is 2.8080000000000003cmˆ2;;;
+129;13.0;27.0;300.0;-1,0;Too much steel needed in x=25.213222332332336, area needed is 2.810873255431495cmˆ2, but the maximum is 2.8080000000000003cmˆ2;;;
+130;7.0;51.0;300.0;-1,0;Too much steel needed in x=75.05105764764767, area needed is 2.8567070826089282cmˆ2, but the maximum is 2.856cmˆ2;;;
+131;11.0;33.0;300.0;-1,0;Too much steel needed in x=35.42042905905906, area needed is 2.9133162059227913cmˆ2, but the maximum is 2.904cmˆ2;;;
+132;9.0;41.0;300.0;-1,0;Too much steel needed in x=51.13213998999, area needed is 2.9529145926444067cmˆ2, but the maximum is 2.952cmˆ2;;;
+133;7.0;53.0;300.0;-1,0;Too much steel needed in x=90.7657713813814, area needed is 2.9682030954137026cmˆ2, but the maximum is 2.968cmˆ2;;;
+134;13.0;29.0;300.0;-1,0;Too much steel needed in x=30.543550640640653, area needed is 3.017046810477186cmˆ2, but the maximum is 3.016cmˆ2;;;
+135;7.0;55.0;300.0;107,38802181318572;;40,81;37,39;29,2
+136;11.0;35.0;300.0;-1,0;Too much steel needed in x=41.74174895895897, area needed is 3.0825756922254093cmˆ2, but the maximum is 3.08cmˆ2;;;
+137;9.0;43.0;300.0;-1,0;Too much steel needed in x=59.879884554554565, area needed is 3.099000308924648cmˆ2, but the maximum is 3.096cmˆ2;;;
+138;7.0;57.0;300.0;107,96806446004305;;42,29;35,58;30,1
+139;13.0;31.0;300.0;-1,0;Too much steel needed in x=36.636644194194204, area needed is 3.225178409558761cmˆ2, but the maximum is 3.224cmˆ2;;;
+140;15.0;27.0;300.0;-1,0;Too much steel needed in x=30.030038028028034, area needed is 3.240829624056353cmˆ2, but the maximum is 3.24cmˆ2;;;
+141;9.0;45.0;300.0;-1,0;Too much steel needed in x=70.54955624624625, area needed is 3.243857016377003cmˆ2, but the maximum is 3.24cmˆ2;;;
+142;11.0;37.0;300.0;-1,0;Too much steel needed in x=49.13213998999, area needed is 3.2568703210192105cmˆ2, but the maximum is 3.2560000000000002cmˆ2;;;
+143;7.0;59.0;300.0;110,31965840343443;;43,77;35,54;31,01
+144;9.0;47.0;300.0;-1,0;Too much steel needed in x=84.46246829829832, area needed is 3.384690657555096cmˆ2, but the maximum is 3.384cmˆ2;;;
+145;7.0;61.0;300.0;112,64752560777477;;45,26;35,48;31,91
+146;13.0;33.0;300.0;-1,0;Too much steel needed in x=43.828836906906915, area needed is 3.4437667262837457cmˆ2, but the maximum is 3.432cmˆ2;;;
+147;11.0;39.0;300.0;-1,0;Too much steel needed in x=57.939947277277284, area needed is 3.435630247554282cmˆ2, but the maximum is 3.432cmˆ2;;;
+148;15.0;29.0;300.0;-1,0;Too much steel needed in x=36.33634391391392, area needed is 3.4820138239820038cmˆ2, but the maximum is 3.48cmˆ2;;;
+149;7.0;63.0;300.0;114,96007016186688;;46,74;35,4;32,82
+150;9.0;49.0;300.0;-1,0;Too much steel needed in x=109.13213332332336, area needed is 3.5282986027004086cmˆ2, but the maximum is 3.528cmˆ2;;;
+151;11.0;41.0;300.0;-1,0;Too much steel needed in x=68.46847390390391, area needed is 3.609058318535529cmˆ2, but the maximum is 3.608cmˆ2;;;
+152;13.0;35.0;300.0;-1,0;Too much steel needed in x=51.735743353353364, area needed is 3.64205876531238cmˆ2, but the maximum is 3.64cmˆ2;;;
+153;7.0;65.0;300.0;117,26989627858158;;48,23;35,32;33,72
+154;9.0;51.0;300.0;116,33009747332082;;48,65;39,39;28,29
+155;17.0;27.0;300.0;-1,0;Too much steel needed in x=34.822831301301306, area needed is 3.680251076386254cmˆ2, but the maximum is 3.672cmˆ2;;;
+156;15.0;31.0;300.0;-1,0;Too much steel needed in x=43.54355064064065, area needed is 3.7210256673461792cmˆ2, but the maximum is 3.72cmˆ2;;;
+157;7.0;67.0;300.0;119,5955393068859;;49,71;35,26;34,63
+158;11.0;43.0;300.0;-1,0;Too much steel needed in x=82.28228679679681, area needed is 3.7850039050972226cmˆ2, but the maximum is 3.7840000000000003cmˆ2;;;
+159;9.0;53.0;300.0;118,94142238705157;;50,56;39,19;29,2
+160;13.0;37.0;300.0;-1,0;Too much steel needed in x=61.378383153153166, area needed is 3.8503674131683283cmˆ2, but the maximum is 3.848cmˆ2;;;
+161;7.0;69.0;300.0;117,8839102806161;;51,19;31,16;35,53
+162;17.0;29.0;300.0;-1,0;Too much steel needed in x=41.954961291291305, area needed is 3.9447179443199807cmˆ2, but the maximum is 3.944cmˆ2;;;
+163;9.0;55.0;300.0;121,48774672206255;;52,47;38,92;30,1
+164;15.0;33.0;300.0;-1,0;Too much steel needed in x=51.93694447447449, area needed is 3.9602181722841143cmˆ2, but the maximum is 3.96cmˆ2;;;
+165;11.0;45.0;300.0;-1,0;Too much steel needed in x=104.48348791791794, area needed is 3.9604544569574034cmˆ2, but the maximum is 3.96cmˆ2;;;
+166;7.0;71.0;300.0;120,27294698961411;;52,68;31,16;36,44
+167;13.0;39.0;300.0;-1,0;Too much steel needed in x=73.2732783883884, area needed is 4.056323282376049cmˆ2, but the maximum is 4.056cmˆ2;;;
+168;7.0;73.0;300.0;122,6648254269915;;54,16;31,16;37,34
+169;9.0;57.0;300.0;123,95399550744295;;54,37;38,57;31,01
+170;19.0;27.0;300.0;-1,0;Too much steel needed in x=39.32733550550551, area needed is 4.108720237700329cmˆ2, but the maximum is 4.104cmˆ2;;;
+171;11.0;47.0;300.0;126,45905799532534;;54,8;44,28;27,39
+173;3.0;51.0;400.0;-1,0;Too much steel needed in x=3.2032130430430437, area needed is 1.2380391731354208cmˆ2, but the maximum is 1.224cmˆ2;;;
+174;3.0;53.0;400.0;-1,0;Too much steel needed in x=4.229237767767774, area needed is 1.2753196674927991cmˆ2, but the maximum is 1.272cmˆ2;;;
+175;3.0;55.0;400.0;-1,0;Too much steel needed in x=5.605615325325326, area needed is 1.3240682813538442cmˆ2, but the maximum is 1.32cmˆ2;;;
+176;3.0;57.0;400.0;-1,0;Too much steel needed in x=7.034042332332341, area needed is 1.3705423879518652cmˆ2, but the maximum is 1.368cmˆ2;;;
+177;3.0;59.0;400.0;-1,0;Too much steel needed in x=8.80881836836837, area needed is 1.4262508749630354cmˆ2, but the maximum is 1.416cmˆ2;;;
+178;3.0;61.0;400.0;-1,0;Too much steel needed in x=10.239247277277286, area needed is 1.4643795346491875cmˆ2, but the maximum is 1.464cmˆ2;;;
+179;3.0;63.0;400.0;-1,0;Too much steel needed in x=12.04204993993995, area needed is 1.5122801367976497cmˆ2, but the maximum is 1.512cmˆ2;;;
+180;3.0;65.0;400.0;-1,0;Too much steel needed in x=14.014023313313315, area needed is 1.5616843017040956cmˆ2, but the maximum is 1.56cmˆ2;;;
+181;3.0;67.0;400.0;-1,0;Too much steel needed in x=16.048055645645654, area needed is 1.608781031883681cmˆ2, but the maximum is 1.608cmˆ2;;;
+182;3.0;69.0;400.0;-1,0;Too much steel needed in x=18.2512586886887, area needed is 1.6569219308444407cmˆ2, but the maximum is 1.6560000000000001cmˆ2;;;
+183;3.0;71.0;400.0;-1,0;Too much steel needed in x=20.820829779779782, area needed is 1.7114656702632411cmˆ2, but the maximum is 1.704cmˆ2;;;
+184;3.0;73.0;400.0;-1,0;Too much steel needed in x=23.223232062062067, area needed is 1.756487762241814cmˆ2, but the maximum is 1.752cmˆ2;;;
+185;3.0;75.0;400.0;-1,0;Too much steel needed in x=26.026034724724727, area needed is 1.8079721302812313cmˆ2, but the maximum is 1.8cmˆ2;;;
+186;3.0;77.0;400.0;-1,0;Too much steel needed in x=28.665672382382397, area needed is 1.850578720341803cmˆ2, but the maximum is 1.848cmˆ2;;;
+187;3.0;79.0;400.0;-1,0;Too much steel needed in x=31.631640050050056, area needed is 1.8968923056076483cmˆ2, but the maximum is 1.8960000000000001cmˆ2;;;
+188;3.0;81.0;400.0;-1,0;Too much steel needed in x=34.8348430930931, area needed is 1.9440049378516675cmˆ2, but the maximum is 1.944cmˆ2;;;
+189;3.0;83.0;400.0;-1,0;Too much steel needed in x=38.43844651651653, area needed is 1.994840867569815cmˆ2, but the maximum is 1.992cmˆ2;;;
+190;5.0;51.0;400.0;-1,0;Too much steel needed in x=19.219228258258262, area needed is 2.0474133238440557cmˆ2, but the maximum is 2.04cmˆ2;;;
+191;3.0;85.0;400.0;-1,0;Too much steel needed in x=42.04204993993995, area needed is 2.0402450989532013cmˆ2, but the maximum is 2.04cmˆ2;;;
+192;3.0;87.0;400.0;-1,0;Too much steel needed in x=46.046053743743755, area needed is 2.0881038095384756cmˆ2, but the maximum is 2.088cmˆ2;;;
+193;5.0;53.0;400.0;-1,0;Too much steel needed in x=21.846854504504513, area needed is 2.1248766138444917cmˆ2, but the maximum is 2.12cmˆ2;;;
+194;3.0;89.0;400.0;-1,0;Too much steel needed in x=50.45045792792794, area needed is 2.1373021620064434cmˆ2, but the maximum is 2.136cmˆ2;;;
+195;3.0;91.0;400.0;-1,0;Too much steel needed in x=55.21122065065065, area needed is 2.186027925592678cmˆ2, but the maximum is 2.184cmˆ2;;;
+196;5.0;55.0;400.0;-1,0;Too much steel needed in x=24.824833583583587, area needed is 2.2089060161592395cmˆ2, but the maximum is 2.2cmˆ2;;;
+197;3.0;93.0;400.0;-1,0;Too much steel needed in x=60.305310040040055, area needed is 2.2330019651768733cmˆ2, but the maximum is 2.232cmˆ2;;;
+198;3.0;95.0;400.0;-1,0;Too much steel needed in x=66.02002901901902, area needed is 2.2813308110027335cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+199;5.0;57.0;400.0;-1,0;Too much steel needed in x=27.80081076076076, area needed is 2.284234870731954cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+200;3.0;97.0;400.0;-1,0;Too much steel needed in x=72.31932335335338, area needed is 2.3286090521358123cmˆ2, but the maximum is 2.328cmˆ2;;;
+201;5.0;59.0;400.0;-1,0;Too much steel needed in x=31.203213043043043, area needed is 2.3674010643330416cmˆ2, but the maximum is 2.36cmˆ2;;;
+202;3.0;99.0;400.0;-1,0;Too much steel needed in x=79.63164005005005, area needed is 2.377660442335749cmˆ2, but the maximum is 2.376cmˆ2;;;
+203;3.0;101.0;400.0;-1,0;Too much steel needed in x=87.9369400900901, area needed is 2.424487067036469cmˆ2, but the maximum is 2.424cmˆ2;;;
+204;5.0;61.0;400.0;-1,0;Too much steel needed in x=34.605615325325324, area needed is 2.441756791131592cmˆ2, but the maximum is 2.44cmˆ2;;;
+205;3.0;103.0;400.0;-1,0;Too much steel needed in x=98.14815074074076, area needed is 2.472133727981512cmˆ2, but the maximum is 2.472cmˆ2;;;
+206;5.0;63.0;400.0;-1,0;Too much steel needed in x=38.40841798798799, area needed is 2.521056682129754cmˆ2, but the maximum is 2.52cmˆ2;;;
+207;3.0;105.0;400.0;-1,0;Too much steel needed in x=111.86086781781783, area needed is 2.520065366811213cmˆ2, but the maximum is 2.52cmˆ2;;;
+208;3.0;107.0;400.0;-1,0;Too much steel needed in x=140.88889444444447, area needed is 2.56818248302978cmˆ2, but the maximum is 2.568cmˆ2;;;
+209;5.0;65.0;400.0;-1,0;Too much steel needed in x=42.611621031031035, area needed is 2.6036152895847535cmˆ2, but the maximum is 2.6cmˆ2;;;
+210;3.0;109.0;400.0;161,4596070088779;;46,21;49,28;65,96
+211;3.0;111.0;400.0;157,67467132150503;;47,06;43,5;67,12
+212;5.0;67.0;400.0;-1,0;Too much steel needed in x=47.21522445445446, area needed is 2.687809279317777cmˆ2, but the maximum is 2.68cmˆ2;;;
+213;3.0;113.0;400.0;159,6993824675891;;47,91;43,52;68,27
+214;5.0;69.0;400.0;-1,0;Too much steel needed in x=51.81882787787788, area needed is 2.761545363724898cmˆ2, but the maximum is 2.7600000000000002cmˆ2;;;
+215;3.0;115.0;400.0;161,7076171380205;;48,76;43,53;69,42
+216;3.0;117.0;400.0;163,7217422657753;;49,6;43,55;70,57
+217;5.0;71.0;400.0;-1,0;Too much steel needed in x=57.22323206206207, area needed is 2.8451171072140986cmˆ2, but the maximum is 2.84cmˆ2;;;
+218;7.0;51.0;400.0;-1,0;Too much steel needed in x=34.410419889889894, area needed is 2.86436524855543cmˆ2, but the maximum is 2.856cmˆ2;;;
+219;3.0;119.0;400.0;165,7240864788834;;50,45;43,55;71,72
+220;3.0;121.0;400.0;167,7274608317823;;51,3;43,55;72,88
+221;5.0;73.0;400.0;-1,0;Too much steel needed in x=62.86286971971973, area needed is 2.922000523437518cmˆ2, but the maximum is 2.92cmˆ2;;;
+222;3.0;123.0;400.0;169,72407934409358;;52,15;43,55;74,03
+223;7.0;53.0;400.0;-1,0;Too much steel needed in x=38.43844651651653, area needed is 2.9717321221634636cmˆ2, but the maximum is 2.968cmˆ2;;;
+224;3.0;125.0;400.0;171,71081246481333;;52,99;43,53;75,18
+225;5.0;75.0;400.0;-1,0;Too much steel needed in x=69.23324157157158, area needed is 3.001748423235125cmˆ2, but the maximum is 3.0cmˆ2;;;
+226;3.0;127.0;400.0;173,69111925799854;;53,84;43,51;76,33
+227;7.0;55.0;400.0;-1,0;Too much steel needed in x=42.81682597597597, area needed is 3.08031628301196cmˆ2, but the maximum is 3.08cmˆ2;;;
+228;5.0;77.0;400.0;-1,0;Too much steel needed in x=76.31331764764766, area needed is 3.080472862995891cmˆ2, but the maximum is 3.08cmˆ2;;;
+229;3.0;129.0;400.0;175,66121114653905;;54,69;43,48;77,49
+230;3.0;131.0;400.0;177,60872974494544;;55,54;43,43;78,64
+231;5.0;79.0;400.0;-1,0;Too much steel needed in x=84.44645412412413, area needed is 3.1602302972701075cmˆ2, but the maximum is 3.16cmˆ2;;;
+232;7.0;57.0;400.0;-1,0;Too much steel needed in x=47.64765526526528, area needed is 3.192228119450647cmˆ2, but the maximum is 3.192cmˆ2;;;
+233;3.0;133.0;400.0;179,55661945703656;;56,39;43,38;79,79
+234;5.0;81.0;400.0;-1,0;Too much steel needed in x=94.09409938938941, area needed is 3.2414479176863265cmˆ2, but the maximum is 3.24cmˆ2;;;
+235;3.0;135.0;400.0;181,47419232224678;;57,23;43,3;80,94
+236;3.0;137.0;400.0;183,35881223615166;;58,08;43,18;82,09
+237;7.0;59.0;400.0;-1,0;Too much steel needed in x=53.22523396396397, area needed is 3.315025141655308cmˆ2, but the maximum is 3.3040000000000003cmˆ2;;;
+238;5.0;83.0;400.0;-1,0;Too much steel needed in x=106.06607276276277, area needed is 3.3232319446758942cmˆ2, but the maximum is 3.3200000000000003cmˆ2;;;
+239;3.0;139.0;400.0;185,1803271083969;;58,93;43,0;83,25
+241;-1.0;299.0;500.0;-1,0;Shear (61.337497546499996kN) in x=1e-05 is greater or equal to maximum shear allowed (-213.13087319201753kN);;;
+242;-1.0;297.0;500.0;-1,0;Shear (61.512497539499996kN) in x=1e-05 is greater or equal to maximum shear allowed (-211.6907997245039kN);;;
+243;-1.0;295.0;500.0;-1,0;Shear (61.68749753250001kN) in x=499.99999 is greater or equal to maximum shear allowed (-210.2507262569903kN);;;
+244;-1.0;293.0;500.0;-1,0;Shear (61.862497525500004kN) in x=499.99999 is greater or equal to maximum shear allowed (-208.81065278947665kN);;;
+245;-1.0;291.0;500.0;-1,0;Shear (62.03749751850002kN) in x=499.99999 is greater or equal to maximum shear allowed (-207.370579321963kN);;;
+246;-1.0;289.0;500.0;-1,0;Shear (62.21249751150001kN) in x=499.99999 is greater or equal to maximum shear allowed (-205.9305058544494kN);;;
+247;-1.0;287.0;500.0;-1,0;Shear (62.387497504500004kN) in x=499.99999 is greater or equal to maximum shear allowed (-204.49043238693574kN);;;
+248;-1.0;285.0;500.0;-1,0;Shear (62.5624974975kN) in x=1e-05 is greater or equal to maximum shear allowed (-203.05035891942214kN);;;
+249;-1.0;283.0;500.0;-1,0;Shear (62.7374974905kN) in x=1e-05 is greater or equal to maximum shear allowed (-201.6102854519085kN);;;
+250;-1.0;281.0;500.0;-1,0;Shear (62.9124974835kN) in x=1e-05 is greater or equal to maximum shear allowed (-200.17021198439485kN);;;
+251;-1.0;279.0;500.0;-1,0;Shear (63.08749747649999kN) in x=1e-05 is greater or equal to maximum shear allowed (-198.73013851688125kN);;;
+252;-1.0;277.0;500.0;-1,0;Shear (63.2624974695kN) in x=1e-05 is greater or equal to maximum shear allowed (-197.2900650493676kN);;;
+253;-1.0;275.0;500.0;-1,0;Shear (63.43749746250001kN) in x=499.99999 is greater or equal to maximum shear allowed (-195.84999158185394kN);;;
+254;-1.0;273.0;500.0;-1,0;Shear (63.612497455500005kN) in x=499.99999 is greater or equal to maximum shear allowed (-194.40991811434034kN);;;
+255;-1.0;271.0;500.0;-1,0;Shear (63.7874974485kN) in x=499.99999 is greater or equal to maximum shear allowed (-192.96984464682672kN);;;
+256;-1.0;269.0;500.0;-1,0;Shear (63.9624974415kN) in x=1e-05 is greater or equal to maximum shear allowed (-191.52977117931306kN);;;
+257;-1.0;267.0;500.0;-1,0;Shear (64.1374974345kN) in x=1e-05 is greater or equal to maximum shear allowed (-190.08969771179946kN);;;
+258;-1.0;265.0;500.0;-1,0;Shear (64.3124974275kN) in x=499.99999 is greater or equal to maximum shear allowed (-188.6496242442858kN);;;
+259;-1.0;263.0;500.0;-1,0;Shear (64.4874974205kN) in x=1e-05 is greater or equal to maximum shear allowed (-187.20955077677215kN);;;
+260;-1.0;261.0;500.0;-1,0;Shear (64.66249741350002kN) in x=499.99999 is greater or equal to maximum shear allowed (-185.76947730925855kN);;;
+261;-1.0;259.0;500.0;-1,0;Shear (64.8374974065kN) in x=499.99999 is greater or equal to maximum shear allowed (-184.32940384174492kN);;;
+262;-1.0;257.0;500.0;-1,0;Shear (65.0124973995kN) in x=499.99999 is greater or equal to maximum shear allowed (-182.88933037423126kN);;;
+263;-1.0;255.0;500.0;-1,0;Shear (65.18749739249999kN) in x=1e-05 is greater or equal to maximum shear allowed (-181.44925690671766kN);;;
+264;-1.0;253.0;500.0;-1,0;Shear (65.36249738549999kN) in x=1e-05 is greater or equal to maximum shear allowed (-180.009183439204kN);;;
+265;-1.0;251.0;500.0;-1,0;Shear (65.5374973785kN) in x=499.99999 is greater or equal to maximum shear allowed (-178.56910997169038kN);;;
+266;-1.0;249.0;500.0;-1,0;Shear (65.7124973715kN) in x=1e-05 is greater or equal to maximum shear allowed (-177.12903650417672kN);;;
+267;-1.0;247.0;500.0;-1,0;Shear (65.88749736450002kN) in x=499.99999 is greater or equal to maximum shear allowed (-175.6889630366631kN);;;
+268;-1.0;245.0;500.0;-1,0;Shear (66.0624973575kN) in x=499.99999 is greater or equal to maximum shear allowed (-174.2488895691495kN);;;
+269;-1.0;243.0;500.0;-1,0;Shear (66.2374973505kN) in x=499.99999 is greater or equal to maximum shear allowed (-172.80881610163587kN);;;
+270;-1.0;241.0;500.0;-1,0;Shear (66.41249734350001kN) in x=499.99999 is greater or equal to maximum shear allowed (-171.3687426341222kN);;;
+271;-1.0;239.0;500.0;-1,0;Shear (66.58749733650001kN) in x=499.99999 is greater or equal to maximum shear allowed (-169.92866916660859kN);;;
+272;-1.0;237.0;500.0;-1,0;Shear (66.76249732950001kN) in x=499.99999 is greater or equal to maximum shear allowed (-168.48859569909496kN);;;
+273;-1.0;235.0;500.0;-1,0;Shear (66.93749732250001kN) in x=1e-05 is greater or equal to maximum shear allowed (-167.0485222315813kN);;;
+274;-1.0;233.0;500.0;-1,0;Shear (67.1124973155kN) in x=1e-05 is greater or equal to maximum shear allowed (-165.6084487640677kN);;;
+275;-1.0;231.0;500.0;-1,0;Shear (67.28749730850001kN) in x=499.99999 is greater or equal to maximum shear allowed (-164.16837529655407kN);;;
+276;-1.0;229.0;500.0;-1,0;Shear (67.46249730150001kN) in x=499.99999 is greater or equal to maximum shear allowed (-162.72830182904042kN);;;
+277;-1.0;227.0;500.0;-1,0;Shear (67.6374972945kN) in x=1e-05 is greater or equal to maximum shear allowed (-161.2882283615268kN);;;
+278;-1.0;225.0;500.0;-1,0;Shear (67.8124972875kN) in x=1e-05 is greater or equal to maximum shear allowed (-159.84815489401316kN);;;
+279;-1.0;223.0;500.0;-1,0;Shear (67.98749728050001kN) in x=499.99999 is greater or equal to maximum shear allowed (-158.4080814264995kN);;;
+280;-1.0;221.0;500.0;-1,0;Shear (68.1624972735kN) in x=1e-05 is greater or equal to maximum shear allowed (-156.9680079589859kN);;;
+281;-1.0;219.0;500.0;-1,0;Shear (68.3374972665kN) in x=1e-05 is greater or equal to maximum shear allowed (-155.52793449147228kN);;;
+282;-1.0;217.0;500.0;-1,0;Shear (68.51249725950001kN) in x=499.99999 is greater or equal to maximum shear allowed (-154.08786102395862kN);;;
+283;-1.0;215.0;500.0;-1,0;Shear (68.68749725250001kN) in x=499.99999 is greater or equal to maximum shear allowed (-152.647787556445kN);;;
+284;-1.0;213.0;500.0;-1,0;Shear (68.8624972455kN) in x=1e-05 is greater or equal to maximum shear allowed (-151.20771408893137kN);;;
+285;-1.0;211.0;500.0;-1,0;Shear (69.0374972385kN) in x=1e-05 is greater or equal to maximum shear allowed (-149.7676406214177kN);;;
+286;-1.0;209.0;500.0;-1,0;Shear (69.21249723150001kN) in x=499.99999 is greater or equal to maximum shear allowed (-148.3275671539041kN);;;
+287;-1.0;207.0;500.0;-1,0;Shear (69.3874972245kN) in x=1e-05 is greater or equal to maximum shear allowed (-146.88749368639048kN);;;
+288;-1.0;205.0;500.0;-1,0;Shear (69.56249721750001kN) in x=499.99999 is greater or equal to maximum shear allowed (-145.44742021887686kN);;;
+289;-1.0;203.0;500.0;-1,0;Shear (69.73749721050001kN) in x=499.99999 is greater or equal to maximum shear allowed (-144.0073467513632kN);;;
+290;-1.0;201.0;500.0;-1,0;Shear (69.91249720350001kN) in x=499.99999 is greater or equal to maximum shear allowed (-142.56727328384957kN);;;
+291;-1.0;199.0;500.0;-1,0;Shear (70.0874971965kN) in x=1e-05 is greater or equal to maximum shear allowed (-141.12719981633595kN);;;
+292;-1.0;197.0;500.0;-1,0;Shear (70.2624971895kN) in x=1e-05 is greater or equal to maximum shear allowed (-139.68712634882232kN);;;
+293;-1.0;195.0;500.0;-1,0;Shear (70.43749718250001kN) in x=499.99999 is greater or equal to maximum shear allowed (-138.2470528813087kN);;;
+294;-1.0;193.0;500.0;-1,0;Shear (70.6124971755kN) in x=1e-05 is greater or equal to maximum shear allowed (-136.80697941379506kN);;;
+295;-1.0;191.0;500.0;-1,0;Shear (70.7874971685kN) in x=1e-05 is greater or equal to maximum shear allowed (-135.3669059462814kN);;;
+296;-1.0;189.0;500.0;-1,0;Shear (70.96249716150001kN) in x=499.99999 is greater or equal to maximum shear allowed (-133.92683247876778kN);;;
+297;-1.0;187.0;500.0;-1,0;Shear (71.13749715450001kN) in x=499.99999 is greater or equal to maximum shear allowed (-132.48675901125415kN);;;
+298;-1.0;185.0;500.0;-1,0;Shear (71.31249714750001kN) in x=499.99999 is greater or equal to maximum shear allowed (-131.04668554374052kN);;;
+299;-1.0;183.0;500.0;-1,0;Shear (71.4874971405kN) in x=1e-05 is greater or equal to maximum shear allowed (-129.6066120762269kN);;;
+300;-1.0;181.0;500.0;-1,0;Shear (71.66249713350001kN) in x=499.99999 is greater or equal to maximum shear allowed (-128.16653860871327kN);;;
+301;-1.0;179.0;500.0;-1,0;Shear (71.8374971265kN) in x=1e-05 is greater or equal to maximum shear allowed (-126.72646514119964kN);;;
+302;-1.0;177.0;500.0;-1,0;Shear (72.0124971195kN) in x=1e-05 is greater or equal to maximum shear allowed (-125.28639167368598kN);;;
+303;-1.0;175.0;500.0;-1,0;Shear (72.18749711250001kN) in x=499.99999 is greater or equal to maximum shear allowed (-123.84631820617236kN);;;
+304;-1.0;173.0;500.0;-1,0;Shear (72.36249710550001kN) in x=499.99999 is greater or equal to maximum shear allowed (-122.40624473865874kN);;;
+305;-1.0;171.0;500.0;-1,0;Shear (72.5374970985kN) in x=1e-05 is greater or equal to maximum shear allowed (-120.96617127114509kN);;;
+306;-1.0;169.0;500.0;-1,0;Shear (72.7124970915kN) in x=1e-05 is greater or equal to maximum shear allowed (-119.52609780363146kN);;;
+307;-1.0;167.0;500.0;-1,0;Shear (72.8874970845kN) in x=499.99999 is greater or equal to maximum shear allowed (-118.08602433611784kN);;;
+308;-1.0;165.0;500.0;-1,0;Shear (73.0624970775kN) in x=1e-05 is greater or equal to maximum shear allowed (-116.64595086860419kN);;;
+309;-1.0;163.0;500.0;-1,0;Shear (73.2374970705kN) in x=1e-05 is greater or equal to maximum shear allowed (-115.20587740109056kN);;;
+310;-1.0;161.0;500.0;-1,0;Shear (73.41249706350001kN) in x=499.99999 is greater or equal to maximum shear allowed (-113.76580393357695kN);;;
+311;-1.0;159.0;500.0;-1,0;Shear (73.58749705650001kN) in x=499.99999 is greater or equal to maximum shear allowed (-112.32573046606329kN);;;
+312;-1.0;157.0;500.0;-1,0;Shear (73.7624970495kN) in x=1e-05 is greater or equal to maximum shear allowed (-110.88565699854966kN);;;
+313;-1.0;155.0;500.0;-1,0;Shear (73.93749704250001kN) in x=499.99999 is greater or equal to maximum shear allowed (-109.44558353103605kN);;;
+314;-1.0;153.0;500.0;-1,0;Shear (74.11249703549998kN) in x=1e-05 is greater or equal to maximum shear allowed (-108.0055100635224kN);;;
+315;-1.0;151.0;500.0;-1,0;Shear (74.2874970285kN) in x=1e-05 is greater or equal to maximum shear allowed (-106.56543659600877kN);;;
+316;-1.0;149.0;500.0;-1,0;Shear (74.46249702150001kN) in x=499.99999 is greater or equal to maximum shear allowed (-105.12536312849515kN);;;
+317;-1.0;147.0;500.0;-1,0;Shear (74.63749701450001kN) in x=499.99999 is greater or equal to maximum shear allowed (-103.6852896609815kN);;;
+318;-1.0;145.0;500.0;-1,0;Shear (74.81249700750001kN) in x=499.99999 is greater or equal to maximum shear allowed (-102.24521619346787kN);;;
+319;-1.0;143.0;500.0;-1,0;Shear (74.9874970005kN) in x=1e-05 is greater or equal to maximum shear allowed (-100.80514272595425kN);;;
+320;-1.0;141.0;500.0;-1,0;Shear (75.1624969935kN) in x=1e-05 is greater or equal to maximum shear allowed (-99.36506925844063kN);;;
+321;-1.0;139.0;500.0;-1,0;Shear (75.33749698649999kN) in x=1e-05 is greater or equal to maximum shear allowed (-97.92499579092697kN);;;
+322;-1.0;137.0;500.0;-1,0;Shear (75.5124969795kN) in x=1e-05 is greater or equal to maximum shear allowed (-96.48492232341336kN);;;
+323;-1.0;135.0;500.0;-1,0;Shear (75.6874969725kN) in x=499.99999 is greater or equal to maximum shear allowed (-95.04484885589973kN);;;
+324;-1.0;133.0;500.0;-1,0;Shear (75.8624969655kN) in x=1e-05 is greater or equal to maximum shear allowed (-93.60477538838607kN);;;
+325;-1.0;131.0;500.0;-1,0;Shear (76.03749695850001kN) in x=499.99999 is greater or equal to maximum shear allowed (-92.16470192087246kN);;;
+326;-1.0;129.0;500.0;-1,0;Shear (76.2124969515kN) in x=1e-05 is greater or equal to maximum shear allowed (-90.72462845335883kN);;;
+327;-1.0;127.0;500.0;-1,0;Shear (76.3874969445kN) in x=1e-05 is greater or equal to maximum shear allowed (-89.28455498584519kN);;;
+328;-1.0;125.0;500.0;-1,0;Shear (76.56249693749999kN) in x=1e-05 is greater or equal to maximum shear allowed (-87.84448151833155kN);;;
+329;-1.0;123.0;500.0;-1,0;Shear (76.7374969305kN) in x=1e-05 is greater or equal to maximum shear allowed (-86.40440805081793kN);;;
+330;-1.0;121.0;500.0;-1,0;Shear (76.9124969235kN) in x=499.99999 is greater or equal to maximum shear allowed (-84.96433458330429kN);;;
+331;-1.0;119.0;500.0;-1,0;Shear (77.0874969165kN) in x=1e-05 is greater or equal to maximum shear allowed (-83.52426111579065kN);;;
+332;-1.0;117.0;500.0;-1,0;Shear (77.26249690950002kN) in x=499.99999 is greater or equal to maximum shear allowed (-82.08418764827704kN);;;
+333;-1.0;115.0;500.0;-1,0;Shear (77.4374969025kN) in x=1e-05 is greater or equal to maximum shear allowed (-80.6441141807634kN);;;
+334;-1.0;113.0;500.0;-1,0;Shear (77.6124968955kN) in x=1e-05 is greater or equal to maximum shear allowed (-79.20404071324975kN);;;
+335;-1.0;111.0;500.0;-1,0;Shear (77.78749688849999kN) in x=1e-05 is greater or equal to maximum shear allowed (-77.76396724573614kN);;;
+336;-1.0;109.0;500.0;-1,0;Shear (77.9624968815kN) in x=1e-05 is greater or equal to maximum shear allowed (-76.3238937782225kN);;;
+337;-1.0;107.0;500.0;-1,0;Shear (78.1374968745kN) in x=499.99999 is greater or equal to maximum shear allowed (-74.88382031070886kN);;;
+338;1.0;107.0;500.0;-1,0;Shear (96.86249612549999kN) in x=1e-05 is greater or equal to maximum shear allowed (74.88382031070886kN);;;
+339;1.0;109.0;500.0;-1,0;Shear (97.03749611850002kN) in x=499.99999 is greater or equal to maximum shear allowed (76.3238937782225kN);;;
+340;1.0;111.0;500.0;-1,0;Shear (97.21249611150002kN) in x=499.99999 is greater or equal to maximum shear allowed (77.76396724573614kN);;;
+341;1.0;113.0;500.0;-1,0;Shear (97.3874961045kN) in x=499.99999 is greater or equal to maximum shear allowed (79.20404071324975kN);;;
+342;1.0;115.0;500.0;-1,0;Shear (97.5624960975kN) in x=1e-05 is greater or equal to maximum shear allowed (80.6441141807634kN);;;
+343;1.0;117.0;500.0;-1,0;Shear (97.7374960905kN) in x=1e-05 is greater or equal to maximum shear allowed (82.08418764827704kN);;;
+344;1.0;119.0;500.0;-1,0;Shear (97.91249608349999kN) in x=1e-05 is greater or equal to maximum shear allowed (83.52426111579065kN);;;
+345;1.0;121.0;500.0;-1,0;Shear (98.08749607649999kN) in x=1e-05 is greater or equal to maximum shear allowed (84.96433458330429kN);;;
+346;1.0;123.0;500.0;-1,0;Shear (98.26249606950002kN) in x=499.99999 is greater or equal to maximum shear allowed (86.40440805081793kN);;;
+347;1.0;125.0;500.0;-1,0;Shear (98.43749606250002kN) in x=499.99999 is greater or equal to maximum shear allowed (87.84448151833155kN);;;
+348;1.0;127.0;500.0;-1,0;Shear (98.6124960555kN) in x=499.99999 is greater or equal to maximum shear allowed (89.28455498584519kN);;;
+349;1.0;129.0;500.0;-1,0;Shear (98.7874960485kN) in x=1e-05 is greater or equal to maximum shear allowed (90.72462845335883kN);;;
+350;1.0;131.0;500.0;-1,0;Shear (98.9624960415kN) in x=1e-05 is greater or equal to maximum shear allowed (92.16470192087246kN);;;
+351;1.0;133.0;500.0;-1,0;Shear (99.13749603449999kN) in x=1e-05 is greater or equal to maximum shear allowed (93.60477538838607kN);;;
+352;1.0;135.0;500.0;-1,0;Shear (99.31249602749999kN) in x=1e-05 is greater or equal to maximum shear allowed (95.04484885589973kN);;;
+353;1.0;137.0;500.0;-1,0;Shear (99.48749602050002kN) in x=499.99999 is greater or equal to maximum shear allowed (96.48492232341336kN);;;
+354;1.0;139.0;500.0;-1,0;Shear (99.66249601350002kN) in x=499.99999 is greater or equal to maximum shear allowed (97.92499579092697kN);;;
+355;1.0;141.0;500.0;-1,0;Shear (99.8374960065kN) in x=499.99999 is greater or equal to maximum shear allowed (99.36506925844063kN);;;
+356;1.0;143.0;500.0;-1,0;Too much steel needed in x=-6.436428978978967, area needed is 1.1456629655882289cmˆ2, but the maximum is 1.1440000000000001cmˆ2;;;
+357;1.0;145.0;500.0;-1,0;Too much steel needed in x=-5.434427057057036, area needed is 1.1617625492332224cmˆ2, but the maximum is 1.16cmˆ2;;;
+358;1.0;147.0;500.0;-1,0;Too much steel needed in x=-4.432425135135119, area needed is 1.1771275190143753cmˆ2, but the maximum is 1.176cmˆ2;;;
+359;1.0;149.0;500.0;-1,0;Too much steel needed in x=-2.92992273273272, area needed is 1.1997023771725883cmˆ2, but the maximum is 1.192cmˆ2;;;
+360;1.0;151.0;500.0;-1,0;Too much steel needed in x=-1.9279208108107895, area needed is 1.2134993946351422cmˆ2, but the maximum is 1.208cmˆ2;;;
+361;1.0;153.0;500.0;-1,0;Too much steel needed in x=-0.925918888888873, area needed is 1.2266479580363432cmˆ2, but the maximum is 1.224cmˆ2;;;
+362;1.0;155.0;500.0;-1,0;Too much steel needed in x=0.5005104804804805, area needed is 1.2454175335396802cmˆ2, but the maximum is 1.24cmˆ2;;;
+363;1.0;157.0;500.0;-1,0;Too much steel needed in x=1.5015114414414419, area needed is 1.2571821248539785cmˆ2, but the maximum is 1.256cmˆ2;;;
+364;1.0;159.0;500.0;-1,0;Too much steel needed in x=3.0030128828828837, area needed is 1.275386133820656cmˆ2, but the maximum is 1.272cmˆ2;;;
+365;1.0;161.0;500.0;-1,0;Too much steel needed in x=4.504514324324325, area needed is 1.2926948680911956cmˆ2, but the maximum is 1.288cmˆ2;;;
+366;1.0;163.0;500.0;-1,0;Too much steel needed in x=6.006015765765767, area needed is 1.3091388872231924cmˆ2, but the maximum is 1.304cmˆ2;;;
+367;1.0;165.0;500.0;-1,0;Too much steel needed in x=7.507517207207208, area needed is 1.3247475978195349cmˆ2, but the maximum is 1.32cmˆ2;;;
+368;1.0;167.0;500.0;-1,0;Too much steel needed in x=9.00901864864865, area needed is 1.3395492856145403cmˆ2, but the maximum is 1.336cmˆ2;;;
+369;1.0;169.0;500.0;-1,0;Too much steel needed in x=10.510520090090091, area needed is 1.3535711486012956cmˆ2, but the maximum is 1.352cmˆ2;;;
+370;1.0;171.0;500.0;-1,0;Too much steel needed in x=12.512522012012013, area needed is 1.3728159273302072cmˆ2, but the maximum is 1.368cmˆ2;;;
+371;1.0;173.0;500.0;-1,0;Too much steel needed in x=14.014023453453456, area needed is 1.3851957718578431cmˆ2, but the maximum is 1.3840000000000001cmˆ2;;;
+372;1.0;175.0;500.0;-1,0;Too much steel needed in x=16.016025375375378, area needed is 1.4025197942856669cmˆ2, but the maximum is 1.4000000000000001cmˆ2;;;
+373;1.0;177.0;500.0;-1,0;Too much steel needed in x=18.0180272972973, area needed is 1.4188430840851831cmˆ2, but the maximum is 1.416cmˆ2;;;
+374;1.0;179.0;500.0;-1,0;Too much steel needed in x=20.02002921921922, area needed is 1.4341963229912196cmˆ2, but the maximum is 1.432cmˆ2;;;
+375;1.0;181.0;500.0;-1,0;Too much steel needed in x=22.022031141141145, area needed is 1.4486092024762132cmˆ2, but the maximum is 1.448cmˆ2;;;
+376;1.0;183.0;500.0;-1,0;Too much steel needed in x=24.524533543543548, area needed is 1.4670833990123107cmˆ2, but the maximum is 1.464cmˆ2;;;
+377;1.0;185.0;500.0;-1,0;Too much steel needed in x=26.617622912912935, area needed is 1.4804190578446157cmˆ2, but the maximum is 1.48cmˆ2;;;
+378;1.0;187.0;500.0;-1,0;Too much steel needed in x=29.1211262762763, area needed is 1.4966476231555081cmˆ2, but the maximum is 1.496cmˆ2;;;
+379;1.0;189.0;500.0;-1,0;Too much steel needed in x=32.03204075075076, area needed is 1.515357291824069cmˆ2, but the maximum is 1.512cmˆ2;;;
+380;1.0;191.0;500.0;-1,0;Too much steel needed in x=34.534543153153166, area needed is 1.5291781833455187cmˆ2, but the maximum is 1.528cmˆ2;;;
+381;1.0;193.0;500.0;-1,0;Too much steel needed in x=37.53754603603605, area needed is 1.546037236736692cmˆ2, but the maximum is 1.544cmˆ2;;;
+382;1.0;195.0;500.0;-1,0;Too much steel needed in x=40.54054891891893, area needed is 1.5615107375623696cmˆ2, but the maximum is 1.56cmˆ2;;;
+383;1.0;197.0;500.0;-1,0;Too much steel needed in x=43.64064501501505, area needed is 1.576367614021637cmˆ2, but the maximum is 1.576cmˆ2;;;
+384;1.0;199.0;500.0;-1,0;Too much steel needed in x=47.047055165165176, area needed is 1.5920369527756504cmˆ2, but the maximum is 1.592cmˆ2;;;
+385;1.0;201.0;500.0;-1,0;Too much steel needed in x=51.05105900900902, area needed is 1.6101990119680971cmˆ2, but the maximum is 1.608cmˆ2;;;
+386;1.0;203.0;500.0;-1,0;Too much steel needed in x=55.05506285285286, area needed is 1.626401730960233cmˆ2, but the maximum is 1.624cmˆ2;;;
+387;1.0;205.0;500.0;-1,0;Too much steel needed in x=59.05906669669671, area needed is 1.6406950565647012cmˆ2, but the maximum is 1.6400000000000001cmˆ2;;;
+388;1.0;207.0;500.0;-1,0;Too much steel needed in x=63.665669039039074, area needed is 1.6564887471932057cmˆ2, but the maximum is 1.6560000000000001cmˆ2;;;
+389;1.0;209.0;500.0;-1,0;Too much steel needed in x=68.67167480480484, area needed is 1.6720435999902565cmˆ2, but the maximum is 1.672cmˆ2;;;
+390;1.0;211.0;500.0;-1,0;Too much steel needed in x=74.57458159159161, area needed is 1.689211330993483cmˆ2, but the maximum is 1.688cmˆ2;;;
+391;1.0;213.0;500.0;-1,0;Too much steel needed in x=81.08108783783786, area needed is 1.7055601444935615cmˆ2, but the maximum is 1.704cmˆ2;;;
+392;1.0;215.0;500.0;-1,0;Too much steel needed in x=88.19419642642646, area needed is 1.7202538204349433cmˆ2, but the maximum is 1.72cmˆ2;;;
+393;1.0;217.0;500.0;-1,0;Too much steel needed in x=97.20420603603608, area needed is 1.736188440632602cmˆ2, but the maximum is 1.736cmˆ2;;;
+394;1.0;219.0;500.0;-1,0;Too much steel needed in x=109.21721852852858, area needed is 1.7520755075850218cmˆ2, but the maximum is 1.752cmˆ2;;;
+395;1.0;221.0;500.0;-1,0;Too much steel needed in x=134.52553450450452, area needed is 1.7680629271693475cmˆ2, but the maximum is 1.768cmˆ2;;;
+396;1.0;223.0;500.0;258,920701857075;;39,39;51,76;167,77
+397;1.0;225.0;500.0;260,83761947798797;;39,75;51,84;169,25
+398;1.0;227.0;500.0;262,75453709890087;;40,1;51,92;170,73
+399;1.0;229.0;500.0;264,6714547198138;;40,45;52,01;172,21
+400;1.0;231.0;500.0;266,6295635302703;;40,81;52,13;173,69
+401;1.0;233.0;500.0;268,54648115118323;;41,16;52,21;175,18
+402;1.0;235.0;500.0;270,4633987720961;;41,51;52,29;176,66
+403;1.0;237.0;500.0;272,3803163930091;;41,87;52,38;178,14
+404;1.0;239.0;500.0;274,29723401392187;;42,22;52,46;179,62
+405;1.0;241.0;500.0;276,2141516348348;;42,57;52,54;181,1
+406;1.0;243.0;500.0;278,1310692557477;;42,93;52,62;182,58
+407;1.0;245.0;500.0;280,0479868766607;;43,28;52,7;184,06
+408;1.0;247.0;500.0;282,0060956871171;;43,63;52,83;185,55
+409;1.0;249.0;500.0;283,9230133080301;;43,99;52,91;187,03
+410;1.0;251.0;500.0;285,8399309289431;;44,34;52,99;188,51
+412;-3.0;299.0;600.0;-1,0;Shear (10.814999639500023kN) in x=599.99999 is greater or equal to maximum shear allowed (-639.3926195760527kN);;;
+413;-3.0;297.0;600.0;-1,0;Shear (11.444999618500011kN) in x=599.99999 is greater or equal to maximum shear allowed (-635.0723991735118kN);;;
+414;-3.0;295.0;600.0;-1,0;Shear (12.074999597499998kN) in x=1e-05 is greater or equal to maximum shear allowed (-630.7521787709709kN);;;
+415;-3.0;293.0;600.0;-1,0;Shear (12.704999576500002kN) in x=1e-05 is greater or equal to maximum shear allowed (-626.43195836843kN);;;
+416;-3.0;291.0;600.0;-1,0;Shear (13.334999555500008kN) in x=1e-05 is greater or equal to maximum shear allowed (-622.1117379658891kN);;;
+417;-3.0;289.0;600.0;-1,0;Shear (13.96499953450002kN) in x=599.99999 is greater or equal to maximum shear allowed (-617.7915175633482kN);;;
+418;-3.0;287.0;600.0;-1,0;Shear (14.594999513500007kN) in x=599.99999 is greater or equal to maximum shear allowed (-613.4712971608072kN);;;
+419;-3.0;285.0;600.0;-1,0;Shear (15.224999492499999kN) in x=1e-05 is greater or equal to maximum shear allowed (-609.1510767582664kN);;;
+420;-3.0;283.0;600.0;-1,0;Shear (15.854999471500005kN) in x=1e-05 is greater or equal to maximum shear allowed (-604.8308563557255kN);;;
+421;-3.0;281.0;600.0;-1,0;Shear (16.484999450500005kN) in x=1e-05 is greater or equal to maximum shear allowed (-600.5106359531846kN);;;
+422;-3.0;279.0;600.0;-1,0;Shear (17.114999429500006kN) in x=599.99999 is greater or equal to maximum shear allowed (-596.1904155506437kN);;;
+423;-3.0;277.0;600.0;-1,0;Shear (17.744999408500007kN) in x=1e-05 is greater or equal to maximum shear allowed (-591.8701951481028kN);;;
+424;-3.0;275.0;600.0;-1,0;Shear (18.37499938750001kN) in x=599.99999 is greater or equal to maximum shear allowed (-587.5499747455619kN);;;
+425;-3.0;273.0;600.0;-1,0;Shear (19.0049993665kN) in x=1e-05 is greater or equal to maximum shear allowed (-583.229754343021kN);;;
+426;-3.0;271.0;600.0;-1,0;Shear (19.634999345500006kN) in x=1e-05 is greater or equal to maximum shear allowed (-578.9095339404801kN);;;
+427;-3.0;269.0;600.0;-1,0;Shear (20.264999324499993kN) in x=599.99999 is greater or equal to maximum shear allowed (-574.5893135379392kN);;;
+428;-3.0;267.0;600.0;-1,0;Shear (20.8949993035kN) in x=599.99999 is greater or equal to maximum shear allowed (-570.2690931353983kN);;;
+429;-3.0;265.0;600.0;-1,0;Shear (21.524999282499998kN) in x=1e-05 is greater or equal to maximum shear allowed (-565.9488727328575kN);;;
+430;-3.0;263.0;600.0;-1,0;Shear (22.154999261500002kN) in x=599.99999 is greater or equal to maximum shear allowed (-561.6286523303165kN);;;
+431;-3.0;261.0;600.0;-1,0;Shear (22.784999240499996kN) in x=1e-05 is greater or equal to maximum shear allowed (-557.3084319277756kN);;;
+432;-3.0;259.0;600.0;-1,0;Shear (23.414999219499997kN) in x=1e-05 is greater or equal to maximum shear allowed (-552.9882115252348kN);;;
+433;-3.0;257.0;600.0;-1,0;Shear (24.044999198499994kN) in x=1e-05 is greater or equal to maximum shear allowed (-548.6679911226938kN);;;
+434;-3.0;255.0;600.0;-1,0;Shear (24.674999177500002kN) in x=599.99999 is greater or equal to maximum shear allowed (-544.3477707201529kN);;;
+435;-3.0;253.0;600.0;-1,0;Shear (25.304999156500006kN) in x=1e-05 is greater or equal to maximum shear allowed (-540.027550317612kN);;;
+436;-3.0;251.0;600.0;-1,0;Shear (25.934999135500007kN) in x=599.99999 is greater or equal to maximum shear allowed (-535.7073299150711kN);;;
+437;-3.0;249.0;600.0;-1,0;Shear (26.5649991145kN) in x=1e-05 is greater or equal to maximum shear allowed (-531.3871095125302kN);;;
+438;-3.0;247.0;600.0;-1,0;Shear (27.194999093500012kN) in x=599.99999 is greater or equal to maximum shear allowed (-527.0668891099893kN);;;
+439;-3.0;245.0;600.0;-1,0;Shear (27.8249990725kN) in x=1e-05 is greater or equal to maximum shear allowed (-522.7466687074484kN);;;
+440;-3.0;243.0;600.0;-1,0;Shear (28.454999051500007kN) in x=599.99999 is greater or equal to maximum shear allowed (-518.4264483049076kN);;;
+441;-3.0;241.0;600.0;-1,0;Shear (29.084999030500004kN) in x=599.99999 is greater or equal to maximum shear allowed (-514.1062279023666kN);;;
+442;-3.0;239.0;600.0;-1,0;Shear (29.71499900950001kN) in x=599.99999 is greater or equal to maximum shear allowed (-509.78600749982576kN);;;
+443;-3.0;237.0;600.0;-1,0;Shear (30.344998988500002kN) in x=1e-05 is greater or equal to maximum shear allowed (-505.4657870972848kN);;;
+444;-3.0;235.0;600.0;-1,0;Shear (30.974998967500014kN) in x=599.99999 is greater or equal to maximum shear allowed (-501.14556669474393kN);;;
+445;-3.0;233.0;600.0;-1,0;Shear (31.6049989465kN) in x=1e-05 is greater or equal to maximum shear allowed (-496.82534629220305kN);;;
+446;-3.0;231.0;600.0;-1,0;Shear (32.23499892550001kN) in x=599.99999 is greater or equal to maximum shear allowed (-492.50512588966217kN);;;
+447;-3.0;229.0;600.0;-1,0;Shear (32.8649989045kN) in x=599.99999 is greater or equal to maximum shear allowed (-488.1849054871212kN);;;
+448;-3.0;227.0;600.0;-1,0;Shear (33.4949988835kN) in x=599.99999 is greater or equal to maximum shear allowed (-483.86468508458034kN);;;
+449;-3.0;225.0;600.0;-1,0;Shear (34.12499886249999kN) in x=1e-05 is greater or equal to maximum shear allowed (-479.54446468203946kN);;;
+450;-3.0;223.0;600.0;-1,0;Shear (34.754998841500004kN) in x=599.99999 is greater or equal to maximum shear allowed (-475.2242442794986kN);;;
+451;-3.0;221.0;600.0;-1,0;Shear (35.384998820499995kN) in x=1e-05 is greater or equal to maximum shear allowed (-470.90402387695764kN);;;
+452;-3.0;219.0;600.0;-1,0;Shear (36.01499879950001kN) in x=599.99999 is greater or equal to maximum shear allowed (-466.58380347441675kN);;;
+453;-1.0;299.0;600.0;-1,0;Shear (73.6049975465kN) in x=1e-05 is greater or equal to maximum shear allowed (-213.13087319201753kN);;;
+454;-1.0;297.0;600.0;-1,0;Shear (73.81499753950001kN) in x=599.99999 is greater or equal to maximum shear allowed (-211.6907997245039kN);;;
+455;-1.0;295.0;600.0;-1,0;Shear (74.02499753250001kN) in x=599.99999 is greater or equal to maximum shear allowed (-210.2507262569903kN);;;
+456;-1.0;293.0;600.0;-1,0;Shear (74.2349975255kN) in x=1e-05 is greater or equal to maximum shear allowed (-208.81065278947665kN);;;
+457;-1.0;291.0;600.0;-1,0;Shear (74.44499751850002kN) in x=599.99999 is greater or equal to maximum shear allowed (-207.370579321963kN);;;
+458;-1.0;289.0;600.0;-1,0;Shear (74.65499751150001kN) in x=599.99999 is greater or equal to maximum shear allowed (-205.9305058544494kN);;;
+459;-1.0;287.0;600.0;-1,0;Shear (74.86499750450001kN) in x=599.99999 is greater or equal to maximum shear allowed (-204.49043238693574kN);;;
+460;-1.0;285.0;600.0;-1,0;Shear (75.0749974975kN) in x=1e-05 is greater or equal to maximum shear allowed (-203.05035891942214kN);;;
+461;-1.0;283.0;600.0;-1,0;Shear (75.2849974905kN) in x=1e-05 is greater or equal to maximum shear allowed (-201.6102854519085kN);;;
+462;-1.0;281.0;600.0;-1,0;Shear (75.4949974835kN) in x=1e-05 is greater or equal to maximum shear allowed (-200.17021198439485kN);;;
+463;-1.0;279.0;600.0;-1,0;Shear (75.7049974765kN) in x=1e-05 is greater or equal to maximum shear allowed (-198.73013851688125kN);;;
+464;-1.0;277.0;600.0;-1,0;Shear (75.91499746950001kN) in x=599.99999 is greater or equal to maximum shear allowed (-197.2900650493676kN);;;
+465;-1.0;275.0;600.0;-1,0;Shear (76.1249974625kN) in x=599.99999 is greater or equal to maximum shear allowed (-195.84999158185394kN);;;
+466;-1.0;273.0;600.0;-1,0;Shear (76.3349974555kN) in x=599.99999 is greater or equal to maximum shear allowed (-194.40991811434034kN);;;
+467;-1.0;271.0;600.0;-1,0;Shear (76.5449974485kN) in x=599.99999 is greater or equal to maximum shear allowed (-192.96984464682672kN);;;
+468;-1.0;269.0;600.0;-1,0;Shear (76.7549974415kN) in x=1e-05 is greater or equal to maximum shear allowed (-191.52977117931306kN);;;
+469;-1.0;267.0;600.0;-1,0;Shear (76.96499743450002kN) in x=599.99999 is greater or equal to maximum shear allowed (-190.08969771179946kN);;;
+470;-1.0;265.0;600.0;-1,0;Shear (77.1749974275kN) in x=599.99999 is greater or equal to maximum shear allowed (-188.6496242442858kN);;;
+471;-1.0;263.0;600.0;-1,0;Shear (77.3849974205kN) in x=1e-05 is greater or equal to maximum shear allowed (-187.20955077677215kN);;;
+472;-1.0;261.0;600.0;-1,0;Shear (77.59499741350001kN) in x=599.99999 is greater or equal to maximum shear allowed (-185.76947730925855kN);;;
+473;-1.0;259.0;600.0;-1,0;Shear (77.80499740650001kN) in x=1e-05 is greater or equal to maximum shear allowed (-184.32940384174492kN);;;
+474;-1.0;257.0;600.0;-1,0;Shear (78.01499739950002kN) in x=599.99999 is greater or equal to maximum shear allowed (-182.88933037423126kN);;;
+475;-1.0;255.0;600.0;-1,0;Shear (78.2249973925kN) in x=1e-05 is greater or equal to maximum shear allowed (-181.44925690671766kN);;;
+476;-1.0;253.0;600.0;-1,0;Shear (78.43499738550001kN) in x=599.99999 is greater or equal to maximum shear allowed (-180.009183439204kN);;;
+477;-1.0;251.0;600.0;-1,0;Shear (78.64499737850002kN) in x=599.99999 is greater or equal to maximum shear allowed (-178.56910997169038kN);;;
+478;-1.0;249.0;600.0;-1,0;Shear (78.8549973715kN) in x=1e-05 is greater or equal to maximum shear allowed (-177.12903650417672kN);;;
+479;-1.0;247.0;600.0;-1,0;Shear (79.0649973645kN) in x=599.99999 is greater or equal to maximum shear allowed (-175.6889630366631kN);;;
+480;-1.0;245.0;600.0;-1,0;Shear (79.27499735750001kN) in x=599.99999 is greater or equal to maximum shear allowed (-174.2488895691495kN);;;
+481;-1.0;243.0;600.0;-1,0;Shear (79.4849973505kN) in x=1e-05 is greater or equal to maximum shear allowed (-172.80881610163587kN);;;
+482;-1.0;241.0;600.0;-1,0;Shear (79.69499734349999kN) in x=1e-05 is greater or equal to maximum shear allowed (-171.3687426341222kN);;;
+483;-1.0;239.0;600.0;-1,0;Shear (79.90499733649999kN) in x=1e-05 is greater or equal to maximum shear allowed (-169.92866916660859kN);;;
+484;-1.0;237.0;600.0;-1,0;Shear (80.11499732950001kN) in x=599.99999 is greater or equal to maximum shear allowed (-168.48859569909496kN);;;
+485;-1.0;235.0;600.0;-1,0;Shear (80.3249973225kN) in x=1e-05 is greater or equal to maximum shear allowed (-167.0485222315813kN);;;
+486;-1.0;233.0;600.0;-1,0;Shear (80.5349973155kN) in x=1e-05 is greater or equal to maximum shear allowed (-165.6084487640677kN);;;
+487;-1.0;231.0;600.0;-1,0;Shear (80.7449973085kN) in x=599.99999 is greater or equal to maximum shear allowed (-164.16837529655407kN);;;
+488;-1.0;229.0;600.0;-1,0;Shear (80.9549973015kN) in x=1e-05 is greater or equal to maximum shear allowed (-162.72830182904042kN);;;
+489;-1.0;227.0;600.0;-1,0;Shear (81.1649972945kN) in x=1e-05 is greater or equal to maximum shear allowed (-161.2882283615268kN);;;
+490;-1.0;225.0;600.0;-1,0;Shear (81.37499728750001kN) in x=599.99999 is greater or equal to maximum shear allowed (-159.84815489401316kN);;;
+491;-1.0;223.0;600.0;-1,0;Shear (81.5849972805kN) in x=599.99999 is greater or equal to maximum shear allowed (-158.4080814264995kN);;;
+492;-1.0;221.0;600.0;-1,0;Shear (81.79499727350002kN) in x=599.99999 is greater or equal to maximum shear allowed (-156.9680079589859kN);;;
+493;-1.0;219.0;600.0;-1,0;Shear (82.0049972665kN) in x=1e-05 is greater or equal to maximum shear allowed (-155.52793449147228kN);;;
+494;1.0;219.0;600.0;-1,0;Too much steel needed in x=23.423432642642645, area needed is 1.7569958325735249cmˆ2, but the maximum is 1.752cmˆ2;;;
+495;1.0;221.0;600.0;-1,0;Too much steel needed in x=25.225234384384386, area needed is 1.7699527618908724cmˆ2, but the maximum is 1.768cmˆ2;;;
+496;1.0;223.0;600.0;-1,0;Too much steel needed in x=27.537542952952975, area needed is 1.7873992001547572cmˆ2, but the maximum is 1.784cmˆ2;;;
+497;1.0;225.0;600.0;-1,0;Too much steel needed in x=29.540545855855868, area needed is 1.8009066255104134cmˆ2, but the maximum is 1.8cmˆ2;;;
+498;1.0;227.0;600.0;-1,0;Too much steel needed in x=31.831840770770775, area needed is 1.8164352515164843cmˆ2, but the maximum is 1.816cmˆ2;;;
+499;1.0;229.0;600.0;-1,0;Too much steel needed in x=34.2342430930931, area needed is 1.8321385293213497cmˆ2, but the maximum is 1.832cmˆ2;;;
+500;1.0;231.0;600.0;-1,0;Too much steel needed in x=37.237245995996005, area needed is 1.8523237963313526cmˆ2, but the maximum is 1.848cmˆ2;;;
+501;1.0;233.0;600.0;-1,0;Too much steel needed in x=39.63964831831832, area needed is 1.8660893479978369cmˆ2, but the maximum is 1.864cmˆ2;;;
+502;1.0;235.0;600.0;-1,0;Too much steel needed in x=42.55856327327328, area needed is 1.8833405555296117cmˆ2, but the maximum is 1.8800000000000001cmˆ2;;;
+503;1.0;237.0;600.0;-1,0;Too much steel needed in x=45.16216675675676, area needed is 1.8969145665259681cmˆ2, but the maximum is 1.8960000000000001cmˆ2;;;
+504;1.0;239.0;600.0;-1,0;Too much steel needed in x=48.36637082082083, area needed is 1.9142677584463805cmˆ2, but the maximum is 1.9120000000000001cmˆ2;;;
+505;1.0;241.0;600.0;-1,0;Too much steel needed in x=51.570574884884905, area needed is 1.9303825882137617cmˆ2, but the maximum is 1.928cmˆ2;;;
+506;1.0;243.0;600.0;-1,0;Too much steel needed in x=54.65466283283284, area needed is 1.9444160326681716cmˆ2, but the maximum is 1.944cmˆ2;;;
+507;1.0;245.0;600.0;-1,0;Too much steel needed in x=58.25826631631632, area needed is 1.9609312875169769cmˆ2, but the maximum is 1.96cmˆ2;;;
+508;1.0;247.0;600.0;-1,0;Too much steel needed in x=61.861869799799805, area needed is 1.9760492176038782cmˆ2, but the maximum is 1.976cmˆ2;;;
+509;1.0;249.0;600.0;-1,0;Too much steel needed in x=66.06607386386388, area needed is 1.9935688532176912cmˆ2, but the maximum is 1.992cmˆ2;;;
+510;1.0;251.0;600.0;-1,0;Too much steel needed in x=70.27027792792794, area needed is 2.009364748432524cmˆ2, but the maximum is 2.008cmˆ2;;;
+511;1.0;253.0;600.0;-1,0;Too much steel needed in x=75.00000333333335, area needed is 2.0264138056574663cmˆ2, but the maximum is 2.024cmˆ2;;;
+512;1.0;255.0;600.0;-1,0;Too much steel needed in x=79.87988721721723, area needed is 2.042230516212697cmˆ2, but the maximum is 2.04cmˆ2;;;
+513;1.0;257.0;600.0;-1,0;Too much steel needed in x=85.01201494494498, area needed is 2.05719568966358cmˆ2, but the maximum is 2.056cmˆ2;;;
+514;1.0;259.0;600.0;-1,0;Too much steel needed in x=90.61862133133135, area needed is 2.072058550556016cmˆ2, but the maximum is 2.072cmˆ2;;;
+515;1.0;261.0;600.0;-1,0;Too much steel needed in x=97.29730405405407, area needed is 2.0887152728489764cmˆ2, but the maximum is 2.088cmˆ2;;;
+516;1.0;263.0;600.0;-1,0;Too much steel needed in x=104.83483700700702, area needed is 2.10505385041326cmˆ2, but the maximum is 2.104cmˆ2;;;
+517;1.0;265.0;600.0;-1,0;Too much steel needed in x=113.44444629629632, area needed is 2.12053183601184cmˆ2, but the maximum is 2.12cmˆ2;;;
+518;1.0;267.0;600.0;-1,0;Too much steel needed in x=124.3243301801802, area needed is 2.1363480436268074cmˆ2, but the maximum is 2.136cmˆ2;;;
+519;1.0;269.0;600.0;-1,0;Too much steel needed in x=140.20721696696697, area needed is 2.1522909266035057cmˆ2, but the maximum is 2.152cmˆ2;;;
+520;1.0;271.0;600.0;367,71096711385326;;57,45;73,06;237,21
+521;1.0;273.0;600.0;369,85482411661707;;57,87;73,05;238,94
+522;1.0;275.0;600.0;372,00955578003953;;58,29;73,05;240,67
+523;1.0;277.0;600.0;374,1451333550216;;58,72;73,03;242,39
+524;1.0;279.0;600.0;376,2863951249085;;59,14;73,02;244,12
+525;1.0;281.0;600.0;378,4162885049856;;59,57;73,0;245,85
+526;1.0;283.0;600.0;380,5246797026542;;59,99;72,96;247,58
+527;1.0;285.0;600.0;382,5943925637454;;60,41;72,87;249,31
+528;1.0;287.0;600.0;384,6500182326951;;60,84;72,78;251,04
+529;1.0;289.0;600.0;386,61259281044084;;61,26;72,59;252,76
+530;1.0;291.0;600.0;388,53166929421866;;61,69;72,35;254,49
+531;1.0;293.0;600.0;390,09287711589644;;62,11;71,76;256,22
+532;1.0;295.0;600.0;386,18348262004207;;62,53;65,7;257,95
+533;1.0;297.0;600.0;388,4509131922604;;62,96;65,82;259,68
+534;1.0;299.0;600.0;390,7183437644786;;63,38;65,93;261,41
+536;-3.0;299.0;700.0;-1,0;Shear (12.617499639500004kN) in x=1e-05 is greater or equal to maximum shear allowed (-639.3926195760527kN);;;
+537;-3.0;297.0;700.0;-1,0;Shear (13.352499618500007kN) in x=699.99999 is greater or equal to maximum shear allowed (-635.0723991735118kN);;;
+538;-3.0;295.0;700.0;-1,0;Shear (14.087499597499997kN) in x=1e-05 is greater or equal to maximum shear allowed (-630.7521787709709kN);;;
+539;-3.0;293.0;700.0;-1,0;Shear (14.822499576500007kN) in x=1e-05 is greater or equal to maximum shear allowed (-626.43195836843kN);;;
+540;-3.0;291.0;700.0;-1,0;Shear (15.5574995555kN) in x=699.99999 is greater or equal to maximum shear allowed (-622.1117379658891kN);;;
+541;-3.0;289.0;700.0;-1,0;Shear (16.292499534500003kN) in x=1e-05 is greater or equal to maximum shear allowed (-617.7915175633482kN);;;
+542;-3.0;287.0;700.0;-1,0;Shear (17.027499513500004kN) in x=699.99999 is greater or equal to maximum shear allowed (-613.4712971608072kN);;;
+543;-3.0;285.0;700.0;-1,0;Shear (17.762499492499998kN) in x=1e-05 is greater or equal to maximum shear allowed (-609.1510767582664kN);;;
+544;-3.0;283.0;700.0;-1,0;Shear (18.497499471500007kN) in x=1e-05 is greater or equal to maximum shear allowed (-604.8308563557255kN);;;
+545;-3.0;281.0;700.0;-1,0;Shear (19.232499450499997kN) in x=1e-05 is greater or equal to maximum shear allowed (-600.5106359531846kN);;;
+546;-3.0;279.0;700.0;-1,0;Shear (19.967499429500002kN) in x=1e-05 is greater or equal to maximum shear allowed (-596.1904155506437kN);;;
+547;-3.0;277.0;700.0;-1,0;Shear (20.70249940850001kN) in x=1e-05 is greater or equal to maximum shear allowed (-591.8701951481028kN);;;
+548;-3.0;275.0;700.0;-1,0;Shear (21.43749938750003kN) in x=699.99999 is greater or equal to maximum shear allowed (-587.5499747455619kN);;;
+549;-3.0;273.0;700.0;-1,0;Shear (22.17249936650002kN) in x=699.99999 is greater or equal to maximum shear allowed (-583.229754343021kN);;;
+550;-3.0;271.0;700.0;-1,0;Shear (22.907499345500014kN) in x=1e-05 is greater or equal to maximum shear allowed (-578.9095339404801kN);;;
+551;-3.0;269.0;700.0;-1,0;Shear (23.642499324500005kN) in x=699.99999 is greater or equal to maximum shear allowed (-574.5893135379392kN);;;
+552;-3.0;267.0;700.0;-1,0;Shear (24.377499303499995kN) in x=699.99999 is greater or equal to maximum shear allowed (-570.2690931353983kN);;;
+553;-1.0;299.0;700.0;-1,0;Shear (85.8724975465kN) in x=1e-05 is greater or equal to maximum shear allowed (-213.13087319201753kN);;;
+554;-1.0;297.0;700.0;-1,0;Shear (86.1174975395kN) in x=1e-05 is greater or equal to maximum shear allowed (-211.6907997245039kN);;;
+555;-1.0;295.0;700.0;-1,0;Shear (86.3624975325kN) in x=1e-05 is greater or equal to maximum shear allowed (-210.2507262569903kN);;;
+556;-1.0;293.0;700.0;-1,0;Shear (86.60749752550002kN) in x=699.99999 is greater or equal to maximum shear allowed (-208.81065278947665kN);;;
+557;-1.0;291.0;700.0;-1,0;Shear (86.8524975185kN) in x=699.99999 is greater or equal to maximum shear allowed (-207.370579321963kN);;;
+558;-1.0;289.0;700.0;-1,0;Shear (87.0974975115kN) in x=1e-05 is greater or equal to maximum shear allowed (-205.9305058544494kN);;;
+559;-1.0;287.0;700.0;-1,0;Shear (87.3424975045kN) in x=1e-05 is greater or equal to maximum shear allowed (-204.49043238693574kN);;;
+560;-1.0;285.0;700.0;-1,0;Shear (87.5874974975kN) in x=1e-05 is greater or equal to maximum shear allowed (-203.05035891942214kN);;;
+561;-1.0;283.0;700.0;-1,0;Shear (87.8324974905kN) in x=699.99999 is greater or equal to maximum shear allowed (-201.6102854519085kN);;;
+562;-1.0;281.0;700.0;-1,0;Shear (88.0774974835kN) in x=1e-05 is greater or equal to maximum shear allowed (-200.17021198439485kN);;;
+563;-1.0;279.0;700.0;-1,0;Shear (88.3224974765kN) in x=699.99999 is greater or equal to maximum shear allowed (-198.73013851688125kN);;;
+564;-1.0;277.0;700.0;-1,0;Shear (88.5674974695kN) in x=1e-05 is greater or equal to maximum shear allowed (-197.2900650493676kN);;;
+565;-1.0;275.0;700.0;-1,0;Shear (88.81249746249999kN) in x=1e-05 is greater or equal to maximum shear allowed (-195.84999158185394kN);;;
+566;-1.0;273.0;700.0;-1,0;Shear (89.0574974555kN) in x=1e-05 is greater or equal to maximum shear allowed (-194.40991811434034kN);;;
+567;-1.0;271.0;700.0;-1,0;Shear (89.30249744849999kN) in x=699.99999 is greater or equal to maximum shear allowed (-192.96984464682672kN);;;
+568;-1.0;269.0;700.0;-1,0;Shear (89.54749744150001kN) in x=699.99999 is greater or equal to maximum shear allowed (-191.52977117931306kN);;;
+569;-1.0;267.0;700.0;-1,0;Shear (89.7924974345kN) in x=699.99999 is greater or equal to maximum shear allowed (-190.08969771179946kN);;;
+570;1.0;267.0;700.0;-1,0;Too much steel needed in x=32.66466995995998, area needed is 2.1379084951996674cmˆ2, but the maximum is 2.136cmˆ2;;;
+571;1.0;269.0;700.0;-1,0;Too much steel needed in x=35.03504403403404, area needed is 2.1551195692818084cmˆ2, but the maximum is 2.152cmˆ2;;;
+572;1.0;271.0;700.0;-1,0;Too much steel needed in x=37.13714607607608, area needed is 2.1690238100344787cmˆ2, but the maximum is 2.168cmˆ2;;;
+573;1.0;273.0;700.0;-1,0;Too much steel needed in x=39.47447948948951, area needed is 2.1844557165353424cmˆ2, but the maximum is 2.184cmˆ2;;;
+574;1.0;275.0;700.0;-1,0;Too much steel needed in x=41.977982892892896, area needed is 2.2006417780329173cmˆ2, but the maximum is 2.2cmˆ2;;;
+575;1.0;277.0;700.0;-1,0;Too much steel needed in x=44.48148629629631, area needed is 2.2160301463314034cmˆ2, but the maximum is 2.216cmˆ2;;;
+576;1.0;279.0;700.0;-1,0;Too much steel needed in x=47.64765628628629, area needed is 2.2362615098118113cmˆ2, but the maximum is 2.232cmˆ2;;;
+577;1.0;281.0;700.0;-1,0;Too much steel needed in x=50.18919378378379, area needed is 2.2502601676013625cmˆ2, but the maximum is 2.248cmˆ2;;;
+578;1.0;283.0;700.0;-1,0;Too much steel needed in x=53.25326173173173, area needed is 2.2676680999262473cmˆ2, but the maximum is 2.2640000000000002cmˆ2;;;
+579;1.0;285.0;700.0;-1,0;Too much steel needed in x=55.896901271271275, area needed is 2.280815113840086cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+580;1.0;287.0;700.0;-1,0;Too much steel needed in x=59.10110535535537, area needed is 2.2973875543284525cmˆ2, but the maximum is 2.2960000000000003cmˆ2;;;
+581;1.0;289.0;700.0;-1,0;Too much steel needed in x=62.30530943943944, area needed is 2.3129178949009317cmˆ2, but the maximum is 2.312cmˆ2;;;
+582;1.0;291.0;700.0;-1,0;Too much steel needed in x=65.86587398398399, area needed is 2.3299143208269606cmˆ2, but the maximum is 2.328cmˆ2;;;
+583;1.0;293.0;700.0;-1,0;Too much steel needed in x=69.36937738738739, area needed is 2.345343299179704cmˆ2, but the maximum is 2.344cmˆ2;;;
+584;1.0;295.0;700.0;-1,0;Too much steel needed in x=73.31932305305307, area needed is 2.3625144526110504cmˆ2, but the maximum is 2.36cmˆ2;;;
+585;1.0;297.0;700.0;-1,0;Too much steel needed in x=77.07708487487488, area needed is 2.3771374106357674cmˆ2, but the maximum is 2.376cmˆ2;;;
+586;1.0;299.0;700.0;-1,0;Too much steel needed in x=81.1291325825826, area needed is 2.3922701766378696cmˆ2, but the maximum is 2.392cmˆ2;;;
+587;3.0;267.0;700.0;621,3285975291378;;198,1;142,9;280,33
+588;3.0;269.0;700.0;625,0205934088613;;199,58;143,05;282,39
+589;3.0;271.0;700.0;628,6330085349575;;201,06;143,12;284,45
+590;3.0;273.0;700.0;632,3334074127413;;202,55;143,28;286,51
+591;3.0;275.0;700.0;635,9374195407773;;204,03;143,34;288,56
+592;3.0;277.0;700.0;629,0925028884144;;205,51;132,96;290,62
+593;3.0;279.0;700.0;632,7381588263364;;207,0;133,06;292,68
+594;3.0;281.0;700.0;636,4779371213624;;208,48;133,26;294,74
+595;3.0;283.0;700.0;640,1458773273065;;209,97;133,39;296,79
+596;3.0;285.0;700.0;643,8772526242722;;211,45;133,58;298,85
+597;3.0;287.0;700.0;647,5525253581901;;212,93;133,71;300,91
+598;3.0;289.0;700.0;651,2212485271201;;214,42;133,84;302,97
+599;3.0;291.0;700.0;654,9036466632264;;215,9;133,98;305,02
+600;3.0;293.0;700.0;658,5930889972062;;217,39;134,13;307,08
+601;3.0;295.0;700.0;662,274622966012;;218,87;134,27;309,14
+603;-1.0;299.0;800.0;-1,0;Shear (98.13999754649998kN) in x=1e-05 is greater or equal to maximum shear allowed (-213.13087319201753kN);;;
+604;-1.0;297.0;800.0;-1,0;Shear (98.41999753950003kN) in x=799.99999 is greater or equal to maximum shear allowed (-211.6907997245039kN);;;
+605;-1.0;295.0;800.0;-1,0;Shear (98.69999753249999kN) in x=1e-05 is greater or equal to maximum shear allowed (-210.2507262569903kN);;;
+606;-1.0;293.0;800.0;-1,0;Shear (98.97999752550004kN) in x=799.99999 is greater or equal to maximum shear allowed (-208.81065278947665kN);;;
+607;-1.0;291.0;800.0;-1,0;Shear (99.2599975185kN) in x=1e-05 is greater or equal to maximum shear allowed (-207.370579321963kN);;;
+608;-1.0;289.0;800.0;-1,0;Shear (99.5399975115kN) in x=799.99999 is greater or equal to maximum shear allowed (-205.9305058544494kN);;;
+609;-1.0;287.0;800.0;-1,0;Shear (99.8199975045kN) in x=1e-05 is greater or equal to maximum shear allowed (-204.49043238693574kN);;;
+610;-1.0;285.0;800.0;-1,0;Shear (100.0999974975kN) in x=1e-05 is greater or equal to maximum shear allowed (-203.05035891942214kN);;;
+611;-1.0;283.0;800.0;-1,0;Shear (100.3799974905kN) in x=1e-05 is greater or equal to maximum shear allowed (-201.6102854519085kN);;;
+612;-1.0;281.0;800.0;-1,0;Shear (100.65999748349999kN) in x=1e-05 is greater or equal to maximum shear allowed (-200.17021198439485kN);;;
+613;-1.0;279.0;800.0;-1,0;Shear (100.93999747650001kN) in x=799.99999 is greater or equal to maximum shear allowed (-198.73013851688125kN);;;
+614;-1.0;277.0;800.0;-1,0;Shear (101.21999746950002kN) in x=799.99999 is greater or equal to maximum shear allowed (-197.2900650493676kN);;;
+615;-1.0;275.0;800.0;-1,0;Shear (101.4999974625kN) in x=799.99999 is greater or equal to maximum shear allowed (-195.84999158185394kN);;;
+616;-1.0;273.0;800.0;-1,0;Shear (101.7799974555kN) in x=1e-05 is greater or equal to maximum shear allowed (-194.40991811434034kN);;;
+617;-1.0;271.0;800.0;-1,0;Shear (102.05999744850001kN) in x=1e-05 is greater or equal to maximum shear allowed (-192.96984464682672kN);;;
+618;-1.0;269.0;800.0;-1,0;Shear (102.33999744149999kN) in x=1e-05 is greater or equal to maximum shear allowed (-191.52977117931306kN);;;
+619;-1.0;267.0;800.0;-1,0;Shear (102.61999743450002kN) in x=799.99999 is greater or equal to maximum shear allowed (-190.08969771179946kN);;;
+620;-1.0;265.0;800.0;-1,0;Shear (102.8999974275kN) in x=1e-05 is greater or equal to maximum shear allowed (-188.6496242442858kN);;;
+621;-1.0;263.0;800.0;-1,0;Shear (103.17999742050002kN) in x=1e-05 is greater or equal to maximum shear allowed (-187.20955077677215kN);;;
+622;1.0;263.0;800.0;-1,0;Too much steel needed in x=-1.8718650750750498, area needed is 2.1140357801827467cmˆ2, but the maximum is 2.104cmˆ2;;;
+623;1.0;265.0;800.0;-1,0;Too much steel needed in x=-1.2702635135134983, area needed is 2.1216172063386227cmˆ2, but the maximum is 2.12cmˆ2;;;
+624;1.0;267.0;800.0;-1,0;Too much steel needed in x=1e-05, area needed is 2.1385788053923434cmˆ2, but the maximum is 2.136cmˆ2;;;
+625;1.0;269.0;800.0;-1,0;Too much steel needed in x=1.5345411711711847, area needed is 2.158821105864132cmˆ2, but the maximum is 2.152cmˆ2;;;
+626;1.0;271.0;800.0;-1,0;Too much steel needed in x=2.4024123423423425, area needed is 2.1692396048179514cmˆ2, but the maximum is 2.168cmˆ2;;;
+627;1.0;273.0;800.0;-1,0;Too much steel needed in x=4.004013903903904, area needed is 2.1894441240634714cmˆ2, but the maximum is 2.184cmˆ2;;;
+628;1.0;275.0;800.0;-1,0;Too much steel needed in x=4.940947417417448, area needed is 2.200119783402591cmˆ2, but the maximum is 2.2cmˆ2;;;
+629;1.0;277.0;800.0;-1,0;Too much steel needed in x=6.343349759759775, area needed is 2.216700410172839cmˆ2, but the maximum is 2.216cmˆ2;;;
+630;1.0;279.0;800.0;-1,0;Too much steel needed in x=7.745752102102131, area needed is 2.2328194026536647cmˆ2, but the maximum is 2.232cmˆ2;;;
+631;1.0;281.0;800.0;-1,0;Too much steel needed in x=9.148154444444458, area needed is 2.2484853454530556cmˆ2, but the maximum is 2.248cmˆ2;;;
+632;1.0;283.0;800.0;-1,0;Too much steel needed in x=11.211220930930931, area needed is 2.272096769725634cmˆ2, but the maximum is 2.2640000000000002cmˆ2;;;
+633;1.0;285.0;800.0;-1,0;Too much steel needed in x=12.753759909909917, area needed is 2.2885068016715406cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+634;1.0;287.0;800.0;-1,0;Too much steel needed in x=13.613623273273275, area needed is 2.2960273526037795cmˆ2, but the maximum is 2.2960000000000003cmˆ2;;;
+635;1.0;289.0;800.0;-1,0;Too much steel needed in x=15.215224834834837, area needed is 2.3123292367575483cmˆ2, but the maximum is 2.312cmˆ2;;;
+636;1.0;291.0;800.0;-1,0;Too much steel needed in x=16.816826396396397, area needed is 2.3281442409666893cmˆ2, but the maximum is 2.328cmˆ2;;;
+637;1.0;293.0;800.0;-1,0;Too much steel needed in x=19.164170060060087, area needed is 2.3522191477068484cmˆ2, but the maximum is 2.344cmˆ2;;;
+638;1.0;295.0;800.0;-1,0;Too much steel needed in x=20.566572402402414, area needed is 2.3646431621086093cmˆ2, but the maximum is 2.36cmˆ2;;;
+639;1.0;297.0;800.0;-1,0;Too much steel needed in x=21.96897474474477, area needed is 2.3766792253354154cmˆ2, but the maximum is 2.376cmˆ2;;;
+640;1.0;299.0;800.0;-1,0;Too much steel needed in x=24.024033423423425, area needed is 2.3956054663450645cmˆ2, but the maximum is 2.392cmˆ2;;;
+641;3.0;263.0;800.0;724,8975197537793;;223,0;192,53;309,37
+642;3.0;265.0;800.0;729,0317544351008;;224,7;192,66;311,67
+643;3.0;267.0;800.0;733,2541385308425;;226,39;192,88;313,97
+644;3.0;269.0;800.0;737,3502307111967;;228,09;192,98;316,28
+645;3.0;271.0;800.0;741,4571970941637;;229,79;193,09;318,58
+646;3.0;273.0;800.0;745,5641634771307;;231,48;193,19;320,89
+647;3.0;275.0;800.0;749,7370357643559;;233,18;193,37;323,19
+648;3.0;277.0;800.0;753,8440021473227;;234,87;193,47;325,5
+649;3.0;279.0;800.0;757,9066470936112;;236,57;193,54;327,8
+650;3.0;281.0;800.0;762,123840817515;;238,27;193,75;330,11
+651;3.0;283.0;800.0;766,2423404456774;;239,96;193,87;332,41
+652;3.0;285.0;800.0;770,2767285297372;;241,66;193,91;334,71
+653;3.0;287.0;800.0;774,4659949127042;;243,35;194,09;337,02
+654;3.0;289.0;800.0;778,6835181578994;;245,05;194,31;339,32
+655;3.0;291.0;800.0;782,6705354988367;;246,74;194,3;341,63
+657;-1.0;299.0;900.0;-1,0;Shear (110.40749754650001kN) in x=1e-05 is greater or equal to maximum shear allowed (-213.13087319201753kN);;;
+658;-1.0;297.0;900.0;-1,0;Shear (110.7224975395kN) in x=1e-05 is greater or equal to maximum shear allowed (-211.6907997245039kN);;;
+659;-1.0;295.0;900.0;-1,0;Shear (111.03749753249998kN) in x=1e-05 is greater or equal to maximum shear allowed (-210.2507262569903kN);;;
+660;-1.0;293.0;900.0;-1,0;Shear (111.35249752550001kN) in x=899.99999 is greater or equal to maximum shear allowed (-208.81065278947665kN);;;
+661;-1.0;291.0;900.0;-1,0;Shear (111.66749751850001kN) in x=899.99999 is greater or equal to maximum shear allowed (-207.370579321963kN);;;
+662;-1.0;289.0;900.0;-1,0;Shear (111.9824975115kN) in x=1e-05 is greater or equal to maximum shear allowed (-205.9305058544494kN);;;
+663;-1.0;287.0;900.0;-1,0;Shear (112.29749750450001kN) in x=1e-05 is greater or equal to maximum shear allowed (-204.49043238693574kN);;;
+664;-1.0;285.0;900.0;-1,0;Shear (112.6124974975kN) in x=1e-05 is greater or equal to maximum shear allowed (-203.05035891942214kN);;;
+665;-1.0;283.0;900.0;-1,0;Shear (112.92749749050002kN) in x=899.99999 is greater or equal to maximum shear allowed (-201.6102854519085kN);;;
+666;-1.0;281.0;900.0;-1,0;Shear (113.2424974835kN) in x=899.99999 is greater or equal to maximum shear allowed (-200.17021198439485kN);;;
+667;-1.0;279.0;900.0;-1,0;Shear (113.55749747649999kN) in x=899.99999 is greater or equal to maximum shear allowed (-198.73013851688125kN);;;
+668;-1.0;277.0;900.0;-1,0;Shear (113.8724974695kN) in x=1e-05 is greater or equal to maximum shear allowed (-197.2900650493676kN);;;
+669;-1.0;275.0;900.0;-1,0;Shear (114.1874974625kN) in x=899.99999 is greater or equal to maximum shear allowed (-195.84999158185394kN);;;
+670;-1.0;273.0;900.0;-1,0;Shear (114.50249745549999kN) in x=899.99999 is greater or equal to maximum shear allowed (-194.40991811434034kN);;;
+671;-1.0;271.0;900.0;-1,0;Shear (114.8174974485kN) in x=1e-05 is greater or equal to maximum shear allowed (-192.96984464682672kN);;;
+672;-1.0;269.0;900.0;-1,0;Shear (115.13249744149999kN) in x=1e-05 is greater or equal to maximum shear allowed (-191.52977117931306kN);;;
+673;-1.0;267.0;900.0;-1,0;Shear (115.4474974345kN) in x=1e-05 is greater or equal to maximum shear allowed (-190.08969771179946kN);;;
+674;-1.0;265.0;900.0;-1,0;Shear (115.7624974275kN) in x=1e-05 is greater or equal to maximum shear allowed (-188.6496242442858kN);;;
+675;-1.0;263.0;900.0;-1,0;Shear (116.07749742050001kN) in x=899.99999 is greater or equal to maximum shear allowed (-187.20955077677215kN);;;
+676;-1.0;261.0;900.0;-1,0;Shear (116.39249741350001kN) in x=899.99999 is greater or equal to maximum shear allowed (-185.76947730925855kN);;;
+677;-1.0;259.0;900.0;-1,0;Shear (116.7074974065kN) in x=899.99999 is greater or equal to maximum shear allowed (-184.32940384174492kN);;;
+678;1.0;259.0;900.0;-1,0;Shear (198.2924955935kN) in x=899.99999 is greater or equal to maximum shear allowed (184.32940384174492kN);;;
+679;1.0;261.0;900.0;-1,0;Shear (198.6074955865kN) in x=1e-05 is greater or equal to maximum shear allowed (185.76947730925855kN);;;
+680;1.0;263.0;900.0;-1,0;Shear (198.92249557950007kN) in x=899.99999 is greater or equal to maximum shear allowed (187.20955077677215kN);;;
+681;1.0;265.0;900.0;-1,0;Shear (199.23749557250002kN) in x=899.99999 is greater or equal to maximum shear allowed (188.6496242442858kN);;;
+682;1.0;267.0;900.0;-1,0;Shear (199.5524955655kN) in x=899.99999 is greater or equal to maximum shear allowed (190.08969771179946kN);;;
+683;1.0;269.0;900.0;-1,0;Shear (199.8674955585kN) in x=1e-05 is greater or equal to maximum shear allowed (191.52977117931306kN);;;
+684;1.0;271.0;900.0;-1,0;Shear (200.1824955515kN) in x=1e-05 is greater or equal to maximum shear allowed (192.96984464682672kN);;;
+685;1.0;273.0;900.0;-1,0;Shear (200.4974955445kN) in x=1e-05 is greater or equal to maximum shear allowed (194.40991811434034kN);;;
+686;1.0;275.0;900.0;-1,0;Shear (200.81249553749998kN) in x=1e-05 is greater or equal to maximum shear allowed (195.84999158185394kN);;;
+687;1.0;277.0;900.0;-1,0;Shear (201.12749553050006kN) in x=899.99999 is greater or equal to maximum shear allowed (197.2900650493676kN);;;
+688;1.0;279.0;900.0;-1,0;Shear (201.44249552350004kN) in x=899.99999 is greater or equal to maximum shear allowed (198.73013851688125kN);;;
+689;1.0;281.0;900.0;-1,0;Shear (201.7574955165kN) in x=1e-05 is greater or equal to maximum shear allowed (200.17021198439485kN);;;
+690;1.0;283.0;900.0;-1,0;Shear (202.07249550950002kN) in x=1e-05 is greater or equal to maximum shear allowed (201.6102854519085kN);;;
+691;1.0;285.0;900.0;-1,0;Too much steel needed in x=-12.171164034034035, area needed is 2.288159163498899cmˆ2, but the maximum is 2.2800000000000002cmˆ2;;;
+692;1.0;287.0;900.0;-1,0;Too much steel needed in x=-11.36936227227227, area needed is 2.301777050351558cmˆ2, but the maximum is 2.2960000000000003cmˆ2;;;
+693;1.0;289.0;900.0;-1,0;Too much steel needed in x=-10.567560510510503, area needed is 2.315109180535734cmˆ2, but the maximum is 2.312cmˆ2;;;
+694;1.0;291.0;900.0;-1,0;Too much steel needed in x=-9.765758748748738, area needed is 2.3281609654632103cmˆ2, but the maximum is 2.328cmˆ2;;;
+695;1.0;293.0;900.0;-1,0;Too much steel needed in x=-8.063056106106103, area needed is 2.3549507427432106cmˆ2, but the maximum is 2.344cmˆ2;;;
+696;1.0;295.0;900.0;-1,0;Too much steel needed in x=-7.261254344344337, area needed is 2.3672985195776994cmˆ2, but the maximum is 2.36cmˆ2;;;
+697;1.0;297.0;900.0;-1,0;Too much steel needed in x=-6.459452582582571, area needed is 2.3793831038013398cmˆ2, but the maximum is 2.376cmˆ2;;;
+698;1.0;299.0;900.0;-1,0;Too much steel needed in x=-4.756749939939937, area needed is 2.404726296346418cmˆ2, but the maximum is 2.392cmˆ2;;;
+699;3.0;259.0;900.0;-1,0;Too much steel needed in x=162.99099452452452, area needed is 6.2161294934646465cmˆ2, but the maximum is 6.216cmˆ2;;;
+700;3.0;261.0;900.0;-1,0;Too much steel needed in x=169.1982015715716, area needed is 6.267229387090122cmˆ2, but the maximum is 6.264cmˆ2;;;
+701;3.0;263.0;900.0;-1,0;Too much steel needed in x=175.4054086186186, area needed is 6.314065800916284cmˆ2, but the maximum is 6.312cmˆ2;;;
+702;3.0;265.0;900.0;-1,0;Too much steel needed in x=181.98198793793796, area needed is 6.360552820563531cmˆ2, but the maximum is 6.36cmˆ2;;;
+703;3.0;267.0;900.0;-1,0;Too much steel needed in x=189.189194984985, area needed is 6.408631681465095cmˆ2, but the maximum is 6.408cmˆ2;;;
+704;3.0;269.0;900.0;-1,0;Too much steel needed in x=196.96397254254254, area needed is 6.45653382606268cmˆ2, but the maximum is 6.456cmˆ2;;;
+705;3.0;271.0;900.0;-1,0;Too much steel needed in x=205.63964209209206, area needed is 6.505914435032704cmˆ2, but the maximum is 6.5040000000000004cmˆ2;;;
+706;3.0;273.0;900.0;-1,0;Too much steel needed in x=215.1801883983984, area needed is 6.554511701879098cmˆ2, but the maximum is 6.5520000000000005cmˆ2;;;
+707;3.0;275.0;900.0;-1,0;Too much steel needed in x=226.0900980880881, area needed is 6.603639012083067cmˆ2, but the maximum is 6.6000000000000005cmˆ2;;;
+708;3.0;277.0;900.0;-1,0;Too much steel needed in x=238.67567732732732, area needed is 6.651338347131923cmˆ2, but the maximum is 6.648000000000001cmˆ2;;;
+709;3.0;279.0;900.0;-1,0;Too much steel needed in x=253.89189318318319, area needed is 6.6967146715581425cmˆ2, but the maximum is 6.696cmˆ2;;;
+710;3.0;281.0;900.0;-1,0;Too much steel needed in x=276.8378447747748, area needed is 6.74416059855739cmˆ2, but the maximum is 6.744cmˆ2;;;
+711;3.0;283.0;900.0;911,6340553206248;;269,96;261,78;379,9
+712;3.0;285.0;900.0;916,1461883943973;;271,86;261,75;382,53
+713;3.0;287.0;900.0;920,7183783534437;;273,77;261,78;385,16
+714;3.0;289.0;900.0;925,0692476566696;;275,68;261,59;387,8
+715;3.0;291.0;900.0;929,5268842580733;;277,59;261,51;390,43
+716;3.0;293.0;900.0;933,9074114743423;;279,5;261,35;393,06
+717;3.0;295.0;900.0;938,2686622816336;;281,4;261,17;395,7
+718;3.0;297.0;900.0;942,5824592392785;;283,31;260,94;398,33
+719;3.0;299.0;900.0;946,2956894474125;;285,22;260,11;400,97
+720;5.0;259.0;900.0;1102,1250462488174;;411,77;339,43;350,93
+721;5.0;261.0;900.0;1107,7481665388593;;414,95;339,24;353,56
+722;5.0;263.0;900.0;1107,4249262440494;;418,13;333,1;356,19
+723;5.0;265.0;900.0;1113,339062051062;;421,31;333,2;358,83
+724;5.0;267.0;900.0;1120,2437645638238;;424,49;334,29;361,46
+725;5.0;269.0;900.0;1126,2772717105295;;427,67;334,51;364,1
+727;-1.0;299.0;1000.0;-1,0;Shear (122.6749975465kN) in x=1e-05 is greater or equal to maximum shear allowed (-213.13087319201753kN);;;
+728;-1.0;297.0;1000.0;-1,0;Shear (123.02499753949999kN) in x=1e-05 is greater or equal to maximum shear allowed (-211.6907997245039kN);;;
+729;-1.0;295.0;1000.0;-1,0;Shear (123.37499753249999kN) in x=1e-05 is greater or equal to maximum shear allowed (-210.2507262569903kN);;;
+730;-1.0;293.0;1000.0;-1,0;Shear (123.7249975255kN) in x=1e-05 is greater or equal to maximum shear allowed (-208.81065278947665kN);;;
+731;-1.0;291.0;1000.0;-1,0;Shear (124.07499751850001kN) in x=999.99999 is greater or equal to maximum shear allowed (-207.370579321963kN);;;
+732;-1.0;289.0;1000.0;-1,0;Shear (124.42499751150001kN) in x=999.99999 is greater or equal to maximum shear allowed (-205.9305058544494kN);;;
+733;-1.0;287.0;1000.0;-1,0;Shear (124.7749975045kN) in x=1e-05 is greater or equal to maximum shear allowed (-204.49043238693574kN);;;
+734;-1.0;285.0;1000.0;-1,0;Shear (125.12499749750003kN) in x=999.99999 is greater or equal to maximum shear allowed (-203.05035891942214kN);;;
+735;-1.0;283.0;1000.0;-1,0;Shear (125.47499749050003kN) in x=999.99999 is greater or equal to maximum shear allowed (-201.6102854519085kN);;;
+736;-1.0;281.0;1000.0;-1,0;Shear (125.82499748349998kN) in x=1e-05 is greater or equal to maximum shear allowed (-200.17021198439485kN);;;
+737;-1.0;279.0;1000.0;-1,0;Shear (126.1749974765kN) in x=1e-05 is greater or equal to maximum shear allowed (-198.73013851688125kN);;;
+738;1.0;279.0;1000.0;-1,0;Shear (223.82499552350006kN) in x=999.99999 is greater or equal to maximum shear allowed (198.73013851688125kN);;;
+739;1.0;281.0;1000.0;-1,0;Shear (224.17499551649996kN) in x=1e-05 is greater or equal to maximum shear allowed (200.17021198439485kN);;;
+740;1.0;283.0;1000.0;-1,0;Shear (224.5249955095kN) in x=1e-05 is greater or equal to maximum shear allowed (201.6102854519085kN);;;
+741;1.0;285.0;1000.0;-1,0;Shear (224.87499550249998kN) in x=1e-05 is greater or equal to maximum shear allowed (203.05035891942214kN);;;
+742;1.0;287.0;1000.0;-1,0;Shear (225.22499549550002kN) in x=999.99999 is greater or equal to maximum shear allowed (204.49043238693574kN);;;
+743;1.0;289.0;1000.0;-1,0;Shear (225.57499548849998kN) in x=1e-05 is greater or equal to maximum shear allowed (205.9305058544494kN);;;
+744;1.0;291.0;1000.0;-1,0;Shear (225.92499548150002kN) in x=999.99999 is greater or equal to maximum shear allowed (207.370579321963kN);;;
+745;1.0;293.0;1000.0;-1,0;Shear (226.2749954745kN) in x=999.99999 is greater or equal to maximum shear allowed (208.81065278947665kN);;;
+746;1.0;295.0;1000.0;-1,0;Shear (226.6249954675kN) in x=999.99999 is greater or equal to maximum shear allowed (210.2507262569903kN);;;
+747;1.0;297.0;1000.0;-1,0;Shear (226.9749954605kN) in x=1e-05 is greater or equal to maximum shear allowed (211.6907997245039kN);;;
+748;1.0;299.0;1000.0;-1,0;Shear (227.3249954535kN) in x=1e-05 is greater or equal to maximum shear allowed (213.13087319201753kN);;;
+749;3.0;279.0;1000.0;-1,0;Too much steel needed in x=137.1371443943944, area needed is 6.708309811421572cmˆ2, but the maximum is 6.696cmˆ2;;;
+750;3.0;281.0;1000.0;-1,0;Too much steel needed in x=141.00201196196195, area needed is 6.754042404922065cmˆ2, but the maximum is 6.744cmˆ2;;;
+751;3.0;283.0;1000.0;-1,0;Too much steel needed in x=145.0050149049049, area needed is 6.800014722385572cmˆ2, but the maximum is 6.792cmˆ2;;;
+752;3.0;285.0;1000.0;-1,0;Too much steel needed in x=149.00801784784784, area needed is 6.843948947830822cmˆ2, but the maximum is 6.84cmˆ2;;;
+753;3.0;287.0;1000.0;-1,0;Too much steel needed in x=153.29529938938936, area needed is 6.890123681594143cmˆ2, but the maximum is 6.888cmˆ2;;;
+754;3.0;289.0;1000.0;-1,0;Too much steel needed in x=158.0150247147147, area needed is 6.940307078278124cmˆ2, but the maximum is 6.936cmˆ2;;;
+755;3.0;291.0;1000.0;-1,0;Too much steel needed in x=163.01902863863864, area needed is 6.991873368084281cmˆ2, but the maximum is 6.984cmˆ2;;;
+756;3.0;293.0;1000.0;-1,0;Too much steel needed in x=168.02303256256255, area needed is 7.040603908426893cmˆ2, but the maximum is 7.032cmˆ2;;;
+757;3.0;295.0;1000.0;-1,0;Too much steel needed in x=173.02703648648648, area needed is 7.086532198621787cmˆ2, but the maximum is 7.08cmˆ2;;;
+758;3.0;297.0;1000.0;-1,0;Too much steel needed in x=178.0310404104104, area needed is 7.12969148821571cmˆ2, but the maximum is 7.128cmˆ2;;;
+759;3.0;299.0;1000.0;-1,0;Too much steel needed in x=184.03604531531533, area needed is 7.182136120152694cmˆ2, but the maximum is 7.176cmˆ2;;;
+760;5.0;279.0;1000.0;1346,2564016045985;;492,85;440,77;412,63
+761;5.0;281.0;1000.0;1352,875445652762;;496,39;440,98;415,51
+762;5.0;283.0;1000.0;1359,3066583337295;;499,92;440,99;418,39
+763;5.0;285.0;1000.0;1365,795619909747;;503,45;441,07;421,27
+764;5.0;287.0;1000.0;1372,2382835128428;;506,99;441,1;424,15
+765;5.0;289.0;1000.0;1378,7160833223038;;510,52;441,16;427,03
+766;5.0;291.0;1000.0;1385,105650895863;;514,05;441,14;429,91
+767;5.0;293.0;1000.0;1391,724694944026;;517,58;441,35;432,8
+768;5.0;295.0;1000.0;1397,7378987239504;;521,12;440,94;435,68
+769;5.0;297.0;1000.0;1404,2625328041072;;524,65;441,06;438,56
+770;5.0;299.0;1000.0;1410,4574725998561;;528,18;440,84;441,44
+771;7.0;279.0;1000.0;1653,9415910994023;;689,99;536,56;427,38
+772;7.0;281.0;1000.0;1662,1428416938734;;694,94;536,86;430,35
+773;7.0;283.0;1000.0;1670,2047024391738;;699,89;537,01;433,31
+774;7.0;285.0;1000.0;1678,3075896133719;;704,83;537,2;436,27
+776;1.0;275.0;1100.0;-1,0;Shear (245.43749553749998kN) in x=1e-05 is greater or equal to maximum shear allowed (195.84999158185394kN);;;
+777;1.0;277.0;1100.0;-1,0;Shear (245.8224955305kN) in x=1e-05 is greater or equal to maximum shear allowed (197.2900650493676kN);;;
+778;1.0;279.0;1100.0;-1,0;Shear (246.2074955235kN) in x=1e-05 is greater or equal to maximum shear allowed (198.73013851688125kN);;;
+779;1.0;281.0;1100.0;-1,0;Shear (246.59249551650004kN) in x=1099.99999 is greater or equal to maximum shear allowed (200.17021198439485kN);;;
+780;1.0;283.0;1100.0;-1,0;Shear (246.97749550950005kN) in x=1e-05 is greater or equal to maximum shear allowed (201.6102854519085kN);;;
+781;1.0;285.0;1100.0;-1,0;Shear (247.3624955025kN) in x=1e-05 is greater or equal to maximum shear allowed (203.05035891942214kN);;;
+782;1.0;287.0;1100.0;-1,0;Shear (247.74749549550003kN) in x=1e-05 is greater or equal to maximum shear allowed (204.49043238693574kN);;;
+783;1.0;289.0;1100.0;-1,0;Shear (248.1324954885kN) in x=1e-05 is greater or equal to maximum shear allowed (205.9305058544494kN);;;
+784;1.0;291.0;1100.0;-1,0;Shear (248.5174954815kN) in x=1099.99999 is greater or equal to maximum shear allowed (207.370579321963kN);;;
+785;1.0;293.0;1100.0;-1,0;Shear (248.9024954745kN) in x=1099.99999 is greater or equal to maximum shear allowed (208.81065278947665kN);;;
+786;1.0;295.0;1100.0;-1,0;Shear (249.2874954675kN) in x=1099.99999 is greater or equal to maximum shear allowed (210.2507262569903kN);;;
+787;1.0;297.0;1100.0;-1,0;Shear (249.67249546050002kN) in x=1e-05 is greater or equal to maximum shear allowed (211.6907997245039kN);;;
+788;1.0;299.0;1100.0;-1,0;Shear (250.05749545350002kN) in x=1e-05 is greater or equal to maximum shear allowed (213.13087319201753kN);;;
+789;3.0;275.0;1100.0;-1,0;Too much steel needed in x=85.88589432432433, area needed is 6.606216221716781cmˆ2, but the maximum is 6.6000000000000005cmˆ2;;;
+790;3.0;277.0;1100.0;-1,0;Too much steel needed in x=88.08809648648649, area needed is 6.649705061831746cmˆ2, but the maximum is 6.648000000000001cmˆ2;;;
+791;3.0;279.0;1100.0;-1,0;Too much steel needed in x=91.02903486486485, area needed is 6.709830654867194cmˆ2, but the maximum is 6.696cmˆ2;;;
+792;3.0;281.0;1100.0;-1,0;Too much steel needed in x=93.3323381081081, area needed is 6.7535471083723815cmˆ2, but the maximum is 6.744cmˆ2;;;
+793;3.0;283.0;1100.0;-1,0;Too much steel needed in x=95.63564135135135, area needed is 6.796270989946247cmˆ2, but the maximum is 6.792cmˆ2;;;
+794;3.0;285.0;1100.0;-1,0;Too much steel needed in x=99.04004567567569, area needed is 6.863043271732693cmˆ2, but the maximum is 6.84cmˆ2;;;
+795;3.0;287.0;1100.0;-1,0;Too much steel needed in x=101.30130945945946, area needed is 6.902514621679949cmˆ2, but the maximum is 6.888cmˆ2;;;
+796;3.0;289.0;1100.0;-1,0;Too much steel needed in x=103.50351162162163, area needed is 6.939761270907507cmˆ2, but the maximum is 6.936cmˆ2;;;
+797;3.0;291.0;1100.0;-1,0;Too much steel needed in x=106.80681486486486, area needed is 7.000018128830024cmˆ2, but the maximum is 6.984cmˆ2;;;
+798;3.0;293.0;1100.0;-1,0;Too much steel needed in x=109.00901702702703, area needed is 7.035185513302276cmˆ2, but the maximum is 7.032cmˆ2;;;
+799;3.0;295.0;1100.0;-1,0;Too much steel needed in x=112.31232027027028, area needed is 7.092616944267055cmˆ2, but the maximum is 7.08cmˆ2;;;
+800;3.0;297.0;1100.0;-1,0;Too much steel needed in x=115.06206729729729, area needed is 7.137065102943634cmˆ2, but the maximum is 7.128cmˆ2;;;
+801;3.0;299.0;1100.0;-1,0;Too much steel needed in x=117.81782567567568, area needed is 7.180435576441304cmˆ2, but the maximum is 7.176cmˆ2;;;
+802;5.0;275.0;1100.0;-1,0;Too much steel needed in x=183.88389054054053, area needed is 11.011005492535027cmˆ2, but the maximum is 11.0cmˆ2;;;
+803;5.0;277.0;1100.0;-1,0;Too much steel needed in x=188.28829486486487, area needed is 11.084053593571943cmˆ2, but the maximum is 11.08cmˆ2;;;
+804;5.0;279.0;1100.0;-1,0;Too much steel needed in x=193.05506405405407, area needed is 11.161763184717719cmˆ2, but the maximum is 11.16cmˆ2;;;
+805;5.0;281.0;1100.0;-1,0;Too much steel needed in x=198.19820459459459, area needed is 11.243777372695753cmˆ2, but the maximum is 11.24cmˆ2;;;
+806;5.0;283.0;1100.0;-1,0;Too much steel needed in x=203.54354729729727, area needed is 11.325951749476651cmˆ2, but the maximum is 11.32cmˆ2;;;
+807;5.0;285.0;1100.0;-1,0;Too much steel needed in x=209.15015378378376, area needed is 11.40903055388586cmˆ2, but the maximum is 11.4cmˆ2;;;
+808;5.0;287.0;1100.0;-1,0;Too much steel needed in x=214.67268135135134, area needed is 11.48615788659625cmˆ2, but the maximum is 11.48cmˆ2;;;
+809;5.0;289.0;1100.0;-1,0;Too much steel needed in x=220.3633667567567, area needed is 11.56203842581147cmˆ2, but the maximum is 11.56cmˆ2;;;
+810;5.0;291.0;1100.0;-1,0;Too much steel needed in x=226.5825910810811, area needed is 11.642476534623563cmˆ2, but the maximum is 11.64cmˆ2;;;
+811;5.0;293.0;1100.0;-1,0;Too much steel needed in x=233.0880964864865, area needed is 11.72245066832378cmˆ2, but the maximum is 11.72cmˆ2;;;
+812;5.0;295.0;1100.0;-1,0;Too much steel needed in x=240.04004567567569, area needed is 11.803820745584453cmˆ2, but the maximum is 11.8cmˆ2;;;
+813;5.0;297.0;1100.0;-1,0;Too much steel needed in x=247.19419702702697, area needed is 11.882016153479672cmˆ2, but the maximum is 11.88cmˆ2;;;
+814;5.0;299.0;1100.0;-1,0;Too much steel needed in x=254.80681486486486, area needed is 11.96010580688432cmˆ2, but the maximum is 11.96cmˆ2;;;
+815;7.0;275.0;1100.0;-1,0;Too much steel needed in x=276.3763813513513, area needed is 15.408657701901703cmˆ2, but the maximum is 15.4cmˆ2;;;
+816;7.0;277.0;1100.0;-1,0;Too much steel needed in x=285.64865594594596, area needed is 15.516430745917514cmˆ2, but the maximum is 15.512cmˆ2;;;
+817;7.0;279.0;1100.0;-1,0;Too much steel needed in x=295.8338359459459, area needed is 15.624126582098057cmˆ2, but the maximum is 15.624cmˆ2;;;
+818;7.0;281.0;1100.0;-1,0;Too much steel needed in x=308.0470489189189, area needed is 15.7418055338805cmˆ2, but the maximum is 15.736cmˆ2;;;
+819;7.0;283.0;1100.0;-1,0;Too much steel needed in x=321.3613629729729, area needed is 15.850203616724057cmˆ2, but the maximum is 15.848cmˆ2;;;
+820;7.0;285.0;1100.0;-1,0;Too much steel needed in x=337.97898027027026, area needed is 15.962571288089345cmˆ2, but the maximum is 15.96cmˆ2;;;
+821;7.0;287.0;1100.0;-1,0;Too much steel needed in x=361.11912513513516, area needed is 16.07669825737905cmˆ2, but the maximum is 16.072cmˆ2;;;
+822;7.0;289.0;1100.0;1991,3436792113378;;786,2;701,53;503,61
+823;7.0;291.0;1100.0;2000,441988439878;;791,64;701,81;506,99
+824;7.0;293.0;1100.0;2009,2620108506894;;797,08;701,82;510,36
+825;7.0;295.0;1100.0;2008,349790486216;;802,52;692,09;513,74
+826;7.0;297.0;1100.0;2017,5076208764601;;807,96;692,43;517,11
+827;7.0;299.0;1100.0;2026,738195458189;;813,4;692,85;520,49
+828;9.0;275.0;1100.0;2300,6759502149725;;961,86;831,87;506,95
+829;9.0;277.0;1100.0;2302,5015068454195;;968,85;823,16;510,49
+830;9.0;279.0;1100.0;2313,3013894692835;;975,85;823,43;514,03
+831;9.0;281.0;1100.0;2324,1442752889598;;982,85;823,73;517,56
+832;9.0;283.0;1100.0;2334,8930806421486;;989,84;823,95;521,1
+833;9.0;285.0;1100.0;2345,7849839859327;;996,84;824,31;524,64
+834;9.0;287.0;1100.0;2356,3043510190946;;1003,83;824,29;528,18
+835;9.0;289.0;1100.0;2366,919408462446;;1010,83;824,37;531,72
+836;9.0;291.0;1100.0;2377,8268419496894;;1017,82;824,75;535,26
+838;3.0;285.0;1200.0;-1,0;Too much steel needed in x=66.80781434434434, area needed is 6.854274191156152cmˆ2, but the maximum is 6.84cmˆ2;;;
+839;3.0;287.0;1200.0;-1,0;Too much steel needed in x=68.21021670670669, area needed is 6.88895509334062cmˆ2, but the maximum is 6.888cmˆ2;;;
+840;3.0;289.0;1200.0;-1,0;Too much steel needed in x=70.81382025025025, area needed is 6.956850348202579cmˆ2, but the maximum is 6.936cmˆ2;;;
+841;3.0;291.0;1200.0;-1,0;Too much steel needed in x=72.07208087087088, area needed is 6.986123397050645cmˆ2, but the maximum is 6.984cmˆ2;;;
+842;3.0;293.0;1200.0;-1,0;Too much steel needed in x=74.47448323323323, area needed is 7.046394402206467cmˆ2, but the maximum is 7.032cmˆ2;;;
+843;3.0;295.0;1200.0;-1,0;Too much steel needed in x=76.2222285185185, area needed is 7.087802603467346cmˆ2, but the maximum is 7.08cmˆ2;;;
+844;3.0;297.0;1200.0;-1,0;Too much steel needed in x=78.07808677677677, area needed is 7.131393137163153cmˆ2, but the maximum is 7.128cmˆ2;;;
+845;3.0;299.0;1200.0;-1,0;Too much steel needed in x=80.22823442442441, area needed is 7.182059587514806cmˆ2, but the maximum is 7.176cmˆ2;;;
+846;5.0;285.0;1200.0;-1,0;Too much steel needed in x=146.5465541041041, area needed is 11.40005980658903cmˆ2, but the maximum is 11.4cmˆ2;;;
+847;5.0;287.0;1200.0;-1,0;Too much steel needed in x=149.89189702702697, area needed is 11.483531626386068cmˆ2, but the maximum is 11.48cmˆ2;;;
+848;5.0;289.0;1200.0;-1,0;Too much steel needed in x=153.69670175175173, area needed is 11.578224432376903cmˆ2, but the maximum is 11.56cmˆ2;;;
+849;5.0;291.0;1200.0;-1,0;Too much steel needed in x=157.213222992993, area needed is 11.66225648040667cmˆ2, but the maximum is 11.64cmˆ2;;;
+850;5.0;293.0;1200.0;-1,0;Too much steel needed in x=160.10511002002, area needed is 11.726752648096454cmˆ2, but the maximum is 11.72cmˆ2;;;
+851;5.0;295.0;1200.0;-1,0;Too much steel needed in x=163.9099147447447, area needed is 11.814707620736796cmˆ2, but the maximum is 11.8cmˆ2;;;
+852;5.0;297.0;1200.0;-1,0;Too much steel needed in x=166.96697418418418, area needed is 11.880145941607488cmˆ2, but the maximum is 11.88cmˆ2;;;
+853;5.0;299.0;1200.0;-1,0;Too much steel needed in x=170.82283244244243, area needed is 11.965031186743612cmˆ2, but the maximum is 11.96cmˆ2;;;
+854;7.0;285.0;1200.0;-1,0;Too much steel needed in x=209.0090155255255, area needed is 15.965415961290589cmˆ2, but the maximum is 15.96cmˆ2;;;
+855;7.0;287.0;1200.0;-1,0;Too much steel needed in x=213.5555596296296, area needed is 16.073446166410328cmˆ2, but the maximum is 16.072cmˆ2;;;
+856;7.0;289.0;1200.0;-1,0;Too much steel needed in x=218.56156553553552, area needed is 16.19055644047854cmˆ2, but the maximum is 16.184cmˆ2;;;
+857;7.0;291.0;1200.0;-1,0;Too much steel needed in x=223.42342969969968, area needed is 16.299277855092377cmˆ2, but the maximum is 16.296cmˆ2;;;
+858;7.0;293.0;1200.0;-1,0;Too much steel needed in x=228.57357734734728, area needed is 16.41146576644397cmˆ2, but the maximum is 16.408cmˆ2;;;
+859;7.0;295.0;1200.0;-1,0;Too much steel needed in x=234.23424033033032, area needed is 16.53213587867332cmˆ2, but the maximum is 16.52cmˆ2;;;
+860;7.0;297.0;1200.0;-1,0;Too much steel needed in x=239.49250095095096, area needed is 16.63744007742213cmˆ2, but the maximum is 16.632cmˆ2;;;
+861;7.0;299.0;1200.0;-1,0;Too much steel needed in x=245.04505096096096, area needed is 16.74512258330143cmˆ2, but the maximum is 16.744cmˆ2;;;
+862;9.0;285.0;1200.0;-1,0;Too much steel needed in x=262.3213292992993, area needed is 20.524841313524032cmˆ2, but the maximum is 20.52cmˆ2;;;
+863;9.0;287.0;1200.0;-1,0;Too much steel needed in x=268.81081396396394, area needed is 20.66714746294266cmˆ2, but the maximum is 20.664cmˆ2;;;
+864;9.0;289.0;1200.0;-1,0;Too much steel needed in x=276.2192222322322, area needed is 20.82473530168155cmˆ2, but the maximum is 20.808cmˆ2;;;
+865;9.0;291.0;1200.0;-1,0;Too much steel needed in x=283.339347017017, area needed is 20.965238191721223cmˆ2, but the maximum is 20.952cmˆ2;;;
+866;9.0;293.0;1200.0;-1,0;Too much steel needed in x=290.6906958458458, area needed is 21.10170356080617cmˆ2, but the maximum is 21.096cmˆ2;;;
+867;9.0;295.0;1200.0;-1,0;Too much steel needed in x=299.0991041141141, area needed is 21.251192760412035cmˆ2, but the maximum is 21.240000000000002cmˆ2;;;
+868;9.0;297.0;1200.0;-1,0;Too much steel needed in x=307.50751238238234, area needed is 21.388197295278097cmˆ2, but the maximum is 21.384cmˆ2;;;
+869;9.0;299.0;1200.0;-1,0;Too much steel needed in x=316.86486711711706, area needed is 21.530658371978486cmˆ2, but the maximum is 21.528cmˆ2;;;
+870;11.0;285.0;1200.0;-1,0;Too much steel needed in x=312.7717789089089, area needed is 25.088498610091445cmˆ2, but the maximum is 25.080000000000002cmˆ2;;;
+871;11.0;287.0;1200.0;-1,0;Too much steel needed in x=322.1801871771772, area needed is 25.26097862306137cmˆ2, but the maximum is 25.256cmˆ2;;;
+872;11.0;289.0;1200.0;-1,0;Too much steel needed in x=332.6756777477477, area needed is 25.43779908108783cmˆ2, but the maximum is 25.432000000000002cmˆ2;;;
+873;11.0;291.0;1200.0;-1,0;Too much steel needed in x=344.60060725725725, area needed is 25.61896827517259cmˆ2, but the maximum is 25.608cmˆ2;;;
+874;11.0;293.0;1200.0;-1,0;Too much steel needed in x=357.61261906906907, area needed is 25.790160004469765cmˆ2, but the maximum is 25.784cmˆ2;;;
+875;11.0;295.0;1200.0;-1,0;Too much steel needed in x=372.9189202702702, area needed is 25.960006841581606cmˆ2, but the maximum is 25.96cmˆ2;;;
+876;11.0;297.0;1200.0;-1,0;Too much steel needed in x=393.2462521421421, area needed is 26.137217022528567cmˆ2, but the maximum is 26.136cmˆ2;;;
+877;11.0;299.0;1200.0;-1,0;Too much steel needed in x=427.62763050050046, area needed is 26.312110458096797cmˆ2, but the maximum is 26.312cmˆ2;;;
+878;13.0;285.0;1200.0;-1,0;Too much steel needed in x=367.5675714414414, area needed is 29.644228302356318cmˆ2, but the maximum is 29.64cmˆ2;;;
+879;13.0;287.0;1200.0;-1,0;Too much steel needed in x=384.6426485985986, area needed is 29.84827157832714cmˆ2, but the maximum is 29.848cmˆ2;;;
+880;13.0;289.0;1200.0;-1,0;Too much steel needed in x=408.4084116016016, area needed is 30.05605080114171cmˆ2, but the maximum is 30.056cmˆ2;;;
+881;13.0;291.0;1200.0;3683,0624207695505;;1603,84;1372,92;706,3
+882;13.0;293.0;1200.0;3686,8269799730692;;1614,86;1373,75;698,21
+883;13.0;295.0;1200.0;3702,7606316286387;;1625,89;1374,13;702,74
+884;13.0;297.0;1200.0;3712,3857263836117;;1636,91;1368,21;707,27
+885;13.0;299.0;1200.0;3728,7833966184703;;1647,93;1369,06;711,79
+886;15.0;285.0;1200.0;4096,865297580826;;1812,43;1537,56;746,87
+887;15.0;287.0;1200.0;4094,0727096022392;;1825,15;1529,64;739,28
+888;15.0;289.0;1200.0;4115,651489800016;;1837,87;1533,65;744,14
+889;15.0;291.0;1200.0;4134,463697995715;;1850,59;1534,89;748,99
+890;15.0;293.0;1200.0;4153,40096934226;;1863,3;1536,25;753,85
+891;15.0;295.0;1200.0;4171,791550434808;;1876,02;1537,07;758,7
+892;15.0;297.0;1200.0;4190,203384181768;;1888,74;1537,9;763,56
+893;15.0;299.0;1200.0;4208,794153870352;;1901,46;1538,92;768,41
+894;17.0;285.0;1200.0;4539,988383722815;;2054,09;1696,5;789,4
+895;17.0;287.0;1200.0;4560,135480486246;;2068,5;1697,05;794,59

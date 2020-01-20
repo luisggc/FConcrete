@@ -6,6 +6,8 @@ import fconcrete as fc
 import numpy as np
 import warnings
 import matplotlib.pyplot as plt
+import time
+from fconcrete.StructuralConcrete.AvailableMaterials import solve_cost
 
 class ConcreteBeam(Beam):
 
@@ -14,16 +16,16 @@ class ConcreteBeam(Beam):
                  beam_elements=None,
                  nodes=None,
                  section=None,
-                 bar_steel_removal_step=2,
-                 bar_steel_max_removal=100,
                  design_factor=1.4,
                  division=1000,
                  maximum_displacement_allowed=lambda beam_element_length : beam_element_length/250,
+                 available_long_steel_bars=AvailableLongConcreteSteelBar([8]),
+                 bar_steel_removal_step=2,
+                 bar_steel_max_removal=100,
+                 available_transv_steel_bars=AvailableTransvConcreteSteelBar([8]),
                  transversal_bar_inclination_angle=90,
                  tilt_angle_of_compression_struts=45,
                  transversal_bar_fyk=50,
-                 available_long_steel_bars=AvailableLongConcreteSteelBar(),
-                 available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
                  available_concrete=AvailableConcrete(),
                  time_begin_long_duration=0,
                  lifetime_structure=70,
@@ -33,22 +35,27 @@ class ConcreteBeam(Beam):
         """
             Returns a concrete_beam element.
             
-                Call signatures::
+                Call signatures:
 
                     ConcreteBeam(loads,
-                                beam_elements,
+                                beam_elements=None,
+                                nodes=None,
+                                section=None,
                                 bar_steel_removal_step=2,
                                 bar_steel_max_removal=100,
                                 design_factor=1.4,
                                 division=1000,
-                                maximum_displacement_allowed=1/250,
+                                maximum_displacement_allowed=lambda beam_element_length : beam_element_length/250,
                                 transversal_bar_inclination_angle=90,
                                 tilt_angle_of_compression_struts=45,
                                 transversal_bar_fyk=50,
                                 available_long_steel_bars=AvailableLongConcreteSteelBar(),
                                 available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
+                                available_concrete=AvailableConcrete(),
                                 time_begin_long_duration=0,
                                 lifetime_structure=70,
+                                biggest_aggregate_dimension=1.5,
+                                verbose = False,
                                 **options)
 
                 >>>    material = fc.Concrete(fck='20 MPa', aggressiveness=2)
@@ -75,17 +82,36 @@ class ConcreteBeam(Beam):
             
             Parameters
             ----------
-            loads : [Load]
+            loads: [Load]
                 Define the loads supported for the beam.
             
-            beam_elements : [BeamElement]
+            beam_elements: [BeamElement], optional if nodes and section is given.
                 Define the beam_elements that, together, makes the whole Beam. 
             
-            maximum_displacement_allowed: float, optional (default 1/250)
-                For each beam element, compare its maximum displacement with beam_element.length*maximum_displacement_allowed.
-                This is used to solve the ELS shown in NBR 6118.
-                If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 1/250, 120*(1/250)=0.45cm < 1cm. Therefore, in this condition, the ELS with raise a error.
+            nodes: [Node], not used if beam_elements is given.
+                Define the nodes that are going to make the whole Beam.
+                
+            section: Section, not used if beam_elements is given.
+                Define the section that are going to make the whole Beam.
             
+            design_factor: float, optional (default 1.4)
+                Define the number that is going to be multiplied to de momentum diagram and shear diagram.
+                If your load is already a design load, you should set design_factor=1.
+                
+            division: int, optional (default 1000)
+                Define the number of division solutions for the beam.
+                The beam will be divided in equally spaced points and all results (displacement, momentum, shear) will be calculated to these points.
+            
+            maximum_displacement_allowed: float, optional (default lambda beam_element_length : beam_element_length/250,)
+                For each beam element, compare its maximum displacement with maximum_displacement_allowed(beam_element_length).
+                This is used to solve the ELS shown in NBR 6118.
+                If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 120/250=0.45cm < 1cm. Therefore, in this condition, the ELS step will raise an error.
+            
+            available_long_steel_bars: AvailableLongConcreteSteelBar, optional (default AvailableLongConcreteSteelBar([8]))
+                Define the available longitudinal steel bars. 
+                You can set the available diameters, cost_by_meter, fyw, E, etc.
+                See more information in fc.AvailableLongConcreteSteelBar docstring.
+                
             bar_steel_removal_step: int, optional (default 2)
                 Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
                 I makes the building process easier. 
@@ -102,10 +128,14 @@ class ConcreteBeam(Beam):
             biggest_aggregate_dimension: float, optional (default 1.5)
                 Maximum dimension characteristic of the biggest aggregate, in cm.
                 
+            verbose: bool, optional (default False)
+                Print the the steps and their durations.
+                
             
         """
+        start = time.time()
         
-        beam_elements = self.checkInput(
+        beam_elements = self._checkInput(
             nodes=nodes,
             beam_elements=beam_elements,
             material=available_concrete.material,
@@ -130,7 +160,7 @@ class ConcreteBeam(Beam):
         self.lifetime_structure = lifetime_structure
         self.biggest_aggregate_dimension = biggest_aggregate_dimension
         self.verbose = verbose
-        
+            
         if options.get("solve_transv_steel") != False:
             timeit(verbose, "Solve transv steel")(self.solve_transv_steel)()
             
@@ -141,8 +171,10 @@ class ConcreteBeam(Beam):
             timeit(verbose, "Solve ELS")(self.solve_ELS)()
         
         if options.get("solve_cost") != False:
-            self.solve_cost()
-                
+            self.cost, self.cost_table, self.subtotal_table = solve_cost(self)
+        
+        end = time.time()
+        self.processing_time = end-start
     
     def getConcreteDisplacementDiagram(self, **options):
         x, y = self.getDisplacementDiagram(**options)
@@ -172,6 +204,51 @@ class ConcreteBeam(Beam):
     def getShearDesignDiagram(self, **options_diagram):
         x, shear_diagram = self.getShearDiagram(division=self.division)
         return x, self.design_factor*shear_diagram
+    
+        
+        
+    def plotTransversalInX(self, x):
+        positive_bars, negative_bars = self.long_steel_bars.getPositiveandNegativeLongSteelBarsInX(x=x)
+        transversal_bar = self.transv_steel_bars.getTransversalBarAfterX(x)
+        
+        _, beam_element = self.getBeamElementInX(x)
+        material, section = beam_element.material, beam_element.section
+        
+        fig, ax = section.plot()
+        fig, ax = transversal_bar.plot(fig=fig, ax=ax, c=material.c)
+        fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
+        fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
+
+    def solve_transv_steel(self):
+        self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
+                                                                        fyk=self.transversal_bar_fyk,
+                                                                        theta_in_degree= self.tilt_angle_of_compression_struts,
+                                                                        alpha_in_degree = self.transversal_bar_inclination_angle)
+        self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
+    
+    def solve_long_steel(self):
+        self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
+        self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
+    
+    
+    
+    @staticmethod
+    def _checkInput(**inputs):
+        nodes, beam_elements, section, material = inputs.get("nodes"), inputs.get("beam_elements"), inputs.get("section"), inputs.get("material")
+        if nodes and section:
+            if len(nodes) == 1: raise Exception("Must contain at least 2 nodes to create a beam")
+            beam_elements = []
+            for i in range(0,len(nodes)-1):
+                beam_elements = [*beam_elements, fc.BeamElement([nodes[i], nodes[i+1]], section, material)]
+            return beam_elements
+        elif beam_elements and section:
+            beam_elements = BeamElements.create(beam_elements)
+            beam_elements = beam_elements.changeProperty("material", lambda x:material)
+            section.d = 0.8*section.height
+            return beam_elements.changeProperty("section", lambda x:section)
+        print(beam_elements)
+        return beam_elements
+        #if (decalaged_length_method not in ["full", "simplified"]): raise Exception("Decalage Method available are 'full' or 'simplified")
     
     def _toConcreteBeamElements(self, beam_elements):
         for beam_element in beam_elements:
@@ -221,108 +298,3 @@ class ConcreteBeam(Beam):
             beam_element.flexural_rigidity = E_cs * new_I
             
         return beam_elements
-        
-        
-    def plotTransversalInX(self, x):
-        positive_bars, negative_bars = self.long_steel_bars.getPositiveandNegativeLongSteelBarsInX(x=x)
-        transversal_bar = self.transv_steel_bars.getTransversalBarAfterX(x)
-        
-        _, beam_element = self.getBeamElementInX(x)
-        material, section = beam_element.material, beam_element.section
-        
-        fig, ax = section.plot()
-        fig, ax = transversal_bar.plot(fig=fig, ax=ax, c=material.c)
-        fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
-        fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
-
-    def solve_transv_steel(self):
-        self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
-                                                                        fyk=self.transversal_bar_fyk,
-                                                                        theta_in_degree= self.tilt_angle_of_compression_struts,
-                                                                        alpha_in_degree = self.transversal_bar_inclination_angle)
-        self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
-    
-    def solve_long_steel(self):
-        self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
-        self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
-    
-    def solve_cost(self, decimal_numbers = 2):
-        cost_table = [["Material", "Price", "Quantity", "Unit", "Commentary", "Is Subtotal"]]
-        # Concrete
-        total_concrete_cost = 0
-        for beam_element in self.initial_beam_elements:
-            volume = beam_element.section.area*beam_element.length/1000000
-            concrete_cost = volume*self.available_concrete.cost_by_m3
-            total_concrete_cost += concrete_cost
-            row = ["Concrete",
-                   round(concrete_cost, decimal_numbers),
-                   round(volume, decimal_numbers), "m3", "Between {}m and {}m".format(beam_element.n1.x, beam_element.n1.x), False]
-            cost_table = [*cost_table, row]
-        row = ["Concrete", round(total_concrete_cost, 2), round(volume, 2), "m3", "", True]
-        cost_table = [*cost_table, row]
-        
-        # Longitudinal
-        total_long_bar_cost = total_length = 0
-        for lb in self.long_steel_bars:
-            total_long_bar_cost += lb.cost
-            total_length += lb.length
-            row = ["Longitudinal bar",
-                round(lb.cost, decimal_numbers),
-                round(lb.length, decimal_numbers),
-                "m",
-                "Diameter {}mm. Between {}m and {}m".format(abs(lb.diameter*10),
-                                                            round(lb.long_begin,decimal_numbers),
-                                                            round(lb.long_end,decimal_numbers)),
-                False]
-            cost_table = [*cost_table, row]
-            
-
-        row = ["Longitudinal bar",
-            round(total_long_bar_cost, decimal_numbers),
-            round(total_length, decimal_numbers),
-            "m", "", True]
-
-        cost_table = [*cost_table, row]
-
-        # Transversal Bar
-        total_transv_bar_cost = total_length = 0
-        for lb in self.transv_steel_bars:
-            total_transv_bar_cost += lb.cost
-            total_length += lb.length
-            row = ["Transversal bar",
-                round(lb.cost, decimal_numbers),
-                round(lb.length, decimal_numbers),
-                "m",
-                "{}cm x {}cm. Diameter {}mm. Placed in {}m ".format(round(lb.width,decimal_numbers),
-                                                                    round(lb.height,decimal_numbers),
-                                                                    abs(lb.diameter*10),
-                                                                    round(lb.x,decimal_numbers)), False]
-            cost_table = [*cost_table, row]
-            
-
-        row = ["Longitudinal bar",
-            round(total_transv_bar_cost, decimal_numbers),
-            round(total_length, decimal_numbers),
-            "m", "", True]
-
-        cost_table = [*cost_table, row]
-        return total_concrete_cost + total_transv_bar_cost + total_long_bar_cost, np.array(cost_table)
-    
-    @staticmethod
-    def checkInput(**inputs):
-        nodes, beam_elements, section, material = inputs.get("nodes"), inputs.get("beam_elements"), inputs.get("section"), inputs.get("material")
-        if nodes and section:
-            beam_elements = []
-            for i in range(0,len(nodes)-1):
-                beam_elements = [*beam_elements, fc.BeamElement([nodes[i], nodes[i+1]], section, material)]
-            return beam_elements
-        elif beam_elements and section:
-            beam_elements = BeamElements.create(beam_elements)
-            beam_elements = beam_elements.changeProperty("material", lambda x:material)
-            section.d = 0.8*section.height
-            return beam_elements.changeProperty("section", lambda x:section)
-        
-        return beam_elements
-        #if (decalaged_length_method not in ["full", "simplified"]): raise Exception("Decalage Method available are 'full' or 'simplified")
-                 
-    

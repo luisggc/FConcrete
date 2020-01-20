@@ -343,6 +343,7 @@ class LongSteelBarSolve():
         """
         previous_y=np.nan
         interspace = np.array([0, 0])
+        if sum(np.isfinite(area)) == 0 : return []
         for x_u,y in zip(x, area):
             if np.isnan(previous_y) and not np.isnan(y):
                 begin = x_u

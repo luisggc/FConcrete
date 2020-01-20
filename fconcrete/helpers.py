@@ -6,21 +6,34 @@ import time
 _Q = c._Q
 
 def cond(x, singular=False, order=0):
+    """
+    If It is singular, return 1 if x>0 else 0.
+    If It is not singular, return x**order if x>0 else 0
+    """
     if singular:
         return 1 if x>0 else 0
     return x**order if x>0 else 0
 
 def integrate(f, a, b, N=100):
+    """
+    Integrate f from a to b in N steps
+    """
     x = np.linspace(a, b, N)
     y = np.apply_along_axis(f, 0, np.array([x]))
     return np.trapz(y, dx=(b-a)/(N-1))
 
 def duplicated(array):
+    """
+    Check if it is duplicated.
+    """
     s = np.sort(array, axis=None)
     duplicated = s[:-1][s[1:] == s[:-1]]
     return np.isin(s, duplicated)
 
 def to_unit(input, expected_unit, return_unit=False):
+    """
+    Convert between unities according to expected_unit and return_unit
+    """
     try:
         input = float(input)
         value = _Q(input, expected_unit)
@@ -35,6 +48,9 @@ def to_unit(input, expected_unit, return_unit=False):
     return value
         
 def getAxis(xy0=(0,0), xy1=(0,0)):
+    """
+    Create axis with equal aspect. xy0 and xy1 represent the visible area.
+    """
     x0, y0 = xy0
     x1, y1 = xy1
     fig, ax = plt.subplots()
@@ -43,6 +59,9 @@ def getAxis(xy0=(0,0), xy1=(0,0)):
     return fig, ax
 
 def timeit(do=True, name=""):
+    """
+    Decorator to print the time that the function has taken to execute.
+    """
     def inner0(function):
         if not do: return function
         def inner(*args, **kw):
@@ -53,3 +72,25 @@ def timeit(do=True, name=""):
             return val
         return inner
     return inner0
+
+# https://gist.github.com/snakers4/91fa21b9dda9d055a02ecd23f24fbc3d
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
