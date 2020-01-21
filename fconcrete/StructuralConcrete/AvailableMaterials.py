@@ -28,7 +28,7 @@ class AvailableLongConcreteSteelBar:
                     },
                  fyw = 50/1.15,
                  E = 21000,
-                 max_number=100,
+                 max_number=200,
                  surface_type="ribbed"):
         try:
             areas = [diameters_to_area[diameter] for diameter in diameters]

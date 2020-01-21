@@ -201,9 +201,11 @@ class LongSteelBarSolve():
         if area>0 :
             area = max(min_area, area)
             possible_areas = self.available.table[:,2] > area
+            if len(possible_areas)==0: raise Exception("There is not a possible available longitudinal steel bar. You should try to increase max_number of fc.AvailableLongConcreteSteelBar.")
             values = self.available.table[possible_areas][0]
         else:
             possible_areas = self.available.table[:,2] < area
+            if len(possible_areas)==0: raise Exception("There is not a possible available longitudinal steel bar. You should try to increase max_number of fc.AvailableLongConcreteSteelBar.")
             values = self.available.table[possible_areas][-1]
         quantity, diameter, area = values
         return quantity, diameter, area
