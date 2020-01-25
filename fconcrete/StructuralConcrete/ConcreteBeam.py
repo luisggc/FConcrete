@@ -243,6 +243,13 @@ class ConcreteBeam(Beam):
             beam_elements = beam_elements.changeProperty("material", lambda x:material)
             section.d = 0.8*section.height
             return beam_elements.changeProperty("section", lambda x:section)
+        elif beam_elements:
+            beam_elements_modified = []
+            for beam_element in beam_elements:
+                beam_element.section.d = 0.8*beam_element.section.height
+                beam_elements_modified = [*beam_elements_modified, beam_element]
+            return beam_elements_modified
+        
         return beam_elements
         #if (decalaged_length_method not in ["full", "simplified"]): raise Exception("Decalage Method available are 'full' or 'simplified")
     
