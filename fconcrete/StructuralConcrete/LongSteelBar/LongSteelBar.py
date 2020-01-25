@@ -111,8 +111,9 @@ class LongSteelBars():
 
         if len(self.steel_bars) == 0: return []
         
-        transversal_positions = np.array([0,0,0])
+        transversal_positions = np.array([0,0,0,0])
         radius = max(abs(self.diameters))/2
+        area = max(abs(self.areas))
         
         horizontal_distance = max(2, 2*radius, 1.2*concrete_beam.biggest_aggregate_dimension)
         vertical_distance = max(2, 2*radius, 0.5*concrete_beam.biggest_aggregate_dimension)
@@ -147,7 +148,7 @@ class LongSteelBars():
             else: 
                 plot_center = (possible_bar_in_row==1 or n == number_of_bars) and bar_in_the_left
                 point = (0, y_row if is_positive_bar else section.height-y_row) if plot_center else (x_circle, y_circle)
-                transversal_positions = np.vstack((transversal_positions, (point[0], point[1], radius)))
+                transversal_positions = np.vstack((transversal_positions, (point[0], point[1], radius, area)))
             n+=1
             bar_in_the_left = not bar_in_the_left
 

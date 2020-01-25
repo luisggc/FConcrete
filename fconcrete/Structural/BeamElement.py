@@ -5,9 +5,9 @@ from fconcrete.Structural.Material import unitary_material
 import copy
 
 class BeamElement:
-    def __init__(self, nodes, section=unitary_section, material=unitary_material):
+    def __init__(self, nodes, section=unitary_section, material=unitary_material): #, function_d=lambda height,c: height-c ):
         self.section = section
-        section.d = section.height - material.c if hasattr(material,"c") else 0
+        #section.d = function_d(section.height, material.c) if hasattr(material,"c") else 0
         self.material = material
         self.x = nodes
         self.E = material.E

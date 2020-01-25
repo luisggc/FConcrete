@@ -204,8 +204,6 @@ class ConcreteBeam(Beam):
     def getShearDesignDiagram(self, **options_diagram):
         x, shear_diagram = self.getShearDiagram(division=self.division)
         return x, self.design_factor*shear_diagram
-    
-        
         
     def plotTransversalInX(self, x):
         positive_bars, negative_bars = self.long_steel_bars.getPositiveandNegativeLongSteelBarsInX(x=x)
@@ -230,12 +228,11 @@ class ConcreteBeam(Beam):
         self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
         self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
     
-    
-    
     @staticmethod
     def _checkInput(**inputs):
         nodes, beam_elements, section, material = inputs.get("nodes"), inputs.get("beam_elements"), inputs.get("section"), inputs.get("material")
         if nodes and section:
+            section.d = 0.8*section.height
             if len(nodes) == 1: raise Exception("Must contain at least 2 nodes to create a beam")
             beam_elements = []
             for i in range(0,len(nodes)-1):
@@ -246,7 +243,6 @@ class ConcreteBeam(Beam):
             beam_elements = beam_elements.changeProperty("material", lambda x:material)
             section.d = 0.8*section.height
             return beam_elements.changeProperty("section", lambda x:section)
-        print(beam_elements)
         return beam_elements
         #if (decalaged_length_method not in ["full", "simplified"]): raise Exception("Decalage Method available are 'full' or 'simplified")
     
