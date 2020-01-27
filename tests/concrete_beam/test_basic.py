@@ -10,7 +10,7 @@ def approx01(x):
 
 def create_concrete_beam():
     material = fc.Concrete(fck='30 MPa', aggressiveness=2)
-    section = fc.Rectangle(25,56)
+    section = fc.Rectangle(25,60)
 
     #Design
     f1 = fc.Load.UniformDistributedLoad(-0.1622, x_begin=0, x_end=113)

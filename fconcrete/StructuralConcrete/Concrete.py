@@ -8,7 +8,7 @@ class Concrete(Material):
 
             Call signatures::
 
-                Concrete(fck, aggressiveness, aggregate=granito, **kwargs)
+                Concrete(fck, aggressiveness, aggregate='granite', **kwargs)
 
             >>> Concrete(fck=30, aggressiveness=3)
 
@@ -26,7 +26,7 @@ class Concrete(Material):
             Aggregate type.
             
         """ 
-    def __init__(self, fck, aggressiveness, aggregate="granito"):
+    def __init__(self, fck, aggressiveness, aggregate="granite"):
         fck = to_unit(fck, "MPa").magnitude
         
         alpha_e = 0
@@ -34,7 +34,7 @@ class Concrete(Material):
         if aggregate in ['granite', 'gneiss']: alpha_e = 1
         if aggregate in ["limestone"]: alpha_e = 0.9
         if aggregate in ["sandstone"]: alpha_e = 0.7
-        if alpha_e == 0: raise Exception("Must select a valid aggregate: basalto, diabásio, granito, gnaisse, calcário ou arenito")
+        if alpha_e == 0: raise Exception("Must select a valid aggregate: 'basalt', 'diabase', 'granite', 'gneiss', 'limestone' or 'sandstone'")
         
         if fck<20 or fck>90: raise Exception("Must select a valid fck value (between 20MPa and 90MPa)")
         if (fck>=20 and fck<=50): E_ci = alpha_e*5600*(fck**0.5)

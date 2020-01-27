@@ -123,7 +123,7 @@ class AvailableConcrete():
                  fck=30,
                  cost_by_m3=None,
                  aggressiveness=3,
-                 aggregate='granito'
+                 aggregate='granite'
                  ):
         if cost_by_m3 == None:
             try:
