@@ -85,52 +85,64 @@ class ConcreteBeam(Beam):
             loads: [Load]
                 Define the loads supported for the beam.
             
-            beam_elements: [BeamElement], optional if nodes and section is given.
+            beam_elements: [BeamElement], optional
                 Define the beam_elements that, together, makes the whole Beam. 
+                Optional if nodes and section is given.
             
-            nodes: [Node], not used if beam_elements is given.
+            nodes: [Node]
                 Define the nodes that are going to make the whole Beam.
+                Not used if beam_elements is given.
                 
-            section: Section, not used if beam_elements is given.
+            section: Section
                 Define the section that are going to make the whole Beam.
+                Not used if beam_elements is given.
             
-            design_factor: float, optional (default 1.4)
+            design_factor: float, optional
                 Define the number that is going to be multiplied to de momentum diagram and shear diagram.
                 If your load is already a design load, you should set design_factor=1.
+                Default value is 1.4.
                 
-            division: int, optional (default 1000)
+            division: int, optional
                 Define the number of division solutions for the beam.
                 The beam will be divided in equally spaced points and all results (displacement, momentum, shear) will be calculated to these points.
+                Default value is 1.4.
             
-            maximum_displacement_allowed: float, optional (default lambda beam_element_length : beam_element_length/250,)
+            maximum_displacement_allowed: float, optional
                 For each beam element, compare its maximum displacement with maximum_displacement_allowed(beam_element_length).
                 This is used to solve the ELS shown in NBR 6118.
                 If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 120/250=0.45cm < 1cm. Therefore, in this condition, the ELS step will raise an error.
-            
-            available_long_steel_bars: AvailableLongConcreteSteelBar, optional (default AvailableLongConcreteSteelBar([8]))
+                Default value is lambda beam_element_length : beam_element_length/250.
+                
+            available_long_steel_bars: AvailableLongConcreteSteelBar, optional
                 Define the available longitudinal steel bars. 
                 You can set the available diameters, cost_by_meter, fyw, E, etc.
                 See more information in fc.AvailableLongConcreteSteelBar docstring.
+                Default AvailableLongConcreteSteelBar([8]).
                 
-            bar_steel_removal_step: int, optional (default 2)
+            bar_steel_removal_step: int, optional
                 Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
                 I makes the building process easier. 
+                Default value is 2.
                 
-            bar_steel_max_removal: int, optional (default 100)
+            bar_steel_max_removal: int, optional
                 Define the max times it is possible to remove the bar.
-            
-            time_begin_long_duration: float, optional (default 0)
+                Default value is 100.
+                
+            time_begin_long_duration: float, optional
                 The time, in months, relative to the date of application of the long-term load
+                Default value is 0.
             
-            lifetime_structure: float, optional (default 70)
+            lifetime_structure: float, optional
                 The time, in months, when the value of the deferred arrow is desired;
+                Default value is 70.
             
-            biggest_aggregate_dimension: float, optional (default 1.5)
+            biggest_aggregate_dimension: float, optional
                 Maximum dimension characteristic of the biggest aggregate, in cm.
+                Default value is 1.5.
                 
-            verbose: bool, optional (default False)
+            verbose: bool, optional
                 Print the the steps and their durations.
-                
+                Default value is False.
             
         """
         start = time.time()
@@ -301,3 +313,6 @@ class ConcreteBeam(Beam):
             beam_element.flexural_rigidity = E_cs * new_I
             
         return beam_elements
+    
+    def __name__():
+        return "ConcreteBeam"

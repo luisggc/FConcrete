@@ -218,6 +218,9 @@ class Beam:
         x, y = self.getRotationDiagram(**options)
         plt.plot(x, y)
     
+    def __name__():
+        return "Beam"
+    
     def __repr__(self):
         return str(self.__dict__)
 

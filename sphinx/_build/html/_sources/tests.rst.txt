@@ -1,0 +1,20 @@
+tests package
+=============
+
+.. automodule:: tests
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+tests.test\_fconcrete module
+----------------------------
+
+.. automodule:: tests.test_fconcrete
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

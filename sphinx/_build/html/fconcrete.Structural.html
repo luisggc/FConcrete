@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>fconcrete.Structural package &mdash; FConcrete  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> FConcrete
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">fconcrete.Structural package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-fconcrete.Structural.Beam">fconcrete.Structural.Beam module</a></li>
+<li><a class="reference internal" href="#module-fconcrete.Structural.BeamElement">fconcrete.Structural.BeamElement module</a></li>
+<li><a class="reference internal" href="#module-fconcrete.Structural.Load">fconcrete.Structural.Load module</a></li>
+<li><a class="reference internal" href="#module-fconcrete.Structural.Material">fconcrete.Structural.Material module</a></li>
+<li><a class="reference internal" href="#module-fconcrete.Structural.Node">fconcrete.Structural.Node module</a></li>
+<li><a class="reference internal" href="#module-fconcrete.Structural.Section">fconcrete.Structural.Section module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">FConcrete</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>fconcrete.Structural package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/fconcrete.Structural.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-fconcrete.Structural">
+<span id="fconcrete-structural-package"></span><h1>fconcrete.Structural package<a class="headerlink" href="#module-fconcrete.Structural" title="Permalink to this headline">¶</a></h1>
+<p>Code for structural calculus. Not related to any specific material.
+Uses FEM (Finite Element Method) to define the efforts.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-fconcrete.Structural.Beam">
+<span id="fconcrete-structural-beam-module"></span><h2>fconcrete.Structural.Beam module<a class="headerlink" href="#module-fconcrete.Structural.Beam" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fconcrete.Structural.Beam.Beam">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Beam.</code><code class="descname">Beam</code><span class="sig-paren">(</span><em>loads</em>, <em>beam_elements</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="fconcrete.Structural.Beam.Beam.createIntermediateBeams">
+<em class="property">static </em><code class="descname">createIntermediateBeams</code><span class="sig-paren">(</span><em>loads</em>, <em>bars</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.createIntermediateBeams" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getBeamElementInX">
+<code class="descname">getBeamElementInX</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getBeamElementInX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getDisplacement">
+<code class="descname">getDisplacement</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getDisplacement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getDisplacementDiagram">
+<code class="descname">getDisplacementDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getDisplacementDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getInternalMomentumStrength">
+<code class="descname">getInternalMomentumStrength</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getInternalMomentumStrength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getInternalShearStrength">
+<code class="descname">getInternalShearStrength</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getInternalShearStrength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getMomentumDiagram">
+<code class="descname">getMomentumDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getMomentumDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getRotation">
+<code class="descname">getRotation</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getRotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getRotationDiagram">
+<code class="descname">getRotationDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getRotationDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getShearDiagram">
+<code class="descname">getShearDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getShearDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.getSupportReactions">
+<code class="descname">getSupportReactions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.getSupportReactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.get_beams_efforts">
+<code class="descname">get_beams_efforts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.get_beams_efforts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.matrix_rigidity_global">
+<code class="descname">matrix_rigidity_global</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.matrix_rigidity_global" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.plotDisplacementDiagram">
+<code class="descname">plotDisplacementDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.plotDisplacementDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.plotMomentumDiagram">
+<code class="descname">plotMomentumDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.plotMomentumDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.plotRotationDiagram">
+<code class="descname">plotRotationDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.plotRotationDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.plotShearDiagram">
+<code class="descname">plotShearDiagram</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.plotShearDiagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.solve_displacement_constants">
+<code class="descname">solve_displacement_constants</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.solve_displacement_constants" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Beam.Beam.solve_structural">
+<code class="descname">solve_structural</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Beam.Beam.solve_structural" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-fconcrete.Structural.BeamElement">
+<span id="fconcrete-structural-beamelement-module"></span><h2>fconcrete.Structural.BeamElement module<a class="headerlink" href="#module-fconcrete.Structural.BeamElement" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fconcrete.Structural.BeamElement.BeamElement">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.BeamElement.</code><code class="descname">BeamElement</code><span class="sig-paren">(</span><em>nodes</em>, <em>section=&lt;fconcrete.Structural.Section.Rectangle object&gt;</em>, <em>material=&lt;fconcrete.Structural.Material.Material object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="fconcrete.Structural.BeamElement.BeamElement.get_efforts_from_bar_element">
+<em class="property">classmethod </em><code class="descname">get_efforts_from_bar_element</code><span class="sig-paren">(</span><em>beam_element</em>, <em>load</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElement.get_efforts_from_bar_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>distance_a means the force_distance_from_nearest_left_node
+condition represent the degrees of freedom of the node. 1 means fixed and 0 free.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.BeamElement.BeamElement.get_matrix_rigidity_unitary">
+<code class="descname">get_matrix_rigidity_unitary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElement.get_matrix_rigidity_unitary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.BeamElement.BeamElement.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElement.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fconcrete.Structural.BeamElement.BeamElements">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.BeamElement.</code><code class="descname">BeamElements</code><span class="sig-paren">(</span><em>bar_elements</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="fconcrete.Structural.BeamElement.BeamElements.changeProperty">
+<code class="descname">changeProperty</code><span class="sig-paren">(</span><em>prop</em>, <em>function</em>, <em>conditional=&lt;function BeamElements.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElements.changeProperty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.BeamElement.BeamElements.create">
+<em class="property">classmethod </em><code class="descname">create</code><span class="sig-paren">(</span><em>beam_elements</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElements.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.BeamElement.BeamElements.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.BeamElement.BeamElements.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-fconcrete.Structural.Load">
+<span id="fconcrete-structural-load-module"></span><h2>fconcrete.Structural.Load module<a class="headerlink" href="#module-fconcrete.Structural.Load" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fconcrete.Structural.Load.Load">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Load.</code><code class="descname">Load</code><span class="sig-paren">(</span><em>force</em>, <em>momentum</em>, <em>x_begin</em>, <em>x_end</em>, <em>q=0</em>, <em>order=0</em>, <em>displacement=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Load.Load.DisplacementLoad">
+<em class="property">classmethod </em><code class="descname">DisplacementLoad</code><span class="sig-paren">(</span><em>x</em>, <em>displacement</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Load.DisplacementLoad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Load.Load.PontualLoad">
+<em class="property">classmethod </em><code class="descname">PontualLoad</code><span class="sig-paren">(</span><em>load</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Load.PontualLoad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a pontual load.</p>
+<blockquote>
+<div><p>Call signatures:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PontualLoad</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PontualLoad</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PontualLoad</span><span class="p">(</span><span class="s1">&#39;20kN&#39;</span><span class="p">,</span> <span class="s1">&#39;20m&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>load <span class="classifier-delimiter">:</span> <span class="classifier">unit (number or str)</span></dt>
+<dd>Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be give. Example:
+‘20kN’, ‘10N’, etc</dd>
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
+<dd>Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+‘20cm’, ‘10dm’, etc</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Load.Load.UniformDistributedLoad">
+<em class="property">classmethod </em><code class="descname">UniformDistributedLoad</code><span class="sig-paren">(</span><em>q</em>, <em>x_begin</em>, <em>x_end</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Load.UniformDistributedLoad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a uniform and distributed load.</p>
+<blockquote>
+<div><p>Call signatures:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UniformDistributedLoad</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">x_begin</span><span class="p">,</span> <span class="n">x_end</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">UniformDistributedLoad</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">UniformDistributedLoad</span><span class="p">(</span><span class="s1">&#39;20kN/m&#39;</span><span class="p">,</span> <span class="s1">&#39;20m&#39;</span><span class="p">,</span> <span class="s1">&#39;30m&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>q <span class="classifier-delimiter">:</span> <span class="classifier">unit (number or str)</span></dt>
+<dd>Represent the load by length measure. If it is a number, default unit is kN/m, but also [force]/[length] unit can be give. Example:
+‘20kN/cm’, ‘10N/m’, etc</dd>
+<dt>x_begin <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
+<dd>Where the load is going to start. If it is a number, default unit is m, but also [length] unit can be give. Example:
+‘20cm’, ‘10dm’, etc</dd>
+<dt>x_end <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
+<dd>Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+‘20cm’, ‘10dm’, etc</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fconcrete.Structural.Load.Loads">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Load.</code><code class="descname">Loads</code><span class="sig-paren">(</span><em>loads</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="fconcrete.Structural.Load.Loads.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>loads</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Loads.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Load.Loads.create">
+<em class="property">classmethod </em><code class="descname">create</code><span class="sig-paren">(</span><em>loads</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Load.Loads.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-fconcrete.Structural.Material">
+<span id="fconcrete-structural-material-module"></span><h2>fconcrete.Structural.Material module<a class="headerlink" href="#module-fconcrete.Structural.Material" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fconcrete.Structural.Material.Material">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Material.</code><code class="descname">Material</code><span class="sig-paren">(</span><em>E</em>, <em>poisson</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Material.Material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>E - in MPA
+Poisson -</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fconcrete.Structural.Node">
+<span id="fconcrete-structural-node-module"></span><h2>fconcrete.Structural.Node module<a class="headerlink" href="#module-fconcrete.Structural.Node" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fconcrete.Structural.Node.Node">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Node.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>x</em>, <em>condition_boundary</em>, <em>length=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Node.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Node.Node.Crimp">
+<em class="property">classmethod </em><code class="descname">Crimp</code><span class="sig-paren">(</span><em>x</em>, <em>length=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Node.Node.Crimp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Node.Node.Free">
+<em class="property">classmethod </em><code class="descname">Free</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Node.Node.Free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Node.Node.MiddleNode">
+<em class="property">classmethod </em><code class="descname">MiddleNode</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Node.Node.MiddleNode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fconcrete.Structural.Node.Node.SimpleSupport">
+<em class="property">classmethod </em><code class="descname">SimpleSupport</code><span class="sig-paren">(</span><em>x</em>, <em>length=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Node.Node.SimpleSupport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fconcrete.Structural.Node.Nodes">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Node.</code><code class="descname">Nodes</code><span class="sig-paren">(</span><em>nodes</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Node.Nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fconcrete.Structural.Section">
+<span id="fconcrete-structural-section-module"></span><h2>fconcrete.Structural.Section module<a class="headerlink" href="#module-fconcrete.Structural.Section" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fconcrete.Structural.Section.Rectangle">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Section.</code><code class="descname">Rectangle</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#fconcrete.Structural.Section.Section" title="fconcrete.Structural.Section.Section"><code class="xref py py-class docutils literal notranslate"><span class="pre">fconcrete.Structural.Section.Section</span></code></a></p>
+<p>Returns a concrete_beam element.</p>
+<blockquote>
+<div><p>Call signatures:</p>
+<blockquote>
+<div>fc.Rectangle(width, height)</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>   <span class="n">section</span> <span class="o">=</span> <span class="n">fc</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span> <span class="n">material</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>width: float
+height: float</p>
+<dl class="method">
+<dt id="fconcrete.Structural.Section.Rectangle.getAreaBetween">
+<code class="descname">getAreaBetween</code><span class="sig-paren">(</span><em>begin_height</em>, <em>end_height</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Rectangle.getAreaBetween" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Section.Rectangle.width">
+<code class="descname">width</code><span class="sig-paren">(</span><em>height=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Rectangle.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fconcrete.Structural.Section.Section">
+<em class="property">class </em><code class="descclassname">fconcrete.Structural.Section.</code><code class="descname">Section</code><span class="sig-paren">(</span><em>function_width</em>, <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to represent simetrical section along the y axis.
+function_width is made to define the width along the y axis. The function starts with x=0 and ends in x=height.
+height is to represent the maximum y value possible.</p>
+<dl class="method">
+<dt id="fconcrete.Structural.Section.Section.getAreaBetween">
+<code class="descname">getAreaBetween</code><span class="sig-paren">(</span><em>begin_height</em>, <em>end_height</em>, <em>interations=100</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Section.getAreaBetween" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Section.Section.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>N=100</em>, <em>color_plot='red'</em>, <em>ax=None</em>, <em>fig=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Section.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fconcrete.Structural.Section.Section.width">
+<code class="descname">width</code><span class="sig-paren">(</span><em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.Structural.Section.Section.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Luis Coimbra
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
