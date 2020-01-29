@@ -12,7 +12,7 @@ Welcome to FConcrete's documentation!
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    :caption: General Information:
 
    readme
@@ -27,9 +27,8 @@ Welcome to FConcrete's documentation!
    :maxdepth: 3
    :caption: The module:
 
-   fconcrete
    Structural <fconcrete.Structural.rst>
-   fconcrete.StructuralConcrete
+   StructuralConcrete <fconcrete.StructuralConcrete.rst>
 
 
 
