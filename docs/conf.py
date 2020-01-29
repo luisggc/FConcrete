@@ -44,8 +44,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
-    'sphinx.ext.githubpages',
-    'sphinxcontrib.napoleon'
+    'sphinx.ext.githubpages'
 ]
 
 
