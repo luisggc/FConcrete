@@ -1,4 +1,4 @@
-#!/usr/bin/ENV python
+#!/usr/bin/env python
 
 """Tests for `fconcrete` package."""
 
