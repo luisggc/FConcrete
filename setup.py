@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/ENV python
 
 """The setup script."""
 

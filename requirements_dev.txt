@@ -9,3 +9,4 @@ cookiecutter
 pytest-cookies
 watchdog
 alabaster
+sphinxcontrib-napoleon
