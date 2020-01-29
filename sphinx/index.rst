@@ -1,31 +1,36 @@
 .. FConcrete documentation master file, created by
-   sphinx-quickstart on Mon Jan 27 20:58:40 2020.
+   sphinx-quickstart on Tue Jan 28 20:04:36 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
 Welcome to FConcrete's documentation!
 =====================================
 
-.. toctree::
-   :maxdepth: 100
-   :caption: Contents:
-
-
-fconcrete package
-=================
 
 .. automodule:: fconcrete
     :members:
-    :undoc-members:
-    :show-inheritance:
 
-Subpackages
------------
 
 .. toctree::
+   :maxdepth: 3
+   :caption: General Information:
 
-    fconcrete.Structural
-    fconcrete.StructuralConcrete
+   readme
+   installation
+   usage
+   modules
+   contributing
+   authors
+   history
+
+.. toctree::
+   :maxdepth: 3
+   :caption: The module:
+
+   fconcrete
+   Structural <fconcrete.Structural.rst>
+   fconcrete.StructuralConcrete
+
 
 
 

@@ -34,7 +34,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="fconcrete.StructuralConcrete.TransvSteelBar package" href="fconcrete.StructuralConcrete.TransvSteelBar.html" />
+    <link rel="prev" title="fconcrete.StructuralConcrete package" href="fconcrete.StructuralConcrete.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -78,16 +80,135 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">fconcrete.StructuralConcrete.LongSteelBar package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar module</a></li>
-<li><a class="reference internal" href="#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve module</a></li>
+              <p class="caption"><span class="caption-text">General Information:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">FConcrete</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-sources">From sources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">fconcrete</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fconcrete.html">fconcrete package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="fconcrete.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html">fconcrete.Structural package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.html#module-fconcrete.cli">fconcrete.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.html#module-fconcrete.config">fconcrete.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.html#module-fconcrete.fconcrete">fconcrete.fconcrete module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.html#module-fconcrete.helpers">fconcrete.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.html#module-fconcrete">Module contents</a></li>
 </ul>
 </li>
 </ul>
-</div>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#types-of-contributions">Types of Contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#report-bugs">Report Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#fix-bugs">Fix Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#implement-features">Implement Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#write-documentation">Write Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#submit-feedback">Submit Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#pull-request-guidelines">Pull Request Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#tips">Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#deploying">Deploying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#development-lead">Development Lead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="history.html#id1">0.1.0 (2019-12-12)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">The module:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="fconcrete.html">fconcrete package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fconcrete.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.Structural.html">fconcrete.Structural package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Beam">fconcrete.Structural.Beam module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.BeamElement">fconcrete.Structural.BeamElement module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Load">fconcrete.Structural.Load module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Material">fconcrete.Structural.Material module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Node">fconcrete.Structural.Node module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Section">fconcrete.Structural.Section module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="fconcrete.StructuralConcrete.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Analysis">fconcrete.StructuralConcrete.Analysis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.AvailableMaterials">fconcrete.StructuralConcrete.AvailableMaterials module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Concrete">fconcrete.StructuralConcrete.Concrete module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.ConcreteBeam">fconcrete.StructuralConcrete.ConcreteBeam module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.html#module-fconcrete.cli">fconcrete.cli module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.html#module-fconcrete.config">fconcrete.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.html#module-fconcrete.fconcrete">fconcrete.fconcrete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.html#module-fconcrete.helpers">fconcrete.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.html#module-fconcrete">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fconcrete.Structural.html">Structural</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Beam">fconcrete.Structural.Beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.BeamElement">fconcrete.Structural.BeamElement module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Load">fconcrete.Structural.Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Material">fconcrete.Structural.Material module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Node">fconcrete.Structural.Node module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural.Section">fconcrete.Structural.Section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.Structural.html#module-fconcrete.Structural">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="fconcrete.StructuralConcrete.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">fconcrete.StructuralConcrete.LongSteelBar package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-fconcrete.StructuralConcrete.LongSteelBar">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fconcrete.StructuralConcrete.TransvSteelBar.html">fconcrete.StructuralConcrete.TransvSteelBar package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.TransvSteelBar.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.TransvSteelBar.html#module-fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar">fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.TransvSteelBar.html#module-fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBarSolve">fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBarSolve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fconcrete.StructuralConcrete.TransvSteelBar.html#module-fconcrete.StructuralConcrete.TransvSteelBar">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.StructuralConcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Analysis">fconcrete.StructuralConcrete.Analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.AvailableMaterials">fconcrete.StructuralConcrete.AvailableMaterials module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Concrete">fconcrete.StructuralConcrete.Concrete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.ConcreteBeam">fconcrete.StructuralConcrete.ConcreteBeam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
             
           
         </div>
@@ -131,6 +252,12 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
+          <li><a href="modules.html">fconcrete</a> &raquo;</li>
+        
+          <li><a href="fconcrete.html">fconcrete package</a> &raquo;</li>
+        
+          <li><a href="fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a> &raquo;</li>
+        
       <li>fconcrete.StructuralConcrete.LongSteelBar package</li>
     
     
@@ -150,8 +277,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-fconcrete.StructuralConcrete.LongSteelBar">
-<span id="fconcrete-structuralconcrete-longsteelbar-package"></span><h1>fconcrete.StructuralConcrete.LongSteelBar package<a class="headerlink" href="#module-fconcrete.StructuralConcrete.LongSteelBar" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="fconcrete-structuralconcrete-longsteelbar-package">
+<h1>fconcrete.StructuralConcrete.LongSteelBar package<a class="headerlink" href="#fconcrete-structuralconcrete-longsteelbar-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -159,57 +286,57 @@
 <span id="fconcrete-structuralconcrete-longsteelbar-longsteelbar-module"></span><h2>fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar module<a class="headerlink" href="#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar">
-<em class="property">class </em><code class="descclassname">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.</code><code class="descname">LongSteelBar</code><span class="sig-paren">(</span><em>long_begin</em>, <em>long_end</em>, <em>quantity</em>, <em>quantity_accumulated</em>, <em>diameter</em>, <em>area</em>, <em>area_accumulated</em>, <em>fyd</em>, <em>interspace</em>, <em>length</em>, <em>cost</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.</code><code class="descname">LongSteelBar</code><span class="sig-paren">(</span><em>long_begin</em>, <em>long_end</em>, <em>quantity</em>, <em>quantity_accumulated</em>, <em>diameter</em>, <em>area</em>, <em>area_accumulated</em>, <em>fyd</em>, <em>interspace</em>, <em>length</em>, <em>cost</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="staticmethod">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.getMinimumAndMaximumSteelArea">
-<em class="property">static </em><code class="descname">getMinimumAndMaximumSteelArea</code><span class="sig-paren">(</span><em>area</em>, <em>fck</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.getMinimumAndMaximumSteelArea" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">getMinimumAndMaximumSteelArea</code><span class="sig-paren">(</span><em>area</em>, <em>fck</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBar.getMinimumAndMaximumSteelArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.getMinimumAndMaximumSteelArea" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.getSteelArea">
-<em class="property">static </em><code class="descname">getSteelArea</code><span class="sig-paren">(</span><em>section</em>, <em>material</em>, <em>steel</em>, <em>momentum</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.getSteelArea" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">getSteelArea</code><span class="sig-paren">(</span><em>section</em>, <em>material</em>, <em>steel</em>, <em>momentum</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBar.getSteelArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.getSteelArea" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>prop='area_accumulated'</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.plot" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plot</code><span class="sig-paren">(</span><em>prop='area_accumulated'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBar.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBar.plot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars">
-<em class="property">class </em><code class="descclassname">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.</code><code class="descname">LongSteelBars</code><span class="sig-paren">(</span><em>steel_bars=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.</code><code class="descname">LongSteelBars</code><span class="sig-paren">(</span><em>steel_bars=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>new_steel_bars</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.add" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add</code><span class="sig-paren">(</span><em>new_steel_bars</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.add" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.changeProperty">
-<code class="descname">changeProperty</code><span class="sig-paren">(</span><em>prop</em>, <em>function</em>, <em>conditional=&lt;function LongSteelBars.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.changeProperty" title="Permalink to this definition">¶</a></dt>
+<code class="descname">changeProperty</code><span class="sig-paren">(</span><em>prop</em>, <em>function</em>, <em>conditional=&lt;function LongSteelBars.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars.changeProperty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.changeProperty" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.getBarTransversalPosition">
-<code class="descname">getBarTransversalPosition</code><span class="sig-paren">(</span><em>concrete_beam</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.getBarTransversalPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getBarTransversalPosition</code><span class="sig-paren">(</span><em>concrete_beam</em>, <em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars.getBarTransversalPosition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.getBarTransversalPosition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.getPositiveandNegativeLongSteelBarsInX">
-<code class="descname">getPositiveandNegativeLongSteelBarsInX</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.getPositiveandNegativeLongSteelBarsInX" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getPositiveandNegativeLongSteelBarsInX</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars.getPositiveandNegativeLongSteelBarsInX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.getPositiveandNegativeLongSteelBarsInX" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>prop='area_accumulated'</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.plot" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plot</code><span class="sig-paren">(</span><em>prop='area_accumulated'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.plot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.plotTransversal">
-<code class="descname">plotTransversal</code><span class="sig-paren">(</span><em>concrete_beam</em>, <em>x</em>, <em>ax=None</em>, <em>fig=None</em>, <em>color_plot='red'</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.plotTransversal" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plotTransversal</code><span class="sig-paren">(</span><em>concrete_beam</em>, <em>x</em>, <em>ax=None</em>, <em>fig=None</em>, <em>color_plot='red'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBar.html#LongSteelBars.plotTransversal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars.plotTransversal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -219,11 +346,11 @@
 <span id="fconcrete-structuralconcrete-longsteelbar-longsteelbarsolve-module"></span><h2>fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve module<a class="headerlink" href="#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve">
-<em class="property">class </em><code class="descclassname">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.</code><code class="descname">LongSteelBarSolve</code><span class="sig-paren">(</span><em>concrete_beam</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.</code><code class="descname">LongSteelBarSolve</code><span class="sig-paren">(</span><em>concrete_beam</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getComercialSteelArea">
-<code class="descname">getComercialSteelArea</code><span class="sig-paren">(</span><em>x</em>, <em>momentum</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getComercialSteelArea" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getComercialSteelArea</code><span class="sig-paren">(</span><em>x</em>, <em>momentum</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getComercialSteelArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getComercialSteelArea" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns comercial steel area given the position and momentum.
 Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
 Does not have the removal by step implemented here.
@@ -237,17 +364,23 @@ Not recommended to use in loops.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
-<dd>Define the position in cm.</dd>
-<dt>momentum <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
-<dd>Define the momentum in kNcm.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>number</em>) – Define the position in cm.</li>
+<li><strong>momentum</strong> (<em>number</em>) – Define the momentum in kNcm.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getComercialSteelAreaDiagram">
-<code class="descname">getComercialSteelAreaDiagram</code><span class="sig-paren">(</span><em>**options_diagram</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getComercialSteelAreaDiagram" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getComercialSteelAreaDiagram</code><span class="sig-paren">(</span><em>**options_diagram</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getComercialSteelAreaDiagram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getComercialSteelAreaDiagram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns comercial steel area diagram.
 Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
 Does not have the removal by step implemented here.</p>
@@ -261,21 +394,25 @@ Does not have the removal by step implemented here.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>division <span class="classifier-delimiter">:</span> <span class="classifier">int, optional (default 1000)</span></dt>
-<dd>Define the step to plot the graph.
-A high number means a more precise graph, but also you need more processing time.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>division</strong> (<em>int</em><em>, </em><em>optional</em><em> (</em><em>default 1000</em><em>)</em>) – Define the step to plot the graph.
+A high number means a more precise graph, but also you need more processing time.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getDecalagedLength">
-<code class="descname">getDecalagedLength</code><span class="sig-paren">(</span><em>beam_element</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getDecalagedLength" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getDecalagedLength</code><span class="sig-paren">(</span><em>beam_element</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getDecalagedLength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getDecalagedLength" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getDecalagedMomentumDesignDiagram">
-<code class="descname">getDecalagedMomentumDesignDiagram</code><span class="sig-paren">(</span><em>**options_diagram</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getDecalagedMomentumDesignDiagram" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getDecalagedMomentumDesignDiagram</code><span class="sig-paren">(</span><em>**options_diagram</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getDecalagedMomentumDesignDiagram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getDecalagedMomentumDesignDiagram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns tuple with 3 np.array: x (axis), momentum_positive, momentum_negative.</p>
 <blockquote>
 <div><p>Call signatures:</p>
@@ -286,16 +423,20 @@ A high number means a more precise graph, but also you need more processing time
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>division <span class="classifier-delimiter">:</span> <span class="classifier">int, optional (default 1000)</span></dt>
-<dd>Define the step to plot the graph.
-A high number means a more precise graph, but also you need more processing time.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>division</strong> (<em>int</em><em>, </em><em>optional</em><em> (</em><em>default 1000</em><em>)</em>) – Define the step to plot the graph.
+A high number means a more precise graph, but also you need more processing time.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getMinimumAndMaximumSteelArea">
-<code class="descname">getMinimumAndMaximumSteelArea</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getMinimumAndMaximumSteelArea" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getMinimumAndMaximumSteelArea</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getMinimumAndMaximumSteelArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getMinimumAndMaximumSteelArea" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns tuple of minimum and maximum necessary steel area given the position.</p>
 <blockquote>
 <div><p>Call signatures:</p>
@@ -306,15 +447,19 @@ A high number means a more precise graph, but also you need more processing time
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
-<dd>Define the position in cm.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>number</em>) – Define the position in cm.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getSteelArea">
-<code class="descname">getSteelArea</code><span class="sig-paren">(</span><em>x</em>, <em>momentum</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getSteelArea" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSteelArea</code><span class="sig-paren">(</span><em>x</em>, <em>momentum</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getSteelArea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getSteelArea" title="Permalink to this definition">¶</a></dt>
 <dd><p>#only working with rectangle section
 Returns necessary steel area given the position and momentum.</p>
 <blockquote>
@@ -326,17 +471,23 @@ Returns necessary steel area given the position and momentum.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
-<dd>Define the position in cm.</dd>
-<dt>momentum <span class="classifier-delimiter">:</span> <span class="classifier">number</span></dt>
-<dd>Define the momentum in kNcm.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>number</em>) – Define the position in cm.</li>
+<li><strong>momentum</strong> (<em>number</em>) – Define the momentum in kNcm.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getSteelAreaDiagram">
-<code class="descname">getSteelAreaDiagram</code><span class="sig-paren">(</span><em>return_positive_and_negative=False</em>, <em>**options_diagram</em><span class="sig-paren">)</span><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getSteelAreaDiagram" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSteelAreaDiagram</code><span class="sig-paren">(</span><em>return_positive_and_negative=False</em>, <em>**options_diagram</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fconcrete/StructuralConcrete/LongSteelBar/LongSteelBarSolve.html#LongSteelBarSolve.getSteelAreaDiagram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve.LongSteelBarSolve.getSteelAreaDiagram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns necessary steel area diagram.</p>
 <blockquote>
 <div><p>Call signatures:</p>
@@ -348,15 +499,22 @@ Returns necessary steel area given the position and momentum.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<dl class="docutils">
-<dt>division <span class="classifier-delimiter">:</span> <span class="classifier">int, optional (default 1000)</span></dt>
-<dd>Define the step to plot the graph.
-A high number means a more precise graph, but also you need more processing time.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>division</strong> (<em>int</em><em>, </em><em>optional</em><em> (</em><em>default 1000</em><em>)</em>) – Define the step to plot the graph.
+A high number means a more precise graph, but also you need more processing time.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
 
+</div>
+<div class="section" id="module-fconcrete.StructuralConcrete.LongSteelBar">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fconcrete.StructuralConcrete.LongSteelBar" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -365,6 +523,15 @@ A high number means a more precise graph, but also you need more processing time
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="fconcrete.StructuralConcrete.TransvSteelBar.html" class="btn btn-neutral float-right" title="fconcrete.StructuralConcrete.TransvSteelBar package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fconcrete.StructuralConcrete.html" class="btn btn-neutral float-left" title="fconcrete.StructuralConcrete package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

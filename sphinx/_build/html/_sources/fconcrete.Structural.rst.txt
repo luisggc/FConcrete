@@ -1,11 +1,6 @@
 fconcrete.Structural package
 ============================
 
-.. automodule:: fconcrete.Structural
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 Submodules
 ----------
 
@@ -58,3 +53,10 @@ fconcrete.Structural.Section module
     :show-inheritance:
 
 
+Module contents
+---------------
+
+.. automodule:: fconcrete.Structural
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -10,7 +10,16 @@ import time
 from fconcrete.StructuralConcrete.AvailableMaterials import solve_cost
 
 class ConcreteBeam(Beam):
-
+    """
+    Beam associated with the material concrete.
+    
+    Attributes
+    ----------
+    x : float
+        The X coordinate.
+    y : float
+        The Y coordinate.
+    """
     def __init__(self,
                  loads,
                  beam_elements=None,
@@ -314,5 +323,5 @@ class ConcreteBeam(Beam):
             
         return beam_elements
     
-    def __name__():
+    def __name__(self):
         return "ConcreteBeam"

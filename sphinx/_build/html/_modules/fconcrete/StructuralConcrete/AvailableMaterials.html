@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>fconcrete.StructuralConcrete.AvailableMaterials &mdash; FConcrete  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> FConcrete
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">General Information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">FConcrete</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#credits">Credits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-sources">From sources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">fconcrete</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html">fconcrete package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html">fconcrete.Structural package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.cli">fconcrete.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.config">fconcrete.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.fconcrete">fconcrete.fconcrete module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.helpers">fconcrete.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#types-of-contributions">Types of Contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#report-bugs">Report Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#fix-bugs">Fix Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#implement-features">Implement Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#write-documentation">Write Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#submit-feedback">Submit Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#pull-request-guidelines">Pull Request Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#tips">Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#deploying">Deploying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../authors.html#development-lead">Development Lead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../authors.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../history.html#id1">0.1.0 (2019-12-12)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">The module:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fconcrete.html">fconcrete package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.Structural.html">fconcrete.Structural package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Beam">fconcrete.Structural.Beam module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.BeamElement">fconcrete.Structural.BeamElement module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Load">fconcrete.Structural.Load module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Material">fconcrete.Structural.Material module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Node">fconcrete.Structural.Node module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Section">fconcrete.Structural.Section module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Analysis">fconcrete.StructuralConcrete.Analysis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.AvailableMaterials">fconcrete.StructuralConcrete.AvailableMaterials module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Concrete">fconcrete.StructuralConcrete.Concrete module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.ConcreteBeam">fconcrete.StructuralConcrete.ConcreteBeam module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.cli">fconcrete.cli module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.config">fconcrete.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.fconcrete">fconcrete.fconcrete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete.helpers">fconcrete.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.html#module-fconcrete">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fconcrete.Structural.html">Structural</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Beam">fconcrete.Structural.Beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.BeamElement">fconcrete.Structural.BeamElement module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Load">fconcrete.Structural.Load module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Material">fconcrete.Structural.Material module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Node">fconcrete.Structural.Node module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural.Section">fconcrete.Structural.Section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.Structural.html#module-fconcrete.Structural">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html">fconcrete.StructuralConcrete package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.LongSteelBar.html">fconcrete.StructuralConcrete.LongSteelBar package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.LongSteelBar.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.LongSteelBar.html#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.LongSteelBar.html#module-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve">fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.LongSteelBar.html#module-fconcrete.StructuralConcrete.LongSteelBar">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.TransvSteelBar.html">fconcrete.StructuralConcrete.TransvSteelBar package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.TransvSteelBar.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.TransvSteelBar.html#module-fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar">fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.TransvSteelBar.html#module-fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBarSolve">fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBarSolve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.TransvSteelBar.html#module-fconcrete.StructuralConcrete.TransvSteelBar">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Analysis">fconcrete.StructuralConcrete.Analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.AvailableMaterials">fconcrete.StructuralConcrete.AvailableMaterials module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.Concrete">fconcrete.StructuralConcrete.Concrete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete.ConcreteBeam">fconcrete.StructuralConcrete.ConcreteBeam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../fconcrete.StructuralConcrete.html#module-fconcrete.StructuralConcrete">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FConcrete</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>fconcrete.StructuralConcrete.AvailableMaterials</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for fconcrete.StructuralConcrete.AvailableMaterials</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span>  <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">fconcrete.StructuralConcrete.Concrete</span> <span class="kn">import</span> <span class="n">Concrete</span>
+
+<span class="c1">#https://loja.arcelormittal.com.br/vergalhao-ca50-soldavel-63mm/p</span>
+<div class="viewcode-block" id="AvailableLongConcreteSteelBar"><a class="viewcode-back" href="../../../fconcrete.StructuralConcrete.html#fconcrete.StructuralConcrete.AvailableMaterials.AvailableLongConcreteSteelBar">[docs]</a><span class="k">class</span> <span class="nc">AvailableLongConcreteSteelBar</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">diameters</span><span class="o">=</span><span class="p">[</span><span class="mf">6.3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span>
+                 <span class="n">diameters_to_area</span><span class="o">=</span><span class="p">{</span>
+                        <span class="mf">6.3</span><span class="p">:</span> <span class="mf">0.315</span><span class="p">,</span>
+                        <span class="mi">8</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+                        <span class="mi">10</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+                        <span class="mf">12.5</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">,</span>
+                        <span class="mi">16</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="mi">20</span><span class="p">:</span> <span class="mf">3.15</span><span class="p">,</span>
+                        <span class="mi">25</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="mi">32</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="p">},</span>
+                 <span class="n">cost_by_meter</span><span class="o">=</span><span class="p">{</span>
+                        <span class="mf">6.3</span><span class="p">:</span> <span class="mf">15.39</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">8</span><span class="p">:</span> <span class="mf">24.69</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">10</span><span class="p">:</span> <span class="mf">36.89</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mf">12.5</span><span class="p">:</span> <span class="mf">54.79</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">16</span><span class="p">:</span> <span class="mf">89.79</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">20</span><span class="p">:</span> <span class="mf">140.29</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">25</span><span class="p">:</span> <span class="mf">219.09</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">32</span><span class="p">:</span> <span class="mf">402.39</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                    <span class="p">},</span>
+                 <span class="n">fyw</span> <span class="o">=</span> <span class="mi">50</span><span class="o">/</span><span class="mf">1.15</span><span class="p">,</span>
+                 <span class="n">E</span> <span class="o">=</span> <span class="mi">21000</span><span class="p">,</span>
+                 <span class="n">max_number</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                 <span class="n">surface_type</span><span class="o">=</span><span class="s2">&quot;ribbed&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">areas</span> <span class="o">=</span> <span class="p">[</span><span class="n">diameters_to_area</span><span class="p">[</span><span class="n">diameter</span><span class="p">]</span> <span class="k">for</span> <span class="n">diameter</span> <span class="ow">in</span> <span class="n">diameters</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Must provide a valid diameter to area dict&quot;</span><span class="p">)</span>
+        <span class="n">fyd</span> <span class="o">=</span> <span class="n">fyw</span><span class="o">/</span><span class="mf">1.15</span>
+        <span class="n">diameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">diameters</span><span class="p">)</span>
+        <span class="n">areas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span>
+        <span class="n">diameters_loop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">diameters</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_number</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Single steel bar use not allowed, that is why range starts at 2</span>
+        <span class="n">areas_loop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span> <span class="n">areas</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_number</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+        <span class="n">number_of_bars</span> <span class="o">=</span> <span class="n">areas_loop</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">areas</span><span class="p">,</span><span class="n">max_number</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">table_of_positive_steel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">number_of_bars</span><span class="p">,</span> <span class="n">diameters_loop</span><span class="p">,</span> <span class="n">areas_loop</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">table_of_negative_steel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">number_of_bars</span><span class="p">,</span> <span class="o">-</span><span class="n">diameters_loop</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">areas_loop</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">table_of_positive_and_negative_steel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">table_of_negative_steel</span><span class="p">,</span> <span class="n">table_of_positive_steel</span><span class="p">])</span>
+        
+        <span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">table_of_positive_and_negative_steel</span><span class="p">[</span>
+            <span class="n">table_of_positive_and_negative_steel</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fyw</span> <span class="o">=</span> <span class="n">fyw</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fyd</span> <span class="o">=</span> <span class="n">fyd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">E</span> <span class="o">=</span> <span class="n">E</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diameters</span> <span class="o">=</span> <span class="n">diameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diameters_to_area</span> <span class="o">=</span> <span class="n">diameters_to_area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface_type</span> <span class="o">=</span> <span class="n">surface_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cost_by_meter</span> <span class="o">=</span> <span class="n">cost_by_meter</span></div>
+        
+        
+<div class="viewcode-block" id="AvailableTransvConcreteSteelBar"><a class="viewcode-back" href="../../../fconcrete.StructuralConcrete.html#fconcrete.StructuralConcrete.AvailableMaterials.AvailableTransvConcreteSteelBar">[docs]</a><span class="k">class</span> <span class="nc">AvailableTransvConcreteSteelBar</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">diameters</span><span class="o">=</span><span class="p">[</span><span class="mf">6.3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span>
+                 <span class="n">diameters_to_area</span><span class="o">=</span><span class="p">{</span>
+                        <span class="mf">6.3</span><span class="p">:</span> <span class="mf">0.315</span><span class="p">,</span>
+                        <span class="mi">8</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+                        <span class="mi">10</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+                        <span class="mf">12.5</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">,</span>
+                        <span class="mi">16</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="mi">20</span><span class="p">:</span> <span class="mf">3.15</span><span class="p">,</span>
+                        <span class="mi">25</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                        <span class="mi">32</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="p">},</span>
+                 <span class="n">cost_by_meter</span><span class="o">=</span><span class="p">{</span>
+                        <span class="mf">6.3</span><span class="p">:</span> <span class="mf">15.39</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">8</span><span class="p">:</span> <span class="mf">24.69</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">10</span><span class="p">:</span> <span class="mf">36.89</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mf">12.5</span><span class="p">:</span> <span class="mf">54.79</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">16</span><span class="p">:</span> <span class="mf">89.79</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">20</span><span class="p">:</span> <span class="mf">140.29</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">25</span><span class="p">:</span> <span class="mf">219.09</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                        <span class="mi">32</span><span class="p">:</span> <span class="mf">402.39</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>
+                    <span class="p">},</span>
+                 <span class="n">space_is_multiple_of</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                 <span class="n">fyw</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">areas</span> <span class="o">=</span> <span class="p">[</span><span class="n">diameters_to_area</span><span class="p">[</span><span class="n">diameter</span><span class="p">]</span> <span class="k">for</span> <span class="n">diameter</span> <span class="ow">in</span> <span class="n">diameters</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Must provide a valid diameter to area dict&quot;</span><span class="p">)</span>
+        
+        <span class="n">possible_spaces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">multiple</span> <span class="ow">in</span> <span class="n">space_is_multiple_of</span><span class="p">:</span>
+            <span class="n">possible_spaces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">possible_spaces</span><span class="p">,</span><span class="n">multiple</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">)))</span>
+        <span class="n">possible_spaces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">possible_spaces</span><span class="p">[</span><span class="n">possible_spaces</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">])</span>
+        
+        <span class="n">areas</span> <span class="o">=</span> <span class="p">[</span> <span class="n">diameters_to_area</span><span class="p">[</span><span class="n">diameter</span><span class="p">]</span> <span class="k">for</span> <span class="n">diameter</span> <span class="ow">in</span> <span class="n">diameters</span> <span class="p">]</span>
+        <span class="n">diameters_loop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">diameters</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_spaces</span><span class="p">))</span><span class="o">/</span><span class="mi">10</span>
+        <span class="n">spaces_loop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">possible_spaces</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">diameters</span><span class="p">))</span>
+        <span class="n">areas_loop</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">areas</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_spaces</span><span class="p">))</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span>
+            <span class="n">diameters_loop</span><span class="p">,</span>
+            <span class="n">spaces_loop</span><span class="p">,</span>
+            <span class="n">areas_loop</span><span class="p">,</span>
+            <span class="n">areas_loop</span><span class="o">/</span><span class="n">spaces_loop</span>
+        <span class="p">])</span>
+
+        <span class="n">fyd</span> <span class="o">=</span> <span class="n">fyw</span><span class="o">/</span><span class="mf">1.15</span>
+        <span class="n">diameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">diameters</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">fyw</span> <span class="o">=</span> <span class="n">fyw</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fyd</span> <span class="o">=</span> <span class="n">fyd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">table</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">argsort</span><span class="p">()]</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">diameters</span> <span class="o">=</span> <span class="n">diameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diameters_to_area</span> <span class="o">=</span> <span class="n">diameters_to_area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cost_by_meter</span> <span class="o">=</span> <span class="n">cost_by_meter</span></div>
+    
+<span class="c1">#https://servicos.compesa.com.br/wp-content/uploads/2016/02/TABELA_COMPESA_2016_SEM_DESONERACAO_E_SEM_ENCARGOS_COMPLEMENTARES.pdf</span>
+<div class="viewcode-block" id="AvailableConcrete"><a class="viewcode-back" href="../../../fconcrete.StructuralConcrete.html#fconcrete.StructuralConcrete.AvailableMaterials.AvailableConcrete">[docs]</a><span class="k">class</span> <span class="nc">AvailableConcrete</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">fck</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                 <span class="n">cost_by_m3</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">aggressiveness</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                 <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;granite&#39;</span>
+                 <span class="p">):</span>
+        <span class="k">if</span> <span class="n">cost_by_m3</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cost_by_m3_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="mi">25</span><span class="p">:</span> <span class="mf">331.65</span><span class="p">,</span>
+                    <span class="mi">30</span><span class="p">:</span> <span class="mf">353.30</span><span class="p">,</span>
+                    <span class="mi">35</span><span class="p">:</span> <span class="mf">373.21</span><span class="p">,</span>
+                    <span class="mi">40</span><span class="p">:</span> <span class="mf">385.36</span>
+                <span class="p">}</span>
+                <span class="n">cost_by_m3</span> <span class="o">=</span> <span class="n">cost_by_m3_dict</span><span class="p">[</span><span class="n">fck</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please, provide cost for concrete with </span><span class="si">{}</span><span class="s2">MPa&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fck</span><span class="p">))</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">fck</span> <span class="o">=</span> <span class="n">fck</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cost_by_m3</span> <span class="o">=</span> <span class="n">cost_by_m3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">Concrete</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fck</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; MPa&quot;</span><span class="p">,</span> <span class="n">aggressiveness</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">)</span></div>
+        
+        
+<div class="viewcode-block" id="solve_cost"><a class="viewcode-back" href="../../../fconcrete.StructuralConcrete.html#fconcrete.StructuralConcrete.AvailableMaterials.solve_cost">[docs]</a><span class="k">def</span> <span class="nf">solve_cost</span><span class="p">(</span><span class="n">concrete_beam</span><span class="p">,</span> <span class="n">decimal_numbers</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">cost_table</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;Material&quot;</span><span class="p">,</span> <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="s2">&quot;Quantity&quot;</span><span class="p">,</span> <span class="s2">&quot;Unit&quot;</span><span class="p">,</span> <span class="s2">&quot;Commentary&quot;</span><span class="p">,</span> <span class="s2">&quot;Is Subtotal&quot;</span><span class="p">]]</span>
+    <span class="c1"># Concrete</span>
+    <span class="n">total_concrete_cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">beam_element</span> <span class="ow">in</span> <span class="n">concrete_beam</span><span class="o">.</span><span class="n">initial_beam_elements</span><span class="p">:</span>
+        <span class="n">volume</span> <span class="o">=</span> <span class="n">beam_element</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">area</span><span class="o">*</span><span class="n">beam_element</span><span class="o">.</span><span class="n">length</span><span class="o">/</span><span class="mi">1000000</span>
+        <span class="n">concrete_cost</span> <span class="o">=</span> <span class="n">volume</span><span class="o">*</span><span class="n">concrete_beam</span><span class="o">.</span><span class="n">available_concrete</span><span class="o">.</span><span class="n">cost_by_m3</span>
+        <span class="n">total_concrete_cost</span> <span class="o">+=</span> <span class="n">concrete_cost</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Concrete&quot;</span><span class="p">,</span>
+                <span class="nb">round</span><span class="p">(</span><span class="n">concrete_cost</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+                <span class="nb">round</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span> <span class="s2">&quot;m3&quot;</span><span class="p">,</span> <span class="s2">&quot;Between </span><span class="si">{}</span><span class="s2">m and </span><span class="si">{}</span><span class="s2">m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">beam_element</span><span class="o">.</span><span class="n">n1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">beam_element</span><span class="o">.</span><span class="n">n1</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="kc">False</span><span class="p">]</span>
+        <span class="n">cost_table</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cost_table</span><span class="p">,</span> <span class="n">row</span><span class="p">]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Concrete&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">total_concrete_cost</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;m3&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+    <span class="n">cost_table</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cost_table</span><span class="p">,</span> <span class="n">row</span><span class="p">]</span>
+    
+    <span class="c1"># Longitudinal</span>
+    <span class="n">total_long_bar_cost</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">lb</span> <span class="ow">in</span> <span class="n">concrete_beam</span><span class="o">.</span><span class="n">long_steel_bars</span><span class="p">:</span>
+        <span class="n">total_long_bar_cost</span> <span class="o">+=</span> <span class="n">lb</span><span class="o">.</span><span class="n">cost</span>
+        <span class="n">total_length</span> <span class="o">+=</span> <span class="n">lb</span><span class="o">.</span><span class="n">length</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Longitudinal bar&quot;</span><span class="p">,</span>
+            <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">cost</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+            <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+            <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Diameter </span><span class="si">{}</span><span class="s2">mm. Between </span><span class="si">{}</span><span class="s2">m and </span><span class="si">{}</span><span class="s2">m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">diameter</span><span class="o">*</span><span class="mi">10</span><span class="p">),</span>
+                                                        <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">long_begin</span><span class="p">,</span><span class="n">decimal_numbers</span><span class="p">),</span>
+                                                        <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">long_end</span><span class="p">,</span><span class="n">decimal_numbers</span><span class="p">)),</span>
+            <span class="kc">False</span><span class="p">]</span>
+        <span class="n">cost_table</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cost_table</span><span class="p">,</span> <span class="n">row</span><span class="p">]</span>
+        
+
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Longitudinal bar&quot;</span><span class="p">,</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">total_long_bar_cost</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">total_length</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+        <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+
+    <span class="n">cost_table</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cost_table</span><span class="p">,</span> <span class="n">row</span><span class="p">]</span>
+
+    <span class="c1"># Transversal Bar</span>
+    <span class="n">total_transv_bar_cost</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">lb</span> <span class="ow">in</span> <span class="n">concrete_beam</span><span class="o">.</span><span class="n">transv_steel_bars</span><span class="p">:</span>
+        <span class="n">total_transv_bar_cost</span> <span class="o">+=</span> <span class="n">lb</span><span class="o">.</span><span class="n">cost</span>
+        <span class="n">total_length</span> <span class="o">+=</span> <span class="n">lb</span><span class="o">.</span><span class="n">length</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Transversal bar&quot;</span><span class="p">,</span>
+            <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">cost</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+            <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+            <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">cm x </span><span class="si">{}</span><span class="s2">cm. Diameter </span><span class="si">{}</span><span class="s2">mm. Placed in </span><span class="si">{}</span><span class="s2">m &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">width</span><span class="p">,</span><span class="n">decimal_numbers</span><span class="p">),</span>
+                                                                <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">height</span><span class="p">,</span><span class="n">decimal_numbers</span><span class="p">),</span>
+                                                                <span class="nb">abs</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">diameter</span><span class="o">*</span><span class="mi">10</span><span class="p">),</span>
+                                                                <span class="nb">round</span><span class="p">(</span><span class="n">lb</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">decimal_numbers</span><span class="p">)),</span> <span class="kc">False</span><span class="p">]</span>
+        <span class="n">cost_table</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cost_table</span><span class="p">,</span> <span class="n">row</span><span class="p">]</span>
+        
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Transversal bar&quot;</span><span class="p">,</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">total_transv_bar_cost</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="n">total_length</span><span class="p">,</span> <span class="n">decimal_numbers</span><span class="p">),</span>
+        <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+
+    <span class="n">cost_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">*</span><span class="n">cost_table</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span>
+
+    <span class="n">is_subtotal</span> <span class="o">=</span> <span class="n">cost_table</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="n">is_subtotal</span> <span class="o">=</span> <span class="n">is_subtotal</span> <span class="o">!=</span> <span class="s2">&quot;False&quot;</span>
+    <span class="n">subtotal_table</span> <span class="o">=</span> <span class="n">cost_table</span><span class="p">[</span><span class="n">is_subtotal</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="k">return</span> <span class="n">total_concrete_cost</span> <span class="o">+</span> <span class="n">total_transv_bar_cost</span> <span class="o">+</span> <span class="n">total_long_bar_cost</span><span class="p">,</span> <span class="n">cost_table</span><span class="p">,</span> <span class="n">subtotal_table</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Luis Coimbra
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

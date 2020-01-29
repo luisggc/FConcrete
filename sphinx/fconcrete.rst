@@ -1,11 +1,6 @@
 fconcrete package
 =================
 
-.. automodule:: fconcrete
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 Subpackages
 -----------
 
@@ -50,3 +45,10 @@ fconcrete.helpers module
     :show-inheritance:
 
 
+Module contents
+---------------
+
+.. automodule:: fconcrete
+    :members:
+    :undoc-members:
+    :show-inheritance:

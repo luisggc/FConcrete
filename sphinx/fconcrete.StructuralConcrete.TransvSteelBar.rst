@@ -1,11 +1,6 @@
 fconcrete.StructuralConcrete.TransvSteelBar package
 ===================================================
 
-.. automodule:: fconcrete.StructuralConcrete.TransvSteelBar
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 Submodules
 ----------
 
@@ -26,3 +21,10 @@ fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBarSolve module
     :show-inheritance:
 
 
+Module contents
+---------------
+
+.. automodule:: fconcrete.StructuralConcrete.TransvSteelBar
+    :members:
+    :undoc-members:
+    :show-inheritance:

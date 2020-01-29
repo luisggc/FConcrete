@@ -1,11 +1,6 @@
 fconcrete.StructuralConcrete package
 ====================================
 
-.. automodule:: fconcrete.StructuralConcrete
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 Subpackages
 -----------
 
@@ -50,3 +45,10 @@ fconcrete.StructuralConcrete.ConcreteBeam module
     :show-inheritance:
 
 
+Module contents
+---------------
+
+.. automodule:: fconcrete.StructuralConcrete
+    :members:
+    :undoc-members:
+    :show-inheritance:
