@@ -44,7 +44,8 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
-    'sphinx.ext.githubpages'
+    'sphinx.ext.githubpages',
+    'numpydoc'
 ]
 
 
@@ -194,10 +195,32 @@ numpydoc_class_members_toctree = False
 numpydoc_xref_param_type = True
 numpydoc_xref_ignore = {'type', 'optional', 'default'}
 
+autosummary_generate = True
+
+autodoc_default_flags = ['-f']
+#sphinx-apidoc -o . .. ../se* ../test* ../modules*  -f
+
 html_theme_options = {
     'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
-    'github_url': 'https://github.com/luisggc/FConcrete'
 }
+
+github_url = 'https://github.com/luisggc/FConcrete'
+
+doctest_global_setup='''
+import fconcrete as fc
+n1 = fc.Node.SimpleSupport(x=0, length=20)
+n2 = fc.Node.SimpleSupport(x=400, length=20)
+f1 = fc.Load.UniformDistributedLoad(-0.000001, x_begin=0, x_end=1)
+concrete_beam = fc.ConcreteBeam(
+    loads = [f1],
+    nodes = [n1, n2],
+    section = fc.Rectangle(20,1000),
+    division = 20,
+    available_long_steel_bars = fc.AvailableLongConcreteSteelBar(diameters=[8], max_number=500),
+    available_transv_steel_bars = fc.AvailableTransvConcreteSteelBar(diameters=[6.3], space_is_multiple_of=[0.01]),
+    available_concrete = fc.AvailableConcrete(fck=30, aggressiveness=2)
+)
+'''

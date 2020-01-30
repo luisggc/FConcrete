@@ -22,24 +22,26 @@ class Load:
     @classmethod
     def PontualLoad(cls, load, x):
         """
-        Define a pontual load.
+            Define a pontual load.
 
-            Call signatures::
+                Call signatures:
 
-                PontualLoad(load, x)
+                    fc.PontualLoad(load, x)
 
-            >>> PontualLoad(10, 20)
-            >>> PontualLoad('20kN', '20m')
+                >>> pontual_load_1 = fc.Load.PontualLoad(-10.0, 200)
+                >>> pontual_load_2 = fc.Load.PontualLoad('-10.0kN', '2m')
+                >>> repr(pontual_load_1) == repr(pontual_load_2)
+                True
 
-        Parameters
-        ----------
-        load : unit (number or str)
-            Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be give. Example:
-            '20kN', '10N', etc
-            
-        x : number
-            Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
-            '20cm', '10dm', etc
+            Parameters
+            ----------
+            load : number or str
+                Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be give. Example:
+                '20kN', '10N', etc
+                
+            x : number
+                Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+                '20cm', '10dm', etc
             
         """ 
         return cls(load, 0, x, x, q=0, order=0)
@@ -49,18 +51,20 @@ class Load:
         """
             Define a uniform and distributed load.
 
-                Call signatures::
+                Call signatures:
 
-                    UniformDistributedLoad(q, x_begin, x_end)
+                    fc.UniformDistributedLoad(q, x_begin, x_end)
 
-                >>> UniformDistributedLoad(10, 0, 20)
-                >>> UniformDistributedLoad('20kN/m', '20m', '30m')
+                >>> uniform_load_1 = fc.Load.UniformDistributedLoad(0.1, 0, 2000)
+                >>> uniform_load_2 = fc.Load.UniformDistributedLoad('10.0kN/m', '0m', '20m')
+                >>> repr(uniform_load_1) == repr(uniform_load_2)
+                True
 
             Parameters
             ----------
-            q : unit (number or str)
-                Represent the load by length measure. If it is a number, default unit is kN/m, but also [force]/[length] unit can be give. Example:
-                '20kN/cm', '10N/m', etc
+            q : number or str
+                Represent the load by length measure. If it is a number, default unit is kN/cm, but also [force]/[length] unit can be give. Example:
+                '20kN/m', '10N/m', etc
                 
             x_begin : number
                 Where the load is going to start. If it is a number, default unit is m, but also [length] unit can be give. Example:

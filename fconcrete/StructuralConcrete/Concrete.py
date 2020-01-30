@@ -3,30 +3,33 @@ from fconcrete.helpers import to_unit
 from math import log
 
 class Concrete(Material):
-    """
-        Define properties of the concrete.
-
-            Call signatures::
-
-                Concrete(fck, aggressiveness, aggregate='granite', **kwargs)
-
-            >>> Concrete(fck=30, aggressiveness=3)
-
-        Parameters
-        ----------
-        fck : int
-            Define the characteristic resistance of the concrete.
-            If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be give. Example:
-            '20kN/cm**2', '10Pa', etc
-            
-        aggressiveness : int
-            Aggressiveness value from 1 (very low) to 4 (very height)
-
-        aggregate : {'basalt', 'diabase', 'granite', 'gneiss', 'limestone', 'sandstone'}
-            Aggregate type.
-            
-        """ 
+    
     def __init__(self, fck, aggressiveness, aggregate="granite"):
+        """
+            Define properties of the concrete.
+
+                Call signatures:
+
+                    fc.Concrete(fck, aggressiveness, aggregate='granite', **kwargs)
+
+                >>> material = fc.Concrete(fck=30, aggressiveness=3)
+                >>> round(material.fck)
+                3
+
+            Parameters
+            ----------
+            fck : number
+                Define the characteristic resistance of the concrete.
+                If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be give. Example:
+                '20kN/cm**2', '10Pa', etc
+                
+            aggressiveness : int
+                Aggressiveness value from 1 (very low) to 4 (very height)
+
+            aggregate : {'basalt', 'diabase', 'granite', 'gneiss', 'limestone', 'sandstone'}
+                Aggregate type.
+                
+        """ 
         fck = to_unit(fck, "MPa").magnitude
         
         alpha_e = 0

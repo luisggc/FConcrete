@@ -9,74 +9,76 @@ class Analysis:
                 show_progress=True,
                 sort_by_multiplication=False,
                 **kwargs):
-        """
-        Returns a concrete_beam element.
+        r"""
+            Returns a report with all materials and cost.
             
                 Call signatures:
                         
-                    fc.Analysis.getBestSolution(concrete_beam_function,
-                                    max_steps_without_decrease = float("inf"),
-                                    avoid_estimate=False,
-                                    show_progress=True,
-                                    sort_by_multiplication=False,
-                                    **kwargs)
-        
-                >>>    def concrete_beam_function(width, height, length):
-                
-                            n1 = fc.Node.SimpleSupport(x=0, length=20)
-                            n2 = fc.Node.SimpleSupport(x=length, length=20)
-
-                            slab_area = 5*5
-                            kn_per_m2 = 5
-                            distributed_load = -slab_area*kn_per_m2/500
-                            f1 = fc.Load.UniformDistributedLoad(distributed_load, x_begin=0, x_end=length)
-                            pp = fc.Load.UniformDistributedLoad(-width*height*25/100000, x_begin=0, x_end=length)
-
-                            beam = fc.ConcreteBeam(
-                                loads = [f1, pp],
-                                nodes = [n1, n2],
-                                section = fc.Rectangle(width,height),
-                                bar_steel_max_removal = 100,
-                                transversal_bar_inclination_angle=90,
-                                available_long_steel_bars = fc.AvailableLongConcreteSteelBar(diameters=[8]),
-                                available_transv_steel_bars = fc.AvailableTransvConcreteSteelBar(diameters=[8], space_is_multiple_of=[1]),
-                                available_concrete = fc.AvailableConcrete(fck=30, aggressiveness=2),
-                                solve_transv_steel = True,
-                                solve_long_steel = True,
-                                solve_ELS = True,
-                                solve_cost = True,
-                                verbose = False,
-                            )
-                            return beam
-                            
-                >>>    new_report = fc.Analysis.getBestSolution(concrete_beam_function,
-                                                        max_steps_without_decrease=15,
-                                                        sort_by_multiplication=True,
-                                                        width=(15, 200, 2),
-                                                        height=(15, 300, 2))
-                                                        
+                    `fc.Analysis.getBestSolution(concrete_beam_function,
+                    ...              max_steps_without_decrease = float("inf"),
+                    ...              avoid_estimate=False,
+                    ...              show_progress=True,
+                    ...              sort_by_multiplication=False,
+                    ...              **kwargs)`
+                                                            
+            
+                >>> def concrete_beam_function(width, height, length):
+                ...         n1 = fc.Node.SimpleSupport(x=0, length=20)
+                ...         n2 = fc.Node.SimpleSupport(x=length, length=20)
+                ...         slab_area = 5*5
+                ...         kn_per_m2 = 5
+                ...         distributed_load = -slab_area*kn_per_m2/500
+                ...         f1 = fc.Load.UniformDistributedLoad(distributed_load, x_begin=0, x_end=length)
+                ...         pp = fc.Load.UniformDistributedLoad(-width*height*25/100000, x_begin=0, x_end=length)
+                ...         beam = fc.ConcreteBeam(
+                ...             loads = [f1, pp],
+                ...             nodes = [n1, n2],
+                ...             section = fc.Rectangle(width,height),
+                ...             bar_steel_max_removal = 100,
+                ...             transversal_bar_inclination_angle=90,
+                ...             available_long_steel_bars = fc.AvailableLongConcreteSteelBar(diameters=[8]),
+                ...             available_transv_steel_bars = fc.AvailableTransvConcreteSteelBar(diameters=[8], space_is_multiple_of=[1]),
+                ...             available_concrete = fc.AvailableConcrete(fck=30, aggressiveness=2),
+                ...             verbose = False,
+                ...         )
+                ...         return beam
+                >>> new_report = fc.Analysis.getBestSolution(concrete_beam_function,
+                ...                                     max_steps_without_decrease=15,
+                ...                                     sort_by_multiplication=True,
+                ...                                     avoid_estimate=True,
+                ...                                     show_progress=False,
+                ...                                     width=[15],
+                ...                                     height=(30, 34, 2),
+                ...                                     length=[150])
+                >>> new_report[-1]
+                [15.0, 32.0, 150.0, 49.596355615579576, '', 25.44, 11.94, 12.22]
+            
             Parameters
             ----------
-            concrete_beam_function: function
+            concrete_beam_function
                 Define the function that is going to create the beam given the parameters.
                 
-            max_steps_without_decrease: int, optional (default inf)
+            max_steps_without_decrease : int, optional
                 If the cost has not decrescead after max_steps_without_decrease steps, the loop breaks.
                 Only use it in case your parameter combination has a logical order.
+                Default inf.
             
-            show_progress: bool, optional (default True)
+            show_progress : `bool`, optional
                 Estimate time using the last combination.
                 If a exception is found, 80s per loop is set and a message about the not precision is shown.
                 Also show progress bar in percentage.
+                Default True.
             
-            sort_by_multiplication: bool, optional (defalt False)
+            sort_by_multiplication : `bool`, optional
                 Sort combinations by the multiplication os all parameter. Useful to use with max_steps_without_decrease when the is a logical order.
-            
-            kwargs: list or set
+                Default False.
+                
+            kwargs
                 Possible arguments for the concrete_beam_function.
-                If a set of 3 elements is given, np.arange(*kwarg_value) will be called.
+                If a set of 3 elements is given, np.arange(\*kwarg_value) will be called.
                 The kwargs must have the same name that the concrete_beam_function expects as arguments.
                 The combination is made with np.meshgrid.
+            
                 
         """
         

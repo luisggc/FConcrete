@@ -32,32 +32,31 @@ def duplicated(array):
 
 def to_unit(input, expected_unit, return_unit=False):
     """
-        Convert between unities according to expected_unit and return_unit
+        Convert between unities according to expected_unit and return_unit.
 
             Call signatures:
 
                 fc.helpers.to_unit(input, expected_unit, return_unit=False)
 
-            >>> fc.helpers.to_unit("10cm", "m")
+            >>> unit1 = fc.helpers.to_unit("10cm", "m")
+            >>> unit1.magnitude
             0.1
-            >>> fc.helpers.to_unit(20, "m", return_unit="cm")
-            2000
+            
+            >>> unit2 = fc.helpers.to_unit(20, "m", return_unit="cm")
+            >>> unit2.magnitude
+            2000.0
             
         Parameters
         ----------
-        input: float or str
+        input : number or str
             Represents the input unit of the user.
         
-        expected_unit: str
+        expected_unit : str
             The expected unit to be given. Useful when input is a number.
             
-        return_unit: bool, optional
+        return_unit : `bool`, optional
             The desired unit to return
 
-        Returns
-        -------
-        Quantity
-            The input in a clas that can have the unit easily manipulated.
     """
     try:
         input = float(input)

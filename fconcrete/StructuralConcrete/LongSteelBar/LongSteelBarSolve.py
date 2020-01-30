@@ -42,12 +42,11 @@ class LongSteelBarSolve():
         """
             Returns tuple with 3 np.array: x (axis), momentum_positive, momentum_negative.
             
+                Call signatures:
 
-                Call signatures::
+                    concrete_beam.long_steel_bars_solution_info.getDecalagedMomentumDesignDiagram(division=1000)
 
-                    concrete_beam.getDecalagedMomentumDesignDiagram(division=1000)
-
-                >>> concrete_beam.getDecalagedMomentumDesignDiagram(5000)
+                >>> x_decalaged, momentum_positive, momentum_negative = concrete_beam.long_steel_bars_solution_info.getDecalagedMomentumDesignDiagram(division=100)
             
             Parameters
             ----------
@@ -119,12 +118,13 @@ class LongSteelBarSolve():
         """
             Returns tuple of minimum and maximum necessary steel area given the position.
 
-                Call signatures::
+                Call signatures:
 
-                    concrete_beam.getMinimumAndMaximumSteelArea(x)
+                    concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(x)
 
-                >>> concrete_beam.getMinimumAndMaximumSteelArea(300)
-
+                >>> concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(300)
+                (30.0, 160.0)
+                
             Parameters
             ----------
             x : number
@@ -145,19 +145,12 @@ class LongSteelBarSolve():
             Implements: minimum steel area, check maximum steel area and do not allow a single steel bar.
             Does not have the removal by step implemented here.
 
-                Call signatures::
+                Call signatures:
 
-                    concrete_beam.getComercialSteelAreaDiagram(division=1000)
+                    concrete_beam.long_steel_bars_solution_info.getComercialSteelAreaDiagram(division=1000)
 
-                >>> x_decalaged, positive_areas_info, negative_areas_info = concrete_beam.getComercialSteelAreaDiagram()
-                >>> x_decalaged, positive_areas_info, negative_areas_info = concrete_beam.getComercialSteelAreaDiagram(5000)
-
-            Parameters
-            ----------
-            division : int, optional (default 1000)
-                Define the step to plot the graph.
-                A high number means a more precise graph, but also you need more processing time.
-            
+                >>> x_decalaged, positive_areas_info, negative_areas_info = concrete_beam.long_steel_bars_solution_info.getComercialSteelAreaDiagram()
+                >>> x_decalaged, positive_areas_info, negative_areas_info = concrete_beam.long_steel_bars_solution_info.getComercialSteelAreaDiagram(division=5000)
         """ 
         x_decalaged, momentum_positive, momentum_negative = timeit(self.verbose)(self.getDecalagedMomentumDesignDiagram)(**options_diagram)
         positive_areas_info = [self.getComercialSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
@@ -175,12 +168,13 @@ class LongSteelBarSolve():
             Does not have the removal by step implemented here.
             Not recommended to use in loops.
 
-                Call signatures::
+                Call signatures:
 
-                    concrete_beam.getComercialSteelArea(x, momentum)
+                    concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(x, momentum)
 
-                >>> concrete_beam.getComercialSteelArea(300, 250000)
-
+                >>> concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(300, 250000)
+                (61.0, 0.8, 30.5)
+                
             Parameters
             ----------
             x : number
@@ -223,10 +217,6 @@ class LongSteelBarSolve():
             diameter = major_steel_bar.diameter
             begin, end = major_steel_bar.long_begin, major_steel_bar.long_end
             _, bar_element = self.concrete_beam.getBeamElementInX((begin+end)/2)
-            
-            #_, positive_area_diagram, negative_area_diagram = self.getSteelAreaDiagram(division=100,
-            #                                                                        x_begin= begin if begin>self.concrete_beam.x_begin else self.concrete_beam.x_begin,
-            #                                                                        x_end= end if end<self.concrete_beam.x_end else self.concrete_beam.x_end)
             
             is_in_the_beam_element = (self.x >= begin) &  (self.x <= end)
             positive_area_info = self.positive_areas_info[:, is_in_the_beam_element]
@@ -362,12 +352,13 @@ class LongSteelBarSolve():
                 #only working with rectangle section
                 Returns necessary steel area given the position and momentum.
 
-                    Call signatures::
+                    Call signatures:
 
-                        concrete_beam.getSteelArea(x, momentum)
+                        concrete_beam.long_steel_bars_solution_info.getSteelArea(x, momentum)
 
-                    >>> concrete_beam.getSteelArea(300, 250000)
-
+                    >>> concrete_beam.long_steel_bars_solution_info.getSteelArea(10, 250000)
+                    8.310422982789401
+                    
                 Parameters
                 ----------
                 x : number
@@ -385,31 +376,22 @@ class LongSteelBarSolve():
                                             momentum=momentum)
         
         
-    def getSteelAreaDiagram(self, return_positive_and_negative=False, **options_diagram):
+    def getSteelAreaDiagram(self, **options_diagram):
         """
             Returns necessary steel area diagram.
 
-                Call signatures::
+                Call signatures:
 
-                    concrete_beam.getSteelDiagram(division=1000)
+                    concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram(division=1000)
 
-                >>> concrete_beam.getSteelDiagram()
-                >>> concrete_beam.getSteelDiagram(5000)
-
-            Parameters
-            ----------
-            division : int, optional (default 1000)
-                Define the step to plot the graph.
-                A high number means a more precise graph, but also you need more processing time.
+                >>> x_decalaged, positive_areas, negative_areas = concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram()
+                >>> x_decalaged, positive_areas, negative_areas = concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram(division=2)
             
         """ 
-        #if return_positive_and_negative:
         x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options_diagram)
         positive_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_positive)]
         negative_areas = [self.getSteelArea(x, m) for x, m in zip(x_decalaged, momentum_negative)]
         return x_decalaged, np.array(positive_areas), np.array(negative_areas)
-        #else:
-        #    return self._createDiagram(self.getSteelArea)
     
     
     def getDecalagedLength(self, beam_element):

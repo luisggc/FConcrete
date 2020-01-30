@@ -8,7 +8,6 @@ class Section():
     Class to represent simetrical section along the y axis.
     function_width is made to define the width along the y axis. The function starts with x=0 and ends in x=height.
     height is to represent the maximum y value possible.
-    
     """    
     def __init__(self, function_width, height):
         height = to_unit(height, "cm").magnitude
@@ -47,21 +46,22 @@ class Section():
     
     
 class Rectangle(Section):
-    """
-        Returns a concrete_beam element.
-        
-            Call signatures:
-
-                fc.Rectangle(width, height)
-
-            >>>    section = fc.Rectangle(25,56, material)
-            
-        Parameters
-        ----------
-        width: float
-        height: float
-    """    
+    
     def __init__(self,width, height):
+        """
+            Returns a concrete_beam element.
+            
+                Call signatures:
+
+                    fc.Rectangle(width, height)
+
+                >>> section = fc.Rectangle(25,56)
+                
+            Parameters
+            ----------
+            width: number
+            height: number
+        """    
         width = to_unit(width, "cm").magnitude
         height = to_unit(height, "cm").magnitude
         self.__width = width
@@ -80,7 +80,7 @@ class Rectangle(Section):
     def width(self, height=0):
         return self.__width
 
-    def __name__():
+    def __name__(self):
         return "Rectangle"
     
     

@@ -4,21 +4,18 @@ from fconcrete.Structural.BeamElement import BeamElement, BeamElements
 from fconcrete.helpers import timeit
 import fconcrete as fc
 import numpy as np
-import warnings
 import matplotlib.pyplot as plt
 import time
 from fconcrete.StructuralConcrete.AvailableMaterials import solve_cost
 
 class ConcreteBeam(Beam):
     """
-    Beam associated with the material concrete.
-    
-    Attributes
-    ----------
-    x : float
-        The X coordinate.
-    y : float
-        The Y coordinate.
+        Beam associated with the material concrete.
+        
+        Attributes
+        ----------
+        long_steel_bars_solution_info
+            Information about the solution of the longitudinal steel.
     """
     def __init__(self,
                  loads,
@@ -46,7 +43,7 @@ class ConcreteBeam(Beam):
             
                 Call signatures:
 
-                    ConcreteBeam(loads,
+                    `ConcreteBeam(loads,
                                 beam_elements=None,
                                 nodes=None,
                                 section=None,
@@ -65,91 +62,80 @@ class ConcreteBeam(Beam):
                                 lifetime_structure=70,
                                 biggest_aggregate_dimension=1.5,
                                 verbose = False,
-                                **options)
+                                **options)`
 
-                >>>    material = fc.Concrete(fck='20 MPa', aggressiveness=2)
-                >>>    section = fc.Rectangle(25,56, material)
-
-                >>>    f1 = fc.Load.UniformDistributedLoad(-0.1622, x_begin=0, x_end=113)
-                >>>    f2 = fc.Load.UniformDistributedLoad(-0.4994, x_begin=113, x_end=583)
-                >>>    f3 = fc.Load.UniformDistributedLoad(-0.4196, x_begin=583, x_end=1188)
-
-                >>>    n1 = fc.Node.SimpleSupport(x=0)
-                >>>    n2 = fc.Node.SimpleSupport(x=113)
-                >>>    n3 = fc.Node.SimpleSupport(x=583)
-                >>>    n4 = fc.Node.SimpleSupport(x=1188)
-
-                >>>    beam_element1 = fc.BeamElement([n1, n2], section)
-                >>>    beam_element2 = fc.BeamElement([n2, n3], section)
-                >>>    beam_element3 = fc.BeamElement([n3, n4], section)
-
-                >>>    fc.ConcreteBeam(
-                        loads = [f1, f2, f3],
-                        beam_elements = [beam_element1, beam_element2, beam_element3],
-                        bar_steel_max_removal = 2
-                    )
+                >>> n1 = fc.Node.SimpleSupport(x=0, length=20)
+                >>> n2 = fc.Node.SimpleSupport(x=400, length=20)
+                >>> f1 = fc.Load.UniformDistributedLoad(-0.000001, x_begin=0, x_end=1)
+                 
+                >>> concrete_beam = fc.ConcreteBeam(
+                >>>     loads = [f1],
+                >>>     nodes = [n1, n2],
+                >>>     section = fc.Rectangle(20,1000),
+                >>>     division = 20
+                >>> )
             
             Parameters
             ----------
-            loads: [Load]
+            loads : [Load]
                 Define the loads supported for the beam.
             
-            beam_elements: [BeamElement], optional
+            beam_elements : [BeamElement], optional
                 Define the beam_elements that, together, makes the whole Beam. 
                 Optional if nodes and section is given.
             
-            nodes: [Node]
+            nodes : [Node]
                 Define the nodes that are going to make the whole Beam.
                 Not used if beam_elements is given.
                 
-            section: Section
+            section : Section
                 Define the section that are going to make the whole Beam.
                 Not used if beam_elements is given.
             
-            design_factor: float, optional
+            design_factor : float, optional
                 Define the number that is going to be multiplied to de momentum diagram and shear diagram.
                 If your load is already a design load, you should set design_factor=1.
                 Default value is 1.4.
                 
-            division: int, optional
+            division : int, optional
                 Define the number of division solutions for the beam.
                 The beam will be divided in equally spaced points and all results (displacement, momentum, shear) will be calculated to these points.
                 Default value is 1.4.
             
-            maximum_displacement_allowed: float, optional
+            maximum_displacement_allowed : float, optional
                 For each beam element, compare its maximum displacement with maximum_displacement_allowed(beam_element_length).
                 This is used to solve the ELS shown in NBR 6118.
                 If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 120/250=0.45cm < 1cm. Therefore, in this condition, the ELS step will raise an error.
                 Default value is lambda beam_element_length : beam_element_length/250.
                 
-            available_long_steel_bars: AvailableLongConcreteSteelBar, optional
+            available_long_steel_bars : AvailableLongConcreteSteelBar, optional
                 Define the available longitudinal steel bars. 
                 You can set the available diameters, cost_by_meter, fyw, E, etc.
                 See more information in fc.AvailableLongConcreteSteelBar docstring.
                 Default AvailableLongConcreteSteelBar([8]).
                 
-            bar_steel_removal_step: int, optional
+            bar_steel_removal_step : int, optional
                 Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
                 I makes the building process easier. 
                 Default value is 2.
                 
-            bar_steel_max_removal: int, optional
+            bar_steel_max_removal : int, optional
                 Define the max times it is possible to remove the bar.
                 Default value is 100.
                 
-            time_begin_long_duration: float, optional
+            time_begin_long_duration : float, optional
                 The time, in months, relative to the date of application of the long-term load
                 Default value is 0.
             
-            lifetime_structure: float, optional
+            lifetime_structure : float, optional
                 The time, in months, when the value of the deferred arrow is desired;
                 Default value is 70.
             
-            biggest_aggregate_dimension: float, optional
+            biggest_aggregate_dimension : float, optional
                 Maximum dimension characteristic of the biggest aggregate, in cm.
                 Default value is 1.5.
                 
-            verbose: bool, optional
+            verbose : bool, optional
                 Print the the steps and their durations.
                 Default value is False.
             
