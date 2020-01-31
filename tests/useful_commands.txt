@@ -1,0 +1,12 @@
+source "/Users/luis/OneDrive - Vale S.A/Random/TCC Código/fconcrete/ENV/bin/activate"
+
+clear;make doctest
+sphinx-apidoc -o . .. ../se* ../test* ../modules*  -f;make html
+sphinx-autocoverage
+travis
+tox
+
+python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+twine upload dist/*
+
+clear;pytest -svv

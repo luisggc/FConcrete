@@ -45,7 +45,7 @@ def test_structural_create_crimped_beam():
 def test_structural_simple_beam():
     beam = create_simple_beam()
     beam.solve_structural()
-    support_reaction = beam.getSupportReactions()
+    support_reaction = beam.nodal_efforts
     assert support_reaction[0] == approx(0.5)
     assert support_reaction[1] == approx(0)
     assert support_reaction[-2] == approx(0.5)
@@ -57,7 +57,7 @@ def test_structural_simple_beam():
 def test_structural_crimped_beam():
     beam = create_crimped_beam()
     beam.solve_structural()
-    support_reaction = beam.getSupportReactions()
+    support_reaction = beam.nodal_efforts
     assert support_reaction[0] == approx(0.5)
     assert support_reaction[1] == approx(1*1000/8)
     assert support_reaction[-2] == approx(0.5)
@@ -79,7 +79,7 @@ def test_structural_double_crimped_beam():
         loads = [f1],
         beam_elements = [bar1]
     )
-    support_reaction = beam.getSupportReactions()
+    support_reaction = beam.nodal_efforts
     assert support_reaction[0] == approx(179.2, abs=0.1)
     assert support_reaction[1] == approx(25600, abs=10)
     assert support_reaction[-2] == approx(20.8, abs=0.1)
@@ -103,7 +103,7 @@ def test_structural__crimped_simple_supported_beam():
         loads = [f1],
         beam_elements = [bar1]
     )
-    support_reaction = beam.getSupportReactions()
+    support_reaction = beam.nodal_efforts
     assert support_reaction[0] == approx(87.3, abs=0.1)
     assert support_reaction[1] == approx(27300, abs=10)
     assert support_reaction[-2] == approx(112.7, abs=0.1)
@@ -128,7 +128,7 @@ def test_structural__crimped_simplesupported_crimped_beam():
         loads = [f1],
         beam_elements = [bar1, bar2],
     )
-    support_reaction = beam.getSupportReactions()
+    support_reaction = beam.nodal_efforts
     assert support_reaction[0] == approx(57.9, abs=0.1)
     assert support_reaction[1] == approx(17500, abs=10)
     assert support_reaction[-4] == approx(200.9, abs=0.1)
@@ -158,7 +158,7 @@ def test_structural__crimped_simplesupported_simplesupported_beam():
         loads = [f1],
         beam_elements = [bar1, bar2],
     )
-    support_reaction = beam.getSupportReactions()
+    support_reaction = beam.nodal_efforts
     assert support_reaction[0] == approx(60.8, abs=0.1)
     assert support_reaction[1] == approx(18480, abs=0.1)
     assert support_reaction[-4] == approx(174.4, abs=0.1)

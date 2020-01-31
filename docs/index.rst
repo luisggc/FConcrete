@@ -12,7 +12,6 @@ Welcome to FConcrete's documentation!
 .. automodule:: fconcrete
     :members:
 
-
 .. toctree::
    :maxdepth: 1
    :caption: General Information:
