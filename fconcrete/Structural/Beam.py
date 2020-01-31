@@ -159,7 +159,7 @@ class Beam:
             
             Returns
             -------
-            index
+            index : int
                 The order of the beam_element in the structure.
                 
             beam_element
@@ -410,7 +410,7 @@ class Beam:
     
     def plotMomentumDiagram(self, **options):
         """
-            Simply applies the beam.getMomentumDiagram method results (x,y) to a plot with plt.plot(x, y).
+            Simply applies the beam.getMomentumDiagram method results (x,y) to a plot with plt.plot(x, y).\n
             Also invert y axis.
         """
         x, y = self.getMomentumDiagram(**options)
