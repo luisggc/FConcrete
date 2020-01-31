@@ -231,7 +231,7 @@ class ConcreteBeam(Beam):
                 Call signatures:
 
                     concrete_beam.plotTransversalInX.getSteelArea(x)
-                
+                    
             Returns
             -------
             fig

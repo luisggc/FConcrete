@@ -10,3 +10,9 @@ pytest-cookies
 watchdog
 alabaster
 sphinxcontrib-napoleon
+colorspacious
+ipython
+ipywidgets
+pillow
+sphinx-gallery
+sphinx-copybutton
