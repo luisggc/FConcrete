@@ -232,6 +232,9 @@ class Beam:
             
             Returns
             -------
+            x : list of number
+                The x position of the division in cm
+                
             momentum : number or list of number
                 The internal value of the momentum strength in kNcm.
                 

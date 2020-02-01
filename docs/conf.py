@@ -218,3 +218,5 @@ concrete_beam = fc.ConcreteBeam(
     available_concrete = fc.AvailableConcrete(fck=30, aggressiveness=2)
 )
 '''
+
+pygments_style = 'sphinx'
