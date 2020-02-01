@@ -12,38 +12,12 @@ Subpackages
 Submodules
 ----------
 
-fconcrete.cli module
---------------------
+.. toctree::
 
-.. automodule:: fconcrete.cli
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-fconcrete.config module
------------------------
-
-.. automodule:: fconcrete.config
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-fconcrete.fconcrete module
---------------------------
-
-.. automodule:: fconcrete.fconcrete
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-fconcrete.helpers module
-------------------------
-
-.. automodule:: fconcrete.helpers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   fconcrete.cli
+   fconcrete.config
+   fconcrete.fconcrete
+   fconcrete.helpers
 
 Module contents
 ---------------

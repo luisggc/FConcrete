@@ -51,6 +51,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.inheritance_diagram',
     'numpydoc',
+    'sphinx.ext.intersphinx'
 ]
 
 
@@ -220,3 +221,6 @@ concrete_beam = fc.ConcreteBeam(
 '''
 
 pygments_style = 'sphinx'
+
+ipython_savefig_dir = "./"
+#ipython_promptin = 'Ln [%d]:'

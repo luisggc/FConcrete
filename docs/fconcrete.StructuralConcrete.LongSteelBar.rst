@@ -4,22 +4,10 @@ fconcrete.StructuralConcrete.LongSteelBar package
 Submodules
 ----------
 
-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar module
--------------------------------------------------------------
+.. toctree::
 
-.. automodule:: fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve module
-------------------------------------------------------------------
-
-.. automodule:: fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar
+   fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve
 
 Module contents
 ---------------
