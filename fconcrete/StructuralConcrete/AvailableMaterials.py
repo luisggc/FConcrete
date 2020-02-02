@@ -4,6 +4,20 @@ from fconcrete.StructuralConcrete.Concrete import Concrete
 
 #https://loja.arcelormittal.com.br/vergalhao-ca50-soldavel-63mm/p
 class AvailableLongConcreteSteelBar:
+    """
+        Define the available longitudinal steel bars. 
+        You can set the available diameters, cost_by_meter, fyw, E, etc.
+        See more information in fc.AvailableLongConcreteSteelBar() docstring.
+        For example, AvailableLongConcreteSteelBar([8]) means:
+        
+        - 8mm diameter;
+        - 0.5cmˆ2 area;
+        - R$2.0575 by meter cost;
+        - fyw equal to 50kN/cmˆ2;
+        - Young Modulus (E) is 21000kN/cmˆ2;
+        - Max number of steel in the section is 200;
+        - Surface type is ribbed.
+    """
     def __init__(self,
                  diameters=[6.3, 8, 10, 12.5, 16, 20, 25, 32],
                  diameters_to_area={
@@ -30,6 +44,35 @@ class AvailableLongConcreteSteelBar:
                  E = 21000,
                  max_number=200,
                  surface_type="ribbed"):
+        """
+            Returns a AvailableLongConcreteSteelBar instance.
+            
+            Parameters
+            ----------
+            diameter : list of number, optional
+                Possible list of diameter in cm.
+            
+            diameters_to_area : dict, optional
+                For each diameter (key), set the value of the area.
+                
+            cost_by_meter : dict, optional
+                For each diameter (key), set the of cost by meter.
+                
+            fyw : number, optional
+                Define the characteristic resistance of the steel in kN/cmˆ2.
+                
+            E : number, optional
+                Define the Young Modulus (E) in kN/cmˆ2
+                Default is 21000kN/cmˆ2.
+            
+            max_number : int, optional
+                Max number of steel in the section.
+                Default is 200.
+            
+            surface_type : {'ribbed', 'plain', 'carved'}, optional
+                Surface type of the steel.
+                Default is ribbed.
+        """ 
         try:
             areas = [diameters_to_area[diameter] for diameter in diameters]
         except:
@@ -60,6 +103,20 @@ class AvailableLongConcreteSteelBar:
         
         
 class AvailableTransvConcreteSteelBar:
+    """
+        Define the available transversal steel bars. 
+        You can set the available diameters, cost_by_meter, fyw, E, etc.
+        See more information in fc.AvailableTransvConcreteSteelBar docstring.
+        Default AvailableTransvConcreteSteelBar([8]) which means:
+        
+        - 8mm diameter;
+        - 0.5cmˆ2 area;
+        - R$2.0575 by meter cost;
+        - The longitudinal space between transversal steel are multiple of 5;
+        - fyw equal to 50kN/cmˆ2;
+        - Transversal bar inclination angle of 90 degrees;
+        - Tilt angle of compression struts of 45 degrees.
+    """
     def __init__(self,
                  diameters=[6.3, 8, 10, 12.5, 16, 20, 25, 32],
                  diameters_to_area={
@@ -85,13 +142,33 @@ class AvailableTransvConcreteSteelBar:
                  space_is_multiple_of=[5],
                  fyw = 50,
                  inclination_angle = 90,
-                 biggest_aggregate_dimension=1.5
                  ):
         """
-            biggest_aggregate_dimension : float, optional
-                Maximum dimension characteristic of the biggest aggregate, in cm.
-                Default value is 1.5.
-        """
+            Returns a AvailableLongConcreteSteelBar instance.
+            
+            Parameters
+            ----------
+            diameter : list of number, optional
+                Possible list of diameter in cm.
+            
+            diameters_to_area : dict, optional
+                For each diameter (key), set the value of the area.
+                
+            cost_by_meter : dict, optional
+                For each diameter (key), set the of cost by meter.
+                
+            space_is_multiple_of : list of number, optional
+                The longitudinal spaces between transversal steel is multiple of the number of space_is_multiple_of list.
+                Default is [5].
+            
+            fyw : number, optional
+                Define the characteristic resistance of the steel in kN/cmˆ2.
+                
+            inclination_angle : number, optional
+                Transversal bar inclination angle in degrees.
+                Default is 90 degrees.
+        """ 
+            
         try:
             areas = [diameters_to_area[diameter] for diameter in diameters]
         except:
@@ -121,7 +198,6 @@ class AvailableTransvConcreteSteelBar:
         self.fyd = fyd
         self.table = table[table[:,3].argsort()]
         
-        self.biggest_aggregate_dimension = biggest_aggregate_dimension
         self.diameters = diameters
         self.diameters_to_area = diameters_to_area
         self.cost_by_meter = cost_by_meter
@@ -129,12 +205,49 @@ class AvailableTransvConcreteSteelBar:
         
 #https://servicos.compesa.com.br/wp-content/uploads/2016/02/TABELA_COMPESA_2016_SEM_DESONERACAO_E_SEM_ENCARGOS_COMPLEMENTARES.pdf
 class AvailableConcrete():
+    """
+        Define the available concrete. 
+        You can set the available fck, cost_by_m3, aggressiveness and aggregate.
+        See more information in fc.AvailableConcrete docstring.
+        For example, AvailableConcrete() means:
+        
+        - 30 MPa;
+        - R$353.30 by meterˆ3;
+        - The aggressiveness is 3;
+        - Aggregate is granite;
+        - Biggest aggregate dimension is 1.5cm.
+    """
     def __init__(self,
                  fck=30,
                  cost_by_m3=None,
                  aggressiveness=3,
-                 aggregate='granite'
+                 aggregate='granite',
+                 biggest_aggregate_dimension=1.5
                  ):
+        """
+            Returns a AvailableLongConcreteSteelBar instance.
+            
+            Parameters
+            ----------
+            fck : number
+                Define the characteristic resistance of the concrete.
+                If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be give. Example:
+                '20kN/cm**2', '10Pa', etc
+            
+            cost_by_m3 : number, optional
+                Cost by mˆ3 of the concrete.
+                If fck is 25, 30, 35 or 40, this value by default is set to 331.65, 353.30, 373.21, 385.36, respectively.
+                
+            aggressiveness : int
+                Aggressiveness value from 1 (very low) to 4 (very height)
+
+            aggregate : {'basalt', 'diabase', 'granite', 'gneiss', 'limestone', 'sandstone'}
+                Aggregate type.
+                
+            biggest_aggregate_dimension : number, optional
+                Maximum dimension characteristic of the biggest aggregate, in cm.
+                Default value is 1.5.
+        """ 
         if cost_by_m3 == None:
             try:
                 cost_by_m3_dict = {
@@ -150,6 +263,8 @@ class AvailableConcrete():
         self.fck = fck
         self.cost_by_m3 = cost_by_m3
         self.material = Concrete(str(fck) + " MPa", aggressiveness, aggregate)
+        self.biggest_aggregate_dimension = biggest_aggregate_dimension
+        
         
         
 def solve_cost(concrete_beam, decimal_numbers = 2):

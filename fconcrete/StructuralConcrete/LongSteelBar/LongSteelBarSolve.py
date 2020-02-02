@@ -395,6 +395,13 @@ class LongSteelBarSolve():
     
     
     def getDecalagedLength(self, beam_element):
+        """
+            Returns decalaged length of a beam element.
+
+                Call signatures:
+
+                    concrete_beam.long_steel_bars_solution_info.getDecalagedLength(beam_element)
+        """ 
         bw = beam_element.section.bw
         d = beam_element.section.d
         _, s = self.concrete_beam.getShearDiagram(x_begin=beam_element.n1.x, x_end=beam_element.n2.x)

@@ -43,12 +43,12 @@ class ConcreteBeam(Beam):
             - Max number of steel in the section is 200;
             - Surface type is ribbed.
                 
-        available_transv_steel_bars : AvailableLongConcreteSteelBar
+        available_transv_steel_bars : AvailableTransvConcreteSteelBar
             Same constant from input.
-            Define the available longitudinal steel bars. 
+            Define the available transversal steel bars. 
             You can set the available diameters, cost_by_meter, fyw, E, etc.
-            See more information in fc.AvailableLongConcreteSteelBar docstring or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
-            Default AvailableLongConcreteSteelBar([8]) which means:
+            See more information in fc.AvailableTransvConcreteSteelBar docstring or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
+            Default AvailableTransvConcreteSteelBar([8]) which means:
             
             - 8mm diameter;
             - 0.5cmˆ2 area;
@@ -219,7 +219,7 @@ class ConcreteBeam(Beam):
             available_long_steel_bars : AvailableLongConcreteSteelBar, optional
                 Define the available longitudinal steel bars. 
                 You can set the available diameters, cost_by_meter, fyw, E, etc.
-                See more information in fc.AvailableLongConcreteSteelBar docstring.
+                See more information in fc.AvailableLongConcreteSteelBar docstring  or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
                 Default AvailableLongConcreteSteelBar([8]) which means:
                 
                 - 8mm diameter;
@@ -248,7 +248,7 @@ class ConcreteBeam(Beam):
                 - 8mm diameter;
                 - 0.5cmˆ2 area;
                 - R$2.0575 by meter cost;
-                - The longitudinal space between transversal steel are multiple of 5;
+                - The longitudinal spaces between transversal steel are multiple of 5;
                 - fyw equal to 50kN/cmˆ2;
                 - Transversal bar inclination angle of 90 degrees;
                 - Tilt angle of compression struts of 45 degree.

@@ -3,7 +3,7 @@ source "/Users/luis/OneDrive - Vale S.A/Random/TCC Código/fconcrete/ENV/bin/ac
 clear;make doctest
 sphinx-apidoc -o . .. ../se* ../test* ../modules*  -f -e -d 100;make html
 
-sphinx-autocoverage
+sphinx-build -v -b coverage . _build/coverage
 travis
 tox
 

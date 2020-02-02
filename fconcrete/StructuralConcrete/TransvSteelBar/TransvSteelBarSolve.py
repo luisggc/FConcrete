@@ -15,7 +15,7 @@ class TransvSteelBarSolve():
         self.alpha = radians(alpha_in_degree)
         v_rd2, d, v_sd = self.checkProbableCompressedConnectingRod()
         self.s_max = self._getS_max(v_rd2, d, v_sd, self.available)
-        self.shear_area_per_cm = self.getShearSteelAreaPerCmDiagram()
+        _, self.shear_area_per_cm = self.getShearSteelAreaPerCmDiagram()
         self.steel_bars = self.getStirrupsInfo()
     
     @staticmethod
@@ -24,6 +24,25 @@ class TransvSteelBarSolve():
         return s_max
         
     def checkProbableCompressedConnectingRod(self):
+        """
+            Check probable compressed connecting rod.
+            It is probable because checks only where the shear is maximum.
+
+                Call signatures:
+
+                    concrete_beam.transv_steel_bars_solution_info.checkProbableCompressedConnectingRod()
+
+            Returns
+            -------
+            v_rd2 : number
+                Shear of calculation, related to the ruin of compressed concrete diagonals in kN.
+                
+            d : number
+                Distance from longitudinal steel bars to the other extremity of the section in cm.
+            
+            max_shear : number
+                Maximum shear in kN.
+        """
         max_shear = max(self.shear_diagram)
         max_shear_x = self.x[self.shear_diagram == max_shear][0]
         _, single_beam_element = self.concrete_beam.getBeamElementInX(max_shear_x)
@@ -33,6 +52,9 @@ class TransvSteelBarSolve():
         return v_rd2, single_beam_element.section.d, max_shear
     
     def getV_rd2(self, single_beam_element):
+        """
+            Giving a beam element, calculates the shear related to the ruin of compressed concrete diagonals in kN.
+        """
         fck = single_beam_element.material.fck
         bw = single_beam_element.section.bw
         d = single_beam_element.section.d
@@ -42,6 +64,9 @@ class TransvSteelBarSolve():
         return v_rd2
     
     def getMinimumSteelAreaPerCm(self,single_beam_element):
+        """
+            Giving a beam element, calculates the minimum steel area (cmˆ2) per cm.
+        """
         fctm = single_beam_element.material.fctm
         bw = single_beam_element.section.bw
         As_per_cm_min = 0.2*fctm*bw*sin(self.alpha)/self.fyk
@@ -49,6 +74,9 @@ class TransvSteelBarSolve():
     
 
     def getShearSteelAreaPerCm(self, x, v_sd): 
+        """
+            Calculates the shear steel area (cmˆ2) per cm considering the restrictions.
+        """
         # can be optimized
         _, single_beam_element = self.concrete_beam.getBeamElementInX(x)
         v_rd2 = self.getV_rd2(single_beam_element)
@@ -69,10 +97,38 @@ class TransvSteelBarSolve():
         return max(As_per_cm, As_per_cm_min)
 
     def getShearSteelAreaPerCmDiagram(self):
+        """
+            Apply concrete_beam.transv_steel_bars_solution_info.getShearSteelAreaPerCm for parts of the concrete_beam.
+            
+            Returns
+            -------
+            x : list of number
+                The x position of the division in cm
+            
+            y : list of number
+                The value of shear area per cm for each x.
+        """
         shear_area_per_cm = [self.getShearSteelAreaPerCm(x_u, v_sd) for x_u, v_sd in zip(self.x, self.shear_diagram)]
-        return np.array(shear_area_per_cm)
+        return self.x, np.array(shear_area_per_cm)
     
     def getComercialInfo(self, as_per_cm):
+        """
+            Get comercial info giving the area per cm.
+            
+            Returns
+            -------
+            diameter : number
+                Diameter in cm.
+            
+            space : number
+                Longitudinal space between the transversal steel.
+                
+            area : number
+                Area of the transversal steel bar in cmˆ2.
+                
+            as_per_cm : number
+                Area of the transversal steel bar in cmˆ2 per cm.
+        """
         table = self.available.table
         comercial_info = table[table[:, 3] >= as_per_cm]
         if len(comercial_info) == 0 : raise Exception("It is not possible to place the transversal steel bar using the provided space_in_multiple_of or diameter argument. When you create the concrete_beam, you should change the argument 'available_transv_steel_bars = fc.AvailableTransvConcreteSteelBar(diameters=[x], space_is_multiple_of=[y])' giving y a smaller number or diameter a bigger one.")
@@ -80,6 +136,9 @@ class TransvSteelBarSolve():
         return diameter, space, area, as_per_cm
     
     def getStirrupsInfo(self):
+        """
+            Format all informations and return a TransvSteelBars instance.
+        """
         x_array, shear_area_per_cm = self.x, self.shear_area_per_cm
         s_max = self.s_max
         x = self.concrete_beam.x_begin
@@ -110,7 +169,6 @@ class TransvSteelBarSolve():
                     length=length,
                     cost=cost)
             )
-            
             x += space
             
         return transversal_steel
