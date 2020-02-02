@@ -23,7 +23,7 @@ How to create a beam:
 
     beam = fc.Beam(loads=[f1, f2], beam_elements=[beam_element_1, beam_element_2])
 
-You can use all properties and methods of the :doc:`Beam Class <../fconcrete.Structural.Beam>` such as plot shear diagram, momentum, etc.
+You can use all properties and methods of the :doc:`ConcreteBeam Class <../fconcrete.StructuralConcrete.ConcreteBeam>` including :doc:`Beam Class <../fconcrete.Structural.Beam>` such as plot shear diagram, momentum, etc.
 
 Plot Shear Diagram:
 

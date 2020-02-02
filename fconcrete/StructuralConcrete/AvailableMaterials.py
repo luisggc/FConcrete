@@ -26,7 +26,7 @@ class AvailableLongConcreteSteelBar:
                         25: 219.09/12,
                         32: 402.39/12,
                     },
-                 fyw = 50/1.15,
+                 fyw = 50,
                  E = 21000,
                  max_number=200,
                  surface_type="ribbed"):
@@ -83,7 +83,15 @@ class AvailableTransvConcreteSteelBar:
                         32: 402.39/12,
                     },
                  space_is_multiple_of=[5],
-                 fyw = 50):
+                 fyw = 50,
+                 inclination_angle = 90,
+                 biggest_aggregate_dimension=1.5
+                 ):
+        """
+            biggest_aggregate_dimension : float, optional
+                Maximum dimension characteristic of the biggest aggregate, in cm.
+                Default value is 1.5.
+        """
         try:
             areas = [diameters_to_area[diameter] for diameter in diameters]
         except:
@@ -113,10 +121,12 @@ class AvailableTransvConcreteSteelBar:
         self.fyd = fyd
         self.table = table[table[:,3].argsort()]
         
+        self.biggest_aggregate_dimension = biggest_aggregate_dimension
         self.diameters = diameters
         self.diameters_to_area = diameters_to_area
         self.cost_by_meter = cost_by_meter
-    
+        self.inclination_angle = inclination_angle
+        
 #https://servicos.compesa.com.br/wp-content/uploads/2016/02/TABELA_COMPESA_2016_SEM_DESONERACAO_E_SEM_ENCARGOS_COMPLEMENTARES.pdf
 class AvailableConcrete():
     def __init__(self,

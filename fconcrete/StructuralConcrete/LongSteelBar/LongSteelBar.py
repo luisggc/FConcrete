@@ -115,8 +115,8 @@ class LongSteelBars():
         radius = max(abs(self.diameters))/2
         area = max(abs(self.areas))
         
-        horizontal_distance = max(2, 2*radius, 1.2*concrete_beam.biggest_aggregate_dimension)
-        vertical_distance = max(2, 2*radius, 0.5*concrete_beam.biggest_aggregate_dimension)
+        horizontal_distance = max(2, 2*radius, 1.2*concrete_beam.available_concrete.biggest_aggregate_dimension)
+        vertical_distance = max(2, 2*radius, 0.5*concrete_beam.available_concrete.biggest_aggregate_dimension)
 
         x0, y0 = section.x0, section.y0
         x0_left_initial, x0_right_initial = x0+distance_from_border, -x0-distance_from_border

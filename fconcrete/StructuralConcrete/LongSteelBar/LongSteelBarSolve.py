@@ -172,7 +172,7 @@ class LongSteelBarSolve():
 
                     concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(x, momentum)
 
-                >>> concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(300, 250000)
+                >>> concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(300, 2500)
                 (61.0, 0.8, 30.5)
                 
             Parameters
@@ -357,7 +357,7 @@ class LongSteelBarSolve():
                         concrete_beam.long_steel_bars_solution_info.getSteelArea(x, momentum)
 
                     >>> concrete_beam.long_steel_bars_solution_info.getSteelArea(10, 250000)
-                    8.310422982789401
+                    7.2264547676429585
                     
                 Parameters
                 ----------
@@ -385,7 +385,7 @@ class LongSteelBarSolve():
                     concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram(division=1000)
 
                 >>> x_decalaged, positive_areas, negative_areas = concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram()
-                >>> x_decalaged, positive_areas, negative_areas = concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram(division=2)
+                >>> x_decalaged, positive_areas, negative_areas = concrete_beam.long_steel_bars_solution_info.getSteelAreaDiagram(division=20)
             
         """ 
         x_decalaged, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options_diagram)
@@ -398,7 +398,7 @@ class LongSteelBarSolve():
         bw = beam_element.section.bw
         d = beam_element.section.d
         _, s = self.concrete_beam.getShearDiagram(x_begin=beam_element.n1.x, x_end=beam_element.n2.x)
-        alpha = radians(self.concrete_beam.transversal_bar_inclination_angle)
+        alpha = radians(self.concrete_beam.available_transv_steel_bars.inclination_angle)
         if alpha==radians(90):
             return 0.5*d
         vsd_max = max(abs(s))

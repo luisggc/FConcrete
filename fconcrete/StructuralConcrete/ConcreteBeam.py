@@ -11,11 +11,125 @@ from fconcrete.StructuralConcrete.AvailableMaterials import solve_cost
 class ConcreteBeam(Beam):
     """
         Beam associated with the material concrete.
+        All attbributes from :doc:`Beam Class <../fconcrete.Structural.Beam>` can be used.
         
         Attributes
         ----------
-        long_steel_bars_solution_info
-            Information about the solution of the longitudinal steel.
+        available_concrete : AvailableConcrete
+            Same constant from input.
+            Define the available concrete. 
+            You can set the available fck, cost_by_m3, aggressiveness and aggregate.
+            See more information in fc.AvailableConcrete docstring or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
+            Default AvailableConcrete() which means:
+            
+            - 30 MPa;
+            - R$353.30 by meterˆ3;
+            - The aggressiveness is 3;
+            - Aggregate is granite;
+            - Biggest aggregate dimension is 1.5cm.
+            
+        available_long_steel_bars : AvailableLongConcreteSteelBar
+            Same constant from input.
+            Define the available longitudinal steel bars. 
+            You can set the available diameters, cost_by_meter, fyw, E, etc.
+            See more information in fc.AvailableLongConcreteSteelBar docstring  or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
+            Default AvailableLongConcreteSteelBar([8]) which means:
+            
+            - 8mm diameter;
+            - 0.5cmˆ2 area;
+            - R$2.0575 by meter cost;
+            - fyw equal to 50kN/cmˆ2;
+            - Young Modulus (E) is 21000kN/cmˆ2;
+            - Max number of steel in the section is 200;
+            - Surface type is ribbed.
+                
+        available_transv_steel_bars : AvailableLongConcreteSteelBar
+            Same constant from input.
+            Define the available longitudinal steel bars. 
+            You can set the available diameters, cost_by_meter, fyw, E, etc.
+            See more information in fc.AvailableLongConcreteSteelBar docstring or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
+            Default AvailableLongConcreteSteelBar([8]) which means:
+            
+            - 8mm diameter;
+            - 0.5cmˆ2 area;
+            - R$2.0575 by meter cost;
+            - The longitudinal space between transversal steel are multiple of 5;
+            - fyw equal to 50kN/cmˆ2;
+            - Transversal bar inclination angle of 90 degrees;
+            - Tilt angle of compression struts of 45 degrees.
+        
+        bar_steel_max_removal : int
+            Same constant from input.
+            Define the max times it is possible to remove the bar.
+            Default value is 100.
+        
+        bar_steel_removal_step : int
+            Same constant from input.
+            Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
+            I makes the building process easier. 
+            Default value is 2.
+            
+        cost : number
+            Total material cost of the beam.
+
+        cost_table : number
+            Detailed table with all materials and their costs.
+
+        design_factor : number
+            Same constant from input.
+            Define the number that is going to be multiplied to de momentum diagram and shear diagram.
+            If your load is already a design load, you should set design_factor=1.
+            Default value is 1.4.
+
+        division : int
+            Same constant from input.
+            Define the number of division solutions for the beam.
+            The beam will be divided in equally spaced points and all results (displacement, momentum, shear) will be calculated to these points.
+            Default value is 1.4.
+            
+        lifetime_structure : number
+            The time, in months, when the value of the deferred arrow is desired;
+            Default value is 70.
+                
+        long_steel_bars : LongSteelBars
+            Longitudinal steels used in the beam.
+
+        long_steel_bars_solution_info : LongSteelBarSolve
+            Information about the solution for longitudinal steels used in the beam.
+            More information in the :doc:`LongSteelBarSolve Class <../fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve>` documentation.
+
+        maximum_displacement_allowed : number
+            Same constant from input.
+            For each beam element, compare its maximum displacement with maximum_displacement_allowed(beam_element_length).
+            This is used to solve the ELS shown in NBR 6118.
+            If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 120/250=0.45cm < 1cm. Therefore, in this condition, the ELS step will raise an error.
+            Default value is lambda beam_element_length : beam_element_length/250.
+
+        processing_time : number
+            Time for resolution of the concrete beam.
+
+        subtotal_table : number
+            Table with each type of material and their costs.
+
+        tilt_angle_of_compression_struts : number
+            Same constant from input.
+            Tilt angle of compression struts in degrees.
+            Default 45 degrees.
+                
+        time_begin_long_duration : number
+            The time, in months, relative to the date of application of the long-term load
+            Default value is 0.
+                
+        transv_steel_bars : TransvSteelBar
+            Transversal steels used in the beam.
+
+        transv_steel_bars_solution_info : TransvSteelBarSolve
+            Information about the solution for transversal steels used in the beam.
+            More information in the :doc:`TransvSteelBarSolve Class <../fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBarSolve>` documentation.
+
+        verbose : `bool`
+            Print the the steps and their durations.
+            Default value is False.
     """
     def __init__(self,
                  loads,
@@ -29,13 +143,10 @@ class ConcreteBeam(Beam):
                  bar_steel_removal_step=2,
                  bar_steel_max_removal=100,
                  available_transv_steel_bars=AvailableTransvConcreteSteelBar([8]),
-                 transversal_bar_inclination_angle=90,
                  tilt_angle_of_compression_struts=45,
-                 transversal_bar_fyk=50,
                  available_concrete=AvailableConcrete(),
                  time_begin_long_duration=0,
                  lifetime_structure=70,
-                 biggest_aggregate_dimension=1.5,
                  verbose = False,
                  **options):
         """
@@ -52,15 +163,12 @@ class ConcreteBeam(Beam):
                                 design_factor=1.4,
                                 division=1000,
                                 maximum_displacement_allowed=lambda beam_element_length : beam_element_length/250,
-                                transversal_bar_inclination_angle=90,
                                 tilt_angle_of_compression_struts=45,
-                                transversal_bar_fyk=50,
                                 available_long_steel_bars=AvailableLongConcreteSteelBar(),
                                 available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
                                 available_concrete=AvailableConcrete(),
                                 time_begin_long_duration=0,
                                 lifetime_structure=70,
-                                biggest_aggregate_dimension=1.5,
                                 verbose = False,
                                 **options)`
 
@@ -92,7 +200,7 @@ class ConcreteBeam(Beam):
                 Define the section that are going to make the whole Beam.
                 Not used if beam_elements is given.
             
-            design_factor : float, optional
+            design_factor : number, optional
                 Define the number that is going to be multiplied to de momentum diagram and shear diagram.
                 If your load is already a design load, you should set design_factor=1.
                 Default value is 1.4.
@@ -102,7 +210,7 @@ class ConcreteBeam(Beam):
                 The beam will be divided in equally spaced points and all results (displacement, momentum, shear) will be calculated to these points.
                 Default value is 1.4.
             
-            maximum_displacement_allowed : float, optional
+            maximum_displacement_allowed : number, optional
                 For each beam element, compare its maximum displacement with maximum_displacement_allowed(beam_element_length).
                 This is used to solve the ELS shown in NBR 6118.
                 If a beam_element length is 120cm, its maximum displacement is 1cm and maximum_displacement_allowed is 120/250=0.45cm < 1cm. Therefore, in this condition, the ELS step will raise an error.
@@ -112,7 +220,15 @@ class ConcreteBeam(Beam):
                 Define the available longitudinal steel bars. 
                 You can set the available diameters, cost_by_meter, fyw, E, etc.
                 See more information in fc.AvailableLongConcreteSteelBar docstring.
-                Default AvailableLongConcreteSteelBar([8]).
+                Default AvailableLongConcreteSteelBar([8]) which means:
+                
+                - 8mm diameter;
+                - 0.5cmˆ2 area;
+                - R$2.0575 by meter cost;
+                - fyw equal to 50kN/cmˆ2;
+                - Young Modulus (E) is 21000kN/cmˆ2;
+                - Max number of steel in the section is 200;
+                - Surface type is ribbed.
                 
             bar_steel_removal_step : int, optional
                 Define the step during the removal of the bar. Instead of taking the steel bars one by one, the bar_steel_removal_step will make the removal less constant.
@@ -123,18 +239,44 @@ class ConcreteBeam(Beam):
                 Define the max times it is possible to remove the bar.
                 Default value is 100.
                 
-            time_begin_long_duration : float, optional
+            available_transv_steel_bars : AvailableLongConcreteSteelBar
+                Define the available longitudinal steel bars. 
+                You can set the available diameters, cost_by_meter, fyw, E, etc.
+                See more information in fc.AvailableLongConcreteSteelBar docstring or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
+                Default AvailableLongConcreteSteelBar([8]) which means:
+                
+                - 8mm diameter;
+                - 0.5cmˆ2 area;
+                - R$2.0575 by meter cost;
+                - The longitudinal space between transversal steel are multiple of 5;
+                - fyw equal to 50kN/cmˆ2;
+                - Transversal bar inclination angle of 90 degrees;
+                - Tilt angle of compression struts of 45 degree.
+            
+            tilt_angle_of_compression_struts : number
+                Tilt angle of compression struts in degrees.
+                Default 45 degrees.
+            
+            available_concrete : AvailableConcrete
+                Define the available concrete. 
+                You can set the available fck, cost_by_m3, aggressiveness and aggregate.
+                See more information in fc.AvailableConcrete docstring or the :doc:`AvailableMaterials Class <../fconcrete.StructuralConcrete.AvailableMaterials>` documentation.
+                Default AvailableConcrete() which means:
+                
+                - 30 MPa;
+                - R$353.30 by meterˆ3;
+                - The aggressiveness is 3;
+                - Aggregate is granite.
+                - Biggest aggregate dimension is 1.5cm.
+            
+            time_begin_long_duration : number, optional
                 The time, in months, relative to the date of application of the long-term load
                 Default value is 0.
             
-            lifetime_structure : float, optional
+            lifetime_structure : number, optional
                 The time, in months, when the value of the deferred arrow is desired;
                 Default value is 70.
             
-            biggest_aggregate_dimension : float, optional
-                Maximum dimension characteristic of the biggest aggregate, in cm.
-                Default value is 1.5.
-                
             verbose : bool, optional
                 Print the the steps and their durations.
                 Default value is False.
@@ -149,7 +291,6 @@ class ConcreteBeam(Beam):
             section=section
         )
         
-        
         timeit(verbose, "Solve structural beam")(Beam.__init__(self, loads, beam_elements, solve_displacement=False, **options))
         
         self.bar_steel_removal_step = bar_steel_removal_step
@@ -157,15 +298,12 @@ class ConcreteBeam(Beam):
         self.design_factor = design_factor
         self.division = division
         self.maximum_displacement_allowed = maximum_displacement_allowed
-        self.transversal_bar_inclination_angle = transversal_bar_inclination_angle
         self.tilt_angle_of_compression_struts = tilt_angle_of_compression_struts
-        self.transversal_bar_fyk = transversal_bar_fyk
         self.available_long_steel_bars = available_long_steel_bars
         self.available_transv_steel_bars = available_transv_steel_bars
         self.available_concrete = available_concrete
         self.time_begin_long_duration = time_begin_long_duration
         self.lifetime_structure = lifetime_structure
-        self.biggest_aggregate_dimension = biggest_aggregate_dimension
         self.verbose = verbose
             
         if options.get("solve_transv_steel") != False:
@@ -187,6 +325,17 @@ class ConcreteBeam(Beam):
         """
             Returns necessary steel area given the position and momentum.
             
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
             Returns
             -------
             x : list of number
@@ -200,6 +349,29 @@ class ConcreteBeam(Beam):
         return x, y*(self._time_function_coefficient(self.lifetime_structure)-self._time_function_coefficient(self.time_begin_long_duration))
     
     def plotConcreteDisplacementDiagram(self, **options):
+        """
+            Apply concrete_beam.getConcreteDisplacementDiagram for options["division"] parts of the beam.
+            
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
+            Returns
+            -------
+            x : list of number
+                The x position of the division in cm
+            
+            y : list of number
+                The value of displacement for each x.
+        """
+        options["division"] = options["division"] if options.get("division") else self.division
         x, y = self.getConcreteDisplacementDiagram(**options)
         plt.plot(x, y)
             
@@ -209,6 +381,9 @@ class ConcreteBeam(Beam):
         return 0.68*(0.996**t)*t**0.32 
     
     def solve_ELS(self):
+        """
+            Starts the process of solution for ELS (Estado Limite de Serviço)
+        """
         self.initial_beam_elements = self._toConcreteBeamElements(self.initial_beam_elements)
         self.solve_displacement()
         for beam_element in self.initial_beam_elements:
@@ -220,10 +395,53 @@ class ConcreteBeam(Beam):
                 raise Exception("Displacement too big between x={}cm and x={}cm. Maximum allowed is {}cm, but the beam lement reached {}cm".format(
                     x_begin, x_end, max_disp, max(abs(y))))
     
-    def getShearDesignDiagram(self, **options_diagram):
-        x, shear_diagram = self.getShearDiagram(division=self.division)
+    def getShearDesignDiagram(self, **options):
+        """
+            Apply beam.getShearDiagram for options["division"] parts of the beam and multiplies by concrete_beam.design_factor.
+            
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`). Default concrete_beam.division.
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
+                
+            Returns
+            -------
+            x : list of number
+                The x position of the division in cm
+            
+            y : list of number
+                The value of shear for each x.
+        """
+        options["division"] = options["division"] if options.get("division") else self.division
+        x, shear_diagram = self.getShearDiagram(**options)
         return x, self.design_factor*shear_diagram
-        
+    
+    def plotShearDesignDiagram(self, **options):
+        """
+            Simply applies the beam.getShearDesignDiagram method results (x,y) to a plot with plt.plot(x, y).
+
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
+        """
+        x, y = self.getShearDesignDiagram(**options)
+        plt.plot(x, y)
+    
     def plotTransversalInX(self, x):
         """
             Plot an image of the transversal section with the longitudinal and transversal steel.
@@ -253,13 +471,19 @@ class ConcreteBeam(Beam):
         fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
 
     def solve_transv_steel(self):
+        """
+            Starts the process of solution for the used transversal steel.
+        """
         self.transv_steel_bars_solution_info = fc.TransvSteelBarSolve(concrete_beam=self,
-                                                                        fyk=self.transversal_bar_fyk,
+                                                                        fyk=self.available_transv_steel_bars.fyw,
                                                                         theta_in_degree= self.tilt_angle_of_compression_struts,
-                                                                        alpha_in_degree = self.transversal_bar_inclination_angle)
+                                                                        alpha_in_degree = self.available_transv_steel_bars.inclination_angle)
         self.transv_steel_bars = self.transv_steel_bars_solution_info.steel_bars
     
     def solve_long_steel(self):
+        """
+            Starts the process of solution for the used longitudinal steel.
+        """
         self.long_steel_bars_solution_info = fc.LongSteelBarSolve(concrete_beam=self)
         self.long_steel_bars = self.long_steel_bars_solution_info.steel_bars
     
@@ -286,7 +510,6 @@ class ConcreteBeam(Beam):
             return beam_elements_modified
         
         return beam_elements
-        #if (decalaged_length_method not in ["full", "simplified"]): raise Exception("Decalage Method available are 'full' or 'simplified")
     
     def _toConcreteBeamElements(self, beam_elements):
         for beam_element in beam_elements:

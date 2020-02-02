@@ -205,8 +205,20 @@ class Beam:
         
     def getShearDiagram(self, **options):
         """
-            Apply beam.getInternalShearStrength for beam.division parts of the beam.
+            Apply beam.getInternalShearStrength for options["division"] parts of the beam.
             
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
+                
             Returns
             -------
             x : list of number
@@ -256,7 +268,18 @@ class Beam:
         
     def getMomentumDiagram(self, **options):
         """
-            Apply beam.getInternalMomentumStrength for beam.division parts of the beam.
+            Apply beam.getInternalMomentumStrength for options["division"] parts of the beam.
+            
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
             
             Returns
             -------
@@ -338,8 +361,19 @@ class Beam:
         
     def getDisplacementDiagram(self, **options):
         """
-            Apply beam.getDisplacement for beam.division parts of the beam.
+            Apply beam.getDisplacement for options["division"] parts of the beam.
             
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
             Returns
             -------
             x : list of number
@@ -392,8 +426,19 @@ class Beam:
     
     def getRotationDiagram(self, **options):
         """
-            Apply beam.getRotation for beam.division parts of the beam.
+            Apply beam.getRotation for options["division"] parts of the beam.
             
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
             Returns
             -------
             x : list of number
@@ -415,6 +460,18 @@ class Beam:
         """
             Simply applies the beam.getMomentumDiagram method results (x,y) to a plot with plt.plot(x, y).\n
             Also invert y axis.
+            
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
         """
         x, y = self.getMomentumDiagram(**options)
         plt.gca().invert_yaxis()
@@ -423,6 +480,18 @@ class Beam:
     def plotShearDiagram(self, **options):
         """
             Simply applies the beam.getShearDiagram method results (x,y) to a plot with plt.plot(x, y).
+
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
         """
         x, y = self.getShearDiagram(**options)
         plt.plot(x, y)
@@ -430,6 +499,18 @@ class Beam:
     def plotDisplacementDiagram(self, **options):
         """
             Simply applies the beam.getDisplacementDiagram method results (x,y) to a plot with plt.plot(x, y).
+        
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
         """
         x, y = self.getDisplacementDiagram(**options)
         plt.plot(x, y)
@@ -437,6 +518,18 @@ class Beam:
     def plotRotationDiagram(self, **options):
         """
             Simply applies the beam.getRotationDiagram method results (x,y) to a plot with plt.plot(x, y).
+        
+            Parameters
+            ----------
+            **options
+                
+                ``division``:
+                    Number of divisions equally spaced (`int`).
+                ``x_begin``:
+                    Begin of the x_axis (`number`).
+                ``x_end``:
+                    End of the x_axis (`number`).
+                
         """
         x, y = self.getRotationDiagram(**options)
         plt.plot(x, y)
