@@ -51,7 +51,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.inheritance_diagram',
     'numpydoc',
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.intersphinx',
 ]
 
 
@@ -123,7 +123,7 @@ htmlhelp_basename = 'FConcretedoc'
 
 latex_elements = {
     'papersize': 'a4paper',
-    'pointsize': '10pt',
+    'pointsize': '12pt',
     'preamble': '',
     'figure_align': 'htbp',
 }

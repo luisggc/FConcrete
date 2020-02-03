@@ -8,6 +8,8 @@ class Section():
     Class to represent simetrical section along the y axis.
     function_width is made to define the width along the y axis. The function starts with x=0 and ends in x=height.
     height is to represent the maximum y value possible.
+    
+    NOT FULLY FUNCTIONAL YET
     """    
     def __init__(self, function_width, height):
         height = to_unit(height, "cm").magnitude

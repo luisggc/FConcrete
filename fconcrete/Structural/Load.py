@@ -39,8 +39,8 @@ class Load:
                 Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be give. Example:
                 '20kN', '10N', etc
                 
-            x : number
-                Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+            x : number or str
+                Where the load is going to end. If it is a number, default unit is cm, but also [length] unit can be give. Example:
                 '20cm', '10dm', etc
             
         """ 
@@ -66,15 +66,13 @@ class Load:
                 Represent the load by length measure. If it is a number, default unit is kN/cm, but also [force]/[length] unit can be give. Example:
                 '20kN/m', '10N/m', etc
                 
-            x_begin : number
-                Where the load is going to start. If it is a number, default unit is m, but also [length] unit can be give. Example:
+            x_begin : number or str
+                Where the load is going to start. If it is a number, default unit is cm, but also [length] unit can be give. Example:
                 '20cm', '10dm', etc
             
-            x_end : number
-                Where the load is going to end. If it is a number, default unit is m, but also [length] unit can be give. Example:
+            x_end : number or str
+                Where the load is going to end. If it is a number, default unit is cm, but also [length] unit can be give. Example:
                 '20cm', '10dm', etc
-                
-                
         """ 
         
         q = to_unit(q, "kN/cm")
@@ -84,9 +82,9 @@ class Load:
         
         return cls(force, 0, x_begin, x_end, q=q, order=1)
     
-    @classmethod
-    def DisplacementLoad(cls, x, displacement):
-        return cls(0, 0, x, x, displacement=displacement)
+    #@classmethod
+    # def DisplacementLoad(cls, x, displacement):
+    #    return cls(0, 0, x, x, displacement=displacement)
     
     def __repr__(self):
         return str(self.__dict__)+'\n'
@@ -106,6 +104,9 @@ class Loads:
     
     @classmethod
     def create(cls, loads):
+        """
+            Creates a instance of Loads with array of Load.
+        """
         loads = np.array(loads)
         x_start = np.array([ load.x_begin for load in loads ])
         load_sort_position = np.argsort(x_start)
@@ -113,6 +114,9 @@ class Loads:
     
     
     def add(self, loads):
+        """
+            Add a array of Load in the Loads instance.
+        """
         loads = np.concatenate((self.loads,loads))
         return self.create(loads)
     

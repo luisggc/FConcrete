@@ -469,6 +469,7 @@ class ConcreteBeam(Beam):
         fig, ax = transversal_bar.plot(fig=fig, ax=ax, c=material.c)
         fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
         fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
+        return fig, ax
 
     def solve_transv_steel(self):
         """
