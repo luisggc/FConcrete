@@ -34,7 +34,11 @@ class LongSteelBar():
     
     @staticmethod
     def getMinimumAndMaximumSteelArea(area, fck):
+        """
+            Giving the fck in kN/cmˆ2, returns the minimum and maximum area.
+        """
         fck_array = 20 + 5*np.arange(15)
+        fck_array = fck_array/10
         p_min_array = np.array([ 0.15, 1.15, 1.15, 1.164, 0.179, 0.194, 0.208, 0.211, 0.219, 0.226, 0.233, 0.239, 0.245, 0.251, 0.256])
         p_min = np.interp(fck, fck_array, p_min_array)
         A_min = area*p_min/100
@@ -43,6 +47,9 @@ class LongSteelBar():
     
         
     def plot(self,prop='area_accumulated'):
+        """
+            Plot the Long Steel Bar giving the property.
+        """
         y = getattr(self, prop)
         plt.plot([self.long_begin, self.long_end], [y,y])
     
@@ -51,6 +58,9 @@ class LongSteelBar():
     
     
 class LongSteelBars():
+    """
+        Class that defines a LongSteelBar list with easy to work properties and methods.
+    """
     def __init__(self, steel_bars=[]):
         self.steel_bars = np.array(steel_bars)
         self.long_begins = np.array([ steel_bar.long_begin for steel_bar in self.steel_bars ])
@@ -68,6 +78,9 @@ class LongSteelBars():
         self.cost = sum(self.costs)
         
     def add(self, new_steel_bars):
+        """
+            Add a LongSteelBar to the LongSteelBars instance.
+        """
         previous_steel_bars = self.steel_bars
         if str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar.LongSteelBars'>":
             concatenation = list(np.concatenate((previous_steel_bars,new_steel_bars.steel_bars)))
@@ -79,6 +92,9 @@ class LongSteelBars():
         self.__init__(new_steel_bars)
     
     def changeProperty(self, prop, function, conditional=lambda x:True):
+        """
+            Change all properties of the LongSteelBar in a single function.
+        """
         steel_bars = copy.deepcopy(self)
         for previous_steel_bar in steel_bars:
             if conditional(previous_steel_bar):
@@ -87,6 +103,17 @@ class LongSteelBars():
         return LongSteelBars(steel_bars.steel_bars)
 
     def getPositiveandNegativeLongSteelBarsInX(self, x):
+        """
+            Get the bars in a x longitudinal position, in cm.
+            
+            Returns
+            -------
+            positive_steel_bar_in_x : LongSteelBars
+                The positive steel bar found in x.
+            
+            negative_steel_bar_in_x : LongSteelBars
+                The negative steel bar found in x.
+        """
         positive_steel_bar_in_x = np.array([steel_bar if condition else None 
                                for condition, steel_bar
                                in zip((self.long_begins<=x) & (self.long_ends>=x) & (self.areas>0), self.steel_bars)])
@@ -101,7 +128,15 @@ class LongSteelBars():
     
     
     def getBarTransversalPosition(self, concrete_beam, x):
-        
+        """
+            Get the bars in a x transversal position, in cm.
+            
+            Returns
+            -------
+            transversal_positions : array
+                Each array array contains the x, y position in the transversal section, the radius of the bar and its area:
+                x, y, radius, area.
+        """
         _, beam_element = concrete_beam.getBeamElementInX(x)
         transversal_beam = concrete_beam.transv_steel_bars.getTransversalBarAfterX(x)
         material = beam_element.material
@@ -156,6 +191,9 @@ class LongSteelBars():
 
 
     def plotTransversal(self, concrete_beam, x, ax=None, fig=None, color_plot="red"):
+        """
+            Plot the transversal vision of the longitudinal bars.
+        """
         fig, ax = getAxis((-20,0), (20, 50)) if ax == None else (fig, ax)
         
         for long_bar in self.getBarTransversalPosition(concrete_beam, x):
@@ -166,6 +204,9 @@ class LongSteelBars():
         
     
     def plot(self,prop='area_accumulated'):
+        """
+            Plot the lonfitudinal vision of the longitudinal bars.
+        """
         if prop=='area_accumulated':
             plt.gca().invert_yaxis()
             

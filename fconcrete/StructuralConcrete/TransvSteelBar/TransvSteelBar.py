@@ -20,6 +20,9 @@ class TransvSteelBar():
         return str(self.__dict__)+'\n'
     
     def plot(self, c=2, ax=None, fig=None, color_plot="blue"):
+        """
+            Plot the transversal vision of the transversal bar.
+        """
         height, width, diameter = self.height, self.width, self.diameter
         x0, y0 = -width/2, c
         
@@ -41,6 +44,9 @@ class TransvSteelBar():
         
 
 class TransvSteelBars():
+    """
+        Class that defines a the TransvSteelBar list with easy to work properties and methods.
+    """
     def __init__(self, steel_bars=[]):
         self.steel_bars = np.array(steel_bars)
         self.x = np.array([ steel_bar.x for steel_bar in self.steel_bars ])
@@ -56,6 +62,9 @@ class TransvSteelBars():
         self.cost = sum(self.costs)
 
     def add(self, new_steel_bars):
+        """
+            Add a array of Load in the Loads instance.
+        """
         previous_steel_bars = self.steel_bars
         if str(type(new_steel_bars)) == "<class 'fconcrete.StructuralConcrete.TransvSteelBar.TransvSteelBar.TransvSteelBars'>":
             concatenation = list(np.concatenate((previous_steel_bars,new_steel_bars.steel_bars)))
@@ -67,9 +76,15 @@ class TransvSteelBars():
         self.__init__(new_steel_bars)
     
     def getTransversalBarAfterX(self, x):
+        """
+            Get the next transversal bar in x or after.
+        """
         return self.steel_bars[self.x >= x][0]
     
     def changeProperty(self, prop, function, conditional=lambda x:True):
+        """
+            Change all properties of the TransvSteelBar in a single function.
+        """
         steel_bars = copy.deepcopy(self)
         for previous_steel_bar in steel_bars:
             if conditional(previous_steel_bar):
@@ -78,6 +93,9 @@ class TransvSteelBars():
         return steel_bars
 
     def plotLong(self):
+        """
+            Plot the longitudinal vision of the transversal bar.
+        """
         for x, height in zip(self.x, self.heights):
             plt.plot([x,x], [0,height])
             

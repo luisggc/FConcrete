@@ -5,13 +5,40 @@ from fconcrete.helpers import getAxis
 
 class Section():
     """
-    Class to represent simetrical section along the y axis.
-    function_width is made to define the width along the y axis. The function starts with x=0 and ends in x=height.
-    height is to represent the maximum y value possible.
-    
-    NOT FULLY FUNCTIONAL YET
+        Class to represent simetrical section along the y axis.
+        
+        Attributes
+        ----------
+        height : number
+            Maximum height of the section in cm.
+            
+        function_width : function
+            Define the width along the y axis. The function starts with x=0 and ends in x=height.
+         
+        area : number
+            Total area of the section in cmˆ2.
+        
+        I : number
+            Moment of inertia in cmˆ4.
+            
+        x0 : number
+            Initial reference in the x axis.
+            
+        y0 : number
+            Initial reference in the y axis.
     """    
     def __init__(self, function_width, height):
+        """
+            Creates simetrical section along the y axis.
+            
+            Parameters
+            ----------
+            function_width : function
+                Define the width along the y axis. The function starts with x=0 and ends in x=height.
+                
+            height : number
+                Represent the maximum y value possible in cm.
+        """ 
         height = to_unit(height, "cm").magnitude
         self.height = height
         self.function_width = function_width
@@ -20,16 +47,25 @@ class Section():
         self.x0, self.y0 = -self.function_width(0), 0
         #self.bw = 2*min(abs(function_width))
         
-    def width(self, height):
-        return 0 if height>self.height else self.function_width(height)
+    def width(self, y):
+        """
+            Gets the width in y.
+        """
+        return 0 if y>self.height else self.function_width(y)
     
     def getAreaBetween(self, begin_height, end_height, interations=100):
+        """
+            Area between 2 y values.
+        """
         return 2*integrate(self.function_width, begin_height, end_height, interations)
     
     def _I(self):
         raise NotImplementedError
         
     def plot(self, N=100, color_plot="red", ax=None, fig=None):
+        """
+            Plot the section.
+        """
         height = self.height
         
         fig, ax = getAxis() if ax == None else (fig, ax)
@@ -48,7 +84,33 @@ class Section():
     
     
 class Rectangle(Section):
-    
+    """
+        Attributes
+        ----------
+        height : number
+            Maximum height of the section in cm.
+            
+        function_width : function
+            Define the width along the y axis. The function starts with x=0 and ends in x=height.
+         
+        bw : number
+            Minimum width in cm.
+        
+        area : number
+            Total area of the section in cmˆ2.
+        
+        I : number
+            Moment of inertia in cmˆ4.
+        
+        y_cg : number
+            Gravity center in the y axis.
+        
+        x0 : number
+            Initial reference in the x axis.
+            
+        y0 : number
+            Initial reference in the y axis.
+    """
     def __init__(self,width, height):
         """
             Returns a concrete_beam element.
@@ -61,8 +123,8 @@ class Rectangle(Section):
                 
             Parameters
             ----------
-            width: number
-            height: number
+            width : number
+            height : number
         """    
         width = to_unit(width, "cm").magnitude
         height = to_unit(height, "cm").magnitude
@@ -77,9 +139,15 @@ class Rectangle(Section):
         self.y0 = 0
         
     def getAreaBetween(self, begin_height, end_height):
+        """
+            Area between 2 y values.
+        """
         return self.width()*(end_height - begin_height)
     
     def width(self, height=0):
+        """
+            Width value in cm.
+        """
         return self.__width
 
     def __name__(self):
