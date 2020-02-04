@@ -31,11 +31,11 @@ class Node:
             Parameters
             ----------
             x : number or str
-                Position of the node. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Position of the node. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20m', '10dm', etc
             
             length : number or str, optional
-                Length of the node if applicable. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Length of the node if applicable. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20m', '10dm', etc.
                 Default is 0.
         """
@@ -58,7 +58,7 @@ class Node:
             Parameters
             ----------
             x : number or str
-                Position of the node. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Position of the node. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20m', '10dm', etc
         """
         return cls(x, [1, 1])
@@ -80,7 +80,7 @@ class Node:
             Parameters
             ----------
             x : number or str
-                Position of the node. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Position of the node. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20m', '10dm', etc
         """
         return cls(x, [1, 1])
@@ -102,11 +102,11 @@ class Node:
             Parameters
             ----------
             x : number or str
-                Position of the node. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Position of the node. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20m', '10dm', etc
             
             length : number or str, optional
-                Length of the node if applicable. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Length of the node if applicable. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20m', '10dm', etc.
                 Default is 0.
         """

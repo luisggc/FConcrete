@@ -1,3 +1,6 @@
+"""
+    Code for structural calculus using concrete.
+"""
 from .AvailableMaterials import *
 from .Concrete import Concrete
 from .TransvSteelBar import *

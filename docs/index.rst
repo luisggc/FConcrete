@@ -8,10 +8,6 @@
 Welcome to FConcrete's documentation!
 =====================================
 
-
-.. automodule:: fconcrete
-    :members:
-
 .. toctree::
    :maxdepth: 1
    :caption: General Information:
@@ -27,11 +23,9 @@ Welcome to FConcrete's documentation!
 .. toctree::
    :maxdepth: 3
    :caption: The module:
-
+   
    Structural <fconcrete.Structural.rst>
    StructuralConcrete <fconcrete.StructuralConcrete.rst>
-
-
 
 
 Indices and tables

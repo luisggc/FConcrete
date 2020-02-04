@@ -5,9 +5,31 @@ from fconcrete.Structural.Material import unitary_material
 import copy
 
 class BeamElement:
-    def __init__(self, nodes, section=unitary_section, material=unitary_material): #, function_d=lambda height,c: height-c ):
+    """
+        Class that defines a primitive elements of a beam.
+    """
+    def __init__(self, nodes, section=unitary_section, material=unitary_material):
+        """
+            Define the beam_elements that, together, makes the whole Beam. 
+            
+                Call signatures:
+
+                    fc.BeamElement(nodes, section=unitary_section, material=unitary_material)
+            
+            Parameters
+            ----------
+            nodes : list of Node
+                list of fc.Node to represent the delimitation for the beam_element.
+
+            section : Section, optional
+                Define the section that are going to make the beam_element.
+                Default fc.unitary_section.
+                
+            material : Material, optional
+                Define a material and its properties.
+                Default fc.unitary_material.
+        """
         self.section = section
-        #section.d = function_d(section.height, material.c) if hasattr(material,"c") else 0
         self.material = material
         self.x = nodes
         self.E = material.E
@@ -18,6 +40,9 @@ class BeamElement:
         self.flexural_rigidity = material.E*section.I
         
     def get_matrix_rigidity_unitary(self):
+        """
+            Returns the unitary rigidity matrix. 
+        """
         return self.flexural_rigidity/(self.length**3)*np.array([
                         [12, 6*self.length, -12, 6*self.length],
                         [6*self.length, 4*self.length**2, -6*self.length, 2*self.length**2],
@@ -28,8 +53,12 @@ class BeamElement:
     @classmethod
     def get_efforts_from_bar_element(cls, beam_element, load):
         """
-        distance_a means the force_distance_from_nearest_left_node
-        condition represent the degrees of freedom of the node. 1 means fixed and 0 free.
+            Get the efforts coused by the load in a double crimped beam element.
+            
+            Parameters
+            ----------
+            distance_a : number
+                Distance, in cm, from the left node to the force.
         """
         force = load.force
         length = beam_element.length
@@ -51,6 +80,14 @@ class BeamElement:
         return -np.array([ra, ma, force-ra, mb])
  
     def split(self, x):
+        """
+            Split a beam_element in two. The node in x is considered a Middle Node.
+            
+            Parameters
+            ----------
+            x : number
+                Distance, in cm, from the left node to the split point.
+        """
         if x >= self.n2.x or x <= self.n1.x: return [self]
         n_intermediate = Node.MiddleNode(x=x)
         bar1 = BeamElement(nodes=[self.n1, n_intermediate], section=self.section, material=self.material)
@@ -62,6 +99,9 @@ class BeamElement:
 
 
 class BeamElements:
+    """
+        Class that defines a primitive elements of a beam list with easy to work properties and methods.
+    """
     def __init__(self, bar_elements):
         self.bar_elements = np.array(bar_elements)
         self.materials = np.array([ bar_element.material for bar_element in bar_elements ])
@@ -82,26 +122,34 @@ class BeamElements:
     
     @classmethod
     def create(cls, beam_elements):
+        """
+            Recommended way to create a BeamElements class.
+        """
         if str(type(beam_elements)) == "<class 'fconcrete.Structural.BeamElement.BeamElements'>": return beam_elements
-        
         beam_elements = np.array(beam_elements)
         x_start = np.array([ beam_element.n1.x for beam_element in beam_elements ])
         bar_sort_position = np.argsort(x_start)
         return cls(beam_elements[bar_sort_position])
     
     def split(self, x):
+        """
+            Similar to BeamElement.split, but can guess what element of the array is going to be splited.
+        """
         new_beams = np.array([])
         for bar in self.bar_elements:
             new_beams = np.concatenate((new_beams, bar.split(x)))
         return BeamElements(new_beams)
 
     def changeProperty(self, prop, function, conditional=lambda x:True):
-            beam_elements = copy.deepcopy(self)
-            for previous_beam_element in beam_elements:
-                if conditional(previous_beam_element):
-                    current_attribute_value = getattr(previous_beam_element, prop)
-                    setattr(previous_beam_element, prop, function(current_attribute_value)) 
-            return BeamElements(beam_elements.bar_elements)
+        """
+            Change all properties of the beam elements in a single function.
+        """
+        beam_elements = copy.deepcopy(self)
+        for previous_beam_element in beam_elements:
+            if conditional(previous_beam_element):
+                current_attribute_value = getattr(previous_beam_element, prop)
+                setattr(previous_beam_element, prop, function(current_attribute_value)) 
+        return BeamElements(beam_elements.bar_elements)
 
     def __repr__(self):
         return str(self.__dict__)    

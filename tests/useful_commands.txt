@@ -1,4 +1,4 @@
-source "/Users/luis/OneDrive - Vale S.A/Random/TCC Código/fconcrete/ENV/bin/activate"
+source "/Users/luis/OneDrive - Vale S.A/Random/TCC/fconcrete/ENV/bin/activate"
 
 clear;make doctest
 sphinx-apidoc -o . .. ../se* ../test* ../modules*  -f -e -d 100;make html

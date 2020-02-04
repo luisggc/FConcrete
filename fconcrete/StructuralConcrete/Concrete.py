@@ -3,7 +3,38 @@ from fconcrete.helpers import to_unit
 from math import log
 
 class Concrete(Material):
-    
+    """
+        Define the Concrete to be used and all its properties.
+        
+        Attributes
+        ----------
+        fck : number
+            Define the characteristic resistance of the concrete in kN/cmˆ2.
+        
+        E_ci : number
+            Modulus of elasticity or initial tangent deformation module of concrete, always referring to the cordal module in kN/cmˆ2.
+        
+        E_cs : number
+            Secant deformation module of concrete in kN/cmˆ2.
+        
+        fctm : number
+            Average concrete tensile strength in kN/cmˆ2.
+            
+        fctk_inf : number
+            Minimum value of direct tensile strength in kN/cmˆ2.
+        
+        fctk_sup : number
+            Maximum value of direct tensile strength in kN/cmˆ2.
+            
+        fcd : number
+            Minimum value of design direct tensile strength in kN/cmˆ2.
+
+        c : number
+            Concrete covering in cm.
+        
+        wk : number
+            Characteristic crack opening in the concrete surface in cm.
+    """
     def __init__(self, fck, aggressiveness, aggregate="granite"):
         """
             Define properties of the concrete.
@@ -20,7 +51,7 @@ class Concrete(Material):
             ----------
             fck : number
                 Define the characteristic resistance of the concrete.
-                If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be give. Example:
+                If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be given. Example:
                 '20kN/cm**2', '10Pa', etc
                 
             aggressiveness : int

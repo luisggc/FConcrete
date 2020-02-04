@@ -47,8 +47,35 @@ class Beam:
 
         x_end: number
             Where the beam ends, in cm.
-        """
+    """
     def __init__(self, loads, beam_elements, **options):
+        """
+            Returns a concrete_beam element.
+            
+                Call signatures:
+
+                    fc.Beam(loads, beam_elements, **options)
+
+                >>> n1 = fc.Node.SimpleSupport(x=0)
+                >>> n2 = fc.Node.SimpleSupport(x=400)
+                >>> n3 = fc.Node.SimpleSupport(x=800)
+                >>> beam_element_1 = fc.BeamElement([n1, n2])
+                >>> beam_element_2 = fc.BeamElement([n2, n3])
+                >>> load_1 = fc.Load.UniformDistributedLoad(-0.000001, x_begin=0, x_end=1)
+                 
+                >>> beam = fc.Beam(
+                >>>     loads = [f1],
+                >>>     beam_elements = [beam_element_1, beam_element_2],
+                >>> )
+            
+            Parameters
+            ----------
+            loads : [Load]
+                Define the loads supported for the beam.
+            
+            beam_elements : [BeamElement], optional
+                Define the beam_elements that, together, makes the whole Beam. 
+        """
         beam_elements = BeamElements.create(beam_elements)
         external_loads = Loads.create(loads)
         self.initial_beam_elements = beam_elements
@@ -93,7 +120,6 @@ class Beam:
         """
             Returns the global rigidity matrix. Also known by the letter "K". 
         """
-
         matrix_rigidity_row = 2*self.beams_quantity+2
         matrix_rigidity_global = np.zeros(
             (matrix_rigidity_row, matrix_rigidity_row))

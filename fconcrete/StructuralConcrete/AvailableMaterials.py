@@ -231,7 +231,7 @@ class AvailableConcrete():
             ----------
             fck : number
                 Define the characteristic resistance of the concrete.
-                If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be give. Example:
+                If it is a number, default unit is MPa, but also [force]/[length]**2 unit can be given. Example:
                 '20kN/cm**2', '10Pa', etc
             
             cost_by_m3 : number, optional

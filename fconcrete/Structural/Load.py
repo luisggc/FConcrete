@@ -2,8 +2,10 @@ import numpy as np
 from fconcrete.helpers import to_unit
 
 class Load:
+    """
+        Class that defines a load.
+    """
     def __init__(self, force, momentum, x_begin, x_end, q=0, order=0, displacement=0):
-        
         force = to_unit(force, "kN").magnitude
         momentum = to_unit(momentum, "kNcm").magnitude
         x_begin = to_unit(x_begin, "cm").magnitude
@@ -36,11 +38,11 @@ class Load:
             Parameters
             ----------
             load : number or str
-                Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be give. Example:
+                Represent the load measure. If it is a number, default unit is kN, but also [force] unit can be given. Example:
                 '20kN', '10N', etc
                 
             x : number or str
-                Where the load is going to end. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Where the load is going to end. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20cm', '10dm', etc
             
         """ 
@@ -63,15 +65,15 @@ class Load:
             Parameters
             ----------
             q : number or str
-                Represent the load by length measure. If it is a number, default unit is kN/cm, but also [force]/[length] unit can be give. Example:
+                Represent the load by length measure. If it is a number, default unit is kN/cm, but also [force]/[length] unit can be given. Example:
                 '20kN/m', '10N/m', etc
                 
             x_begin : number or str
-                Where the load is going to start. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Where the load is going to start. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20cm', '10dm', etc
             
             x_end : number or str
-                Where the load is going to end. If it is a number, default unit is cm, but also [length] unit can be give. Example:
+                Where the load is going to end. If it is a number, default unit is cm, but also [length] unit can be given. Example:
                 '20cm', '10dm', etc
         """ 
         
@@ -91,6 +93,9 @@ class Load:
 
 
 class Loads:
+    """
+        Class that defines a load list with easy to work properties and methods.
+    """
     def __init__(self, loads):
         loads = np.array(loads)
         self.loads = loads
