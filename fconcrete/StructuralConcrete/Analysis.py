@@ -2,6 +2,7 @@ from fconcrete.helpers import printProgressBar
 import numpy as np
 
 class Analysis:
+
     @staticmethod
     def getBestSolution(concrete_beam_function,
                 max_steps_without_decrease = float("inf"),
@@ -36,7 +37,7 @@ class Analysis:
                 ...        beam = fc.ConcreteBeam(
                 ...            loads = [f1, pp],
                 ...            nodes = [n1, n2],
-                ...            section = fc.Rectangle(20,1000),
+                ...            section = fc.Rectangle(height,width),
                 ...            division = 200
                 ...        )
                 ...        return beam
@@ -48,8 +49,9 @@ class Analysis:
                 ...                                     width=[15],
                 ...                                     height=(30, 34, 2),
                 ...                                     length=[150])
-                >>> new_report[-1]
-                [15.0, 32.0, 150.0, 6440.380090253342, '', 2826.4, 3024.92, 589.06]
+                >>> #The best beam should be:
+                >>> new_report[0]
+                array([(15., 30., 150., 278.3118, 63.59, 183.44, 31.27)], dtype=[('width', '<f8'), ('height', '<f8'), ('length', '<f8'), ('cost', '<f8'), ('Concrete', '<f8'), ('Longitudinal bar', '<f8'), ('Transversal bar', '<f8')])
             
             Parameters
             ----------
@@ -137,5 +139,16 @@ class Analysis:
                 if show_progress: printProgressBar(step + 1, total_of_combinations, prefix = 'Progress:', suffix = 'Complete', length = 50)
                 row = [*combination_kwarg.values(), cost, error, *cost_table]
                 report = [*report, row]
-                
+            
+            new_report = np.array(report)
+            
+            column_names = new_report[0][new_report[0] != "error"]
+            just_allowed_beams = new_report[new_report[:,-4]==""]
+            numerical_table = np.delete(just_allowed_beams, -4, 1).astype(float)
+            numerical_table.dtype = [(n, numerical_table.dtype) for n in column_names]
+            numerical_table["cost"].reshape(1,len(numerical_table))
+            sort_by_cost = np.argsort(numerical_table["cost"].reshape(1,len(numerical_table)))[0]
+            report = numerical_table[sort_by_cost]
+            
             return report
+        
