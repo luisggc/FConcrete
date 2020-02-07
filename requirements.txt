@@ -2,3 +2,4 @@ pint
 numpy
 scipy
 matplotlib
+ipykernel
