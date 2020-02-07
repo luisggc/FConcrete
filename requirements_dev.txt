@@ -8,10 +8,8 @@ watchdog
 alabaster
 sphinxcontrib-napoleon
 colorspacious
-ipython
 ipywidgets
 pillow
 sphinx-gallery
 sphinx-copybutton
-numpydoc
 sphinx_rtd_theme
