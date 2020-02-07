@@ -8,14 +8,15 @@
 Welcome to FConcrete's documentation!
 =====================================
 
+.. include:: ../README.rst
+
 .. toctree::
    :maxdepth: 1
    :caption: General Information:
 
-   readme
    installation
    usage
-   modules
+   Module Structure <modules.rst>
    contributing
    authors
    history
