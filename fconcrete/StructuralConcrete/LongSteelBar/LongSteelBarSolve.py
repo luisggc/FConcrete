@@ -123,7 +123,7 @@ class LongSteelBarSolve():
                     concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(x)
 
                 >>> concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(300)
-                (30.0, 160.0)
+                (27.6, 19.2)
                 
             Parameters
             ----------
@@ -173,7 +173,7 @@ class LongSteelBarSolve():
                     concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(x, momentum)
 
                 >>> concrete_beam.long_steel_bars_solution_info.getComercialSteelArea(300, 2500)
-                (61.0, 0.8, 30.5)
+                (56.0, 0.8, 28.0)
                 
             Parameters
             ----------
@@ -356,8 +356,8 @@ class LongSteelBarSolve():
 
                         concrete_beam.long_steel_bars_solution_info.getSteelArea(x, momentum)
 
-                    >>> concrete_beam.long_steel_bars_solution_info.getSteelArea(10, 250000)
-                    7.2264547676429585
+                    >>> concrete_beam.long_steel_bars_solution_info.getSteelArea(10, 2500)
+                    0.903512040037519
                     
                 Parameters
                 ----------

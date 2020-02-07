@@ -208,12 +208,12 @@ doctest_global_setup='''
 import fconcrete as fc
 n1 = fc.Node.SimpleSupport(x=0, length=20)
 n2 = fc.Node.SimpleSupport(x=400, length=20)
-f1 = fc.Load.UniformDistributedLoad(-0.01, x_begin=0, x_end=1)
+f1 = fc.Load.UniformDistributedLoad(-0.6, x_begin=0, x_end=400)
 
 concrete_beam = fc.ConcreteBeam(
     loads = [f1],
     nodes = [n1, n2],
-    section = fc.Rectangle(20,1000),
+    section = fc.Rectangle(30,80),
     division = 200
 )
 '''

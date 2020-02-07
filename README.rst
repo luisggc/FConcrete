@@ -17,7 +17,7 @@ FConcrete
 
 
 Concrete beams according to NBR:6118:2014.
-Usage examples :doc:`here <usage>`.
+Usage examples `here`_.
 
 * Free software: MIT license
 * Documentation: https://fconcrete.readthedocs.io.
@@ -42,7 +42,7 @@ FConcrete is a python package to calculate the steel bars (longitudinal and tran
                 division = 200
         )
 
-It also conts with a :doc:`Analysis Class <fconcrete.StructuralConcrete.Analysis>` that can help you to get the best retangular section for your beam.
+It also conts with a `Analysis Class`_ that can help you to get the best retangular section for your beam.
 As you can see on the documentations, by the default all units are in cm, kN or combination of both.
 
 Features
@@ -84,9 +84,8 @@ TODO
 .. highlight:: shell
 
 
-============
 Installation
-============
+------------
 
 To install FConcrete, run this command in your terminal:
 
@@ -118,3 +117,5 @@ this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Matplotlib: https://github.com/matplotlib/matplotlib
 .. _Scipy: https://github.com/scipy/scipy
 .. _Sphinx: https://github.com/sphinx-doc/sphinx
+.. _`here`: https://fconcrete.readthedocs.io/en/latest/usage.html
+.. _`Analysis Class`: https://fconcrete.readthedocs.io/en/latest/fconcrete.StructuralConcrete.Analysis.html

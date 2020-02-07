@@ -22,10 +22,7 @@ class Analysis:
                     ...              sort_by_multiplication=False,
                     ...              **kwargs)`
                                                             
-            
                 >>> def concrete_beam_function(width, height, length):
-                ...        n1 = fc.Node.SimpleSupport(x=0, length=20)
-                ...        n2 = fc.Node.SimpleSupport(x=length, length=20)
                 ...        slab_area = 5*5
                 ...        kn_per_m2 = 5
                 ...        distributed_load = -slab_area*kn_per_m2/500
@@ -41,7 +38,7 @@ class Analysis:
                 ...            division = 200
                 ...        )
                 ...        return beam
-                >>> new_report = fc.Analysis.getBestSolution(concrete_beam_function,
+                >>> full_report, solution_report, best_solution = fc.Analysis.getBestSolution(concrete_beam_function,
                 ...                                     max_steps_without_decrease=15,
                 ...                                     sort_by_multiplication=True,
                 ...                                     avoid_estimate=True,
@@ -49,9 +46,16 @@ class Analysis:
                 ...                                     width=[15],
                 ...                                     height=(30, 34, 2),
                 ...                                     length=[150])
-                >>> #The best beam should be:
-                >>> new_report[0]
-                array([(15., 30., 150., 278.3118, 63.59, 183.44, 31.27)], dtype=[('width', '<f8'), ('height', '<f8'), ('length', '<f8'), ('cost', '<f8'), ('Concrete', '<f8'), ('Longitudinal bar', '<f8'), ('Transversal bar', '<f8')])
+                >>> # Table column names
+                >>> print(solution_report.dtype.names)
+                ('width', 'height', 'length', 'cost', 'Concrete', 'Longitudinal bar', 'Transversal bar')
+                >>> # Table is sorted by cost ascending, so the first one is the most economic solution.
+                >>> print(solution_report[0])
+                [(15., 2., 150., 49.29967548, 4.24, 33.83, 11.23)]
+                >>> # Alternative way to look to the best solution
+                >> print(best_solution)
+                {'width': 15.0, 'height': 2.0, 'length': 150.0, 'cost': 49.299675481407036, 'Concrete': 4.24, 'Longitudinal bar': 33.83, 'Transversal bar': 11.23}
+            
             
             Parameters
             ----------
@@ -84,8 +88,8 @@ class Analysis:
         
         possible_values = []
         for kwarg_value in kwargs.values():
-            possible_values = [*possible_values, np.arange(*kwarg_value)] if len(kwarg_value) == 3 else [*possible_values, kwarg_value]
-                
+            possible_values = [*possible_values, np.arange(*kwarg_value)] if (len(kwarg_value) == 3 and type(kwarg_value)=="tuple") else [*possible_values, kwarg_value]
+
         combinations = np.array(np.meshgrid(*possible_values)).T.reshape(-1,len(possible_values))
 
         # sorting the combinations
@@ -140,15 +144,18 @@ class Analysis:
                 row = [*combination_kwarg.values(), cost, error, *cost_table]
                 report = [*report, row]
             
-            new_report = np.array(report)
+            full_report = np.array(report)
             
-            column_names = new_report[0][new_report[0] != "error"]
-            just_allowed_beams = new_report[new_report[:,-4]==""]
+            column_names = full_report[0][full_report[0] != "error"]
+            just_allowed_beams = full_report[full_report[:,-4]==""]
             numerical_table = np.delete(just_allowed_beams, -4, 1).astype(float)
             numerical_table.dtype = [(n, numerical_table.dtype) for n in column_names]
             numerical_table["cost"].reshape(1,len(numerical_table))
             sort_by_cost = np.argsort(numerical_table["cost"].reshape(1,len(numerical_table)))[0]
-            report = numerical_table[sort_by_cost]
+            solution_report = numerical_table[sort_by_cost]
             
-            return report
+            best_solution = { key:name for key, name in zip(solution_report.dtype.names,solution_report[0][0]) } if len(solution_report)>0 else None
+                
+            
+            return full_report, solution_report, best_solution
         

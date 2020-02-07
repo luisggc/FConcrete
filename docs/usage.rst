@@ -13,3 +13,4 @@ To use FConcrete in a project::
 
    Beam usage examples <usages/Beam.rst>
    ConcreteBeam usage examples <usages/ConcreteBeam.rst>
+   Analysis usage examples <usages/Analysis.rst>
