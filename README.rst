@@ -73,7 +73,8 @@ TODO
 
 - Dinamic calculation of d when there is change of the expected steel position
 - Check rupture (ELS)
-- Crack calculation
+- Check minimum area on the support
+- Draw the beam
 - Correct displacement value when there is variation of E * I along the beam
 - Plot correctly when stirrups are not vertical
 - Plot longitudinal bars correctly when the height or position of the beam base changes.
@@ -106,7 +107,7 @@ Credits
 -------
 
 Most of vectorized calculus made with Numpy_, unit conversion with Pint_, all plots with Matplotlib_, minor functions with Scipy_, 
-docs made with the help of Sphinx_ and Numpydoc_,  
+docs made with the help of Sphinx_ and Numpydoc_, analysis table with Pandas_,  
 this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
@@ -117,5 +118,6 @@ this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Matplotlib: https://github.com/matplotlib/matplotlib
 .. _Scipy: https://github.com/scipy/scipy
 .. _Sphinx: https://github.com/sphinx-doc/sphinx
+.. _Pandas: https://github.com/pandas/pandas
 .. _`here`: https://fconcrete.readthedocs.io/en/latest/usage.html
 .. _`Analysis Class`: https://fconcrete.readthedocs.io/en/latest/fconcrete.StructuralConcrete.Analysis.html

@@ -1,5 +1,6 @@
 from fconcrete.helpers import printProgressBar
 import numpy as np
+import pandas as pd
 
 class Analysis:
 
@@ -143,18 +144,14 @@ class Analysis:
                 row = [*combination_kwarg.values(), cost, error, *cost_table]
                 report = [*report, row]
             
-            full_report = np.array(report)
-        
-            column_names = full_report[0][full_report[0] != "error"]
-            just_allowed_beams = full_report[full_report[:,-4]==""]
-            numerical_table = np.delete(just_allowed_beams, -4, 1).astype(float)
-            numerical_table.dtype = [(n, numerical_table.dtype) for n in column_names]
-            numerical_table["cost"].reshape(1,len(numerical_table))
-            sort_by_cost = np.argsort(numerical_table["cost"].reshape(1,len(numerical_table)))[0]
-            solution_report = numerical_table[sort_by_cost]
+            full_report = pd.DataFrame(report)
+            full_report.columns = full_report.loc[0]
+            full_report = full_report[1:]
             
-            best_solution = { key:name for key, name in zip(solution_report.dtype.names,solution_report[0][0]) } if len(solution_report)>0 else None
-                
+            solution_report = full_report[full_report["error"] == ""]
+            solution_report = solution_report.sort_values(by="cost")
+            
+            best_solution = solution_report.iloc[0,:].to_dict() if len(solution_report)>0 else None
             
             return full_report, solution_report, best_solution
         
