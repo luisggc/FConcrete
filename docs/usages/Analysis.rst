@@ -13,7 +13,7 @@ Let's see an example:
     def concrete_beam_function(width, height):
            n1 = fc.Node.SimpleSupport(x=0)
            n2 = fc.Node.SimpleSupport(x=200)
-           pp = fc.Load.UniformDistributedLoad(-width*height*25/100000, x_begin=0, x_end=200)
+           pp = fc.Load.UniformDistributedLoad(-width*height*25/1000000, x_begin=0, x_end=200)
            f1 = fc.Load.UniformDistributedLoad(-0.01, x_begin=0, x_end=1)
            beam = fc.ConcreteBeam(
                loads = [f1, pp],

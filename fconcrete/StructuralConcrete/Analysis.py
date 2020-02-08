@@ -26,8 +26,7 @@ class Analysis:
                 ...        slab_area = 5*5
                 ...        kn_per_m2 = 5
                 ...        distributed_load = -slab_area*kn_per_m2/500
-                ...        f1 = fc.Load.UniformDistributedLoad(distributed_load, x_begin=0, x_end=length)
-                ...        pp = fc.Load.UniformDistributedLoad(-width*height*25/100000, x_begin=0, x_end=length)
+                ...        pp = fc.Load.UniformDistributedLoad(-width*height*25/1000000, x_begin=0, x_end=length)
                 ...        n1 = fc.Node.SimpleSupport(x=0, length=20)
                 ...        n2 = fc.Node.SimpleSupport(x=400, length=20)
                 ...        f1 = fc.Load.UniformDistributedLoad(-0.01, x_begin=0, x_end=1)
@@ -88,7 +87,7 @@ class Analysis:
         
         possible_values = []
         for kwarg_value in kwargs.values():
-            possible_values = [*possible_values, np.arange(*kwarg_value)] if (len(kwarg_value) == 3 and type(kwarg_value)=="tuple") else [*possible_values, kwarg_value]
+            possible_values = [*possible_values, np.arange(*kwarg_value)] if (len(kwarg_value) == 3 and type(kwarg_value)==tuple) else [*possible_values, kwarg_value]
 
         combinations = np.array(np.meshgrid(*possible_values)).T.reshape(-1,len(possible_values))
 
@@ -138,14 +137,14 @@ class Analysis:
                 except Exception as excep:
                     error = str(excep)
                     cost = -1
-                    cost_table = []
+                    cost_table = [-1, -1, -1]
                 
                 if show_progress: printProgressBar(step + 1, total_of_combinations, prefix = 'Progress:', suffix = 'Complete', length = 50)
                 row = [*combination_kwarg.values(), cost, error, *cost_table]
                 report = [*report, row]
             
             full_report = np.array(report)
-            
+        
             column_names = full_report[0][full_report[0] != "error"]
             just_allowed_beams = full_report[full_report[:,-4]==""]
             numerical_table = np.delete(just_allowed_beams, -4, 1).astype(float)
