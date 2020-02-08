@@ -118,6 +118,6 @@ this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Matplotlib: https://github.com/matplotlib/matplotlib
 .. _Scipy: https://github.com/scipy/scipy
 .. _Sphinx: https://github.com/sphinx-doc/sphinx
-.. _Pandas: https://github.com/pandas/pandas
+.. _Pandas: https://github.com/pandas-dev/pandas
 .. _`here`: https://fconcrete.readthedocs.io/en/latest/usage.html
 .. _`Analysis Class`: https://fconcrete.readthedocs.io/en/latest/fconcrete.StructuralConcrete.Analysis.html

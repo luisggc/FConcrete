@@ -34,7 +34,7 @@ class Analysis:
                 ...        beam = fc.ConcreteBeam(
                 ...            loads = [f1, pp],
                 ...            nodes = [n1, n2],
-                ...            section = fc.Rectangle(height,width),
+                ...            section = fc.Rectangle(width, height),
                 ...            division = 200
                 ...        )
                 ...        return beam
@@ -46,11 +46,8 @@ class Analysis:
                 ...                                     width=[15],
                 ...                                     height=(30, 34, 2),
                 ...                                     length=[150])
-                >>> # Table column names
-                >>> print(solution_report.dtype.names)
-                ('width', 'height', 'length', 'cost', 'Concrete', 'Longitudinal bar', 'Transversal bar')
                 >>> # Table is sorted by cost ascending, so the first one is the most economic solution.
-                >>> print(solution_report[0])
+                >>> solution_report.iloc[0]
                 [(15., 2., 150., 49.29967548, 4.24, 33.83, 11.23)]
                 >>> # Alternative way to look to the best solution
                 >> print(best_solution)
