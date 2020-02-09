@@ -6,11 +6,11 @@ class Load:
         Class that defines a load.
     """
     def __init__(self, force, momentum, x_begin, x_end, q=0, order=0, displacement=0):
-        force = to_unit(force, "kN").magnitude
-        momentum = to_unit(momentum, "kNcm").magnitude
-        x_begin = to_unit(x_begin, "cm").magnitude
-        x_end = to_unit(x_end, "cm").magnitude
-        q = to_unit(q, "kN/cm").magnitude
+        force = to_unit(force, "kN")
+        momentum = to_unit(momentum, "kNcm")
+        x_begin = to_unit(x_begin, "cm")
+        x_end = to_unit(x_end, "cm")
+        q = to_unit(q, "kN/cm")
         
         self.x = x_begin + (x_end-x_begin)/2
         self.x_begin = x_begin

@@ -40,7 +40,7 @@ class Material():
             alpha : number   
                 Coefficient of thermal expansion which is the relative expansion (also called strain) divided by the change in temperature.
         """
-        self.E = to_unit(E, "kN/cm**2").magnitude
+        self.E = to_unit(E, "kN/cm**2")
         self.poisson = poisson
         self.alpha = alpha
     

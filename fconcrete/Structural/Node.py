@@ -7,8 +7,8 @@ class Node:
             Represents a generical node.
             Node is the delimitation for a beam_element.
         """
-        x = to_unit(x, "cm").magnitude
-        length = to_unit(length, "cm").magnitude
+        x = to_unit(x, "cm")
+        length = to_unit(length, "cm")
         self.x = x
         self.condition_boundary = condition_boundary
         self.length = length

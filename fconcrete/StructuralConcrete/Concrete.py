@@ -61,7 +61,7 @@ class Concrete(Material):
                 Aggregate type.
                 
         """ 
-        fck = to_unit(fck, "MPa").magnitude
+        fck = to_unit(fck, "MPa")
         
         alpha_e = 0
         if aggregate in ['basalt', 'diabase']: alpha_e = 1.2
@@ -86,14 +86,14 @@ class Concrete(Material):
         if c==0: raise Exception("Must select a valid aggressiveness value (between 1 and 4)")
         wk = 0.04 if aggressiveness==1 else 0.03 if aggressiveness in [2, 3] else 0.02 if aggressiveness==4 else 0
         
-        self.fck = to_unit(fck, "MPa", "kN/cm**2").magnitude
-        self.E_ci = to_unit(E_ci, "MPa", "kN/cm**2").magnitude
-        self.E_cs = to_unit(E_cs, "MPa", "kN/cm**2").magnitude
-        self.fctm = to_unit(fctm, "MPa", "kN/cm**2").magnitude
-        self.fctk_inf = to_unit(fctk_inf, "MPa", "kN/cm**2").magnitude
-        self.fctk_sup = to_unit(fctk_sup, "MPa", "kN/cm**2").magnitude
-        self.fcd = to_unit(fcd, "MPa", "kN/cm**2").magnitude
-        self.fctd = to_unit(fctd, "MPa", "kN/cm**2").magnitude
+        self.fck = to_unit(fck, "MPa", "kN/cm**2")
+        self.E_ci = to_unit(E_ci, "MPa", "kN/cm**2")
+        self.E_cs = to_unit(E_cs, "MPa", "kN/cm**2")
+        self.fctm = to_unit(fctm, "MPa", "kN/cm**2")
+        self.fctk_inf = to_unit(fctk_inf, "MPa", "kN/cm**2")
+        self.fctk_sup = to_unit(fctk_sup, "MPa", "kN/cm**2")
+        self.fcd = to_unit(fcd, "MPa", "kN/cm**2")
+        self.fctd = to_unit(fctd, "MPa", "kN/cm**2")
         self.c = c
         self.wk = wk
         

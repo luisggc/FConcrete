@@ -39,7 +39,7 @@ class Section():
             height : number
                 Represent the maximum y value possible in cm.
         """ 
-        height = to_unit(height, "cm").magnitude
+        height = to_unit(height, "cm")
         self.height = height
         self.function_width = function_width
         self.area = self.getAreaBetween(0, height, 1000)
@@ -126,8 +126,8 @@ class Rectangle(Section):
             width : number
             height : number
         """    
-        width = to_unit(width, "cm").magnitude
-        height = to_unit(height, "cm").magnitude
+        width = to_unit(width, "cm")
+        height = to_unit(height, "cm")
         self.__width = width
         self.height = height
         self.function_width = lambda x:width/2

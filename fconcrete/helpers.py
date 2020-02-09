@@ -39,11 +39,11 @@ def to_unit(input, expected_unit, return_unit=False):
                 fc.helpers.to_unit(input, expected_unit, return_unit=False)
 
             >>> unit1 = fc.helpers.to_unit("10cm", "m")
-            >>> unit1.magnitude
+            >>> unit1
             0.1
             
             >>> unit2 = fc.helpers.to_unit(20, "m", return_unit="cm")
-            >>> unit2.magnitude
+            >>> unit2
             2000.0
             
         Parameters
@@ -68,8 +68,8 @@ def to_unit(input, expected_unit, return_unit=False):
         except: raise Exception("String does not have valid format. See documentation.")
             
     if return_unit:
-        return value.to(return_unit)
-    return value
+        return value.to(return_unit).magnitude
+    return value.magnitude
         
 def getAxis(xy0=(0,0), xy1=(0,0)):
     """
