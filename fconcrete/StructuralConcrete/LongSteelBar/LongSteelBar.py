@@ -39,7 +39,7 @@ class LongSteelBar():
         """
         fck_array = 20 + 5*np.arange(15)
         fck_array = fck_array/10
-        p_min_array = np.array([ 0.15, 1.15, 1.15, 1.164, 0.179, 0.194, 0.208, 0.211, 0.219, 0.226, 0.233, 0.239, 0.245, 0.251, 0.256])
+        p_min_array = np.array([ 0.115, 0.115, 0.115, 0.164, 0.179, 0.194, 0.208, 0.211, 0.219, 0.226, 0.233, 0.239, 0.245, 0.251, 0.256 ])
         p_min = np.interp(fck, fck_array, p_min_array)
         A_min = area*p_min/100
         A_max = 0.008*area
