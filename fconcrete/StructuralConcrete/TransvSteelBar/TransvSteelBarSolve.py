@@ -49,7 +49,10 @@ class TransvSteelBarSolve():
         v_rd2 = self.getV_rd2(single_beam_element)
         check = max_shear <= v_rd2
         if check == False: raise Exception("Shear ({}kN) in x={} is greater or equal to maximum shear allowed ({}kN)".format(max_shear, max_shear_x, v_rd2))
-        return v_rd2, single_beam_element.section.d, max_shear
+        
+        section = single_beam_element.section
+        d = min(section.positive_steel_height, section.negative_steel_height)
+        return v_rd2, d, max_shear
     
     def getV_rd2(self, single_beam_element):
         """
@@ -57,7 +60,9 @@ class TransvSteelBarSolve():
         """
         fck = single_beam_element.material.fck
         bw = single_beam_element.section.bw
-        d = single_beam_element.section.d
+        positive_steel_height, negative_steel_height = single_beam_element.section.positive_steel_height, single_beam_element.section.negative_steel_height
+        d = min(positive_steel_height, negative_steel_height)
+        
         fcd = single_beam_element.material.fcd
         alpha_v2 = (1-fck/25)
         v_rd2 = 0.54*alpha_v2*fcd*bw*d*(sin(self.theta))*(tan(self.alpha)**(-1)+tan(self.theta)**(-1))
@@ -84,7 +89,7 @@ class TransvSteelBarSolve():
         
         _, single_beam_element = self.concrete_beam.getBeamElementInX(x)
         bw = single_beam_element.section.bw
-        d = single_beam_element.section.d
+        d = single_beam_element.section.minimum_steel_height
         fctd = single_beam_element.material.fctd
 
         v_c0 = 0.6*fctd*bw*d

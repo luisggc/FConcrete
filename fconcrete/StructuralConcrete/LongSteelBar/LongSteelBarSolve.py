@@ -403,7 +403,7 @@ class LongSteelBarSolve():
                     concrete_beam.long_steel_bars_solution_info.getDecalagedLength(beam_element)
         """ 
         bw = beam_element.section.bw
-        d = beam_element.section.d
+        d = beam_element.section.maximum_steel_height
         _, s = self.concrete_beam.getShearDiagram(x_begin=beam_element.n1.x, x_end=beam_element.n2.x)
         alpha = radians(self.concrete_beam.available_transv_steel_bars.inclination_angle)
         if alpha==radians(90):

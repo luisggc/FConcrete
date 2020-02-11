@@ -148,6 +148,7 @@ class ConcreteBeam(Beam):
                  time_begin_long_duration=0,
                  lifetime_structure=70,
                  verbose = False,
+                 max_relative_diff_of_steel_height = 0.02,
                  **options):
         """
             Returns a concrete_beam element.
@@ -281,6 +282,12 @@ class ConcreteBeam(Beam):
                 Print the the steps and their durations.
                 Default value is False.
             
+            max_relative_diff_of_steel_height: number, optional
+                Maximum value for relative difference of the beam section "d" value.
+                The relative difference is calculated taking the module of the sum of all previous d's less the sum for the calculated value of d divided by the sum of all previous calculated d's
+                If this values is greater than the max_relative_diff_of_d, all concrete_beam is recalculated.
+                The initial value of d is set to be 0.8*height.
+                Default value is 0.02.
         """
         start = time.time()
         
@@ -305,6 +312,7 @@ class ConcreteBeam(Beam):
         self.time_begin_long_duration = time_begin_long_duration
         self.lifetime_structure = lifetime_structure
         self.verbose = verbose
+        self.max_relative_diff_of_steel_height = max_relative_diff_of_steel_height
             
         if options.get("solve_transv_steel") != False:
             timeit(verbose, "Solve transv steel")(self.solve_transv_steel)()
@@ -316,7 +324,10 @@ class ConcreteBeam(Beam):
             timeit(verbose, "Solve ELS")(self.solve_ELS)()
         
         if options.get("solve_cost") != False:
-            self.cost, self.cost_table, self.subtotal_table = solve_cost(self)
+            self.solve_cost()
+        
+        # d value is the initially with 0.8*height. This function check if initial guess is ok.
+        #self.checkRecalculationOfD()
         
         end = time.time()
         self.processing_time = end-start
@@ -492,23 +503,22 @@ class ConcreteBeam(Beam):
     def _checkInput(**inputs):
         nodes, beam_elements, section, material = inputs.get("nodes"), inputs.get("beam_elements"), inputs.get("section"), inputs.get("material")
         if nodes and section:
-            section.d = 0.8*section.height
+            section.positive_steel_height, section.negative_steel_height, section.maximum_steel_height, section.minimum_steel_height  = 0.8*section.height, 0.8*section.height, 0.8*section.height, 0.8*section.height
             if len(nodes) == 1: raise Exception("Must contain at least 2 nodes to create a beam")
             beam_elements = []
             for i in range(0,len(nodes)-1):
                 beam_elements = [*beam_elements, fc.BeamElement([nodes[i], nodes[i+1]], section, material)]
-            return beam_elements
         elif beam_elements and section:
             beam_elements = BeamElements.create(beam_elements)
             beam_elements = beam_elements.changeProperty("material", lambda x:material)
-            section.d = 0.8*section.height
-            return beam_elements.changeProperty("section", lambda x:section)
+            section.positive_steel_height, section.negative_steel_height, section.maximum_steel_height, section.minimum_steel_height  = 0.8*section.height, 0.8*section.height, 0.8*section.height, 0.8*section.height
+            beam_elements = beam_elements.changeProperty("section", lambda x:section)
         elif beam_elements:
             beam_elements_modified = []
             for beam_element in beam_elements:
-                beam_element.section.d = 0.8*beam_element.section.height
+                beam_element.section.positive_steel_height, beam_element.section.negative_steel_height, beam_element.section.maximum_steel_height, beam_element.section.minimum_steel_height  = 0.8*beam_element.section.height, 0.8*beam_element.section.height, 0.8*beam_element.section.height, 0.8*beam_element.section.height
                 beam_elements_modified = [*beam_elements_modified, beam_element]
-            return beam_elements_modified
+            beam_elements = beam_elements_modified
         
         return beam_elements
     
@@ -522,7 +532,8 @@ class ConcreteBeam(Beam):
             I = section.I
             y_cg = section.y_cg
             bw = section.bw
-            d = section.d
+            d = section.positive_steel_height
+            
             h = section.height
             
             fctm = material.fctm
@@ -560,6 +571,12 @@ class ConcreteBeam(Beam):
             beam_element.flexural_rigidity = E_cs * new_I
             
         return beam_elements
+    
+    def solve_cost(self):
+        self.cost, self.cost_table, self.subtotal_table = solve_cost(self)
+        
+    #def checkRecalculationOfD(self):
+            
     
     def __name__(self):
         return "ConcreteBeam"

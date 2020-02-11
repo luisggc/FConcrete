@@ -20,8 +20,9 @@ class LongSteelBar():
     @staticmethod
     def getSteelArea(section, material, steel, momentum):
         b = section.width()
-        d = section.d
+        positive_steel_height, negative_steel_height = section.positive_steel_height, section.negative_steel_height
         if momentum==0: return 0
+        d = positive_steel_height if momentum>0 else negative_steel_height
         kc = b*d**2/momentum
         if (kc<1.5 and kc>-1.5): raise Exception('Momentum too high to section')
         fyd = steel.fyd
@@ -156,8 +157,9 @@ class LongSteelBars():
         x0, y0 = section.x0, section.y0
         x0_left_initial, x0_right_initial = x0+distance_from_border, -x0-distance_from_border
         x0_left, x0_right = x0_left_initial, x0_right_initial
-
-        number_of_bars = max(abs(self.quantities_accumulated))
+        
+        
+        number_of_bars = max(abs(self.quantities_accumulated[(x >= self.long_begins) & (x <= self.long_ends)]))
         is_positive_bar = self.areas_accumulated[0] > 0
 
         n, bar_in_the_left, row_number = 0, True, True
