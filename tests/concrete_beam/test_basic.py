@@ -26,20 +26,15 @@ def create_concrete_beam():
     bar2 = fc.BeamElement([n2, n3], section, material)
     bar3 = fc.BeamElement([n3, n4], section, material)
 
-    available_material = {
-        "concrete_long_steel_bars":fc.AvailableLongConcreteSteelBar(diameters=[8]),
-        "concrete_transv_steel_bars":fc.AvailableTransvConcreteSteelBar(diameters=[8]),
-    }
         
     beam = fc.ConcreteBeam(
         loads = [f1, f2, f3],
         beam_elements = [bar1, bar2, bar3],
         bar_steel_max_removal = 2,
-        available_material = available_material
     )
     return beam
     
 def test_create_concrete_beam():
     beam = create_concrete_beam()
-    assert beam.solve_structural() == None
+    assert beam.processing_time>0
     

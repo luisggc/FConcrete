@@ -49,9 +49,8 @@ class TransvSteelBarSolve():
         v_rd2 = self.getV_rd2(single_beam_element)
         check = max_shear <= v_rd2
         if check == False: raise Exception("Shear ({}kN) in x={} is greater or equal to maximum shear allowed ({}kN)".format(max_shear, max_shear_x, v_rd2))
+        d = single_beam_element.section.minimum_steel_height
         
-        section = single_beam_element.section
-        d = min(section.positive_steel_height, section.negative_steel_height)
         return v_rd2, d, max_shear
     
     def getV_rd2(self, single_beam_element):
@@ -60,8 +59,7 @@ class TransvSteelBarSolve():
         """
         fck = single_beam_element.material.fck
         bw = single_beam_element.section.bw
-        positive_steel_height, negative_steel_height = single_beam_element.section.positive_steel_height, single_beam_element.section.negative_steel_height
-        d = min(positive_steel_height, negative_steel_height)
+        d = single_beam_element.section.minimum_steel_height
         
         fcd = single_beam_element.material.fcd
         alpha_v2 = (1-fck/25)

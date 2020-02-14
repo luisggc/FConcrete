@@ -325,9 +325,8 @@ class ConcreteBeam(Beam):
         
         if options.get("solve_cost") != False:
             self.solve_cost()
-        
-        # d value is the initially with 0.8*height. This function check if initial guess is ok.
-        #self.checkRecalculationOfD()
+            # d value is the initially with 0.8*height. This function check if initial guess is ok.
+            self.checkRecalculationOfD()
         
         end = time.time()
         self.processing_time = end-start
@@ -503,7 +502,7 @@ class ConcreteBeam(Beam):
     def _checkInput(**inputs):
         nodes, beam_elements, section, material = inputs.get("nodes"), inputs.get("beam_elements"), inputs.get("section"), inputs.get("material")
         if nodes and section:
-            section.positive_steel_height, section.negative_steel_height, section.maximum_steel_height, section.minimum_steel_height  = 0.8*section.height, 0.8*section.height, 0.8*section.height, 0.8*section.height
+            section = fc.ConcreteSection.setSteelHeight(section)
             if len(nodes) == 1: raise Exception("Must contain at least 2 nodes to create a beam")
             beam_elements = []
             for i in range(0,len(nodes)-1):
@@ -511,12 +510,14 @@ class ConcreteBeam(Beam):
         elif beam_elements and section:
             beam_elements = BeamElements.create(beam_elements)
             beam_elements = beam_elements.changeProperty("material", lambda x:material)
-            section.positive_steel_height, section.negative_steel_height, section.maximum_steel_height, section.minimum_steel_height  = 0.8*section.height, 0.8*section.height, 0.8*section.height, 0.8*section.height
+            section = fc.ConcreteSection.setSteelHeight(section)
             beam_elements = beam_elements.changeProperty("section", lambda x:section)
         elif beam_elements:
             beam_elements_modified = []
             for beam_element in beam_elements:
-                beam_element.section.positive_steel_height, beam_element.section.negative_steel_height, beam_element.section.maximum_steel_height, beam_element.section.minimum_steel_height  = 0.8*beam_element.section.height, 0.8*beam_element.section.height, 0.8*beam_element.section.height, 0.8*beam_element.section.height
+                #.positive_steel_height, beam_element.section.negative_steel_height, beam_element.section.maximum_steel_height, beam_element.section.minimum_steel_height  = 0.8*beam_element.section.height, 0.8*beam_element.section.height, 0.8*beam_element.section.height, 0.8*beam_element.section.height
+                section = fc.ConcreteSection.setSteelHeight(beam_element.section)
+                beam_element.section = section
                 beam_elements_modified = [*beam_elements_modified, beam_element]
             beam_elements = beam_elements_modified
         
@@ -575,8 +576,68 @@ class ConcreteBeam(Beam):
     def solve_cost(self):
         self.cost, self.cost_table, self.subtotal_table = solve_cost(self)
         
-    #def checkRecalculationOfD(self):
+    def checkRecalculationOfD(self):
+        while True:
+            x_changes = np.concatenate((self.long_steel_bars.long_begins, self.long_steel_bars.long_ends))
+            x_changes = x_changes[np.isin(x_changes, self.beam_elements.nodes.x, invert=True)]
+            x_changes = np.unique(x_changes[(x_changes>=0) & (x_changes<=self.length)])
+
+            nodes_change = [ fc.Node.Crimp(x) for x in x_changes ]
+            new_nodes = fc.Nodes(np.concatenate((nodes_change, self.beam_elements.nodes)))
+            new_nodes = new_nodes[np.argsort(new_nodes.x)]
+
+            previous_ds_positive, previous_ds_negative, diff_positive, diff_negative = 0, 0, 0, 0
+            beam_elements = []
+
+            for i in range(0, len(new_nodes)-1):
+                current_x = new_nodes[i].x
+                next_x = new_nodes[i+1].x
+                middle_x = (current_x+next_x)/2
+
+                positive_bars, negative_bars = self.long_steel_bars.getPositiveandNegativeLongSteelBarsInX(x=middle_x)
+                positive_transversal_position, negative_transversal_position = positive_bars.getBarTransversalPosition(self, x=middle_x), negative_bars.getBarTransversalPosition(self, x=middle_x)
+
+                transversal_position = negative_transversal_position if len(positive_transversal_position)==0 else (
+                    positive_transversal_position if len(negative_transversal_position)==0 else np.concatenate((
+                        positive_transversal_position,
+                        negative_transversal_position
+                    ))
+                )
+
+                _, beam_element = self.getBeamElementInX(middle_x)
+                section, material = beam_element.section, beam_element.material
+                height = section.height
+
+                _, y, _, area = transversal_position.T
+
+                y_c_negative = (y[y >= (height/2)] @ area[y >= (height/2)])/sum(area[y >= (height/2)]) if sum(y >= (height/2)) else 0
+                y_c_positive = height - (y[y < (height/2)] @ area[y < (height/2)])/sum(area[y < (height/2)]) if sum(y < (height/2)) else 0
+
+                new_positive_steel_height, previous_positive_steel_height = (y_c_positive), section.positive_steel_height
+                new_negative_steel_height, previous_negative_steel_height = (y_c_negative), section.negative_steel_height
+
+                previous_ds_positive += 0 if new_positive_steel_height else previous_positive_steel_height
+                previous_ds_negative += 0 if new_negative_steel_height else previous_negative_steel_height
+                diff_positive += abs(previous_positive_steel_height-new_positive_steel_height if new_positive_steel_height else 0)
+                diff_negative += abs(previous_negative_steel_height-new_negative_steel_height if new_negative_steel_height else 0)
+
+                new_section = fc.Rectangle(section.width(), section.height)
+                new_section = fc.ConcreteSection.setSteelHeight(new_section, new_positive_steel_height, new_negative_steel_height)
+
+                new_beam_element = fc.BeamElement([new_nodes[i], new_nodes[i+1]], new_section, material)
+                beam_elements = [*beam_elements, new_beam_element]
             
-    
+            relative_positive_diff = diff_positive/previous_ds_positive if previous_ds_positive else 0
+            relative_negative_diff = diff_negative/previous_ds_negative if previous_ds_negative else 0
+            
+            if max(relative_positive_diff, relative_negative_diff) > self.max_relative_diff_of_steel_height:
+                self.beam_elements = fc.BeamElements(beam_elements)
+                self.solve_long_steel()
+                self.solve_transv_steel()
+                self.solve_ELS()
+                self.solve_cost()
+            else:
+                break
+            
     def __name__(self):
         return "ConcreteBeam"

@@ -23,6 +23,7 @@ class LongSteelBar():
         positive_steel_height, negative_steel_height = section.positive_steel_height, section.negative_steel_height
         if momentum==0: return 0
         d = positive_steel_height if momentum>0 else negative_steel_height
+        #print(momentum, positive_steel_height, negative_steel_height, d)
         kc = b*d**2/momentum
         if (kc<1.5 and kc>-1.5): raise Exception('Momentum too high to section')
         fyd = steel.fyd
@@ -144,23 +145,22 @@ class LongSteelBars():
         section = beam_element.section
         distance_from_border = material.c+transversal_beam.diameter
 
-
         if len(self.steel_bars) == 0: return []
-        
+
         transversal_positions = np.array([0,0,0,0])
         radius = max(abs(self.diameters))/2
         area = max(abs(self.areas))
-        
+
         horizontal_distance = max(2, 2*radius, 1.2*concrete_beam.available_concrete.biggest_aggregate_dimension)
         vertical_distance = max(2, 2*radius, 0.5*concrete_beam.available_concrete.biggest_aggregate_dimension)
 
         x0, y0 = section.x0, section.y0
         x0_left_initial, x0_right_initial = x0+distance_from_border, -x0-distance_from_border
         x0_left, x0_right = x0_left_initial, x0_right_initial
-        
-        
-        number_of_bars = max(abs(self.quantities_accumulated[(x >= self.long_begins) & (x <= self.long_ends)]))
-        is_positive_bar = self.areas_accumulated[0] > 0
+
+        part_of_interest = (x >= self.long_begins) & (x <= self.long_ends)
+        number_of_bars = max(abs(self.quantities_accumulated[part_of_interest]))
+        is_positive_bar = self.areas_accumulated[part_of_interest][0] > 0
 
         n, bar_in_the_left, row_number = 0, True, True
 
