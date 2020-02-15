@@ -53,12 +53,11 @@ Once the reports are created, we can see its information:
 
 .. ipython:: python
 
-    print(full_report)
+    full_report
 
     # We can see that the error column just have empty strings, so in this case no errors of combinations were found.
     # The solution (only without the errors) table is sorted by cost ascending, so the first one is the most economic solution.
-    
-    print(solution_report.dtype.names, "\n", solution_report[0])
+
 
 A alternative way to see the beast beam and its properties:
 

@@ -173,5 +173,20 @@ class TransvSteelBarSolve():
                     cost=cost)
             )
             x += space
-            
+        
+        # Add by the end of the beam
+        transversal_steel.add(
+                TransvSteelBar(
+                    x=self.concrete_beam.x_end,
+                    height=height-2*c,
+                    width=width-2*c,
+                    diameter=diameter,
+                    space_after=space,
+                    area=area,
+                    as_per_cm=as_per_cm,
+                    anchor = anchor,
+                    length=length,
+                    cost=cost)
+        )
+        
         return transversal_steel

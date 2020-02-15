@@ -18,6 +18,7 @@ Submodules
    fconcrete.StructuralConcrete.AvailableMaterials
    fconcrete.StructuralConcrete.Concrete
    fconcrete.StructuralConcrete.ConcreteBeam
+   fconcrete.StructuralConcrete.ConcreteSection
 
 Module contents
 ---------------

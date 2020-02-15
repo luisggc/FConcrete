@@ -47,12 +47,9 @@ class Analysis:
                 ...                                     height=(30, 34, 2),
                 ...                                     length=[150])
                 >>> # Table is sorted by cost ascending, so the first one is the most economic solution.
-                >>> solution_report.iloc[0]
-                [(15., 2., 150., 49.29967548, 4.24, 33.83, 11.23)]
                 >>> # Alternative way to look to the best solution
                 >> print(best_solution)
-                {'width': 15.0, 'height': 2.0, 'length': 150.0, 'cost': 49.299675481407036, 'Concrete': 4.24, 'Longitudinal bar': 33.83, 'Transversal bar': 11.23}
-            
+                {'width': 15.0, 'height': 30.0, 'length': 150.0, 'cost': 126.2650347902965, 'error': '', 'Concrete': 63.59, 'Longitudinal bar': 35.31, 'Transversal bar': 27.36}
             
             Parameters
             ----------
