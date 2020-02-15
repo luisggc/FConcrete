@@ -7,7 +7,7 @@ sphinx-build -v -b coverage . _build/coverage
 travis
 tox
 
-python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-twine upload dist/*
-
 clear;pytest -svv
+
+deploy:
+rm -rf ./dist && python3 setup.py sdist && twine upload dist/*

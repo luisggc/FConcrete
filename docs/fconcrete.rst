@@ -6,8 +6,8 @@ Subpackages
 
 .. toctree::
 
-   fconcrete.Structural
-   fconcrete.StructuralConcrete
+    fconcrete.Structural
+    fconcrete.StructuralConcrete
 
 Submodules
 ----------
@@ -23,6 +23,6 @@ Module contents
 ---------------
 
 .. automodule:: fconcrete
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -67,11 +67,11 @@ Features
 - Examples of tool usage (completion for optimized pre-dimensioning)
 - Program expense calculation function
 - Documentation
+- Dinamic calculation of d (steel height) when there is change of the expected steel position
 
 TODO
 ----
 
-- Dinamic calculation of d when there is change of the expected steel position
 - Check rupture (ELS)
 - Check minimum area on the support
 - Draw the beam
@@ -80,9 +80,6 @@ TODO
 - Plot longitudinal bars correctly when the height or position of the beam base changes.
 - Calculate the total length of the bar correctly when the height or position of the beam base changes.
 - Implement compression armor
-
-
-.. highlight:: shell
 
 
 Installation

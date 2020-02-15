@@ -6,8 +6,8 @@ Subpackages
 
 .. toctree::
 
-   fconcrete.StructuralConcrete.LongSteelBar
-   fconcrete.StructuralConcrete.TransvSteelBar
+    fconcrete.StructuralConcrete.LongSteelBar
+    fconcrete.StructuralConcrete.TransvSteelBar
 
 Submodules
 ----------
@@ -24,6 +24,6 @@ Module contents
 ---------------
 
 .. automodule:: fconcrete.StructuralConcrete
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
