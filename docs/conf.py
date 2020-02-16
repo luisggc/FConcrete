@@ -124,8 +124,11 @@ htmlhelp_basename = 'FConcretedoc'
 latex_elements = {
     'papersize': 'a4paper',
     'pointsize': '12pt',
-    'preamble': '',
     'figure_align': 'htbp',
+    'preamble': r'''\let\sphinxcodeORI\sphinxcode
+    \protected\def\sphinxcode #1%
+    {{\definecolor{OuterLinkColor}{rgb}{0,0,0}\sphinxcodeORI {\url{#1}}}}
+    ''',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
