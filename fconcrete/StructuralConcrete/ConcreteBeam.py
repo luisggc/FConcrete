@@ -383,7 +383,9 @@ class ConcreteBeam(Beam):
         """
         options["division"] = options["division"] if options.get("division") else self.division
         x, y = self.getConcreteDisplacementDiagram(**options)
-        plt.plot(x, y)
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        return fig, ax
             
     @staticmethod
     def _time_function_coefficient(t):
@@ -450,7 +452,9 @@ class ConcreteBeam(Beam):
                 
         """
         x, y = self.getShearDesignDiagram(**options)
-        plt.plot(x, y)
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        return fig, ax
     
     def plotTransversalInX(self, x):
         """
@@ -574,9 +578,15 @@ class ConcreteBeam(Beam):
         return beam_elements
     
     def solve_cost(self):
+        """
+            Starts the process of solution for the cost table.
+        """
         self.cost, self.cost_table, self.subtotal_table = solve_cost(self)
         
     def checkRecalculationOfD(self):
+        """
+            Recalculate all beam with the true value of steel height (d)
+        """
         while True:
             x_changes = np.concatenate((self.long_steel_bars.long_begins, self.long_steel_bars.long_ends))
             x_changes = x_changes[np.isin(x_changes, self.beam_elements.nodes.x, invert=True)]

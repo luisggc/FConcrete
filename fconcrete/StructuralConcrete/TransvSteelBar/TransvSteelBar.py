@@ -96,8 +96,10 @@ class TransvSteelBars():
         """
             Plot the longitudinal vision of the transversal bar.
         """
+        fig, ax = plt.subplots()
         for x, height in zip(self.x, self.heights):
-            plt.plot([x,x], [0,height])
+            ax.plot([x,x], [0,height])
+        return fig, ax
             
     def __getitem__(self, key):
         return self.steel_bars[key]

@@ -19,6 +19,9 @@ class LongSteelBar():
     
     @staticmethod
     def getSteelArea(section, material, steel, momentum):
+        """
+            Giving the section, material, type of steel and momentum, this funciton calculates the necessary steel area.
+        """
         b = section.width()
         positive_steel_height, negative_steel_height = section.positive_steel_height, section.negative_steel_height
         if momentum==0: return 0

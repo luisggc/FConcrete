@@ -499,9 +499,11 @@ class Beam:
                     End of the x_axis (`number`).
                 
         """
+        fig, ax = plt.subplots()
         x, y = self.getMomentumDiagram(**options)
         plt.gca().invert_yaxis()
-        plt.plot(x, y)
+        ax.plot(x, y)
+        return fig, ax
         
     def plotShearDiagram(self, **options):
         """
@@ -520,7 +522,9 @@ class Beam:
                 
         """
         x, y = self.getShearDiagram(**options)
-        plt.plot(x, y)
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        return fig, ax
         
     def plotDisplacementDiagram(self, **options):
         """
@@ -539,7 +543,9 @@ class Beam:
                 
         """
         x, y = self.getDisplacementDiagram(**options)
-        plt.plot(x, y)
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        return fig, ax
         
     def plotRotationDiagram(self, **options):
         """
@@ -558,7 +564,9 @@ class Beam:
                 
         """
         x, y = self.getRotationDiagram(**options)
-        plt.plot(x, y)
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        return fig, ax
     
     def __name__(self):
         return "Beam"

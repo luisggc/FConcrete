@@ -52,6 +52,7 @@ extensions = [
     'sphinx.ext.inheritance_diagram',
     'numpydoc',
     'sphinx.ext.intersphinx',
+    "rinoh.frontend.sphinx"
 ]
 
 

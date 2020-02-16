@@ -1,14 +1,19 @@
 from fconcrete.Structural.Section import Section
 
 class ConcreteSection(Section):
-    
+    """
+        Inject ConcreteSection properties to a generic Section.
+    """
+        
     @staticmethod
     def setSteelHeight(
         section,
         positive_steel_height = 0,
         negative_steel_height = 0
     ):
-        
+        """
+            Inject steel height (d) to the section.
+        """
         if (positive_steel_height == 0 and negative_steel_height==0):
             p, n = section.height*0.8, section.height*0.8
             minimum, maximum = min(p, n), max(p, n)

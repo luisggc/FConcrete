@@ -50,3 +50,10 @@ Plot transversal section:
 
     @savefig plotTransversalInX.png
     concrete_beam.plotTransversalInX(200)
+
+Also you can explore many informations related to the solution steps. Some examples:
+
+.. ipython:: python
+
+    @savefig plotDecalagedMomentumDesignDiagram.png
+    concrete_beam.long_steel_bars_solution_info.plotDecalagedMomentumDesignDiagram()

@@ -5,7 +5,7 @@ clear;make doctest
 doc:
 sphinx-apidoc -o . .. ../se* ../test* ../modules*  -f -e -d 100;make html
 sphinx-build -v -b coverage . _build/coverage
-make latexpdf
+sphinx-build -b rinoh . _build/rinoh
 
 deploy:
 rm -rf ./dist && python3 setup.py sdist && twine upload dist/*
