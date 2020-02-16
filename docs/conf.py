@@ -125,9 +125,9 @@ latex_elements = {
     'papersize': 'a4paper',
     'pointsize': '12pt',
     'figure_align': 'htbp',
-    'preamble': r'''\let\sphinxcodeORI\sphinxcode
-    \protected\def\sphinxcode #1%
-    {{\definecolor{OuterLinkColor}{rgb}{0,0,0}\sphinxcodeORI {\nolinkurl{#1}}}}
+    'preamble': r'''
+    \usepackage[draft]{minted}
+    \fvset{breaklines=true}
     ''',
 }
 
