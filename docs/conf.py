@@ -127,7 +127,7 @@ latex_elements = {
     'figure_align': 'htbp',
     'preamble': r'''\let\sphinxcodeORI\sphinxcode
     \protected\def\sphinxcode #1%
-    {{\definecolor{OuterLinkColor}{rgb}{0,0,0}\sphinxcodeORI {\url{#1}}}}
+    {{\definecolor{OuterLinkColor}{rgb}{0,0,0}\sphinxcodeORI {\nolinkurl{#1}}}}
     ''',
 }
 
