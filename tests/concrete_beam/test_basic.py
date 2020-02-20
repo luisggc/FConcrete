@@ -25,12 +25,12 @@ def create_concrete_beam():
     bar1 = fc.BeamElement([n1, n2], section, material)
     bar2 = fc.BeamElement([n2, n3], section, material)
     bar3 = fc.BeamElement([n3, n4], section, material)
-
         
     beam = fc.ConcreteBeam(
         loads = [f1, f2, f3],
         beam_elements = [bar1, bar2, bar3],
         bar_steel_max_removal = 2,
+        consider_own_weight = False
     )
     return beam
     

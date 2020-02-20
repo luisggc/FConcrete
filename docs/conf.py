@@ -52,9 +52,8 @@ extensions = [
     'sphinx.ext.inheritance_diagram',
     'numpydoc',
     'sphinx.ext.intersphinx',
-    "rinoh.frontend.sphinx"
+    "rinoh.frontend.sphinx",
 ]
-
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -126,9 +125,9 @@ latex_elements = {
     'papersize': 'a4paper',
     'pointsize': '12pt',
     'figure_align': 'htbp',
-    'preamble': r'''
-    \usepackage[draft]{minted}
-    \fvset{breaklines=true}
+    'preamble': r'''\let\sphinxcodeORI\sphinxcode
+    \protected\def\sphinxcode #1%
+    {{\definecolor{OuterLinkColor}{rgb}{0,0,0}\sphinxcodeORI {\nolinkurl{#1}}}}
     ''',
 }
 
@@ -139,7 +138,6 @@ latex_documents = [
     (master_doc, 'FConcrete.tex', 'FConcrete Documentation',
      'Luis Coimbra', 'manual'),
 ]
-
 
 # -- Options for manual page output ------------------------------------------
 
@@ -218,7 +216,8 @@ concrete_beam = fc.ConcreteBeam(
     loads = [f1],
     nodes = [n1, n2],
     section = fc.Rectangle(30,80),
-    division = 200
+    division = 200,
+    consider_own_weight = False
 )
 '''
 
