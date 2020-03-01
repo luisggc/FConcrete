@@ -22,17 +22,15 @@ Usage examples `here`_.
 * Free software: MIT license
 * Documentation: https://fconcrete.readthedocs.io.
 
-.. warning::
-    This is a project in a alpha version. Much testing is needed yet.
-    **Do not use on your real life projects.**
+Warning: This is a project in a alpha version. Much testing is needed yet. **Do not use on your real life projects.**
 
 A Quick Introduction
 --------------------
 
 FConcrete is a python package to calculate the steel bars (longitudinal and transversal) with less material cost as possible and in a human friendy way (see default configs)::
 
-        n1 = fc.Node.SimpleSupport(x=0, length=20)
-        n2 = fc.Node.SimpleSupport(x=400, length=20)
+        n1 = fc.Node.SimpleSupport(x=0)
+        n2 = fc.Node.SimpleSupport(x=400)
         f1 = fc.Load.UniformDistributedLoad(-0.3, x_begin=0, x_end=400)
 
         concrete_beam = fc.ConcreteBeam(
@@ -42,13 +40,13 @@ FConcrete is a python package to calculate the steel bars (longitudinal and tran
                 division = 200
         )
 
-It also conts with a `Analysis Class`_ that can help you to get the best retangular section for your beam.
+It is also implemented a `Analysis Class`_ that can help you to get the best retangular section for your beam.
 As you can see on the documentations, by the default all units are in cm, kN or combination of both.
 
 Features
 --------
 
-- Define input parameters: available materials, prices, geometry definition, loads, cover, fck
+- Define input parameters: available materials, cost, geometry definition, loads, fck, etc
 - Calculation of efforts at any point
 - Moment diagram decalaged
 - Section balance and calculation of the required steel area
