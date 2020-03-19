@@ -1,7 +1,7 @@
 from fconcrete.Structural.Beam import Beam
 from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar, AvailableConcrete
 from fconcrete.Structural.BeamElement import BeamElement, BeamElements
-from fconcrete.helpers import timeit
+from fconcrete.helpers import timeit, make_dxf
 import fconcrete as fc
 import numpy as np
 import matplotlib.pyplot as plt
@@ -390,9 +390,9 @@ class ConcreteBeam(Beam):
         """
         options["division"] = options["division"] if options.get("division") else self.division
         x, y = self.getConcreteDisplacementDiagram(**options)
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         ax.plot(x, y)
-        return fig, ax
+        return make_dxf(ax, **options)
             
     @staticmethod
     def _time_function_coefficient(t):
@@ -459,11 +459,11 @@ class ConcreteBeam(Beam):
                 
         """
         x, y = self.getShearDesignDiagram(**options)
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         ax.plot(x, y)
-        return fig, ax
+        return make_dxf(ax, **options)
     
-    def plotTransversalInX(self, x):
+    def plotTransversalInX(self, x, **options):
         """
             Plot an image of the transversal section with the longitudinal and transversal steel.
 
@@ -486,11 +486,11 @@ class ConcreteBeam(Beam):
         _, beam_element = self.getBeamElementInX(x)
         material, section = beam_element.material, beam_element.section
         
-        fig, ax = section.plot()
-        fig, ax = transversal_bar.plot(fig=fig, ax=ax, c=material.c)
-        fig, ax = positive_bars.plotTransversal(self, x, fig=fig, ax=ax)
-        fig, ax = negative_bars.plotTransversal(self, x, fig=fig, ax=ax)
-        return fig, ax
+        ax, _ = section.plot()
+        ax, _ = transversal_bar.plot(ax=ax, c=material.c)
+        ax, _ = positive_bars.plotTransversal(self, x, ax=ax)
+        ax, _ = negative_bars.plotTransversal(self, x, ax=ax)
+        return make_dxf(ax, **options)
 
     def solve_transv_steel(self):
         """

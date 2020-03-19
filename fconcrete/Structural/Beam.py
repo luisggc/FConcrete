@@ -1,12 +1,13 @@
 from fconcrete.Structural.BeamElement import BeamElement, BeamElements
 from fconcrete.Structural.Load import Load, Loads
 from fconcrete.Structural.Node import Nodes
-from fconcrete.helpers import cond
+from fconcrete.helpers import cond, make_dxf, getAxis
 from fconcrete.config import e
 import copy
 import numpy as np
 import warnings
 import matplotlib.pyplot as plt
+
 
 class Beam:
     """
@@ -475,7 +476,7 @@ class Beam:
         """
         return self._createDiagram(self.getRotation, **options)
     
-    def _createDiagram(self, function, division=1000, x_begin="begin", x_end="end"):
+    def _createDiagram(self, function, division=1000, x_begin="begin", x_end="end", **options):
         x_begin = self.x_begin+e if x_begin=="begin" else x_begin
         x_end = self.x_end-e if x_end=="end" else x_end
         x = np.linspace(x_begin, x_end, division)
@@ -499,11 +500,11 @@ class Beam:
                     End of the x_axis (`number`).
                 
         """
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         x, y = self.getMomentumDiagram(**options)
         plt.gca().invert_yaxis()
         ax.plot(x, y)
-        return fig, ax
+        return make_dxf(ax, **options)
         
     def plotShearDiagram(self, **options):
         """
@@ -522,9 +523,9 @@ class Beam:
                 
         """
         x, y = self.getShearDiagram(**options)
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         ax.plot(x, y)
-        return fig, ax
+        return make_dxf(ax, **options)
         
     def plotDisplacementDiagram(self, **options):
         """
@@ -543,9 +544,9 @@ class Beam:
                 
         """
         x, y = self.getDisplacementDiagram(**options)
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         ax.plot(x, y)
-        return fig, ax
+        return make_dxf(ax, **options)
         
     def plotRotationDiagram(self, **options):
         """
@@ -564,10 +565,34 @@ class Beam:
                 
         """
         x, y = self.getRotationDiagram(**options)
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         ax.plot(x, y)
-        return fig, ax
+        return make_dxf(ax, **options)
     
+    def plot(self, column_height=30, beam_color="b", **options):
+        _, ax = getAxis()
+
+        first_beam_element = self.beam_elements[0]
+        last_beam_element = self.beam_elements[-1]
+        ax.plot([first_beam_element.n1.x, first_beam_element.n1.x], [first_beam_element.section.y0, first_beam_element.section.y0+first_beam_element.section.height], color=beam_color)
+        ax.plot([last_beam_element.n2.x, last_beam_element.n2.x], [last_beam_element.section.y0, last_beam_element.section.y0+last_beam_element.section.height], color=beam_color)
+
+        # print beam
+        for beam_number, beam_element in enumerate(self.beam_elements):
+            positions = [beam_element.n1.x, beam_element.n2.x]
+            ax.plot(positions, np.repeat(beam_element.section.y0,2), color=beam_color)
+            ax.plot(positions, np.repeat(beam_element.section.y0+beam_element.section.height,2), color=beam_color)
+            if beam_number+1 != len(self.beam_elements):
+                ax.plot([beam_element.n2.x, beam_element.n2.x], [beam_element.section.y0+beam_element.section.height, self.beam_elements[beam_number+1].section.y0+self.beam_elements[beam_number+1].section.height], color=beam_color)
+
+        # print column
+        for node in self.initial_beam_elements.nodes:
+            if node.length != 0:
+                ax.plot((node.x-node.length/2, node.x-node.length/2), (0, -column_height), color=beam_color)
+                ax.plot((node.x+node.length/2, node.x+node.length/2), (0, -column_height), color=beam_color)
+                
+        return make_dxf(ax, **options)
+
     def __name__(self):
         return "Beam"
     

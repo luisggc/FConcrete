@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
-from fconcrete.helpers import getAxis
+from fconcrete.helpers import getAxis, make_dxf
 
 class TransvSteelBar():
     def __init__(self, x, height, width, diameter, space_after, area, as_per_cm, anchor, length, cost):
@@ -19,7 +19,7 @@ class TransvSteelBar():
     def __repr__(self):
         return str(self.__dict__)+'\n'
     
-    def plot(self, c=2, ax=None, fig=None, color_plot="blue"):
+    def plot(self, c=2, ax=None, fig=None, color_plot="blue", **options):
         """
             Plot the transversal vision of the transversal bar.
         """
@@ -40,7 +40,7 @@ class TransvSteelBar():
         ax.add_artist(bottom_bar)
         ax.add_artist(anchor)
 
-        return fig, ax # if return_ax else None
+        return make_dxf(ax, **options) # if return_ax else None
         
 
 class TransvSteelBars():
@@ -92,14 +92,14 @@ class TransvSteelBars():
                 setattr(previous_steel_bar, prop, function(current_attribute_value)) 
         return steel_bars
 
-    def plotLong(self):
+    def plotLong(self, **options):
         """
             Plot the longitudinal vision of the transversal bar.
         """
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         for x, height in zip(self.x, self.heights):
             ax.plot([x,x], [0,height])
-        return fig, ax
+        return make_dxf(ax, **options)
             
     def __getitem__(self, key):
         return self.steel_bars[key]

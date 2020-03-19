@@ -101,7 +101,7 @@ you through the process.
 Credits
 -------
 
-Most of vectorized calculus made with Numpy_, unit conversion with Pint_, all plots with Matplotlib_, minor functions with Scipy_, 
+Most of vectorized calculus made with Numpy_, unit conversion with Pint_, all plots with Matplotlib_ (export to dxf with ezdxf_), minor functions with Scipy_, 
 docs made with the help of Sphinx_ and Numpydoc_, analysis table with Pandas_,  
 this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
@@ -114,5 +114,6 @@ this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Scipy: https://github.com/scipy/scipy
 .. _Sphinx: https://github.com/sphinx-doc/sphinx
 .. _Pandas: https://github.com/pandas-dev/pandas
+.. _ezdxf: https://github.com/mozman/ezdxf
 .. _`here`: https://fconcrete.readthedocs.io/en/latest/usage.html
 .. _`Analysis Class`: https://fconcrete.readthedocs.io/en/latest/fconcrete.StructuralConcrete.Analysis.html

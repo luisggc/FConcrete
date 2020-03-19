@@ -2,6 +2,7 @@ import numpy as np
 from fconcrete import config as c
 import matplotlib.pyplot as plt
 import time
+import ezdxf
 
 _Q = c._Q
 
@@ -109,3 +110,36 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     # Print New Line on Complete
     if iteration == total: 
         print()
+        
+def make_dxf(ax, **options):
+    
+    msp = options["msp"] if options.get("msp") else False
+    scale_y = options["scale_y"] if options.get("scale_y") else 1
+    scale_x = options["scale_x"] if options.get("scale_x") else 1
+    xy_position = options["xy_position"] if options.get("xy_position") else (0,0)
+    
+    if msp == False:
+        doc = ezdxf.new('AC1032')
+        msp = doc.modelspace()
+        
+    for element in ax.get_children():
+        element_type = str(type(element))
+        if element_type == "<class 'matplotlib.lines.Line2D'>":
+            xy_data = element.get_xydata()
+            xy_data[:, 1] = xy_data[:, 1]*scale_y
+            xy_data[:, 0] = xy_data[:, 0]*scale_x
+            points = xy_data[np.invert(np.isnan(xy_data[:, 1]))]+xy_position
+            msp.add_lwpolyline(points)
+        elif element_type == "<class 'matplotlib.patches.Rectangle'>":
+            #p1, p2 = element.get_bbox().get_points()
+            points = element.get_patch_transform().transform(element.get_path().vertices[:-1]) #np.array([p1, [p1[0], p2[1]], p2, [p2[0], p1[1]], p1])
+            points = np.array([*points, points[0]])+xy_position
+            msp.add_lwpolyline(points)
+            if element.get_hatch():
+                hatch = msp.add_hatch()
+                hatch.set_pattern_fill('ANSI31', scale=0.5, angle=element.angle)
+                hatch.paths.add_polyline_path(points, is_closed=1)
+        elif element_type == "<class 'matplotlib.patches.Circle'>":
+            msp.add_circle(np.array(element.center)+xy_position, element.radius)
+    
+    return ax, msp

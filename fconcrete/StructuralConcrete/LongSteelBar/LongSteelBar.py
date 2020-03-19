@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
-from fconcrete.helpers import getAxis
+from fconcrete.helpers import getAxis, make_dxf
 
 class LongSteelBar():
     def __init__(self, long_begin, long_end, quantity, quantity_accumulated, diameter, area, area_accumulated, fyd, interspace, length, cost):
@@ -51,12 +51,12 @@ class LongSteelBar():
         return A_min, A_max
     
         
-    def plot(self,prop='area_accumulated'):
+    def getPlotInfo(self,prop='area_accumulated'):
         """
             Plot the Long Steel Bar giving the property.
         """
         y = getattr(self, prop)
-        plt.plot([self.long_begin, self.long_end], [y,y])
+        return ([self.long_begin, self.long_end]), ([y,y])
     
     def __repr__(self):
         return str(self.__dict__)+'\n'
@@ -195,7 +195,7 @@ class LongSteelBars():
         return transversal_positions[1:]
 
 
-    def plotTransversal(self, concrete_beam, x, ax=None, fig=None, color_plot="red"):
+    def plotTransversal(self, concrete_beam, x, ax=None, fig=None, color_plot="red", **options):
         """
             Plot the transversal vision of the longitudinal bars.
         """
@@ -205,19 +205,33 @@ class LongSteelBars():
             circle = plt.Circle((long_bar[0], long_bar[1]), long_bar[2])
             ax.add_artist(circle)
             
-        return fig, ax # if return_ax else None
+        return make_dxf(ax, **options) # if return_ax else None
         
     
-    def plot(self,prop='area_accumulated'):
+    def plot(self,prop='area_accumulated', **options):
         """
             Plot the lonfitudinal vision of the longitudinal bars.
         """
+        _, ax = getAxis()
+        ax.set_aspect("auto")
+        
         if prop=='area_accumulated':
             plt.gca().invert_yaxis()
-            
+         
+        #xs, ys = [], []   
         for steelbar in self.steel_bars:
-            steelbar.plot(prop)
-    
+            x, y = steelbar.getPlotInfo(prop)
+            ax.plot(x, y)
+            #xs, ys = [*xs, x[np.invert(np.nan(x))]], [*ys, y[np.invert(np.nan(y))]]
+        
+        #min_y = min(ys)
+        #for x, y in zip(xs, ys):
+        #    min_y += space_between_bars
+        #    ax.plot(x, min_y)
+            
+        return make_dxf(ax, **options)
+
+        
     def __getitem__(self, key):
         return self.steel_bars[key]
     

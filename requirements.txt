@@ -6,3 +6,4 @@ ipython
 numpydoc
 pandas
 rinohtype
+ezdxf

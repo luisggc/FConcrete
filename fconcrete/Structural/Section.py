@@ -1,4 +1,4 @@
-from fconcrete.helpers import cond, integrate, to_unit
+from fconcrete.helpers import cond, integrate, to_unit, make_dxf
 import numpy as np
 import matplotlib.pyplot as plt
 from fconcrete.helpers import getAxis
@@ -62,7 +62,7 @@ class Section():
     def _I(self):
         raise NotImplementedError
         
-    def plot(self, N=100, color_plot="red", ax=None, fig=None):
+    def plot(self, N=100, color_plot="red", ax=None, fig=None, **options):
         """
             Plot the section.
         """
@@ -80,7 +80,7 @@ class Section():
         ax.plot(x_base,np.zeros(len(y)), color=color_plot) # plot base
         ax.plot(x_top,height*np.ones(len(y)), color=color_plot) # plot top
         
-        return fig, ax
+        return make_dxf(ax, **options)
     
     
 class Rectangle(Section):

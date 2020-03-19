@@ -3,8 +3,7 @@ from .LongSteelBar import LongSteelBar, LongSteelBars
 import warnings
 from scipy.signal import find_peaks
 from math import radians, sin, tan
-from fconcrete.helpers import timeit
-from fconcrete.helpers import getAxis
+from fconcrete.helpers import timeit, make_dxf, getAxis
 import matplotlib.pyplot as plt
 
 class LongSteelBarSolve():
@@ -69,15 +68,17 @@ class LongSteelBarSolve():
         
         return x_decalaged, self.concrete_beam.design_factor*momentum_positive, self.concrete_beam.design_factor*momentum_negative
     
-    def plotDecalagedMomentumDesignDiagram(self, ax=None, fig=None, **options_diagram):
+    def plotDecalagedMomentumDesignDiagram(self, ax=None, fig=None, **options):
         """
             Plot DecalagedMomentumDesignDiagram.
         """
-        fig, ax = plt.subplots()
-        x, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(*options_diagram)
+        fig, ax = getAxis() if ax == None else (fig, ax)
+        
+        x, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options)
         ax.plot(x, momentum_positive)
         ax.plot(x, momentum_negative)
-        return fig, ax
+        plt.gca().invert_yaxis()
+        return make_dxf(ax, **options)
     
     def __decalageds_x_axis(self, x):
         decalaged_x_left = np.array([])
