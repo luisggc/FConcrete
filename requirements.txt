@@ -7,3 +7,4 @@ numpydoc
 pandas
 rinohtype
 ezdxf
+pygments
