@@ -11,6 +11,7 @@ Click==7.0
 PyYAML
 pytest
 cryptography
+rinohtype
 cookiecutter
 pytest-cookies
 alabaster

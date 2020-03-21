@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 from fconcrete.StructuralConcrete.AvailableMaterials import solve_cost
+import datetime
 
 class ConcreteBeam(Beam):
     """
@@ -660,6 +661,66 @@ class ConcreteBeam(Beam):
                 self.solve_cost()
             else:
                 break
-            
+    
+    def saveas(self,
+               file_name=False,
+               column_height = 30,
+               gap = 50,
+               scale_y_long_bar = 10,
+               transversal_plot_positions=[]
+               ):
+        """
+            Save all essential plots to a dxf file.
+        """
+        file_name = datetime.datetime.now().strftime("%d-%m-%Y %H-%m-%S") if file_name == False else file_name
+        max_height = max([ section.height for section in self.beam_elements.sections ])
+
+        # Positive Long bar draw
+        positive_long_steel_bar = fc.LongSteelBars(self.long_steel_bars[self.long_steel_bars.areas > 0])
+        start_y_bottom = -max(positive_long_steel_bar.areas)*scale_y_long_bar - 2*gap - max_height
+        _, msp = self.long_steel_bars.plot(scale_y=scale_y_long_bar, xy_position=(0,start_y_bottom))
+
+        # Plot transversal bars
+        start_y = gap + max_height
+        _, msp = self.transv_steel_bars.plotLong(msp=msp, xy_position=(0,-start_y))
+
+        # Beam draw
+        max_height = max([ section.height for section in self.beam_elements.sections ])
+        start_y = column_height
+        _, msp = self.plot(msp=msp, column_height=column_height, xy_position=(0,start_y))
+
+        # Negative Long Bar draw
+        negative_long_steel_bar = fc.LongSteelBars(self.long_steel_bars[self.long_steel_bars.areas < 0])
+        start_y += max_height + max(abs(negative_long_steel_bar.areas))*scale_y_long_bar + gap
+        _, msp = negative_long_steel_bar.plot(msp=msp, scale_y=scale_y_long_bar, xy_position=(0,start_y))
+
+
+        # Momentum decalaged draw
+        x, mm, mn = self.long_steel_bars_solution_info.getDecalagedMomentumDesignDiagram()
+        mm, mn = mm[np.invert(np.isnan(mm))], mn[np.invert(np.isnan(mn))]
+        minimum_momentum, maximum_momentum = abs(min(min(mn), min(mm), 0)), abs(max(max(mn), max(mm), 0))
+        start_y += minimum_momentum + gap
+
+        _, msp = self.long_steel_bars_solution_info.plotDecalagedMomentumDesignDiagram(msp=msp, xy_position=(0,start_y))
+
+        # Shear draw
+
+        #x, sd = self.getShearDesignDiagram()
+        #minimum_shear, maximum_shear = abs(min(min(sd), min(sd), 0)), abs(max(max(sd), max(sd), 0))
+        start_y += maximum_momentum + gap
+        ax, msp = self.plotShearDesignDiagram(msp=msp, xy_position=(0,start_y))
+
+        transversal_x = self.length
+        for position in transversal_plot_positions:
+            transversal_x += gap + self.getBeamElementInX(position)[1].section.width(0)
+            ax, msp = self.plotTransversalInX(position, msp=msp, xy_position=(transversal_x, 0))
+
+        viewport_height = start_y+abs(start_y_bottom)
+        msp.doc.set_modelspace_vport(height=viewport_height, center=(transversal_x/2, start_y_bottom+viewport_height/2))
+
+        msp.doc.saveas("FConcrete Draw {}.dxf".format(file_name))
+
+        return ax, msp
+    
     def __name__(self):
         return "ConcreteBeam"

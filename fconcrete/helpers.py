@@ -112,7 +112,10 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
         print()
         
 def make_dxf(ax, **options):
-    
+    """
+        Matplotlib graph to modelspace (preparation to dxf).
+        Returns ax and msp.
+    """
     msp = options["msp"] if options.get("msp") else False
     scale_y = options["scale_y"] if options.get("scale_y") else 1
     scale_x = options["scale_x"] if options.get("scale_x") else 1
@@ -120,6 +123,7 @@ def make_dxf(ax, **options):
     
     if msp == False:
         doc = ezdxf.new('AC1032')
+        doc.header['$INSUNITS'] = 5
         msp = doc.modelspace()
         
     for element in ax.get_children():

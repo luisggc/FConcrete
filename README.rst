@@ -46,6 +46,7 @@ As you can see on the documentations, by the default all units are in cm, kN or 
 Features
 --------
 
+- Export plots to dxf
 - Define input parameters: available materials, cost, geometry definition, loads, fck, etc
 - Calculation of efforts at any point
 - Moment diagram decalaged
