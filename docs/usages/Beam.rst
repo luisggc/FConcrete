@@ -52,3 +52,11 @@ If you only want to get the values, but not to plot. You can use the "get" inste
     x, displacement = beam.getDisplacementDiagram()
     print(x[0:10])
     print(displacement[0:10])
+
+
+Plot of the beam:
+
+.. ipython:: python
+
+    @savefig plotBeam.png
+    beam.plot()

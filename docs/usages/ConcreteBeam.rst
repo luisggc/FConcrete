@@ -57,3 +57,9 @@ Also you can explore many informations related to the solution steps. Some examp
 
     @savefig plotDecalagedMomentumDesignDiagram.png
     concrete_beam.long_steel_bars_solution_info.plotDecalagedMomentumDesignDiagram()
+
+You can also plot and save all the plots in a dxf file:
+
+.. ipython:: python
+
+    concrete_beam.saveas(file_name="ConcreteBeam Ploted", transversal_plot_positions=[10, 200])

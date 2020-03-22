@@ -677,7 +677,7 @@ class ConcreteBeam(Beam):
 
         # Positive Long bar draw
         positive_long_steel_bar = fc.LongSteelBars(self.long_steel_bars[self.long_steel_bars.areas > 0])
-        start_y_bottom = -max(positive_long_steel_bar.areas)*scale_y_long_bar - 2*gap - max_height
+        start_y_bottom = -abs(positive_long_steel_bar.areas).max(initial=0)*scale_y_long_bar - 2*gap - max_height
         _, msp = self.long_steel_bars.plot(scale_y=scale_y_long_bar, xy_position=(0,start_y_bottom))
 
         # Plot transversal bars
@@ -691,14 +691,13 @@ class ConcreteBeam(Beam):
 
         # Negative Long Bar draw
         negative_long_steel_bar = fc.LongSteelBars(self.long_steel_bars[self.long_steel_bars.areas < 0])
-        start_y += max_height + max(abs(negative_long_steel_bar.areas))*scale_y_long_bar + gap
+        start_y += max_height + abs(negative_long_steel_bar.areas).max(initial=0)*scale_y_long_bar + gap
         _, msp = negative_long_steel_bar.plot(msp=msp, scale_y=scale_y_long_bar, xy_position=(0,start_y))
 
-
         # Momentum decalaged draw
-        x, mm, mn = self.long_steel_bars_solution_info.getDecalagedMomentumDesignDiagram()
+        _, mm, mn = self.long_steel_bars_solution_info.getDecalagedMomentumDesignDiagram()
         mm, mn = mm[np.invert(np.isnan(mm))], mn[np.invert(np.isnan(mn))]
-        minimum_momentum, maximum_momentum = abs(min(min(mn), min(mm), 0)), abs(max(max(mn), max(mm), 0))
+        minimum_momentum, maximum_momentum = abs(min(mn.min(initial=0), mm.min(initial=0), 0)), abs(max(mn.max(initial=0), mm.max(initial=0), 0))
         start_y += minimum_momentum + gap
 
         _, msp = self.long_steel_bars_solution_info.plotDecalagedMomentumDesignDiagram(msp=msp, xy_position=(0,start_y))

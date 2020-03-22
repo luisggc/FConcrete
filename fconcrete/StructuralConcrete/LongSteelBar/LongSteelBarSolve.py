@@ -73,6 +73,7 @@ class LongSteelBarSolve():
             Plot DecalagedMomentumDesignDiagram.
         """
         fig, ax = getAxis() if ax == None else (fig, ax)
+        ax.set_aspect("auto")
         
         x, momentum_positive, momentum_negative = self.getDecalagedMomentumDesignDiagram(**options)
         ax.plot(x, momentum_positive)
