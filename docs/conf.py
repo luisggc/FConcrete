@@ -53,6 +53,7 @@ extensions = [
     'numpydoc',
     'sphinx.ext.intersphinx',
     "rinoh.frontend.sphinx",
+    'sphinx_copybutton'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
