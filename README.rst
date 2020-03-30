@@ -67,13 +67,13 @@ Features
 - Program expense calculation function
 - Documentation
 - Dinamic calculation of d (steel height) when there is change of the expected steel position
+- API to easy connection
 
 TODO
 ----
 
 - Check rupture (ELS)
 - Check minimum area on the support
-- Draw the beam
 - Correct displacement value when there is variation of E * I along the beam
 - Plot correctly when stirrups are not vertical
 - Plot longitudinal bars correctly when the height or position of the beam base changes.
