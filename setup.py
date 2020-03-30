@@ -10,7 +10,15 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0',
+                'pint==0.11',
+                'numpy==1.18.2',
+                'scipy==1.4.1',
+                'matplotlib==3.2.1',
+                'ipython==7.13.0',
+                'pandas==1.0.3',
+                'ezdxf==0.11.1'
+                ]
 
 setup_requirements = [ ]
 
@@ -48,6 +56,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/luisggc/fconcrete',
-    version='0.1.1.2',
+    version='0.1.1.3',
     zip_safe=False,
 )

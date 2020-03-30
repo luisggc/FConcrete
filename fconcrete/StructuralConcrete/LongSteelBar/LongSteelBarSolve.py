@@ -136,7 +136,7 @@ class LongSteelBarSolve():
                     concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(x)
 
                 >>> concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(300)
-                (2.76, 19.2)
+                (2.760000000000001, 19.2)
                 
             Parameters
             ----------

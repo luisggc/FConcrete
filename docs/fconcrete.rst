@@ -14,6 +14,7 @@ Submodules
 
 .. toctree::
 
+   fconcrete.API
    fconcrete.cli
    fconcrete.config
    fconcrete.fconcrete
