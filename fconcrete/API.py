@@ -10,15 +10,8 @@ class API:
         try:
             concrete_beam_data = json.loads(income_text)["ConcreteBeam"]
             if concrete_beam_data:
-                nodes = [getattr(fc.Node, node["type"])(x=node["x"], length=node["length"]) for node in concrete_beam_data["nodes"]]
-                
-                def getLoad(load_dict):
-                    if load_dict["type"] == "UniformDistributedLoad":
-                        return fc.Load.UniformDistributedLoad(x_begin=load_dict["x_begin"], x_end=load_dict["x_end"], q=load_dict["q"])
-                    if load_dict["type"] == "PontualLoad":
-                        return fc.Load.PontualLoad(x=load_dict["x"], load=load_dict["load"])
-                    
-                loads = [getLoad(load) for load in concrete_beam_data["loads"]]
+                nodes = [self.getNode(node) for node in concrete_beam_data["nodes"]]
+                loads = [self.getLoad(load) for load in concrete_beam_data["loads"]]
                 width, height = concrete_beam_data["section"]["width"], concrete_beam_data["section"]["height"]
                 other_parameters = { k:v for (k, v) in concrete_beam_data.items() if not k in ["nodes", "loads", "section"]}
                 
@@ -33,6 +26,18 @@ class API:
             error = str(excep)
             self.status = error
             
+    @staticmethod
+    def getNode(noad_dict):
+        if noad_dict["type"] == "Free" :
+            return getattr(fc.Node, noad_dict["type"])(x=noad_dict["x"])
+        return getattr(fc.Node, noad_dict["type"])(x=noad_dict["x"], length=noad_dict["length"])
+        
+    @staticmethod
+    def getLoad(load_dict):
+            if load_dict["type"] == "UniformDistributedLoad":
+                return fc.Load.UniformDistributedLoad(x_begin=load_dict["x_begin"], x_end=load_dict["x_end"], q=load_dict["q"])
+            if load_dict["type"] == "PontualLoad":
+                return fc.Load.PontualLoad(x=load_dict["x"], load=load_dict["load"])
             
     def __repr__(self):
         return self.income_text
