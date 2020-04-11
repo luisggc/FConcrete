@@ -3,6 +3,7 @@ from fconcrete import config as c
 import matplotlib.pyplot as plt
 import time
 import ezdxf
+import pandas as pd
 
 _Q = c._Q
 
@@ -147,3 +148,9 @@ def make_dxf(ax, **options):
             msp.add_circle(np.array(element.center)+xy_position, element.radius)
     
     return ax, msp
+
+def to_pandas(array_table):
+    df_table = pd.DataFrame(array_table)
+    df_table.columns = df_table.iloc[0]
+    df_table = df_table.drop(df_table.index[0])
+    return df_table

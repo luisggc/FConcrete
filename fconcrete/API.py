@@ -9,6 +9,19 @@ class API:
         self.status = "OK"
         try:
             concrete_beam_data = json.loads(income_text)["ConcreteBeam"]
+            
+            to_function = {
+                "available_concrete": fc.AvailableConcrete,
+                "available_long_steel_bars": fc.AvailableLongConcreteSteelBar,
+                "available_transv_steel_bars": fc.AvailableTransvConcreteSteelBar
+            }
+
+            to_list = ["available_long_steel_bars_diameters", "available_transv_steel_bars_diameters"]
+
+            for arg, func in to_function.items():
+                available_concrete_dict = { k[len(arg)+1:]:([v] if (k in to_list and type(v) != list) else v) for k,v in concrete_beam_data.items() if arg in k }
+                concrete_beam_data = {**concrete_beam_data, **{arg: func(**available_concrete_dict)}}
+
             if concrete_beam_data:
                 nodes = [self.getNode(node) for node in concrete_beam_data["nodes"]]
                 loads = [self.getLoad(load) for load in concrete_beam_data["loads"]]

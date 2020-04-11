@@ -96,5 +96,7 @@ class Concrete(Material):
         self.fctd = to_unit(fctd, "MPa", "kN/cm**2")
         self.c = c
         self.wk = wk
+        self.aggressiveness = aggressiveness
+        self.aggregate = aggregate
         
         Material.__init__(self, E_cs, 0.2, 10**(-5))

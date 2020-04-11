@@ -19,7 +19,7 @@ class AvailableLongConcreteSteelBar:
         - Surface type is ribbed.
     """
     def __init__(self,
-                 diameters=[6.3, 8, 10, 12.5, 16, 20, 25, 32],
+                 diameters=[8],
                  diameters_to_area={
                         6.3: 0.315,
                         8: 0.5,
@@ -118,7 +118,7 @@ class AvailableTransvConcreteSteelBar:
         - Tilt angle of compression struts of 45 degrees.
     """
     def __init__(self,
-                 diameters=[6.3, 8, 10, 12.5, 16, 20, 25, 32],
+                 diameters=[8],
                  diameters_to_area={
                         6.3: 0.315,
                         8: 0.5,

@@ -1,7 +1,7 @@
 from fconcrete.Structural.Beam import Beam
 from fconcrete.StructuralConcrete import AvailableLongConcreteSteelBar, AvailableTransvConcreteSteelBar, AvailableConcrete
 from fconcrete.Structural.BeamElement import BeamElement, BeamElements
-from fconcrete.helpers import timeit, make_dxf
+from fconcrete.helpers import timeit, make_dxf, to_pandas
 import fconcrete as fc
 import numpy as np
 import matplotlib.pyplot as plt
@@ -138,12 +138,12 @@ class ConcreteBeam(Beam):
                  nodes=None,
                  section=None,
                  design_factor=1.4,
-                 division=1000,
+                 division=200,
                  maximum_displacement_allowed=lambda beam_element_length : beam_element_length/250,
-                 available_long_steel_bars=AvailableLongConcreteSteelBar([8]),
+                 available_long_steel_bars=AvailableLongConcreteSteelBar(),
                  bar_steel_removal_step=2,
                  bar_steel_max_removal=100,
-                 available_transv_steel_bars=AvailableTransvConcreteSteelBar([8]),
+                 available_transv_steel_bars=AvailableTransvConcreteSteelBar(),
                  tilt_angle_of_compression_struts=45,
                  available_concrete=AvailableConcrete(),
                  time_begin_long_duration=0,
@@ -595,6 +595,7 @@ class ConcreteBeam(Beam):
             Starts the process of solution for the cost table.
         """
         self.cost, self.cost_table, self.subtotal_table = solve_cost(self)
+        self.pd_cost_table, self.pd_subtotal_table = to_pandas(self.cost_table), to_pandas(self.subtotal_table)
         
     def checkRecalculationOfD(self):
         """
