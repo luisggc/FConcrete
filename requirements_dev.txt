@@ -1,6 +1,5 @@
 pint==0.11
 numpy==1.18.2
-scipy==1.4.1
 matplotlib==3.2.1
 ipython==7.13.0
 pandas==1.0.3

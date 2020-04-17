@@ -8,6 +8,7 @@ Submodules
 
    fconcrete.StructuralConcrete.LongSteelBar.LongSteelBar
    fconcrete.StructuralConcrete.LongSteelBar.LongSteelBarSolve
+   fconcrete.StructuralConcrete.LongSteelBar.find_peaks
 
 Module contents
 ---------------

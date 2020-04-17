@@ -102,7 +102,7 @@ you through the process.
 Credits
 -------
 
-Most of vectorized calculus made with Numpy_, unit conversion with Pint_, all plots with Matplotlib_ (export to dxf with ezdxf_), minor functions with Scipy_, 
+Most of vectorized calculus made with Numpy_, unit conversion with Pint_, all plots with Matplotlib_ (export to dxf with ezdxf_), detect peaks with py-findpeaks_, 
 docs made with the help of Sphinx_ and Numpydoc_, analysis table with Pandas_,  
 this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
@@ -112,7 +112,7 @@ this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Numpydoc: https://github.com/numpy/numpydoc
 .. _Numpy: https://github.com/numpy/numpy
 .. _Matplotlib: https://github.com/matplotlib/matplotlib
-.. _Scipy: https://github.com/scipy/scipy
+.. _py-findpeaks: https://github.com/MonsieurV/py-findpeaks
 .. _Sphinx: https://github.com/sphinx-doc/sphinx
 .. _Pandas: https://github.com/pandas-dev/pandas
 .. _ezdxf: https://github.com/mozman/ezdxf

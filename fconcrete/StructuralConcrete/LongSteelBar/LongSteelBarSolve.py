@@ -1,7 +1,8 @@
 import numpy as np
 from .LongSteelBar import LongSteelBar, LongSteelBars
 import warnings
-from scipy.signal import find_peaks
+#from scipy.signal import find_peaks
+from .find_peaks import detect_peaks as find_peaks
 from math import radians, sin, tan
 from fconcrete.helpers import timeit, make_dxf, getAxis
 import matplotlib.pyplot as plt
@@ -120,7 +121,7 @@ class LongSteelBarSolve():
     @staticmethod
     def __join_momentum_peak(_momentum):
         momentum = _momentum.copy() 
-        peaks, _ = find_peaks(np.absolute(momentum))
+        peaks = find_peaks(np.absolute(momentum))
         for peak_index in 2*np.arange(len(peaks)//2):
             x_momentum_index = peaks[peak_index]
             next_x_momentum_index = peaks[peak_index+1]
@@ -136,7 +137,7 @@ class LongSteelBarSolve():
                     concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(x)
 
                 >>> concrete_beam.long_steel_bars_solution_info.getMinimumAndMaximumSteelArea(300)
-                (2.760000000000001, 19.2)
+                (2.76, 19.2)
                 
             Parameters
             ----------
