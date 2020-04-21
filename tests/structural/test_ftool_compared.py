@@ -8,21 +8,22 @@ def approx01(x):
     return approx(x, abs=0.1)
 
 
-def compare(beam, name):
+def compare(beam, name, ftool_displacement_in_mm=False):
     shear_info, momentum_info, displacement_info, rotation_info = get_ftool_fconcrete_comparisson(beam,
                                     r"tests/structural/{}/shear.txt".format(name),
                                     r"tests/structural/{}/momentum.txt".format(name),
                                     r"tests/structural/{}/displacement.txt".format(name))
     
-    shear_diagram_v47, shear_fconcrete = shear_info
-    momentum_diagram_v47, momentum_fconcrete = momentum_info
-    displacement_diagram_v47, displacement_fconcrete = displacement_info
-    rotation_diagram_v47, rotation_fconcrete = rotation_info
+    shear_diagram_ftool, shear_fconcrete = shear_info
+    momentum_diagram_ftool, momentum_fconcrete = momentum_info
+    rotation_diagram_ftool, rotation_fconcrete = rotation_info
+    displacement_diagram_ftool, displacement_fconcrete = displacement_info
+    displacement_diagram_ftool = displacement_diagram_ftool/10 if ftool_displacement_in_mm else displacement_diagram_ftool
     
-    assert shear_diagram_v47 == approx(shear_fconcrete, abs=0.000001)
-    assert momentum_fconcrete == approx(momentum_diagram_v47, abs=0.0001)
-    assert rotation_diagram_v47 == approx(rotation_fconcrete, abs=0.0000001)
-    assert displacement_diagram_v47 == approx(displacement_fconcrete, abs=0.000001)
+    assert shear_diagram_ftool == approx(shear_fconcrete, abs=0.00001)
+    assert momentum_diagram_ftool == approx(momentum_fconcrete, abs=0.001)
+    assert rotation_diagram_ftool == approx(rotation_fconcrete, abs=0.000001)
+    assert displacement_diagram_ftool == approx(displacement_fconcrete, abs=0.000001)
 
 def get_ftool_fconcrete_comparisson(beam, file_shear, file_momentum, file_displacement):
     
@@ -45,7 +46,7 @@ def get_ftool_fconcrete_comparisson(beam, file_shear, file_momentum, file_displa
     not_duplicated_x_displacement = not_duplicated_x & ~(displacement_diagram_v47 == 0)
     x_displacement = x_ftool[not_duplicated_x_displacement]
     displacement_diagram_v47 = displacement_diagram_v47[not_duplicated_x_displacement]
-    displacement_fconcrete = beam.getDisplacement(x_displacement)*10
+    displacement_fconcrete = beam.getDisplacement(x_displacement)
 
     x_rotation = x_ftool[not_duplicated_x]
     rotation_diagram_v47 = rotation_diagram_v47[not_duplicated_x]
@@ -75,7 +76,7 @@ def test_v47():
         loads = [f1, f2, f3],
         beam_elements = [bar1, bar2, bar3]
     )
-    compare(beam=beam, name="v47")
+    compare(beam=beam, name="v47", ftool_displacement_in_mm=True)
     
 
 def test_free_crimped():
@@ -94,7 +95,7 @@ def test_free_crimped():
         loads = [f1, f2],
         beam_elements = [bar1]
     )
-    compare(beam=beam, name="free_crimped")
+    compare(beam=beam, name="free_crimped", ftool_displacement_in_mm=True)
 
 def test_crimped_free():
     material = Material(E='27000 MPa', poisson=1, alpha=1)
@@ -111,7 +112,7 @@ def test_crimped_free():
         loads = [f1],
         beam_elements = [bar1]
     )
-    compare(beam=beam, name="crimped_free")
+    compare(beam=beam, name="crimped_free", ftool_displacement_in_mm=True)
     
     
 def test_crimped_simple_supported():
@@ -129,9 +130,35 @@ def test_crimped_simple_supported():
         loads = [f1],
         beam_elements = [bar1]
     )
-    compare(beam=beam, name="crimped_simple_supported")
+    compare(beam=beam, name="crimped_simple_supported", ftool_displacement_in_mm=True)
     
+def test_simple_simple_simple():
+    base, altura, comprimento = 57, 107, 1100
+    pp = Load.UniformDistributedLoad(-0.1375, x_begin=0, x_end=comprimento)
+
+    n1 = Node.SimpleSupport(x=0)
+    n2 = Node.SimpleSupport(x=comprimento/2)
+    n3 = Node.SimpleSupport(x=comprimento)
+
+    be1 = BeamElement([n1, n2], Rectangle(base, altura), Material(10000,1,1))
+    be2 = BeamElement([n2, n3], Rectangle(base, altura), Material(10000,1,1))
+
+    beam = Beam(loads=[pp], beam_elements=[be1, be2])
+    compare(beam=beam, name="simple_simple_simple")
     
-    #for x, ft, fc in zip(x_rotation, rotation_diagram_v47, rotation_fconcrete):
-    #if ft != approx(fc, abs=0.000001):
-    #    print(x, ft, fc)
+
+def test_simple_simple_simple_partial_load():
+    base, altura, comprimento = 57, 107, 1100
+    pp = Load.UniformDistributedLoad(-0.1375, x_begin=250, x_end=600)
+
+    n1 = Node.SimpleSupport(x=0)
+    n2 = Node.SimpleSupport(x=comprimento/2)
+    n3 = Node.SimpleSupport(x=comprimento)
+
+    be1 = BeamElement([n1, n2], Rectangle(base, altura), Material(10000,1,1))
+    be2 = BeamElement([n2, n3], Rectangle(base, altura), Material(10000,1,1))
+
+    beam = Beam(loads=[pp], beam_elements=[be1, be2])
+    compare(beam=beam, name="simple_simple_simple_partial_load")
+
+

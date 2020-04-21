@@ -135,14 +135,27 @@ class Beam:
         for load in self.external_loads.loads:
             if (load.x == self.x_end):
                 load.x = self.x_end - e
-            force_beam, beam_element = self.getBeamElementInX(load.x)
+                
+            # In case the same load passes through multiple beam_elements
+            if(load.order==0):
+                x_loads = [(load.x_begin, load.x_end, 1)]
+            else:
+                x_loads = [ (be.n1.x,be.n2.x, (be.n2.x-be.n1.x)/(load.x_end-load.x_begin)) for be in self.beam_elements if (be.n1.x>=load.x_begin and be.n2.x<=load.x_end)]
+    
+            loads = [ Load(prop*load.force, load.momentum, x_b, x_e,
+                            q=load.q,
+                            order=load.order,
+                            displacement=load.displacement)
+                    for x_b, x_e, prop in x_loads ]
+            
+            for load in loads:
+                force_beam, beam_element = self.getBeamElementInX(load.x)
+                beams_efforts[4*force_beam:4*force_beam+4] += BeamElement.get_efforts_from_bar_element(
+                    beam_element,
+                    load
+                )
 
-            beams_efforts[4*force_beam:4*force_beam+4] += BeamElement.get_efforts_from_bar_element(
-                beam_element,
-                load
-            )
-
-        # juntar vigas separadas em um vetor por nó
+        # join separate beams into a node vector
         bn = self.beams_quantity
         b = 2*np.arange(0, 2*bn+2, 1)
         b[1::2] = b[0::2]+1
