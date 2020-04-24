@@ -17,7 +17,7 @@ FConcrete
 
 
 Concrete beams according to NBR:6118:2014.
-Usage examples `here`_.
+Usage examples in `ReadTheDocs Usage`_. Demo of use (not code) on the `FConcrete AzureWebsite`_.
 
 * Free software: MIT license
 * Documentation: https://fconcrete.readthedocs.io.
@@ -116,5 +116,8 @@ this package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Sphinx: https://github.com/sphinx-doc/sphinx
 .. _Pandas: https://github.com/pandas-dev/pandas
 .. _ezdxf: https://github.com/mozman/ezdxf
-.. _`here`: https://fconcrete.readthedocs.io/en/latest/usage.html
+.. _`ReadTheDocs Usage`: https://fconcrete.readthedocs.io/en/latest/usage.html
+.. _`FConcrete AzureWebsite`: https://fconcrete.azurewebsites.net/
+
+
 .. _`Analysis Class`: https://fconcrete.readthedocs.io/en/latest/fconcrete.StructuralConcrete.Analysis.html

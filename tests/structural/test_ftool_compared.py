@@ -162,3 +162,6 @@ def test_simple_simple_simple_partial_load():
     compare(beam=beam, name="simple_simple_simple_partial_load")
 
 
+#for x, ft, fc in zip(x_momentum, momentum_diagram_ftool, momentum_fconcrete):
+#    if ft != approx(fc, abs=0.000001):
+#        print(x, ft, fc)

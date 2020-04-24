@@ -1,15 +1,52 @@
 from fconcrete.helpers import printProgressBar
 import numpy as np
 import pandas as pd
+import time
 
 class Analysis:
 
+    @staticmethod
+    def create_samples(kwargs, sort_by_multiplication, must_test_for_each):
+        possible_values = []
+        for kwarg_value in kwargs.values():
+            possible_values = [*possible_values, np.arange(*kwarg_value)] if (len(kwarg_value) == 3 and type(kwarg_value)==tuple) else [*possible_values, kwarg_value]
+
+        combinations = np.array(np.meshgrid(*possible_values)).T.reshape(-1,len(possible_values))
+        combinations_table = pd.DataFrame(combinations, columns=kwargs.keys())
+
+        # sorting the combinations
+        if sort_by_multiplication:
+            combinations_table["multiply"] = combinations_table.apply(lambda row: np.array([ v for k, v in row.to_dict().items() if k not in must_test_for_each ]).prod(), axis=1)
+            combinations_table = combinations_table.sort_values(by=[*must_test_for_each, "multiply"])
+            combinations_table = combinations_table.drop(columns="multiply")
+        else:
+            combinations_table = combinations_table.sort_values(by=must_test_for_each)
+
+        combinations_table.reset_index(inplace=True, drop=True)
+
+        return combinations_table
+
+    @staticmethod
+    def _checkNextStep(combination_kwarg, step, must_test_for_each, combinations_table):
+        current_must_test_for_each = { k: v for k, v in combination_kwarg.items() if k in must_test_for_each }
+        current_to_test_table = combinations_table.loc[step+1:]
+        if len(current_to_test_table)==0: return
+        step = np.inf
+        for k in current_must_test_for_each.keys():
+            new_table = current_to_test_table[current_to_test_table[k] > combination_kwarg[k]]
+            if len(new_table)==0: return
+            new_index_p = new_table.iloc[0].name
+            step = min(step, new_index_p)
+        if len(new_table)==0: return
+        return step
+    
     @staticmethod
     def getBestSolution(concrete_beam_function,
                 max_steps_without_decrease = float("inf"),
                 avoid_estimate=False,
                 show_progress=True,
                 sort_by_multiplication=False,
+                must_test_for_each=[],
                 **kwargs):
         r"""
             Returns a report with all materials and cost.
@@ -71,6 +108,10 @@ class Analysis:
                 Sort combinations by the multiplication os all parameter. Useful to use with max_steps_without_decrease when the is a logical order.
                 Default False.
                 
+            must_test_for_each: list, optional
+                From the kwargs parameters, define the ones that must be tested for all their values.
+                Useful, for example, when you want to test for all possible lengths, but not all height and width.
+            
             kwargs
                 Possible arguments for the concrete_beam_function.
                 If a set of 3 elements is given, np.arange(\*kwarg_value) will be called.
@@ -80,72 +121,63 @@ class Analysis:
                 
         """
         
-        possible_values = []
-        for kwarg_value in kwargs.values():
-            possible_values = [*possible_values, np.arange(*kwarg_value)] if (len(kwarg_value) == 3 and type(kwarg_value)==tuple) else [*possible_values, kwarg_value]
-
-        combinations = np.array(np.meshgrid(*possible_values)).T.reshape(-1,len(possible_values))
-
-        # sorting the combinations
-        if sort_by_multiplication:
-            combinations_t = combinations.T
-            multiply = np.ones((1,len(combinations)))
-            for i in combinations_t:
-                multiply = multiply*i
-            combinations = np.append(combinations, multiply.T, axis=1)
-            combinations = combinations[np.argsort(combinations[:,-1])][:, 0:-1]
-
-        # combinations to dict
-        combination_kwargs = [ { key: combination[i] for i, key in enumerate(kwargs.keys()) } for combination in combinations ]
-        total_of_combinations = len(combination_kwargs)
+        combinations_table = Analysis.create_samples(kwargs, sort_by_multiplication, must_test_for_each)
+        total_of_combinations = len(combinations_table)
 
         if avoid_estimate == False:
-            max_variable_values = combination_kwargs[-1] 
+            max_variable_values = combinations_table.iloc[-1].to_dict()
             try:
                 one_precesing_time, not_precise = concrete_beam_function(**max_variable_values).processing_time, False
             except:
                 one_precesing_time, not_precise = 80, True
-            continue_script = input("There are {} combinations. The estimate time to process all of them is {}s ({} minutes).{}\nType 'y' to continue or another char to cancel.\n".format(total_of_combinations, round(total_of_combinations*one_precesing_time), round(total_of_combinations*one_precesing_time/60), "\nThis measure is not precise!\n" if not_precise else ""))
-
-        if avoid_estimate!=False or continue_script=="y":
-            report = (["cost", "error", 'Concrete', 'Longitudinal bar', 'Transversal bar'])
-            report = [[*list(kwargs.keys()), *report]]
-            min_value, steps_without_decrease = np.inf, 0
+            continue_script = input("There are {} combinations. The estimate time to process all of them is {}s ({} minutes).{}\nType 'y' to continue or another char to cancel.\n".format(total_of_combinations, round(total_of_combinations*one_precesing_time), round(total_of_combinations*one_precesing_time/60), "\nThis measure is not precise!\n" if not_precise else ""))         
             
-            for step, combination_kwarg in enumerate(combination_kwargs):
+        if avoid_estimate!=False or continue_script=="y":
+            start_time = time.time()
+            report = pd.DataFrame(columns=[*list(kwargs.keys()), "cost", "error", 'Concrete', 'Longitudinal bar', 'Transversal bar'])
+            min_value, steps_without_decrease, step = np.inf, 0, 0
+
+            while step<total_of_combinations:
+                combination_kwarg = combinations_table.loc[step].to_dict()
                 try:
                     beam = concrete_beam_function(**combination_kwarg)
-                    error = ""
-                    cost = beam.cost
+                    error, cost = "", beam.cost
                     cost_table = list(beam.subtotal_table[:, 1:2].T[0][1:].astype(float))
-                    if cost != min(cost, min_value):
-                        steps_without_decrease += 1
-                        if steps_without_decrease >= max_steps_without_decrease:
-                            if show_progress:
-                                printProgressBar(total_of_combinations, total_of_combinations, prefix = 'Progress:', suffix = 'Complete', length = 50)
-                                print("\n", "Ended in step {} out of {}. Because max_steps_without_decrease was reached.".format(step + 1, total_of_combinations))                        
-                            break
-                    else:
-                        steps_without_decrease = 0
-                        min_value = cost
-                        
                 except Exception as excep:
-                    error = str(excep)
-                    cost = -1
-                    cost_table = [-1, -1, -1]
+                    error, cost, cost_table = str(excep), -1, [-1, -1, -1]
+                    
+                report.loc[step] = [*combination_kwarg.values(), cost, error, *cost_table]
+                
+                if (cost != -1) and (cost != min(cost, min_value)):
+                    steps_without_decrease += 1
+                    if steps_without_decrease >= max_steps_without_decrease:
+                        step = Analysis._checkNextStep(combination_kwarg, step, must_test_for_each, combinations_table)
+                        if step == None: break
+                        steps_without_decrease = 0
+                        continue
+                else:
+                    steps_without_decrease, min_value = 0, cost
                 
                 if show_progress: printProgressBar(step + 1, total_of_combinations, prefix = 'Progress:', suffix = 'Complete', length = 50)
-                row = [*combination_kwarg.values(), cost, error, *cost_table]
-                report = [*report, row]
-            
-            full_report = pd.DataFrame(report)
-            full_report.columns = full_report.loc[0]
-            full_report = full_report[1:]
-            
-            solution_report = full_report[full_report["error"] == ""]
+                
+                step+=1
+                    
+            full_report = report.copy()
+            solution_report = report[report["error"] == ""]
             solution_report = solution_report.sort_values(by="cost")
+            if len(solution_report)>0:
+                if len(must_test_for_each)==0:
+                    best_solution = solution_report.iloc[0]
+                else:
+                    best_solution = solution_report.drop_duplicates(subset=must_test_for_each) 
+            else:
+                best_solution = None
             
-            best_solution = solution_report.iloc[0,:].to_dict() if len(solution_report)>0 else None
+            end_time = time.time()
+            
+            if show_progress: printProgressBar(total_of_combinations, total_of_combinations, prefix = 'Progress:', suffix = 'Complete', length = 50)
+            if show_progress: print("Executed in {}s".format(end_time-start_time))
             
             return full_report, solution_report, best_solution
         
+    
